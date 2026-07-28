@@ -127,12 +127,12 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .scrollcue .ln{width:1px;height:34px;background:linear-gradient(var(--grey),transparent);animation:cue 2s var(--ease) infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-.btn{display:inline-flex;align-items:center;gap:.7em;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:16px 30px;border:1px solid var(--line-strong);cursor:pointer;background:none;color:var(--white);transition:background .35s var(--ease),color .35s var(--ease),border-color .35s}
-.btn:hover{background:var(--white);color:var(--black);border-color:var(--white)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.7em;font-family:var(--mono);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;padding:18px 30px;border:1px solid var(--line-strong);cursor:pointer;color:var(--white);background:linear-gradient(var(--white),var(--white)) no-repeat right center/0% 100%;transition:background-size .5s var(--ease),color .45s var(--ease),border-color .45s var(--ease)}
+.btn:hover{color:var(--black);border-color:var(--white);background-size:100% 100%}
 .btn--solid{background:var(--white);color:var(--black);border-color:var(--white)}
 .btn--solid:hover{background:transparent;color:var(--white);border-color:var(--white)}
-.btn .arw{transition:transform .35s var(--ease)}
-.btn:hover .arw{transform:translateX(-5px)}
+.btn .arw{transition:transform .4s var(--ease)}
+.btn:hover .arw{transform:translateX(-7px)}
 
 /* FILMSTRIP */
 .strip{position:relative;height:175vh;background:var(--black);border-block:1px solid var(--line)}
@@ -299,8 +299,9 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .fmt--feat li .m{color:#000}
 .fmt li.off{color:var(--grey)}
 .fmt .btn{width:100%;justify-content:center}
-.fmt--feat .btn{background:var(--black);color:var(--white);border-color:var(--black)}
-.fmt--feat .btn:hover{background:transparent;color:var(--black);border-color:var(--black)}
+.fmt--feat .btn{background:var(--black);color:var(--white);border-color:var(--black);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.fmt--feat .btn:hover{background:var(--black);color:var(--white);border-color:var(--black);transform:translateY(-3px);box-shadow:0 14px 34px -14px rgba(0,0,0,.7)}
+.fmt--feat .btn:hover .arw{transform:translateX(-7px)}
 
 /* ADD-ONS */
 .addons{border:1px solid var(--line);border-top:0}
@@ -364,7 +365,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
   .chip{flex:1 1 calc(50% - 8px);text-align:center;padding:13px 8px;font-size:.92rem}
   /* 4 — trim the tail */
   .end{padding-bottom:38px}
-  .close-it{font-size:2.7vw;margin-top:20px}
+  .close-it{font-size:2.2vw;letter-spacing:-.01em;margin-top:20px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition-duration:.001ms!important}
@@ -589,7 +590,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
           <li class="off"><span class="m">–</span> בלי סטוריבורד קולנועי מלא</li>
           <li class="off"><span class="m">–</span> בלי שחזור קול</li>
         </ul>
-        <a href="#cast" class="btn" data-package="Short">מתחילים מכאן</a>
+        <a href="#cast" class="btn" data-package="Short">מתחילים מכאן <span class="arw">←</span></a>
       </div>
 
       <div class="fmt fmt--feat" data-cursor>
@@ -607,7 +608,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
           <li><span class="m">+</span> שחזור קול — הקול של החוגג/ת מדבר בסרט</li>
           <li><span class="m">+</span> סבב תיקונים אחד כלול</li>
         </ul>
-        <a href="#cast" class="btn" data-package="Feature">בואו נתכנן</a>
+        <a href="#cast" class="btn" data-package="Feature">בואו נתכנן <span class="arw">←</span></a>
       </div>
 
       <div class="fmt" data-cursor>
@@ -624,7 +625,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
           <li><span class="m">+</span> כמה סבבי תיקונים</li>
           <li><span class="m">+</span> ליווי צמוד עד ההקרנה</li>
         </ul>
-        <a href="#cast" class="btn" data-package="Director's Cut">מדברים על החזון</a>
+        <a href="#cast" class="btn" data-package="Director's Cut">מדברים על החזון <span class="arw">←</span></a>
       </div>
     </div>
 
@@ -648,7 +649,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
     <div class="slate rev">FADE IN — 007</div>
     <h2 class="rev d1">מי הכוכב<br>הבא?</h2>
     <p class="rev d2">מלאו את הקאסטינג למעלה, ונתחיל לחלום על הסרט ביחד.</p>
-    <div class="rev d3"><a href="#cast" class="btn btn--solid" data-cursor>לקאסטינג <span class="arw">←</span></a></div>
+    <div class="rev d3"><a href="#cast" class="btn" data-cursor>לקאסטינג <span class="arw">←</span></a></div>
     <div class="credits">
       <div class="r"><span>DIRECTED BY</span><b>NIR BRAININ</b></div>
       <div class="r"><span>מייסד ומנכ״ל</span><b>חי בסרט</b></div>
