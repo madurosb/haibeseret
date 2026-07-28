@@ -28,6 +28,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
+html,body{overscroll-behavior:none}
 body{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;background:var(--base);color:var(--white);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 :root{--cur:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMCcgaGVpZ2h0PScyNycgdmlld0JveD0nMCAwIDIwIDI3Jz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0nZycgeDE9JzAnIHkxPScwJyB4Mj0nMC42JyB5Mj0nMSc+CjxzdG9wIG9mZnNldD0nMCcgc3RvcC1jb2xvcj0nIzQ1NDU0NScvPgo8c3RvcCBvZmZzZXQ9JzAuNDUnIHN0b3AtY29sb3I9JyMxMTEnLz4KPHN0b3Agb2Zmc2V0PScxJyBzdG9wLWNvbG9yPScjMDAwJy8+CjwvbGluZWFyR3JhZGllbnQ+CjxmaWx0ZXIgaWQ9J3MnIHg9Jy02MCUnIHk9Jy02MCUnIHdpZHRoPScyMjAlJyBoZWlnaHQ9JzIyMCUnPgo8ZmVEcm9wU2hhZG93IGR4PScwJyBkeT0nMScgc3RkRGV2aWF0aW9uPScxJyBmbG9vZC1jb2xvcj0nIzAwMCcgZmxvb2Qtb3BhY2l0eT0nMC41NScvPgo8L2ZpbHRlcj4KPC9kZWZzPgo8cGF0aCBkPSdNMiAxLjYgTDIgMjAuMiBMNi45IDE1LjkgTDEwLjEgMjIuNiBMMTIuOSAyMS4zIEw5LjcgMTQuOSBMMTUuOCAxNC43IFonCmZpbGw9J3VybCgjZyknIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLW9wYWNpdHk9JzAuNicgc3Ryb2tlLXdpZHRoPScwLjknIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIGZpbHRlcj0ndXJsKCNzKScvPgo8cGF0aCBkPSdNMy4xIDMuMyBMMy4xIDknIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLW9wYWNpdHk9JzAuMjgnIHN0cm9rZS13aWR0aD0nMC45JyBzdHJva2UtbGluZWNhcD0ncm91bmQnLz4KPC9zdmc+") 2 2,auto}*{cursor:var(--cur)!important}#cursor{display:none!important}
 body.locked{overflow:hidden}
@@ -339,6 +340,23 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .modal__yt{display:inline-block;margin-top:22px;font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;color:var(--grey);border-bottom:1px solid var(--line);padding-bottom:2px}
 .modal__yt:hover{color:var(--white)}
 
+@media(max-width:760px){
+  /* 1 — Contact Sheet: vertical stack instead of horizontal scrub */
+  .strip{height:auto}
+  .strip__pin{position:static;height:auto;display:block;overflow:visible;padding:clamp(54px,12vw,80px) clamp(18px,5vw,26px)}
+  .strip__lead{position:static;inset:auto;max-width:none;margin-bottom:24px}
+  .strip__track{flex-direction:column;transform:none!important;padding:0;width:auto;gap:22px}
+  .frame{width:100%;margin:0}
+  /* 2 — Statement paragraph: clearer, bolder font */
+  .thesis p{font-family:'IBM Plex Sans Hebrew',sans-serif;font-size:1.06rem;line-height:1.75;color:#242424;letter-spacing:0}
+  /* 3 — Casting form: tidy, even 2-up chips */
+  .q__l{flex-wrap:wrap;font-size:1.06rem}
+  .q__see{flex-basis:100%;margin:8px 0 0;text-align:start}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{flex:1 1 calc(50% - 8px);text-align:center;padding:13px 8px;font-size:.92rem}
+  /* 4 — trim the tail */
+  .end{padding-bottom:38px}
+}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition-duration:.001ms!important}
   .rev{opacity:1;transform:none;filter:none}
