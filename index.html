@@ -81,7 +81,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .hud__menu .bars{display:inline-flex;flex-direction:column;gap:4px}
 .hud__menu .bars span{width:22px;height:1.5px;background:currentColor}
 @media(max-width:899px){.hud__menu{display:flex}.hud__tc .scene{display:none}}
-@media(max-width:520px){.hud__tc{display:none}}
+@media(max-width:520px){.hud__tc{font-size:.6rem;letter-spacing:.02em}}
 
 /* CURSOR — handheld camcorder viewfinder */
 .cursor{position:fixed;top:0;left:0;z-index:200;pointer-events:none;color:#fff;will-change:transform;font-family:var(--mono)}
@@ -139,7 +139,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .btn:hover .arw{transform:translateX(-7px)}
 
 /* FILMSTRIP */
-.strip{position:relative;height:175vh;background:var(--black);border-block:1px solid var(--line)}
+.strip{position:relative;height:120vh;background:var(--black);border-block:1px solid var(--line)}
 .strip__pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
 .strip__track{display:flex;direction:ltr;will-change:transform;padding-inline:6vw}
 .frame{flex:none;width:min(80vw,480px);margin-inline:14px;position:relative}
@@ -248,7 +248,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .banner[aria-pressed="true"]{border-color:var(--white);box-shadow:inset 0 0 0 2px var(--white)}
 .banner[aria-pressed="true"]::after{background:linear-gradient(0deg,rgba(0,0,0,.35),transparent)}
 .chips{display:flex;flex-wrap:wrap;gap:9px}
-.chip{background:none;border:1px solid var(--line);color:var(--white);font-family:var(--mono);font-size:.92rem;letter-spacing:.02em;padding:12px 20px;cursor:pointer;transition:.25s var(--ease)}
+.chip{background:none;border:1px solid var(--line);color:var(--white);font-family:'IBM Plex Sans Hebrew',sans-serif;font-weight:500;font-size:.98rem;letter-spacing:0;padding:12px 20px;cursor:pointer;transition:.25s var(--ease)}
 .chip:hover{border-color:var(--line-strong)}
 .chip[aria-pressed="true"]{background:var(--white);color:var(--black);border-color:var(--white)}
 .fields{display:grid;margin-top:28px;border:1px solid var(--line)}
@@ -372,6 +372,9 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
   .btn .arw{transform:none}
   .fmt--feat .btn{background:#111;color:var(--white);box-shadow:0 12px 30px -18px rgba(0,0,0,.75)}
   .form-cta{font-size:1.14rem;padding:20px 22px}
+  /* 6 — force comic logo font + keep timecode on mobile */
+  .logo{font-family:'Gveret Levin AlefAlefAlef','Suez One',cursive!important;font-size:1.5rem}
+  .hud__right{gap:12px}
   /* 4 — trim the tail */
   .end{padding-bottom:38px}
   .close-it{font-size:1.9vw;letter-spacing:-.01em;margin-top:20px}
@@ -449,7 +452,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
   <div class="wrap">
     <div class="slate rev">STATEMENT — 002</div>
     <h2 class="rev d1">לכל אחד יש סיפור שמגיע לו מסך גדול<i class="pt">.</i></h2>
-    <p class="rev d2">רובם פשוט אף פעם לא צולמו. כאן נכנס ה-AI: מחיים תמונה ישנה, משחזרים סצנה שאין ממנה וידאו, ונותנים לסבתא רגע קולנועי שמעולם לא היה לה. לא מצגת של תמונות — סרט אמיתי, עם דמות, הומור ורגש, כזה שכל האולם ישתתק בשבילו.</p>
+    <p class="rev d2">רובם פשוט אף פעם לא צולמו. כאן נכנס ה-AI: מחיים תמונה ישנה, משחזרים סצנה שאין ממנה וידאו, ונותנים לסבתא רגע קולנועי שמעולם לא היה לה. לא מצגת של תמונות — סרט אמיתי, עם דמות, הומור ורגש. כזה שמחזיר רגעים ששכחתם, מצית דמעה וחיוך, ונשאר חקוק בלב הרבה אחרי שהסתיים.</p>
   </div>
 </section>
 
@@ -590,7 +593,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
         <div class="fmt__dur">עד 90 שניות</div>
         <div class="fmt__name">Short</div>
         <div class="fmt__he">קצר</div>
-        <div class="fmt__price">₪1,490</div>
+        <div class="fmt__price">₪ 1,490</div>
         <div class="fmt__line">מתנה קטנה שנוגעת.</div>
         <ul>
           <li><span class="m">+</span> סיפור אחד ברור וקולע</li>
@@ -608,7 +611,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
         <div class="fmt__dur">2–3 דקות</div>
         <div class="fmt__name">Feature</div>
         <div class="fmt__he">באורך מלא</div>
-        <div class="fmt__price">₪3,900</div>
+        <div class="fmt__price">₪ 3,900</div>
         <div class="fmt__line">הסרט של וולטר. הלב של מה שאנחנו עושים.</div>
         <ul>
           <li><span class="m">+</span> סטוריבורד וקונספט קולנועי מלא</li>
@@ -625,7 +628,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
         <div class="fmt__dur">3–5 דקות</div>
         <div class="fmt__name">Director's Cut</div>
         <div class="fmt__he">גרסת הבמאי</div>
-        <div class="fmt__price">מ-₪8,000</div>
+        <div class="fmt__price">מ-₪ 8,000</div>
         <div class="fmt__line">הפקה שלמה. בלי פשרות.</div>
         <ul>
           <li><span class="m">+</span> כל מה שב-Feature, בהיקף גדול</li>
@@ -875,5 +878,8 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 <!-- Vercel Web Analytics -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<!-- Vercel Speed Insights -->
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
