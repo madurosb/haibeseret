@@ -38,14 +38,14 @@ a{color:inherit;text-decoration:none}
 .vid__player{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 
 .sound-bar{display:flex;justify-content:flex-start;padding:10px 0;margin-bottom:clamp(24px,4vh,36px)}
-.sound-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.06em;padding:9px 14px;cursor:pointer;transition:background .3s,border-color .3s}
-.sound-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
-.sound-btn svg{width:16px;height:16px;fill:var(--white);stroke:var(--white);stroke-width:1.6}
+.sound-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:9px;background:linear-gradient(105deg,rgba(226,169,76,.15),rgba(226,169,76,.05));border:1px solid rgba(226,169,76,.45);color:var(--gold);font-family:'IBM Plex Sans Hebrew',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.01em;padding:11px 20px;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s;box-shadow:0 4px 18px -8px rgba(226,169,76,.35)}
+.sound-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(226,169,76,.55)}
+.sound-btn svg{width:17px;height:17px;fill:var(--gold);stroke:var(--gold);stroke-width:1.6;transition:fill .3s,stroke .3s}
 .sound-btn .ion{display:none}
 .sound-btn.on .imute{display:none}
 .sound-btn.on .ion{display:inline}
-.sound-btn.on{background:var(--white);color:var(--black);border-color:var(--white)}
-.sound-btn.on svg{fill:var(--black);stroke:var(--black)}
+.sound-btn.on{background:linear-gradient(105deg,#dda13f,#f4cd80 50%,#dda13f);color:#1c1305;border-color:transparent;box-shadow:0 6px 22px -8px rgba(226,169,76,.7)}
+.sound-btn.on svg{fill:#1c1305;stroke:#1c1305}
 .quote{text-align:center;margin-bottom:clamp(24px,4vh,36px);padding:16px 0}
 .quote blockquote{font-family:'Suez One',serif;font-size:clamp(1.1rem,3vw,1.4rem);font-style:italic;color:var(--white);margin-bottom:10px;direction:ltr}
 .quote cite{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--gold);font-style:normal;letter-spacing:.08em}
@@ -107,7 +107,7 @@ a{color:inherit;text-decoration:none}
     <button class="sound-btn" id="vidSound">
       <svg class="imute" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6" stroke-linecap="round"/></svg>
       <svg class="ion" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a9 9 0 0 1 0 13" stroke-linecap="round"/></svg>
-      <span>קול</span>
+      <span>לחצו לסאונד 🔊</span>
     </button>
   </div>
 
@@ -177,17 +177,6 @@ a{color:inherit;text-decoration:none}
     <a href="https://www.hai-beseret.com/">hai-beseret.com</a> · © 2026 חי בסרט · ניר בראינין
   </div>
 </div>
-
-document.getElementById('walterForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var f=this,d=new FormData(f);
-  fetch(f.action,{method:'POST',body:d,headers:{'Accept':'application/json'}})
-  .then(function(){
-    f.style.display='none';
-    document.getElementById('confirmMsg').style.display='block';
-    if(typeof fbq==='function')fbq('track','Lead');
-  }).catch(function(){f.submit();});
-});
 </script>
 <script>
 var muted=true,vPlayer=null;
@@ -203,15 +192,20 @@ function initVimeo(){
   });
 }
 window.addEventListener('load',initVimeo);
-document.getElementById('walterForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var f=this,d=new FormData(f);
-  fetch(f.action,{method:'POST',body:d,headers:{'Accept':'application/json'}})
-  .then(function(){
-    f.style.display='none';
-    document.getElementById('confirmMsg').style.display='block';
-    if(typeof fbq==='function')fbq('track','Lead');
-  }).catch(function(){f.submit();});
+
+/* form */
+document.addEventListener('DOMContentLoaded',function(){
+  var wf=document.getElementById('walterForm');
+  if(wf)wf.addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=this,d=new FormData(f);
+    fetch(f.action,{method:'POST',body:d,headers:{'Accept':'application/json'}})
+    .then(function(){
+      f.style.display='none';
+      document.getElementById('confirmMsg').style.display='block';
+      if(typeof fbq==='function')fbq('track','Lead');
+    }).catch(function(){f.submit();});
+  });
 });
 </script>
 </body>
