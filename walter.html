@@ -101,7 +101,7 @@ a{color:inherit;text-decoration:none}
 
   <div class="vid" id="vidWrap">
     <iframe id="vimeoPlayer" class="vid__player"
-      src="https://player.vimeo.com/video/1214959816?autoplay=1&muted=1&loop=1&background=1&byline=0&portrait=0&title=0&transparent=0&dnt=1&quality=auto#t=2s"
+      src="https://player.vimeo.com/video/1214959816?autoplay=1&muted=1&loop=1&background=1&byline=0&portrait=0&title=0&transparent=0&dnt=1&quality=auto&start=2"
       allow="autoplay; fullscreen; picture-in-picture"
       allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -187,11 +187,11 @@ function setSound(on){var b=document.getElementById('vidSound');b.classList.togg
 function initVimeo(){
   if(typeof Vimeo==='undefined'){setTimeout(initVimeo,100);return;}
   vPlayer=new Vimeo.Player('vimeoPlayer');
-  vPlayer.setVolume(0);
+  vPlayer.setCurrentTime(2).catch(function(){});vPlayer.setVolume(0);
   document.getElementById('vidSound').addEventListener('click',function(e){
     e.stopPropagation();
     if(muted){vPlayer.setVolume(1);muted=false;setSound(true);}
-    else{vPlayer.setVolume(0);muted=true;setSound(false);}
+    else{vPlayer.setCurrentTime(2).catch(function(){});vPlayer.setVolume(0);muted=true;setSound(false);}
   });
 }
 window.addEventListener('load',initVimeo);
