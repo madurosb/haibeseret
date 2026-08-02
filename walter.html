@@ -187,11 +187,11 @@ function setSound(on){var b=document.getElementById('vidSound');b.classList.togg
 function initVimeo(){
   if(typeof Vimeo==='undefined'){setTimeout(initVimeo,100);return;}
   vPlayer=new Vimeo.Player('vimeoPlayer');
-  vPlayer.setCurrentTime(2).catch(function(){});vPlayer.setVolume(0);
+  vPlayer.setCurrentTime(2).catch(function(){});vPlayer.setMuted(true);
   document.getElementById('vidSound').addEventListener('click',function(e){
     e.stopPropagation();
     if(muted){vPlayer.setVolume(1);muted=false;setSound(true);}
-    else{vPlayer.setCurrentTime(2).catch(function(){});vPlayer.setVolume(0);muted=true;setSound(false);}
+    else{vPlayer.setCurrentTime(2).catch(function(){});vPlayer.setMuted(true);muted=true;setSound(false);}
   });
 }
 window.addEventListener('load',initVimeo);
