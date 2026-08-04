@@ -84,6 +84,14 @@ a{color:inherit;text-decoration:none}
 .confirm{display:none;text-align:center;padding:30px 18px}
 .confirm h3{font-family:'Suez One',serif;font-size:1.4rem;color:var(--gold);margin-bottom:10px}
 .confirm p{font-size:1rem;color:var(--white);line-height:1.7}
+
+@media(max-width:760px){
+.scroll-hint{display:flex;flex-direction:column;align-items:center;gap:6px;margin:18px auto 0;opacity:.7}
+.scroll-hint span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:#8c8c88}
+.scroll-hint svg{animation:scrollBounce 1.6s ease-in-out infinite}
+@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+}
+@media(min-width:761px){.scroll-hint{display:none}}
 </style>
 <link rel="preconnect" href="https://player.vimeo.com">
 <link rel="preconnect" href="https://f.vimeocdn.com">
@@ -100,6 +108,10 @@ a{color:inherit;text-decoration:none}
     <h1>הפכנו את הסיפור של וולטר<br>לסרט קולנועי<span class="gl">.</span></h1>
     <p>בחור איטלקי מג'נובה, סיפור אהבה שחצה יבשות, והומור שאי אפשר להמציא. מתמונות ישנות ובדיחות פנימיות — יצרנו סרט קצר שגרם לכולם לצחוק ולבכות באותו רגע.</p>
   </header>
+  <div class="scroll-hint">
+    <span>גללו לגלות עוד</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8c8c88" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
 
   <div class="vid" id="vidWrap">
     <iframe id="vimeoPlayer" class="vid__player"
