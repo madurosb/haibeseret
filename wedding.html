@@ -122,7 +122,6 @@ a{color:inherit;text-decoration:none}
 <link rel="preconnect" href="https://f.vimeocdn.com">
 <link rel="preconnect" href="https://i.vimeocdn.com">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="b210724d-558e-4732-854b-50900ff10743"></script>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="b210724d-558e-4732-854b-50900ff10743"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","xwtnubdgo0");</script>
@@ -218,7 +217,6 @@ a{color:inherit;text-decoration:none}
     <a href="https://www.hai-beseret.com/">hai-beseret.com</a> · © 2026 חי בסרט · ניר בראינין
   </div>
 </div>
-</script>
 
 <script>
 var muted=true,vPlayer=null;
@@ -269,7 +267,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 <script src="https://player.vimeo.com/api/player.js" defer></script>
-</script>
 <div id="floatCta" style="display:none;position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:999;text-align:center">
   <a href="#contactForm" onclick="document.getElementById('floatCta').style.display='none'" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(105deg,#dda13f,#f4cd80 50%,#dda13f);color:#1c1305;font-family:'IBM Plex Sans Hebrew',sans-serif;font-weight:800;font-size:1rem;padding:16px 32px;box-shadow:0 8px 32px -4px rgba(226,169,76,.9);white-space:nowrap;font-size:1.05rem;letter-spacing:.01em;text-decoration:none">השאירו פרטים ←</a>
 </div>
@@ -277,6 +274,8 @@ document.addEventListener('DOMContentLoaded',function(){
 setTimeout(function(){
   var btn=document.getElementById('floatCta');
   if(btn)btn.style.display='block';
+  var sc=document.getElementById('scrollCue');if(sc)sc.classList.add('hide');
+  var pf=document.getElementById('pageFade');if(pf)pf.classList.remove('on');
   var form=document.getElementById('contactForm');
   if(form&&btn){
     var ob=new IntersectionObserver(function(es){
@@ -308,6 +307,22 @@ setTimeout(function(){
   setTimeout(function(){if(!gone&&fade)fade.classList.add('on');},1200);
   /* safety: if user never scrolls, keep nudging */
   setTimeout(function(){if(!gone)cue.style.animation='cueIn .4s forwards, cuePulse 2.2s 1s ease-in-out infinite';},4000);
+})();
+</script>
+<script>
+/* Meta Pixel - Lead on every WhatsApp click */
+(function(){
+  var fired=new WeakSet();
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('a[href*="wa.me"],a[href*="api.whatsapp.com"],a[href^="whatsapp:"]');
+    if(!a)return;
+    if(typeof fbq!=='function')return;
+    fbq('track','Lead',{
+      content_name:'wedding',
+      content_category:'whatsapp',
+      source:a.dataset.waSource||'wedding_page'
+    });
+  },true);
 })();
 </script>
 </body>
