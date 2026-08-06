@@ -89,9 +89,31 @@ a{color:inherit;text-decoration:none}
 .confirm p{font-size:1rem;color:var(--white);line-height:1.7}
 
 @media(max-width:760px){
+
+/* --- persistent scroll cue (mobile-first, for IG ad traffic) --- */
+.scroll-cue{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;
+  display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;
+  background:rgba(0,0,0,.62);border:1px solid rgba(226,169,76,.42);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font-family:'IBM Plex Sans Hebrew',sans-serif;font-weight:700;font-size:.85rem;
+  color:var(--gold);cursor:pointer;
+  box-shadow:0 8px 26px -10px rgba(0,0,0,.9);
+  opacity:0;animation:cueIn .5s .9s var(--ease) forwards;
+  transition:opacity .35s ease,transform .35s ease}
+.scroll-cue svg{width:16px;height:16px;animation:scrollBounce 1.5s ease-in-out infinite}
+.scroll-cue.hide{opacity:0!important;transform:translateX(-50%) translateY(14px);pointer-events:none}
+@keyframes cueIn{to{opacity:1}}
+/* soft fade at viewport bottom so content reads as "continues" */
+.page-fade{position:fixed;left:0;right:0;bottom:0;height:110px;z-index:55;pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,0));
+  opacity:0;transition:opacity .4s ease}
+.page-fade.on{opacity:1}
+@media(min-width:761px){.scroll-cue{bottom:24px;font-size:.88rem}}
+@media(prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}}
 .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:6px;margin:18px auto 0;opacity:.7}
 .scroll-hint span{font-family:'IBM Plex Sans Hebrew',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;color:var(--gold)}
 .scroll-hint svg{animation:scrollBounce 1.6s ease-in-out infinite}
+@keyframes cuePulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.06)}}
 @keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 }
 @media(min-width:761px){.scroll-hint{display:none}}
@@ -263,6 +285,30 @@ setTimeout(function(){
     ob.observe(form);
   }
 },1500);
+</script>
+<div class="page-fade" id="pageFade"></div>
+<div class="scroll-cue" id="scrollCue" role="button" tabindex="0" aria-label="גללו למטה">
+  <span>יש עוד למטה</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+</div>
+<script>
+(function(){
+  var cue=document.getElementById('scrollCue'),fade=document.getElementById('pageFade');
+  if(!cue)return;
+  var gone=false;
+  function jump(){window.scrollTo({top:Math.round(window.innerHeight*0.88),behavior:'smooth'});}
+  cue.addEventListener('click',jump);
+  cue.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();jump();}});
+  function onScroll(){
+    var y=window.scrollY||document.documentElement.scrollTop;
+    if(!gone&&y>90){gone=true;cue.classList.add('hide');if(fade)fade.classList.remove('on');}
+    else if(!gone&&fade){fade.classList.add('on');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  setTimeout(function(){if(!gone&&fade)fade.classList.add('on');},1200);
+  /* safety: if user never scrolls, keep nudging */
+  setTimeout(function(){if(!gone)cue.style.animation='cueIn .4s forwards, cuePulse 2.2s 1s ease-in-out infinite';},4000);
+})();
 </script>
 </body>
 </html>
