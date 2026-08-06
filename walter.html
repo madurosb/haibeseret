@@ -197,7 +197,6 @@ a{color:inherit;text-decoration:none}
     <a href="https://www.hai-beseret.com/">hai-beseret.com</a> · © 2026 חי בסרט · ניר בראינין
   </div>
 </div>
-</script>
 
 <script>
 /* Fix for Instagram/Facebook in-app browser webkit errors */
@@ -240,13 +239,12 @@ document.addEventListener('DOMContentLoaded',function(){
     .then(function(){
       f.style.display='none';
       document.getElementById('confirmMsg').style.display='block';
-      if(typeof fbq==='function')fbq('track','Lead');
+      if(typeof fbq==='function')fbq('track','Lead',{content_name:'walter',content_category:'form'});
     }).catch(function(){f.submit();});
   });
 });
 </script>
 <script src="https://player.vimeo.com/api/player.js" defer></script>
-</script>
 <div id="floatCta" style="display:none;position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:999;text-align:center">
   <a href="#contactForm" onclick="document.getElementById('floatCta').style.display='none'" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(105deg,#dda13f,#f4cd80 50%,#dda13f);color:#1c1305;font-family:'IBM Plex Sans Hebrew',sans-serif;font-weight:800;font-size:1rem;padding:16px 32px;box-shadow:0 8px 32px -4px rgba(226,169,76,.9);white-space:nowrap;font-size:1.05rem;letter-spacing:.01em;text-decoration:none">השאירו פרטים ←</a>
 </div>
@@ -262,6 +260,17 @@ setTimeout(function(){
     ob.observe(form);
   }
 },1500);
+</script>
+<script>
+/* Meta Pixel - Lead on every WhatsApp click */
+(function(){
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('a[href*="wa.me"],a[href*="api.whatsapp.com"],a[href^="whatsapp:"]');
+    if(!a)return;
+    if(typeof fbq!=='function')return;
+    fbq('track','Lead',{content_name:'walter',content_category:'whatsapp'});
+  },true);
+})();
 </script>
 </body>
 </html>
