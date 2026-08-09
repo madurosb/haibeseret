@@ -62,16 +62,39 @@ details.how summary::-webkit-details-marker{display:none}
 details.how summary::before{content:'+ ';color:var(--gold);font-family:'IBM Plex Mono',monospace}
 details.how[open] summary::before{content:'- '}
 details.how summary:hover{color:var(--gold)}
-.how-in{padding-bottom:16px;border-top:1px solid var(--line);padding-top:14px}
-.how-in p{margin:0 0 10px;font-size:.92rem;line-height:1.65;color:#c9c6c0}
-.how-in b{color:var(--txt)}
-.how-h{font-family:'Suez One',serif;font-size:.98rem;color:var(--gold);
-  margin:20px 0 9px!important;padding-bottom:6px;border-bottom:1px solid var(--line)}
-.how-in>.how-h:first-child{margin-top:0!important}
+.how-in{padding:16px 0 18px;border-top:1px solid var(--line)}
+.how-grp{margin-bottom:22px}
+.how-grp:last-child{margin-bottom:0}
+.how-h{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  margin:0 0 12px!important;font-weight:400}
+.how-h::after{content:'';flex:1;height:1px;background:var(--line)}
+.how-in p{margin:0 0 9px;font-size:.9rem;line-height:1.6;color:#c9c6c0}
+.how-in b{color:var(--txt);font-weight:600}
 .how-in code{font-family:'IBM Plex Mono',monospace;font-size:.85em;color:var(--gold);
-  background:#000;padding:1px 5px;border-radius:2px;direction:ltr;display:inline-block}
-.how-note{color:var(--mut)!important;font-size:.85rem!important;border-right:2px solid var(--gold-dim);
-  padding-right:11px;margin-top:14px!important}
+  background:rgba(226,169,76,.09);padding:1px 5px;border-radius:2px}
+
+/* call rows */
+.how-call{display:grid;grid-template-columns:auto 1fr;gap:0 14px;align-items:start;
+  padding:10px 0;border-bottom:1px dashed var(--line)}
+.how-call:last-of-type{border-bottom:0}
+.how-call__n{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;
+  color:var(--gold);background:rgba(226,169,76,.1);border:1px solid var(--gold-dim);
+  border-radius:2px;padding:4px 7px;white-space:nowrap;line-height:1}
+.how-call__t{font-size:.9rem;line-height:1.55;color:#c9c6c0;margin:0}
+.how-call__t b{display:block;color:var(--txt);margin-bottom:2px}
+.how-call__m{grid-column:2;font-family:'IBM Plex Mono',monospace;font-size:.62rem;
+  letter-spacing:.1em;color:var(--mut);margin-top:4px;text-transform:uppercase}
+
+/* flow chain */
+.how-flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.how-flow i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+  border:1px solid var(--line);border-radius:2px;padding:5px 8px;color:#c9c6c0;line-height:1}
+.how-flow i.k{border-color:var(--gold-dim);color:var(--gold);background:rgba(226,169,76,.07)}
+.how-flow s{text-decoration:none;color:var(--mut);font-size:.7rem;line-height:1}
+
+.how-note{color:var(--mut)!important;font-size:.82rem!important;line-height:1.55!important;
+  border-right:2px solid var(--gold-dim);padding-right:10px;margin-top:10px!important}
 
 /* ---------- progress track ---------- */
 .track{position:relative;height:26px;margin:20px 0 4px;
@@ -220,20 +243,34 @@ button.pri:hover{background:#efbb63;color:#000}
 <details class="how">
   <summary>איך כל התהליך עובד · תזכורת</summary>
   <div class="how-in">
-    <p class="how-h">שלוש שיחות, לא יותר</p>
-    <p><b>שיחה 1 · טלפון · 10 דקות.</b> מיד אחרי הליד. שומע למי הסרט, מה הטון, איזה חומרים יש. לא נותן מחיר אלא אם שואלים, ואז טווח בלבד.</p>
-    <p><b>שיחה 2 · זום · 30-45 דקות.</b> רק אחרי שהשאלון חזר. שיתוף מסך על החומרים, בוחרים תמונות, סוגרים את קו התסריט. מבקש רשות להקליט.</p>
-    <p><b>שיחה 3 · זום · 20 דקות.</b> אחרי גרסה 1. עוברים על ההערות לפי דקה ושנייה ואומרים במפורש שגרסה 2 סוגרת את הסבבים.</p>
-    <p class="how-note">הכל מרחוק כברירת מחדל. פגישה פיזית באזור המרכז היא אופציה, לא הצפייה.</p>
+    <div class="how-grp">
+      <p class="how-h">שלוש שיחות, לא יותר</p>
+      <div class="how-call"><span class="how-call__n">CALL 01</span>
+        <p class="how-call__t"><b>היכרות</b>מיד אחרי הליד. שומע למי הסרט, מה הטון, איזה חומרים יש. לא נותן מחיר אלא אם שואלים, ואז טווח בלבד.</p>
+        <span class="how-call__m">טלפון · 10 דקות</span></div>
+      <div class="how-call"><span class="how-call__n">CALL 02</span>
+        <p class="how-call__t"><b>תכנון</b>רק אחרי שהשאלון חזר. שיתוף מסך על החומרים, בוחרים תמונות, סוגרים את קו התסריט. מבקש רשות להקליט.</p>
+        <span class="how-call__m">זום · 30-45 דקות</span></div>
+      <div class="how-call"><span class="how-call__n">CALL 03</span>
+        <p class="how-call__t"><b>הערות</b>אחרי גרסה 1. עוברים על ההערות לפי דקה ושנייה ואומרים במפורש שגרסה 2 סוגרת את הסבבים.</p>
+        <span class="how-call__m">זום · 20 דקות</span></div>
+      <p class="how-note">הכל מרחוק כברירת מחדל. פגישה פיזית באזור המרכז היא אופציה, לא הציפייה.</p>
+    </div>
 
-    <p class="how-h">סדר הצעדים</p>
-    <p><b>ליד</b> → <b>שיחה 1</b> → <b>הצעה</b> → <b>הסכם</b> → <b>מקדמה</b> → <b>שאלון</b> → <b>שיחה 2</b> → <b>תסריט</b> → <b>הפקה</b> → <b>שיחה 3</b> → <b>מסירה</b></p>
-    <p class="how-note">השאלון נשלח אחרי המקדמה ולא לפני. רבע שעה של מטלה לפני שהוא שילם מבריחה לידים.</p>
+    <div class="how-grp">
+      <p class="how-h">סדר הצעדים</p>
+      <div class="how-flow">
+        <i>ליד</i><s>&#8592;</s><i class="k">שיחה 1</i><s>&#8592;</s><i>הצעה</i><s>&#8592;</s><i>הסכם</i><s>&#8592;</s><i>מקדמה</i><s>&#8592;</s><i>שאלון</i><s>&#8592;</s><i class="k">שיחה 2</i><s>&#8592;</s><i>תסריט</i><s>&#8592;</s><i>הפקה</i><s>&#8592;</s><i class="k">שיחה 3</i><s>&#8592;</s><i>מסירה</i>
+      </div>
+      <p class="how-note">השאלון נשלח אחרי המקדמה ולא לפני. רבע שעה של מטלה לפני שהוא שילם מבריחה לידים.</p>
+    </div>
 
-    <p class="how-h">הכלים</p>
-    <p><code>agreement.html</code> נקי הוא אשף. ממלא פרטים, בוחר חבילה, לוחץ צור לינק, ואז שלח בוואטסאפ. הלקוח פותח את אותו קובץ עם הפרטים שלו, מסמן שני סימוני חובה, מקליד שם. מייל מגיע אליך עם חותמת זמן.</p>
-    <p><code>brief.html</code> הוא שאלון התוכן. <code>lead-replies</code> הן תבניות המענה.</p>
-    <p class="how-note">התיקים כאן נשמרים בדפדפן הזה בלבד. תיק שנשמר במחשב לא יופיע בטלפון.</p>
+    <div class="how-grp">
+      <p class="how-h">הכלים</p>
+      <p><code>agreement.html</code> נקי הוא אשף. ממלא פרטים, בוחר חבילה, לוחץ צור לינק, ואז שלח בוואטסאפ. הלקוח פותח את אותו קובץ עם הפרטים שלו, מסמן שני סימוני חובה, מקליד שם. מייל מגיע אליך עם חותמת זמן.</p>
+      <p><code>brief.html</code> הוא שאלון התוכן. <code>lead-replies</code> הן תבניות המענה.</p>
+      <p class="how-note">התיקים כאן נשמרים בדפדפן הזה בלבד. תיק שנשמר במחשב לא יופיע בטלפון.</p>
+    </div>
   </div>
 </details>
 
