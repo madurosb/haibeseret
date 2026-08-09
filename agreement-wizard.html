@@ -52,6 +52,15 @@ button.ghost{background:var(--panel);color:var(--txt);border:1px solid var(--lin
 button.ghost:hover{border-color:var(--gold-dim);color:var(--gold);background:var(--panel)}
 button[disabled]{opacity:.5;cursor:default}
 .btns{display:grid;gap:9px}
+details.adv{border:1px solid var(--line);border-radius:2px;background:var(--panel2);
+  padding:0 14px;margin-top:4px}
+details.adv summary{cursor:pointer;padding:13px 0;font-size:.9rem;color:var(--mut);
+  list-style:none;font-weight:600}
+details.adv summary::-webkit-details-marker{display:none}
+details.adv summary::before{content:'+ ';color:var(--gold);font-family:'IBM Plex Mono',monospace}
+details.adv[open] summary::before{content:'- '}
+details.adv[open]{padding-bottom:14px}
+details.adv summary:hover{color:var(--gold)}
 
 /* ---- generated link output ---- */
 .out{display:none;border:1px solid var(--gold-dim);background:var(--panel);
@@ -102,6 +111,9 @@ th{background:var(--panel);font-weight:600;font-size:.86rem;color:var(--mut)}
 .done h2{font-family:'Suez One',serif;font-weight:400;color:var(--gold);margin:0 0 12px;
   font-size:1.45rem;border:0;padding:0}
 .done p{color:var(--mut);margin:0 0 14px}
+.keep{border:1px solid var(--gold-dim);background:rgba(226,169,76,.07);border-radius:2px;
+  padding:11px 13px;color:var(--gold)!important;font-size:.9rem;font-weight:600}
+.keep.ok{border-color:#2f6b3a;background:rgba(60,160,90,.09);color:#7fcf95!important}
 .legal{color:#6a6a74;font-size:.8rem;border-top:1px solid var(--line);
   margin-top:34px;padding-top:16px}
 @media print{
@@ -140,8 +152,8 @@ th{background:var(--panel);font-weight:600;font-size:.86rem;color:var(--mut)}
         <option>לקוח עסקי</option></select></div>
     </div>
     <div class="row">
-      <div class="q"><label for="ed">תאריך האירוע</label><input id="ed" type="date"></div>
-      <div class="q"><label for="md">תאריך יעד לחומרים</label><input id="md" type="date"></div>
+      <div class="q"><label for="ed">תאריך האירוע</label><input id="ed" class="dmy" inputmode="numeric" placeholder="יום/חודש/שנה" maxlength="10"></div>
+      <div class="q"><label for="md">תאריך יעד לחומרים</label><input id="md" class="dmy" inputmode="numeric" placeholder="יום/חודש/שנה" maxlength="10"></div>
     </div>
   </fieldset>
 
@@ -160,19 +172,22 @@ th{background:var(--panel);font-weight:600;font-size:.86rem;color:var(--mut)}
       <div class="q"><label for="ln">אורך הסרט</label><input id="ln" placeholder="עד 4 דקות"></div>
       <div class="q"><label for="pr">מחיר כולל בש"ח</label><input id="pr" inputmode="numeric"></div>
     </div>
-    <div class="row">
-      <div class="q"><label for="rev">סבבי הערות כלולים</label><input id="rev" type="number" min="0" value="2"></div>
-      <div class="q"><label for="hr">תעריף לסבב נוסף בש"ח</label><input id="hr" inputmode="numeric" value="150"></div>
-    </div>
-    <div class="row">
-      <div class="q"><label for="dy">ימי עבודה להפקה</label><input id="dy" type="number" min="1" value="14"></div>
-      <div class="q"><label for="vat">מע"מ</label>
-        <select id="vat"><option value="כולל">המחיר כולל מע"מ</option>
-        <option value="לא כולל">המחיר אינו כולל מע"מ</option></select></div>
-    </div>
-    <div class="q"><label for="ad">תוספות שסוכמו</label>
-      <span class="hint">ריק אם אין. לדוגמה: טיזר אנכי לרשתות, שדרוג 4K.</span>
-      <textarea id="ad" placeholder="טיזר אנכי לרשתות · 420 ש&quot;ח"></textarea></div>
+    <details class="adv">
+      <summary>הגדרות מתקדמות · סבבים, ימי עבודה, מע"מ, תוספות</summary>
+      <div class="row">
+        <div class="q"><label for="rev">סבבי הערות כלולים</label><input id="rev" type="number" min="0" value="2"></div>
+        <div class="q"><label for="hr">תעריף לסבב נוסף בש"ח</label><input id="hr" inputmode="numeric" value="150"></div>
+      </div>
+      <div class="row">
+        <div class="q"><label for="dy">ימי עבודה להפקה</label><input id="dy" type="number" min="1" value="14"></div>
+        <div class="q"><label for="vat">מע"מ</label>
+          <select id="vat"><option value="כולל">המחיר כולל מע"מ</option>
+          <option value="לא כולל">המחיר אינו כולל מע"מ</option></select></div>
+      </div>
+      <div class="q" style="margin-bottom:0"><label for="ad">תוספות שסוכמו</label>
+        <span class="hint">ריק אם אין. לדוגמה: טיזר אנכי לרשתות, שדרוג 4K.</span>
+        <textarea id="ad" placeholder="טיזר אנכי לרשתות · 420 ש&quot;ח"></textarea></div>
+    </details>
   </fieldset>
 
   <div class="btns">
@@ -218,8 +233,13 @@ th{background:var(--panel);font-weight:600;font-size:.86rem;color:var(--mut)}
 
   <div class="done" id="dn">
     <h2>ההסכם אושר.</h2>
-    <p>ניר קיבל התראה ויחזור אליך. השלב הבא הוא שאלון התוכן.</p>
-    <div class="btns"><button type="button" id="pdf">שמור עותק PDF</button></div>
+    <p>ניר קיבל התראה. השלב הבא הוא שאלון התוכן, וזה מה שבונה את הסרט.</p>
+    <p class="keep" id="keep">שמור לעצמך עותק לפני שאתה סוגר את הדף.</p>
+    <div class="btns">
+      <button type="button" id="pdf">שמור עותק PDF</button>
+      <button type="button" class="ghost" id="mailme">שלח לי את ההסכם למייל</button>
+      <button type="button" class="ghost" id="tobrief">מעבר לשאלון התוכן</button>
+    </div>
   </div>
 
   <p class="legal">מסמך זה נוצר על ידי חי בסרט · ניר בראינין · nirbrainin@gmail.com · 052-6479739.
@@ -252,6 +272,7 @@ function initWizard(){
     $('ln').value=p.ln;$('pr').value=p.pr;$('rev').value=p.rev;$('dy').value=p.dy;};
   apply();
   $('pk').addEventListener('change',apply);
+  document.querySelectorAll('.dmy').forEach(bindDMY);
 
   $('wz').addEventListener('submit',e=>{
     e.preventDefault();
@@ -356,12 +377,49 @@ function renderAgreement(){
   tick();
 
   $('sub').addEventListener('click',submit);
-  $('pdf').addEventListener('click',()=>window.print());
+
+  let saved=false;
+  const markSaved=()=>{saved=true;
+    const k=$('keep');k.classList.add('ok');k.textContent='עותק נשמר. אפשר לסגור את הדף.';};
+
+  $('pdf').addEventListener('click',()=>{markSaved();window.print();});
+
+  $('mailme').addEventListener('click',()=>{
+    const to=($('sem').value||g('em')||'').trim();
+    const body='ההסכם שאישרת מול חי בסרט:\n\n'+location.href+
+      '\n\nהקישור פותח את ההסכם המלא עם כל הפרטים שלך.\n'+
+      'אפשר לשמור אותו כ-PDF מתוך הדף.\n\nניר בראינין · חי בסרט · 052-6479739';
+    markSaved();
+    location.href='mailto:'+encodeURIComponent(to)+
+      '?subject='+encodeURIComponent('ההסכם שלי · חי בסרט')+
+      '&body='+encodeURIComponent(body);
+  });
+
+  $('tobrief').addEventListener('click',()=>{
+    markSaved();
+    window.open(location.origin+'/brief.html','_blank');
+  });
+
+  window.addEventListener('beforeunload',e=>{
+    if($('dn').style.display==='block' && !saved){e.preventDefault();e.returnValue='';}
+  });
 }
 
 function fact(l,v,big){return '<div class="fact"><span>'+l+'</span><b'+(big?' class="big"':'')+'>'+v+'</b></div>';}
 function s(n,t,b){return '<h2><span class="n">'+String(n).padStart(2,'0')+'</span>'+t+'</h2>'+b;}
-function heb(d){const p=d.split('-');return p.length===3?p[2]+'.'+p[1]+'.'+p[0]:d;}
+function heb(d){
+  if(!d)return '';
+  if(d.indexOf('/')>-1)return d;
+  const p=d.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d;
+}
+function bindDMY(el){
+  el.addEventListener('input',()=>{
+    let v=el.value.replace(/\D/g,'').slice(0,8);
+    if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+    else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
+    el.value=v;
+  });
+}
 
 async function submit(){
   const er=$('er');er.hidden=true;

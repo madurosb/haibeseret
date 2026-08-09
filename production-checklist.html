@@ -48,6 +48,28 @@ h1 em{font-style:normal;color:var(--gold)}
   font-weight:600;letter-spacing:.06em;line-height:1.15}
 .tc span{font-size:.62rem;letter-spacing:.16em;color:var(--gold-dim)}
 
+.switcher{display:flex;gap:9px;align-items:flex-end;flex-wrap:wrap;margin-top:16px}
+.switcher select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--txt);
+  border-radius:2px;padding:9px 11px;font:inherit;font-size:.95rem}
+.switcher select:focus{outline:2px solid var(--gold);outline-offset:1px}
+button.mini{padding:9px 14px;font-size:.83rem;flex:0 0 auto}
+
+details.how{border:1px solid var(--line);border-radius:2px;background:var(--panel);
+  margin:0 0 26px;padding:0 15px}
+details.how summary{cursor:pointer;padding:14px 0;font-weight:600;font-size:.93rem;
+  color:var(--mut);list-style:none}
+details.how summary::-webkit-details-marker{display:none}
+details.how summary::before{content:'+ ';color:var(--gold);font-family:'IBM Plex Mono',monospace}
+details.how[open] summary::before{content:'- '}
+details.how summary:hover{color:var(--gold)}
+.how-in{padding-bottom:16px;border-top:1px solid var(--line);padding-top:14px}
+.how-in p{margin:0 0 10px;font-size:.92rem;line-height:1.65;color:#c9c6c0}
+.how-in b{color:var(--txt)}
+.how-in code{font-family:'IBM Plex Mono',monospace;font-size:.85em;color:var(--gold);
+  background:#000;padding:1px 5px;border-radius:2px;direction:ltr;display:inline-block}
+.how-note{color:var(--mut)!important;font-size:.85rem!important;border-right:2px solid var(--gold-dim);
+  padding-right:11px;margin-top:14px!important}
+
 /* ---------- progress track ---------- */
 .track{position:relative;height:26px;margin:20px 0 4px;
   background:var(--panel2);border:1px solid var(--line);border-radius:2px;
@@ -121,10 +143,24 @@ button.pri:hover{background:#efbb63;color:#000}
   .saved{flex:1 1 100%;text-align:center;margin:2px 0 0}
 }
 @media print{
-  .acts,.track,.playhead{display:none}
+  .acts,.track,.playhead,.switcher,details.how,.pct{display:none}
   html,body{background:#fff;color:#000}
-  li,.head,.field input{background:#fff;border-color:#bbb}
+  .slate{opacity:1;border-color:#999}
+  li,.head,.field input,.tc{background:#fff;border-color:#999}
+  /* the header fields were washing out on paper: force real ink */
+  .field input{color:#000;-webkit-text-fill-color:#000;font-weight:600;
+    font-size:1rem;padding:6px 8px}
+  .field label{color:#555;font-weight:600}
+  h1,h1 em,.phase-h h2,.phase.done .phase-h h2{color:#000}
+  .tc b{color:#000}
+  .tc span,.reel,.phase-h .cnt{color:#666}
   .txt small,.sub{color:#444}
+  .txt{color:#000!important}
+  li:has(input:checked) .txt{color:#777!important}
+  li input{border-color:#666}
+  li input:checked{background:#000;border-color:#000}
+  li input:checked::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.6' stroke-linecap='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")}
+  .phase{border-right-color:#999}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -136,6 +172,15 @@ button.pri:hover{background:#efbb63;color:#000}
   <h1>טראק <em>הפקה</em></h1>
   <p class="sub">כל שלב בסרט אחד, מהליד עד תיק העבודות. סמן תוך כדי - הסימונים נשמרים אצלך בדפדפן.</p>
 
+  <div class="switcher">
+    <div class="field" style="flex:1 1 240px">
+      <label for="cPick">תיק לקוח</label>
+      <select id="cPick"><option value="">לקוח חדש</option></select>
+    </div>
+    <button class="mini" id="btnSave" type="button">שמור תיק</button>
+    <button class="mini" id="btnDel" type="button">מחק תיק</button>
+  </div>
+
   <div class="bar">
     <div class="field">
       <label for="cName">לקוח</label>
@@ -146,8 +191,12 @@ button.pri:hover{background:#efbb63;color:#000}
       <input id="cEvent" type="text" placeholder="חתונה / בר מצווה">
     </div>
     <div class="field">
+      <label for="cStart">תחילת הפקה</label>
+      <input id="cStart" class="dmy" inputmode="numeric" placeholder="יום/חודש/שנה" maxlength="10">
+    </div>
+    <div class="field">
       <label for="cDate">תאריך האירוע</label>
-      <input id="cDate" type="date">
+      <input id="cDate" class="dmy" inputmode="numeric" placeholder="יום/חודש/שנה" maxlength="10">
     </div>
     <div class="tc">
       <b id="tcOut">00:00:00:00</b>
@@ -161,6 +210,20 @@ button.pri:hover{background:#efbb63;color:#000}
   </div>
   <p class="pct"><b id="pctN">0%</b> · <span id="cntOut">0 מתוך 0 שלבים</span></p>
 </div>
+
+<details class="how">
+  <summary>איך כל התהליך עובד · תזכורת</summary>
+  <div class="how-in">
+    <p><b>1. ליד נכנס</b> מדף הנחיתה או מוואטסאפ. עונים תוך שעה מהתבניות ב-<code>lead-replies</code>. לא שולחים מחיר בהודעה הראשונה.</p>
+    <p><b>2. שיחת היכרות</b> של עשר דקות. שומעים את הסיפור, מבינים למי הסרט ומה הטון.</p>
+    <p><b>3. הצעה.</b> שולחים מחיר עם סיכום של מה שנאמר בשיחה.</p>
+    <p><b>4. הסכם.</b> פותחים את <code>agreement.html</code> נקי, ממלאים את פרטי הלקוח, בוחרים חבילה - אורך, מחיר, סבבים וימי עבודה מתמלאים לבד. לוחצים <b>צור לינק ללקוח</b> ואז <b>שלח בוואטסאפ</b>. הלקוח פותח את אותו קובץ עם הפרטים שלו, מסמן שני סימוני חובה, מקליד שם, ואתה מקבל מייל עם חותמת זמן.</p>
+    <p><b>5. מקדמה.</b> חצי מהסכום. לא מתחילים לפני.</p>
+    <p><b>6. שאלון תוכן.</b> שולחים את <code>brief.html</code>. משם נבנה התסריט.</p>
+    <p><b>7. הפקה ומסירה.</b> לפי הסלילים למטה.</p>
+    <p class="how-note">התיקים נשמרים בדפדפן הזה בלבד. תיק שנשמר במחשב לא יופיע בטלפון.</p>
+  </div>
+</details>
 
 <main id="phases"></main>
 
@@ -226,10 +289,12 @@ const PHASES = [
   ]}
 ];
 
-const KEY='hbs_checklist_v1';
+const TOTAL=PHASES.reduce((s,p)=>s+p.items.length,0);
+const KEY='hbs_tracker_v2';
+const META=['cName','cEvent','cStart','cDate'];
+let db={clients:{},active:''};
 let state={};
 
-/* --- storage with graceful fallback: artifact storage, then localStorage, then memory --- */
 const store={
   async get(){
     try{ if(window.storage){const r=await window.storage.get(KEY);return r?JSON.parse(r.value):null;} }catch(e){}
@@ -243,6 +308,35 @@ const store={
     return false;
   }
 };
+
+function bindDMY(el){
+  el.addEventListener('input',()=>{
+    let v=el.value.replace(/\D/g,'').slice(0,8);
+    if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+    else if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
+    el.value=v;
+  });
+}
+function today(){
+  const d=new Date(),z=n=>String(n).padStart(2,'0');
+  return z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear();
+}
+function readMeta(){const o={};META.forEach(k=>o[k]=document.getElementById(k).value);return o;}
+function writeMeta(o){META.forEach(k=>document.getElementById(k).value=(o&&o[k])||'');}
+
+function fillPicker(){
+  const sel=document.getElementById('cPick');
+  const keys=Object.keys(db.clients).sort((a,b)=>
+    (db.clients[b].saved||0)-(db.clients[a].saved||0));
+  sel.innerHTML='<option value="">לקוח חדש</option>'+keys.map(k=>{
+    const c=db.clients[k];
+    const done=Object.keys(c.state||{}).filter(x=>x[0]==='c'&&c.state[x]).length;
+    return '<option value="'+k.replace(/"/g,'&quot;')+'">'+
+      (c.meta.cName||'ללא שם')+
+      (c.meta.cEvent?' · '+c.meta.cEvent:'')+' — '+done+'/'+TOTAL+'</option>';
+  }).join('');
+  sel.value=db.active||'';
+}
 
 function render(){
   const root=document.getElementById('phases');
@@ -269,6 +363,7 @@ function render(){
     cb.addEventListener('change',()=>{state[cb.id]=cb.checked;persist();render();});
   });
   meta();
+  if(db.active)fillPicker();
 }
 
 function meta(){
@@ -289,29 +384,68 @@ function meta(){
 }
 
 let t=null;
-function persist(){
-  ['cName','cEvent','cDate'].forEach(id=>state[id]=document.getElementById(id).value);
-  store.set(state);
+function flash(msg){
   const s=document.getElementById('saved');
-  s.classList.add('on');clearTimeout(t);
-  t=setTimeout(()=>s.classList.remove('on'),1400);
+  s.textContent=msg||'נשמר';s.classList.add('on');
+  clearTimeout(t);t=setTimeout(()=>s.classList.remove('on'),1600);
+}
+function persist(){
+  if(db.active&&db.clients[db.active]){
+    db.clients[db.active].state=state;
+    db.clients[db.active].meta=readMeta();
+    db.clients[db.active].saved=Date.now();
+  }
+  db.draft={state:state,meta:readMeta()};
+  store.set(db);flash();
 }
 
-['cName','cEvent','cDate'].forEach(id=>
-  document.getElementById(id).addEventListener('input',persist));
+META.forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('input',persist);
+  if(el.classList.contains('dmy'))bindDMY(el);
+});
+
+document.getElementById('btnSave').addEventListener('click',()=>{
+  const m=readMeta();
+  if(!m.cName.trim()){alert('צריך שם לקוח כדי לשמור תיק.');
+    document.getElementById('cName').focus();return;}
+  if(!m.cStart)document.getElementById('cStart').value=today();
+  const key=db.active||('cl_'+Date.now());
+  db.clients[key]={meta:readMeta(),state:state,saved:Date.now()};
+  db.active=key;
+  store.set(db);fillPicker();flash('התיק נשמר');
+});
+
+document.getElementById('btnDel').addEventListener('click',()=>{
+  if(!db.active){alert('לא נבחר תיק למחיקה.');return;}
+  const nm=db.clients[db.active].meta.cName||'ללא שם';
+  if(!confirm('למחוק את התיק של '+nm+'? אי אפשר לשחזר.'))return;
+  delete db.clients[db.active];db.active='';
+  state={};writeMeta({});store.set(db);fillPicker();render();flash('התיק נמחק');
+});
+
+document.getElementById('cPick').addEventListener('change',e=>{
+  const k=e.target.value;
+  db.active=k;
+  if(k&&db.clients[k]){state=db.clients[k].state||{};writeMeta(db.clients[k].meta);}
+  else{state={};writeMeta({});}
+  store.set(db);render();
+});
 
 document.getElementById('btnPrint').addEventListener('click',()=>window.print());
 
 document.getElementById('btnReset').addEventListener('click',()=>{
-  if(!confirm('לאפס את כל הסימונים ולהתחיל לקוח חדש?'))return;
-  state={};['cName','cEvent','cDate'].forEach(id=>document.getElementById(id).value='');
-  persist();render();
+  if(!confirm('לנקות את המסך ולהתחיל לקוח חדש? תיקים שנשמרו לא ייפגעו.'))return;
+  state={};db.active='';writeMeta({});
+  document.getElementById('cStart').value=today();
+  store.set(db);fillPicker();render();
 });
 
 document.getElementById('btnCopy').addEventListener('click',async()=>{
-  const nm=document.getElementById('cName').value||'ללא שם';
-  let out='סטטוס הפקה · '+nm+' · '+(document.getElementById('cEvent').value||'')+'\n';
-  out+='אירוע ב: '+(document.getElementById('cDate').value||'לא הוגדר')+'\n\n';
+  const m=readMeta();
+  let out='סטטוס הפקה · '+(m.cName||'ללא שם')+(m.cEvent?' · '+m.cEvent:'')+'\n';
+  out+='תחילת הפקה: '+(m.cStart||'לא הוגדר')+'\n';
+  out+='תאריך האירוע: '+(m.cDate||'לא הוגדר')+'\n\n';
   PHASES.forEach((p,pi)=>{
     out+=p.reel+' · '+p.name+'\n';
     p.items.forEach((it,ii)=>out+=(state['c'+pi+'_'+ii]?'  [x] ':'  [ ] ')+it[0]+'\n');
@@ -325,8 +459,14 @@ document.getElementById('btnCopy').addEventListener('click',async()=>{
 
 (async()=>{
   const saved=await store.get();
-  if(saved){state=saved;['cName','cEvent','cDate'].forEach(id=>{
-    if(state[id])document.getElementById(id).value=state[id];});}
+  if(saved&&saved.clients)db=saved;
+  fillPicker();
+  if(db.active&&db.clients[db.active]){
+    state=db.clients[db.active].state||{};writeMeta(db.clients[db.active].meta);
+  }else if(db.draft){
+    state=db.draft.state||{};writeMeta(db.draft.meta);
+  }
+  if(!document.getElementById('cStart').value)document.getElementById('cStart').value=today();
   render();
 })();
 </script>
