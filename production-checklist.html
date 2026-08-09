@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>טראק הפקה · חי בסרט</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=IBM+Plex+Sans+Hebrew:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080a; --panel:#101014; --panel2:#16161c;
+  --line:#26262f; --gold:#e2a94c; --gold-dim:#8a6526;
+  --rec:#ff2b1a; --txt:#f2efe9; --mut:#8b8b96;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);
+  font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif}
+body{padding:clamp(14px,3vw,40px) clamp(12px,3vw,32px) 90px;max-width:1000px;margin:0 auto}
+
+/* ---------- slate header ---------- */
+.slate{border:1px solid var(--line);background:
+  repeating-linear-gradient(135deg,#000 0 22px,#f2efe9 22px 44px);
+  height:12px;border-radius:3px 3px 0 0;opacity:.55}
+.head{border:1px solid var(--line);border-top:0;background:var(--panel);
+  padding:clamp(16px,3vw,26px);border-radius:0 0 3px 3px}
+h1{font-family:'Suez One',serif;font-weight:400;margin:0 0 6px;
+  font-size:clamp(1.5rem,5vw,2.3rem);letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--gold)}
+.sub{color:var(--mut);font-size:.93rem;margin:0;line-height:1.6}
+
+/* ---------- client + timecode row ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.field{flex:1 1 190px;min-width:0}
+.field label{display:block;font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;letter-spacing:.14em;color:var(--gold-dim);
+  text-transform:uppercase;margin-bottom:5px}
+.field input{width:100%;background:var(--bg);border:1px solid var(--line);
+  color:var(--txt);border-radius:2px;padding:9px 11px;font:inherit;font-size:.95rem}
+.field input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:transparent}
+
+.tc{font-family:'IBM Plex Mono',monospace;text-align:left;direction:ltr;
+  flex:0 0 auto;padding:8px 14px;border:1px solid var(--gold-dim);border-radius:2px;
+  background:#000}
+.tc b{display:block;font-size:clamp(1.05rem,3.4vw,1.4rem);color:var(--gold);
+  font-weight:600;letter-spacing:.06em;line-height:1.15}
+.tc span{font-size:.62rem;letter-spacing:.16em;color:var(--gold-dim)}
+
+/* ---------- progress track ---------- */
+.track{position:relative;height:26px;margin:20px 0 4px;
+  background:var(--panel2);border:1px solid var(--line);border-radius:2px;
+  overflow:hidden}
+.track::before{content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 100%);
+  background-size:calc(100%/24) 100%;opacity:.7}
+.fill{position:absolute;top:0;bottom:0;right:0;width:0;
+  background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+  transition:width .55s var(--ease)}
+.playhead{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--rec);
+  right:0;transition:right .55s var(--ease);box-shadow:0 0 10px var(--rec)}
+.pct{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--mut);
+  letter-spacing:.1em;margin:0 0 26px}
+.pct b{color:var(--gold)}
+
+/* ---------- phases ---------- */
+.phase{margin-bottom:26px;border-right:2px solid var(--line);padding-right:14px;
+  transition:border-color .4s ease}
+.phase.done{border-right-color:var(--gold)}
+.phase-h{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.reel{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--gold-dim);
+  letter-spacing:.14em;flex:0 0 auto}
+.phase-h h2{font-family:'Suez One',serif;font-weight:400;font-size:1.13rem;margin:0}
+.phase.done .phase-h h2{color:var(--gold)}
+.phase-h .cnt{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--mut);
+  margin-inline-start:auto}
+
+ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+li{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+  transition:background .25s ease,border-color .25s ease}
+li:hover{border-color:#373743}
+li label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+  padding:12px 13px;line-height:1.5}
+li input{appearance:none;flex:0 0 18px;width:18px;height:18px;margin:2px 0 0;
+  border:1.5px solid #3a3a46;border-radius:2px;background:var(--bg);
+  cursor:pointer;position:relative;transition:all .2s ease}
+li input:checked{background:var(--gold);border-color:var(--gold)}
+li input:checked::after{content:'';position:absolute;inset:0;
+  background:no-repeat center/11px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")}
+li input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.txt{flex:1;font-size:.96rem}
+.txt small{display:block;color:var(--mut);font-size:.82rem;margin-top:3px;line-height:1.5}
+li:has(input:checked){background:#0c0c0f;border-color:#1e1e26}
+li:has(input:checked) .txt{color:#6f6f7a;text-decoration:line-through;
+  text-decoration-color:var(--gold-dim);text-decoration-thickness:1px}
+li:has(input:checked) .txt small{text-decoration:none;color:#54545e}
+
+/* ---------- footer actions ---------- */
+.acts{position:fixed;bottom:0;right:0;left:0;z-index:20;
+  background:linear-gradient(to top,#08080a 55%,rgba(8,8,10,0));
+  padding:16px clamp(12px,3vw,32px) 18px}
+.acts-in{max-width:1000px;margin:0 auto;display:flex;gap:9px;flex-wrap:wrap;
+  align-items:center}
+button{font:inherit;font-weight:600;font-size:.88rem;cursor:pointer;
+  border-radius:2px;padding:11px 18px;border:1px solid var(--line);
+  background:var(--panel);color:var(--txt);transition:all .2s ease}
+button:hover{border-color:var(--gold-dim);color:var(--gold)}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+button.pri{background:var(--gold);color:#000;border-color:var(--gold)}
+button.pri:hover{background:#efbb63;color:#000}
+.saved{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--gold-dim);
+  margin-inline-start:auto;opacity:0;transition:opacity .3s ease}
+.saved.on{opacity:1}
+
+@media(max-width:600px){
+  .bar{gap:10px}
+  .tc{flex:1 1 100%;text-align:center;direction:ltr}
+  .acts-in{gap:7px}
+  button{flex:1 1 auto;padding:11px 12px;font-size:.83rem}
+  .saved{flex:1 1 100%;text-align:center;margin:2px 0 0}
+}
+@media print{
+  .acts,.track,.playhead{display:none}
+  html,body{background:#fff;color:#000}
+  li,.head,.field input{background:#fff;border-color:#bbb}
+  .txt small,.sub{color:#444}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="slate"></div>
+<div class="head">
+  <h1>טראק <em>הפקה</em></h1>
+  <p class="sub">כל שלב בסרט אחד, מהליד עד תיק העבודות. סמן תוך כדי - הסימונים נשמרים אצלך בדפדפן.</p>
+
+  <div class="bar">
+    <div class="field">
+      <label for="cName">לקוח</label>
+      <input id="cName" type="text" placeholder="שם מלא">
+    </div>
+    <div class="field">
+      <label for="cEvent">אירוע</label>
+      <input id="cEvent" type="text" placeholder="חתונה / בר מצווה">
+    </div>
+    <div class="field">
+      <label for="cDate">תאריך האירוע</label>
+      <input id="cDate" type="date">
+    </div>
+    <div class="tc">
+      <b id="tcOut">00:00:00:00</b>
+      <span id="tcLbl">READY</span>
+    </div>
+  </div>
+
+  <div class="track">
+    <div class="fill" id="fill"></div>
+    <div class="playhead" id="ph"></div>
+  </div>
+  <p class="pct"><b id="pctN">0%</b> · <span id="cntOut">0 מתוך 0 שלבים</span></p>
+</div>
+
+<main id="phases"></main>
+
+<div class="acts"><div class="acts-in">
+  <button class="pri" id="btnPrint">שמור כ-PDF</button>
+  <button id="btnCopy">העתק סטטוס</button>
+  <button id="btnReset">התחל לקוח חדש</button>
+  <span class="saved" id="saved">נשמר</span>
+</div></div>
+
+<script>
+const PHASES = [
+  {reel:'R01', name:'ליד ופתיחה', items:[
+    ['ענית לליד תוך שעה','וואטסאפ עדיף על מייל. תבנית 1 בקובץ התבניות.'],
+    ['תיאמת שיחת היכרות','עשר דקות בטלפון. שומעים את הסיפור, לא מדברים על מחיר.'],
+    ['רשמת את הפרטים מהשיחה','למי הסרט, מה הטון, איזה חומרים קיימים, תאריך האירוע.'],
+    ['בדקת שהתאריך אפשרי','מול הלוח שלך. אירוע בעוד שבועיים הוא לא אותה עבודה כמו בעוד חודשיים.']
+  ]},
+  {reel:'R02', name:'הצעה וסגירה', items:[
+    ['שלחת הצעת מחיר עם סיכום השיחה','הסיכום הוא מה שמבדיל אותך ממחירון.'],
+    ['הלקוח אישר את התנאים','טופס ההסכמה. עותק חוזר לשניכם במייל.'],
+    ['המקדמה נכנסה','לא מתחילים לפני. חצי מהסכום.'],
+    ['הוצאת חשבונית מקדמה','']
+  ]},
+  {reel:'R03', name:'איסוף חומרים', items:[
+    ['שלחת ללקוח את שאלון התוכן','הקובץ הנפרד. משם נבנה התסריט.'],
+    ['קיבלת את השאלון מלא','אם חוזר חצי ריק - שיחת טלפון של רבע שעה ואתה ממלא איתו.'],
+    ['החומרים הגיעו לתיקייה אחת','תיקייה בענן עם שם הלקוח. לא בוואטסאפ, שם דברים נעלמים.'],
+    ['עברת על כל התמונות ובחרת','מסמן את הטובות לפני שמתחילים. חוסך שעות.'],
+    ['אישרת זכויות על מוזיקה','אם הלקוח ביקש שיר ספציפי - לוודא מה אפשר.'],
+    ['ביקשת שמות והגייה נכונה','לכתוביות ולהקראה. שם שמבוטא לא נכון הורס רגע.']
+  ]},
+  {reel:'R04', name:'תסריט ואישור', items:[
+    ['כתבת תסריט או ראשי פרקים','מבנה, לא דיאלוג. איפה הפאנץ\' ואיפה השקט.'],
+    ['הלקוח אישר את התסריט','אישור כאן חוסך סבב הערות שלם אחר כך.'],
+    ['קבעת את האורך הסופי','']
+  ]},
+  {reel:'R05', name:'הפקה', items:[
+    ['ייצרת את הסצנות ב-AI','Seedance / Kling / Midjourney לפי הצורך.'],
+    ['הפקת קול והקראה','ElevenLabs או הקלטה אמיתית אם יש קול משפחתי.'],
+    ['בחרת מוזיקה','Suno או ספריה. לבדוק שזה לא נלחם בהקראה.'],
+    ['עריכה - גרסה ראשונה','']
+  ]},
+  {reel:'R06', name:'הערות ואישור', items:[
+    ['שלחת גרסה 1 עם טיימקוד','לינק לא מפורסם. מבקשים הערות לפי דקה ושנייה.'],
+    ['קיבלת הערות סבב 1','']  ,
+    ['הטמעת ושלחת גרסה 2',''],
+    ['הלקוח נתן אישור סופי בכתב','"מאושר" בהודעה. זה מה שסוגר את סבבי ההערות.']
+  ]},
+  {reel:'R07', name:'מסירה', items:[
+    ['ייצאת מאסטר לאולם','לבדוק מול המקרן של המקום - יחס, רזולוציה, עוצמת קול.'],
+    ['ייצאת גרסה לרשתות','ריבוע או אנכי, עם כתוביות צרובות.'],
+    ['בדקת את הסרט על טלפון ועל מסך גדול','טקסט שקריא במוניטור לא בהכרח קריא באולם.'],
+    ['מסרת קבצים בלינק שלא פג','ולתת גם הוראות הורדה פשוטות.'],
+    ['התשלום הסופי נכנס',''],
+    ['הוצאת חשבונית סופית','']
+  ]},
+  {reel:'R08', name:'אחרי האירוע', items:[
+    ['שלחת הודעת יום-אחרי וביקשת המלצה','יום אחרי, לא בזמן האירוע.'],
+    ['ביקשת אישור לשימוש בתיק עבודות','בכתב. גם אם זה רק קטע.'],
+    ['הוספת את העבודה לתיק','אם אושר.'],
+    ['תייקת את הפרויקט וגיבית','ומפנים מקום.']
+  ]}
+];
+
+const KEY='hbs_checklist_v1';
+let state={};
+
+/* --- storage with graceful fallback: artifact storage, then localStorage, then memory --- */
+const store={
+  async get(){
+    try{ if(window.storage){const r=await window.storage.get(KEY);return r?JSON.parse(r.value):null;} }catch(e){}
+    try{ const v=localStorage.getItem(KEY);return v?JSON.parse(v):null; }catch(e){}
+    return null;
+  },
+  async set(v){
+    const s=JSON.stringify(v);
+    try{ if(window.storage){await window.storage.set(KEY,s);return true;} }catch(e){}
+    try{ localStorage.setItem(KEY,s);return true; }catch(e){}
+    return false;
+  }
+};
+
+function render(){
+  const root=document.getElementById('phases');
+  root.innerHTML='';
+  PHASES.forEach((p,pi)=>{
+    const sec=document.createElement('section');
+    sec.className='phase';sec.dataset.p=pi;
+    const done=p.items.filter((_,ii)=>state['c'+pi+'_'+ii]).length;
+    if(done===p.items.length)sec.classList.add('done');
+    sec.innerHTML='<div class="phase-h"><span class="reel">'+p.reel+'</span>'+
+      '<h2>'+p.name+'</h2><span class="cnt">'+done+'/'+p.items.length+'</span></div>';
+    const ul=document.createElement('ul');
+    p.items.forEach((it,ii)=>{
+      const id='c'+pi+'_'+ii;
+      const li=document.createElement('li');
+      li.innerHTML='<label><input type="checkbox" id="'+id+'"'+(state[id]?' checked':'')+
+        '><span class="txt">'+it[0]+(it[1]?'<small>'+it[1]+'</small>':'')+'</span></label>';
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul);
+    root.appendChild(sec);
+  });
+  root.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{state[cb.id]=cb.checked;persist();render();});
+  });
+  meta();
+}
+
+function meta(){
+  const total=PHASES.reduce((s,p)=>s+p.items.length,0);
+  const done=Object.keys(state).filter(k=>k[0]==='c'&&state[k]).length;
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('ph').style.right=pct+'%';
+  document.getElementById('pctN').textContent=pct+'%';
+  document.getElementById('cntOut').textContent=done+' מתוך '+total+' שלבים';
+  /* timecode: one "second" per completed step, frames from percent */
+  const f=String(Math.round(pct/100*24)).padStart(2,'0');
+  const ss=String(done%60).padStart(2,'0');
+  const mm=String(Math.floor(done/60)).padStart(2,'0');
+  document.getElementById('tcOut').textContent='00:'+mm+':'+ss+':'+f;
+  document.getElementById('tcLbl').textContent =
+    pct===0?'READY':pct===100?'LOCKED':'IN PROGRESS';
+}
+
+let t=null;
+function persist(){
+  ['cName','cEvent','cDate'].forEach(id=>state[id]=document.getElementById(id).value);
+  store.set(state);
+  const s=document.getElementById('saved');
+  s.classList.add('on');clearTimeout(t);
+  t=setTimeout(()=>s.classList.remove('on'),1400);
+}
+
+['cName','cEvent','cDate'].forEach(id=>
+  document.getElementById(id).addEventListener('input',persist));
+
+document.getElementById('btnPrint').addEventListener('click',()=>window.print());
+
+document.getElementById('btnReset').addEventListener('click',()=>{
+  if(!confirm('לאפס את כל הסימונים ולהתחיל לקוח חדש?'))return;
+  state={};['cName','cEvent','cDate'].forEach(id=>document.getElementById(id).value='');
+  persist();render();
+});
+
+document.getElementById('btnCopy').addEventListener('click',async()=>{
+  const nm=document.getElementById('cName').value||'ללא שם';
+  let out='סטטוס הפקה · '+nm+' · '+(document.getElementById('cEvent').value||'')+'\n';
+  out+='אירוע ב: '+(document.getElementById('cDate').value||'לא הוגדר')+'\n\n';
+  PHASES.forEach((p,pi)=>{
+    out+=p.reel+' · '+p.name+'\n';
+    p.items.forEach((it,ii)=>out+=(state['c'+pi+'_'+ii]?'  [x] ':'  [ ] ')+it[0]+'\n');
+    out+='\n';
+  });
+  const btn=document.getElementById('btnCopy');
+  try{ await navigator.clipboard.writeText(out);btn.textContent='הועתק'; }
+  catch(e){ btn.textContent='ההעתקה נכשלה'; }
+  setTimeout(()=>btn.textContent='העתק סטטוס',1600);
+});
+
+(async()=>{
+  const saved=await store.get();
+  if(saved){state=saved;['cName','cEvent','cDate'].forEach(id=>{
+    if(state[id])document.getElementById(id).value=state[id];});}
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>שאלון תוכן · חי בסרט</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=IBM+Plex+Sans+Hebrew:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080a; --panel:#101014; --line:#26262f;
+  --gold:#e2a94c; --gold-dim:#8a6526; --rec:#ff2b1a;
+  --txt:#f2efe9; --mut:#8b8b96;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);
+  font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;line-height:1.6}
+body{padding:clamp(14px,3vw,44px) clamp(12px,3vw,28px) 60px;max-width:760px;margin:0 auto}
+
+.slate{height:12px;border:1px solid var(--line);border-radius:3px 3px 0 0;opacity:.55;
+  background:repeating-linear-gradient(135deg,#000 0 22px,#f2efe9 22px 44px)}
+header{border:1px solid var(--line);border-top:0;background:var(--panel);
+  padding:clamp(18px,4vw,30px);border-radius:0 0 3px 3px;margin-bottom:30px}
+h1{font-family:'Suez One',serif;font-weight:400;margin:0 0 10px;
+  font-size:clamp(1.5rem,5.4vw,2.2rem)}
+h1 em{font-style:normal;color:var(--gold)}
+header p{margin:0;color:var(--mut);font-size:.95rem}
+header p+p{margin-top:9px}
+
+fieldset{border:0;padding:0;margin:0 0 34px}
+legend{display:flex;align-items:baseline;gap:10px;width:100%;padding:0 0 14px;
+  border-bottom:1px solid var(--line);margin-bottom:18px}
+.reel{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;
+  color:var(--gold-dim)}
+legend b{font-family:'Suez One',serif;font-weight:400;font-size:1.12rem}
+
+.q{margin-bottom:20px}
+.q>label,.q>span.lbl{display:block;font-weight:600;font-size:.97rem;margin-bottom:3px}
+.q .hint{display:block;color:var(--mut);font-size:.84rem;margin-bottom:8px}
+.req{color:var(--rec);font-weight:400}
+
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=url],textarea,select{
+  width:100%;background:#0c0c0f;border:1px solid var(--line);color:var(--txt);
+  border-radius:2px;padding:11px 12px;font:inherit;font-size:.95rem;
+  transition:border-color .2s ease}
+textarea{min-height:96px;resize:vertical;line-height:1.65}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;
+  border-color:transparent}
+::placeholder{color:#54545e}
+
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;background:#0c0c0f;
+  border:1px solid var(--line);border-radius:2px;padding:11px 12px;cursor:pointer;
+  transition:border-color .2s ease}
+.opt:hover{border-color:#373743}
+.opt input{appearance:none;flex:0 0 17px;width:17px;height:17px;margin:3px 0 0;
+  border:1.5px solid #3a3a46;background:var(--bg);cursor:pointer;position:relative}
+.opt input[type=radio]{border-radius:50%}
+.opt input:checked{background:var(--gold);border-color:var(--gold)}
+.opt input[type=radio]:checked::after{content:'';position:absolute;
+  inset:3px;border-radius:50%;background:#000}
+.opt input[type=checkbox]:checked::after{content:'';position:absolute;inset:0;
+  background:no-repeat center/11px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.6' stroke-linecap='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")}
+.opt input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.opt span{font-size:.93rem;flex:1}
+.opt:has(input:checked){border-color:var(--gold-dim)}
+
+.tip{border-right:2px solid var(--gold-dim);padding:2px 13px 2px 0;
+  color:var(--mut);font-size:.87rem;margin:0 0 20px}
+
+button{width:100%;font:inherit;font-weight:700;font-size:1.02rem;cursor:pointer;
+  border:0;border-radius:2px;padding:16px;background:var(--gold);color:#000;
+  transition:background .2s ease}
+button:hover{background:#efbb63}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+button[disabled]{opacity:.55;cursor:default}
+.note{color:var(--mut);font-size:.83rem;text-align:center;margin:12px 0 0}
+.err{color:var(--rec);font-size:.88rem;margin:10px 0 0;text-align:center}
+
+.done{display:none;border:1px solid var(--gold-dim);background:var(--panel);
+  padding:clamp(24px,5vw,40px);border-radius:3px;text-align:center}
+.done h2{font-family:'Suez One',serif;font-weight:400;color:var(--gold);
+  margin:0 0 12px;font-size:1.5rem}
+.done p{color:var(--mut);margin:0 0 8px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="slate"></div>
+<header>
+  <h1>שאלון <em>תוכן</em></h1>
+  <p>זה המסמך שממנו נבנה התסריט של הסרט. אין תשובות נכונות ולא צריך לכתוב יפה - פרט אחד אמיתי שווה יותר מפסקה מנוסחת.</p>
+  <p>לוקח בערך 15 דקות. אם משהו לא ברור, דלג ונדבר עליו בטלפון.</p>
+</header>
+
+<form id="briefForm" novalidate>
+
+<fieldset>
+  <legend><span class="reel">R01</span><b>מי אתם</b></legend>
+  <div class="q"><label for="f1">השם שלך <span class="req">*</span></label>
+    <input id="f1" name="שם ממלא השאלון" type="text" required autocomplete="name"></div>
+  <div class="q"><label for="f2">טלפון <span class="req">*</span></label>
+    <input id="f2" name="טלפון" type="tel" required autocomplete="tel" inputmode="tel"></div>
+  <div class="q"><label for="f3">מייל <span class="req">*</span></label>
+    <input id="f3" name="מייל" type="email" required autocomplete="email" inputmode="email"></div>
+  <div class="q"><label for="f4">סוג האירוע <span class="req">*</span></label>
+    <select id="f4" name="סוג האירוע" required>
+      <option value="">בחר</option>
+      <option>חתונה</option><option>בר מצווה</option><option>בת מצווה</option>
+      <option>יום הולדת</option><option>יום נישואין</option>
+      <option>מתנה אישית</option><option>אחר</option>
+    </select></div>
+  <div class="q"><label for="f5">תאריך האירוע <span class="req">*</span></label>
+    <input id="f5" name="תאריך האירוע" type="date" required></div>
+  <div class="q"><label for="f6">איפה זה מתקיים</label>
+    <span class="hint">שם האולם או המקום. אני צריך לדעת מול איזה ציוד הקרנה אנחנו עובדים.</span>
+    <input id="f6" name="מקום האירוע" type="text"></div>
+</fieldset>
+
+<fieldset>
+  <legend><span class="reel">R02</span><b>הגיבור של הסרט</b></legend>
+  <div class="q"><label for="f7">למי הסרט מיועד <span class="req">*</span></label>
+    <span class="hint">שם מלא, וגם איך מבטאים אותו אם זה לא מובן מאליו. שם שמבוטא לא נכון בהקראה הורס רגע.</span>
+    <input id="f7" name="הגיבור" type="text" required></div>
+  <div class="q"><label for="f8">מה הקשר שלך אליו</label>
+    <input id="f8" name="קשר לגיבור" type="text" placeholder="אמא / חבר מהצבא / בן"></div>
+  <div class="q"><label for="f9">שלושה דברים שכולם יודעים עליו <span class="req">*</span></label>
+    <span class="hint">הדברים שמישהו היה אומר עליו במשפט אחד. גם אם זה מצחיק או קטנטן.</span>
+    <textarea id="f9" name="שלושה דברים" required></textarea></div>
+  <div class="q"><label for="f10">בדיחה פנימית או משפט שהוא תמיד אומר</label>
+    <span class="hint">זה בדרך כלל הרגע שהאולם צוחק. שווה לחשוב עליו רגע.</span>
+    <textarea id="f10" name="בדיחה פנימית"></textarea></div>
+  <div class="q"><label for="f11">משהו שרוב האנשים בחדר לא יודעים עליו</label>
+    <textarea id="f11" name="סוד"></textarea></div>
+</fieldset>
+
+<fieldset>
+  <legend><span class="reel">R03</span><b>הסיפור</b></legend>
+  <p class="tip">כתוב כמו שאתה מספר לחבר. אני עורך אחר כך.</p>
+  <div class="q"><label for="f12">שלוש עד חמש תחנות בחיים שלו שחייבות להיות בסרט <span class="req">*</span></label>
+    <span class="hint">איפה נולד, רגע מפנה, איך נפגשתם, מה השתנה. לא צריך כרונולוגיה מלאה.</span>
+    <textarea id="f12" name="תחנות בחיים" required style="min-height:130px"></textarea></div>
+  <div class="q"><label for="f13">הסיפור שתמיד מספרים עליו במשפחה <span class="req">*</span></label>
+    <textarea id="f13" name="הסיפור המשפחתי" required></textarea></div>
+  <div class="q"><label for="f14">מי האנשים שחייבים להופיע</label>
+    <span class="hint">שמות, ואיך לכתוב אותם בכתוביות.</span>
+    <textarea id="f14" name="אנשים שחייבים להופיע"></textarea></div>
+  <div class="q"><label for="f15">יש משהו שאסור להזכיר</label>
+    <span class="hint">חשוב לא פחות מהשאר. גירושין, מחלה, אדם שלא בקשר, נושא רגיש.</span>
+    <textarea id="f15" name="אסור להזכיר"></textarea></div>
+</fieldset>
+
+<fieldset>
+  <legend><span class="reel">R04</span><b>הטון</b></legend>
+  <div class="q"><span class="lbl">מה אתה רוצה שיקרה באולם כשהסרט נגמר <span class="req">*</span></span>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="הטון" value="בוכים" required><span>שהם יבכו</span></label>
+      <label class="opt"><input type="radio" name="הטון" value="צוחקים"><span>שהם יצחקו</span></label>
+      <label class="opt"><input type="radio" name="הטון" value="גם וגם"><span>גם וגם - צחוק שהופך לדמעה</span></label>
+      <label class="opt"><input type="radio" name="הטון" value="חגיגי"><span>שירגישו גאווה וחגיגיות</span></label>
+    </div></div>
+  <div class="q"><label for="f17">סרט או סגנון שאתה אוהב</label>
+    <span class="hint">לא חייב להיות קשור. עוזר לי להבין לאן אתה מכוון.</span>
+    <input id="f17" name="רפרנס" type="text"></div>
+  <div class="q"><label for="f18">מוזיקה</label>
+    <span class="hint">שיר ספציפי שמשמעותי לו, או סגנון. אבדוק מה אפשר מבחינת זכויות.</span>
+    <textarea id="f18" name="מוזיקה"></textarea></div>
+  <div class="q"><span class="lbl">הקראה</span>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="הקראה" value="קול מיוצר"><span>קול מיוצר, מקצועי</span></label>
+      <label class="opt"><input type="radio" name="הקראה" value="קול משפחתי"><span>מישהו מהמשפחה מקריא</span></label>
+      <label class="opt"><input type="radio" name="הקראה" value="בלי"><span>בלי הקראה, רק כתוביות ומוזיקה</span></label>
+      <label class="opt"><input type="radio" name="הקראה" value="שתחליט"><span>תחליט אתה</span></label>
+    </div></div>
+</fieldset>
+
+<fieldset>
+  <legend><span class="reel">R05</span><b>חומרים</b></legend>
+  <div class="q"><span class="lbl">מה יש לך <span class="req">*</span></span>
+    <div class="opts">
+      <label class="opt"><input type="checkbox" name="חומרים" value="תמונות דיגיטליות"><span>תמונות דיגיטליות</span></label>
+      <label class="opt"><input type="checkbox" name="חומרים" value="תמונות מודפסות"><span>תמונות מודפסות שצריך לסרוק</span></label>
+      <label class="opt"><input type="checkbox" name="חומרים" value="סרטוני וידאו"><span>סרטוני וידאו</span></label>
+      <label class="opt"><input type="checkbox" name="חומרים" value="הקלטות קול"><span>הקלטות קול</span></label>
+      <label class="opt"><input type="checkbox" name="חומרים" value="מסמכים"><span>מסמכים, מכתבים, יומנים</span></label>
+      <label class="opt"><input type="checkbox" name="חומרים" value="אין כלום"><span>אין לי כמעט כלום</span></label>
+    </div></div>
+  <div class="q"><label for="f22">לינק לתיקייה עם החומרים</label>
+    <span class="hint">Google Drive, Dropbox או iCloud. תיקייה אחת, לא וואטסאפ - שם קבצים נדחסים ואיכות נאבדת.</span>
+    <input id="f22" name="לינק לחומרים" type="url" inputmode="url" placeholder="https://"></div>
+  <div class="q"><label for="f23">אם יש תמונה אחת שחייבת להיות בסרט - איזו</label>
+    <textarea id="f23" name="התמונה החשובה"></textarea></div>
+</fieldset>
+
+<fieldset>
+  <legend><span class="reel">R06</span><b>לוגיסטיקה</b></legend>
+  <div class="q"><label for="f24">מתי בערב מוקרן הסרט</label>
+    <span class="hint">לפני המנה העיקרית, אחרי הנאומים, בקבלת פנים. משפיע על האורך ועל הקצב.</span>
+    <input id="f24" name="מתי מוקרן" type="text"></div>
+  <div class="q"><span class="lbl">מי מאשר החלטות</span>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="מאשר" value="אני לבד"><span>אני, לבד</span></label>
+      <label class="opt"><input type="radio" name="מאשר" value="אני ועוד אחד"><span>אני ועוד אדם אחד</span></label>
+      <label class="opt"><input type="radio" name="מאשר" value="קבוצה"><span>קבוצה - נצטרך לתאם</span></label>
+    </div></div>
+  <div class="q"><label for="f26">משהו נוסף שכדאי שאדע</label>
+    <textarea id="f26" name="הערות"></textarea></div>
+</fieldset>
+
+<button type="submit" id="btn">שלח את השאלון</button>
+<p class="note">התשובות נשלחות לניר בלבד ולא נעשה בהן שימוש אחר.</p>
+<p class="err" id="err" hidden></p>
+</form>
+
+<div class="done" id="done">
+  <h2>קיבלתי. תודה.</h2>
+  <p>אני עובר על התשובות ובונה מהן את השלד של התסריט.</p>
+  <p>אחזור אליך תוך שני ימי עבודה. אם עולה משהו בינתיים - וואטסאפ ל-052-6479739.</p>
+</div>
+
+<script>
+/* שנה את המזהה אם תרצה נקודת קליטה נפרדת לשאלון */
+const ENDPOINT='https://formspree.io/f/xkoypzvj';
+const form=document.getElementById('briefForm');
+const btn=document.getElementById('btn');
+const err=document.getElementById('err');
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  err.hidden=true;
+
+  const missing=[...form.querySelectorAll('[required]')].find(el=>{
+    if(el.type==='radio')return !form.querySelector('input[name="'+el.name+'"]:checked');
+    return !el.value.trim();
+  });
+  if(missing){
+    err.textContent='חסרות תשובות בשדות המסומנים בכוכבית.';
+    err.hidden=false;
+    missing.scrollIntoView({behavior:'smooth',block:'center'});
+    (missing.focus||function(){}).call(missing);
+    return;
+  }
+
+  btn.disabled=true;btn.textContent='שולח...';
+
+  const fd=new FormData(form);
+  fd.append('_subject','שאלון תוכן חדש · '+(fd.get('הגיבור')||''));
+
+  try{
+    const r=await fetch(ENDPOINT,{method:'POST',body:fd,headers:{Accept:'application/json'}});
+    if(!r.ok)throw new Error('bad status');
+    form.style.display='none';
+    document.getElementById('done').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(ex){
+    btn.disabled=false;btn.textContent='שלח את השאלון';
+    err.textContent='השליחה נכשלה. אפשר לנסות שוב, או לשלוח וואטסאפ ל-052-6479739 ואסדר את זה.';
+    err.hidden=false;
+  }
+});
+</script>
+</body>
+</html>
