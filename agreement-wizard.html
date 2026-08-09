@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>הסכם הפקה · חי בסרט</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=IBM+Plex+Sans+Hebrew:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080a; --panel:#101014; --panel2:#0c0c0f; --line:#26262f;
+  --gold:#e2a94c; --gold-dim:#8a6526; --rec:#ff2b1a;
+  --txt:#f2efe9; --mut:#8b8b96;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);line-height:1.68;
+  font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif}
+body{padding:clamp(14px,3vw,44px) clamp(12px,3vw,26px) 70px;max-width:780px;margin:0 auto}
+.slate{height:12px;border:1px solid var(--line);border-radius:3px 3px 0 0;opacity:.55;
+  background:repeating-linear-gradient(135deg,#000 0 22px,#f2efe9 22px 44px)}
+header{border:1px solid var(--line);border-top:0;background:var(--panel);
+  padding:clamp(18px,4vw,30px);border-radius:0 0 3px 3px;margin-bottom:28px}
+h1{font-family:'Suez One',serif;font-weight:400;margin:0 0 8px;
+  font-size:clamp(1.45rem,5.2vw,2.15rem);letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--gold)}
+header p{margin:0;color:var(--mut);font-size:.94rem}
+.reel{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;color:var(--gold-dim)}
+
+fieldset{border:0;padding:0;margin:0 0 30px}
+legend{display:flex;gap:10px;align-items:baseline;width:100%;padding:0 0 12px;
+  border-bottom:1px solid var(--line);margin-bottom:16px}
+legend b{font-family:'Suez One',serif;font-weight:400;font-size:1.08rem}
+.q{margin-bottom:16px}
+.q>label,.q>span.lbl{display:block;font-weight:600;font-size:.95rem;margin-bottom:3px}
+.q .hint{display:block;color:var(--mut);font-size:.83rem;margin-bottom:7px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+input,select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);
+  color:var(--txt);border-radius:2px;padding:11px 12px;font:inherit;font-size:.95rem}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:transparent}
+::placeholder{color:#54545e}
+
+button{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:2px;
+  padding:15px 20px;background:var(--gold);color:#000;font-size:1rem;width:100%;
+  transition:background .2s ease}
+button:hover{background:#efbb63}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+button.ghost{background:var(--panel);color:var(--txt);border:1px solid var(--line)}
+button.ghost:hover{border-color:var(--gold-dim);color:var(--gold);background:var(--panel)}
+button[disabled]{opacity:.5;cursor:default}
+.btns{display:grid;gap:9px}
+
+/* ---- generated link output ---- */
+.out{display:none;border:1px solid var(--gold-dim);background:var(--panel);
+  padding:clamp(16px,3.5vw,26px);border-radius:3px;margin-top:22px}
+.out h2{font-family:'Suez One',serif;font-weight:400;font-size:1.2rem;margin:0 0 12px;color:var(--gold)}
+.linkbox{background:#000;border:1px solid var(--line);border-radius:2px;padding:11px;
+  font-family:'IBM Plex Mono',monospace;font-size:.76rem;direction:ltr;text-align:left;
+  word-break:break-all;color:var(--mut);max-height:120px;overflow:auto;margin-bottom:12px}
+
+/* ---- agreement view ---- */
+.doc h2{font-family:'Suez One',serif;font-weight:400;font-size:1.14rem;
+  margin:30px 0 10px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.doc h2 .n{color:var(--gold-dim);font-family:'IBM Plex Mono',monospace;font-size:.8rem;
+  margin-inline-end:8px}
+.doc p{margin:0 0 12px;font-size:.97rem}
+.doc ul{margin:0 0 14px;padding-inline-start:20px}
+.doc li{margin-bottom:6px;font-size:.96rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  margin-bottom:26px}
+.fact{background:var(--panel);padding:13px 15px}
+.fact span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  letter-spacing:.13em;color:var(--gold-dim);margin-bottom:3px}
+.fact b{font-weight:600;font-size:1rem}
+.fact b.big{color:var(--gold);font-size:1.15rem}
+table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.95rem}
+td,th{border:1px solid var(--line);padding:10px 12px;text-align:right}
+th{background:var(--panel);font-weight:600;font-size:.86rem;color:var(--mut)}
+
+.consent{border:1px solid var(--gold-dim);background:var(--panel);border-radius:3px;
+  padding:clamp(16px,3.5vw,24px);margin-top:30px}
+.consent h2{margin-top:0;border:0;padding:0}
+.chk{display:flex;gap:12px;align-items:flex-start;background:var(--panel2);
+  border:1px solid var(--line);border-radius:2px;padding:13px;margin-bottom:10px;cursor:pointer}
+.chk:has(input:checked){border-color:var(--gold-dim)}
+.chk input{appearance:none;flex:0 0 18px;width:18px;height:18px;margin:2px 0 0;
+  border:1.5px solid #3a3a46;border-radius:2px;background:var(--bg);cursor:pointer;position:relative}
+.chk input:checked{background:var(--gold);border-color:var(--gold)}
+.chk input:checked::after{content:'';position:absolute;inset:0;
+  background:no-repeat center/12px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.6' stroke-linecap='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E")}
+.chk input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.chk span{flex:1;font-size:.94rem}
+.err{color:var(--rec);font-size:.89rem;margin:10px 0 0}
+.stamp{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--gold-dim);
+  letter-spacing:.08em;margin-top:14px;direction:ltr;text-align:left}
+.done{display:none;border:1px solid var(--gold-dim);background:var(--panel);
+  padding:clamp(24px,5vw,40px);border-radius:3px;text-align:center;margin-top:26px}
+.done h2{font-family:'Suez One',serif;font-weight:400;color:var(--gold);margin:0 0 12px;
+  font-size:1.45rem;border:0;padding:0}
+.done p{color:var(--mut);margin:0 0 14px}
+.legal{color:#6a6a74;font-size:.8rem;border-top:1px solid var(--line);
+  margin-top:34px;padding-top:16px}
+@media print{
+  body{background:#fff;color:#000;max-width:none}
+  .slate,.consent .btns,.note,button{display:none}
+  header,.fact,.consent,table th{background:#fff}
+  .fact,.facts,td,th,.consent,header{border-color:#bbb}
+  .fact b.big,h1 em,.done h2,.doc h2 .n{color:#000}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="slate"></div>
+<header>
+  <span class="reel" id="mode">SETUP</span>
+  <h1 id="ttl">הסכם <em>הפקה</em></h1>
+  <p id="lede">מלא את הפרטים, קבל לינק אישי, שלח ללקוח.</p>
+</header>
+
+<!-- ============ MODE 1: WIZARD ============ -->
+<div id="wizard">
+<form id="wz">
+  <fieldset>
+    <legend><span class="reel">01</span><b>הלקוח</b></legend>
+    <div class="row">
+      <div class="q"><label for="n">שם מלא</label><input id="n" required></div>
+      <div class="q"><label for="ph">טלפון</label><input id="ph" type="tel" inputmode="tel"></div>
+    </div>
+    <div class="row">
+      <div class="q"><label for="em">מייל</label><input id="em" type="email" inputmode="email"></div>
+      <div class="q"><label for="ev">האירוע</label>
+        <select id="ev"><option>חתונה</option><option>בר מצווה</option><option>בת מצווה</option>
+        <option>יום הולדת</option><option>יום נישואין</option><option>מתנה אישית</option>
+        <option>לקוח עסקי</option></select></div>
+    </div>
+    <div class="row">
+      <div class="q"><label for="ed">תאריך האירוע</label><input id="ed" type="date"></div>
+      <div class="q"><label for="md">תאריך יעד לחומרים</label><input id="md" type="date"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><span class="reel">02</span><b>הפורמט</b></legend>
+    <div class="q"><label for="pk">חבילה</label>
+      <span class="hint">בחירה ממלאת אורך, מחיר וסבבי הערות. אפשר לשנות אחר כך.</span>
+      <select id="pk">
+        <option value="short">Short · עד 90 שניות · 1,490</option>
+        <option value="feature" selected>Feature · עד 4 דקות · 3,900</option>
+        <option value="dc">Director's Cut · מעל 5 דקות · 8,000</option>
+        <option value="trailer">Trailer · עד 30 שניות · 690</option>
+        <option value="biz">לעסקים וחברות · לפי היקף</option>
+      </select></div>
+    <div class="row">
+      <div class="q"><label for="ln">אורך הסרט</label><input id="ln" placeholder="עד 4 דקות"></div>
+      <div class="q"><label for="pr">מחיר כולל בש"ח</label><input id="pr" inputmode="numeric"></div>
+    </div>
+    <div class="row">
+      <div class="q"><label for="rev">סבבי הערות כלולים</label><input id="rev" type="number" min="0" value="2"></div>
+      <div class="q"><label for="hr">תעריף לסבב נוסף בש"ח</label><input id="hr" inputmode="numeric" value="150"></div>
+    </div>
+    <div class="row">
+      <div class="q"><label for="dy">ימי עבודה להפקה</label><input id="dy" type="number" min="1" value="14"></div>
+      <div class="q"><label for="vat">מע"מ</label>
+        <select id="vat"><option value="כולל">המחיר כולל מע"מ</option>
+        <option value="לא כולל">המחיר אינו כולל מע"מ</option></select></div>
+    </div>
+    <div class="q"><label for="ad">תוספות שסוכמו</label>
+      <span class="hint">ריק אם אין. לדוגמה: טיזר אנכי לרשתות, שדרוג 4K.</span>
+      <textarea id="ad" placeholder="טיזר אנכי לרשתות · 420 ש&quot;ח"></textarea></div>
+  </fieldset>
+
+  <div class="btns">
+    <button type="submit">צור לינק ללקוח</button>
+    <button type="button" class="ghost" id="clr">נקה הכל</button>
+  </div>
+</form>
+
+<div class="out" id="out">
+  <h2>הלינק מוכן</h2>
+  <div class="linkbox" id="lb"></div>
+  <div class="btns">
+    <button type="button" id="cp">העתק לינק</button>
+    <button type="button" class="ghost" id="wa">שלח בוואטסאפ</button>
+    <button type="button" class="ghost" id="pv">פתח תצוגה מקדימה</button>
+  </div>
+</div>
+</div>
+
+<!-- ============ MODE 2: AGREEMENT ============ -->
+<div id="agree" style="display:none">
+  <div class="facts" id="facts"></div>
+  <div class="doc" id="doc"></div>
+
+  <div class="consent">
+    <h2>אישור</h2>
+    <label class="chk"><input type="checkbox" id="k1">
+      <span>קראתי את ההסכם במלואו ואני מסכים לכל תנאיו, כולל התשלום, לוח הזמנים, סבבי ההערות ותנאי הביטול.</span></label>
+    <label class="chk"><input type="checkbox" id="k2">
+      <span>אני מאשר שיש לי זכות להשתמש בחומרים שאעביר, ושהפרטים שמסרתי נכונים.</span></label>
+    <label class="chk"><input type="checkbox" id="k3">
+      <span>אני מסכים שהסרט או קטעים ממנו יוצגו בתיק העבודות ובפרסום של חי בסרט. <b style="color:var(--mut);font-weight:400">(לא חובה. אפשר להשאיר לא מסומן.)</b></span></label>
+
+    <div class="q" style="margin-top:16px"><label for="sig">שם מלא לאישור</label>
+      <input id="sig" placeholder="הקלד את שמך המלא"></div>
+    <div class="q"><label for="sem">מייל לקבלת עותק</label>
+      <input id="sem" type="email" inputmode="email"></div>
+
+    <div class="btns"><button type="button" id="sub">מאשר את ההסכם</button></div>
+    <p class="err" id="er" hidden></p>
+    <p class="stamp" id="st"></p>
+  </div>
+
+  <div class="done" id="dn">
+    <h2>ההסכם אושר.</h2>
+    <p>ניר קיבל התראה ויחזור אליך. השלב הבא הוא שאלון התוכן.</p>
+    <div class="btns"><button type="button" id="pdf">שמור עותק PDF</button></div>
+  </div>
+
+  <p class="legal">מסמך זה נוצר על ידי חי בסרט · ניר בראינין · nirbrainin@gmail.com · 052-6479739.
+  האישור נרשם עם חותמת זמן וכתובת הדף.</p>
+</div>
+
+<script>
+const FORMSPREE='https://formspree.io/f/xkoypzvj';
+const WA_NUM='972526479739';
+const PKG={
+  short:{ln:'עד 90 שניות',pr:'1490',rev:2,dy:10},
+  feature:{ln:'עד 4 דקות',pr:'3900',rev:2,dy:14},
+  dc:{ln:'מעל 5 דקות',pr:'8000',rev:3,dy:21},
+  trailer:{ln:'עד 30 שניות',pr:'690',rev:1,dy:7},
+  biz:{ln:'לפי היקף',pr:'',rev:2,dy:14}
+};
+const FIELDS=['n','ph','em','ev','ed','md','pk','ln','pr','rev','hr','dy','vat','ad'];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nis=v=>{const n=String(v||'').replace(/[^\d.]/g,'');
+  return n?Number(n).toLocaleString('he-IL'):'';};
+
+/* ---------- decide mode ---------- */
+const P=new URLSearchParams(location.search);
+if(P.get('n')){ renderAgreement(); } else { initWizard(); }
+
+/* ---------- wizard ---------- */
+function initWizard(){
+  const apply=()=>{const p=PKG[$('pk').value];
+    $('ln').value=p.ln;$('pr').value=p.pr;$('rev').value=p.rev;$('dy').value=p.dy;};
+  apply();
+  $('pk').addEventListener('change',apply);
+
+  $('wz').addEventListener('submit',e=>{
+    e.preventDefault();
+    const q=new URLSearchParams();
+    FIELDS.forEach(f=>{const v=$(f).value.trim();if(v)q.set(f,v);});
+    const url=location.origin+location.pathname+'?'+q.toString();
+    $('lb').textContent=url;
+    $('out').style.display='block';
+    $('out').scrollIntoView({behavior:'smooth',block:'start'});
+
+    $('cp').onclick=async()=>{
+      try{await navigator.clipboard.writeText(url);$('cp').textContent='הועתק';}
+      catch(x){$('cp').textContent='ההעתקה נכשלה';}
+      setTimeout(()=>$('cp').textContent='העתק לינק',1600);
+    };
+    $('wa').onclick=()=>{
+      const msg='היי '+$('n').value+', מצרף את ההסכם ל'+$('ev').value+
+        '. קריאה של שתי דקות, ובסוף שני סימונים ואישור.\n\n'+url;
+      const t=$('ph').value.replace(/\D/g,'').replace(/^0/,'972');
+      window.open('https://wa.me/'+(t.length>9?t:WA_NUM)+'?text='+encodeURIComponent(msg),'_blank');
+    };
+    $('pv').onclick=()=>window.open(url,'_blank');
+  });
+
+  $('clr').addEventListener('click',()=>{
+    $('wz').reset();apply();$('out').style.display='none';
+  });
+}
+
+/* ---------- agreement ---------- */
+function renderAgreement(){
+  $('wizard').style.display='none';
+  $('agree').style.display='block';
+  $('mode').textContent='AGREEMENT';
+  $('ttl').innerHTML='הסכם <em>הפקה</em>';
+  $('lede').textContent='ההסכם בינך לבין ניר בראינין · חי בסרט. שפה פשוטה, בלי אותיות קטנות.';
+
+  const g=k=>P.get(k)||'';
+  const rev=g('rev')||'2', dy=g('dy')||'14', hr=g('hr')||'150';
+  const vat=g('vat')||'כולל';
+  document.title='הסכם הפקה · '+g('n');
+
+  $('facts').innerHTML=
+    fact('לקוח',esc(g('n')))+
+    fact('אירוע',esc(g('ev'))+(g('ed')?' · '+heb(g('ed')):''))+
+    fact('אורך הסרט',esc(g('ln')))+
+    fact('מחיר כולל',(g('pr')?nis(g('pr'))+' ש"ח':'לפי היקף'),true);
+
+  $('doc').innerHTML=
+  s(1,'מה אני עושה',
+    '<p>אני מפיק עבורך סרט קצר באורך <b>'+esc(g('ln'))+'</b> לקראת ה'+esc(g('ev'))+
+    (g('ed')?' שמתקיים ב-'+heb(g('ed')):'')+'. הסרט כולל עריכה, סצנות מיוצרות בכלים דיגיטליים, פס קול ומוזיקה, וכתוביות לפי הצורך.</p>'+
+    '<p>מה שאתה מקבל:</p><ul><li>גרסת מאסטר להקרנה באולם</li>'+
+    '<li>גרסה לרשתות חברתיות</li>'+
+    '<li>לינק הורדה שנשמר לפחות 12 חודשים</li></ul>'+
+    (g('ad')?'<p><b>תוספות שסוכמו:</b> '+esc(g('ad'))+'</p>':''))+
+
+  s(2,'מה אני צריך ממך',
+    '<ul><li><b>חומרים</b> - תמונות, סרטונים והקלטות. איכות הסרט תלויה באיכות החומרים.</li>'+
+    '<li><b>שאלון תוכן מלא</b>, שממנו נבנה התסריט.</li>'+
+    '<li><b>תאריך יעד לחומרים: '+(g('md')?heb(g('md')):'ייקבע בהמשך')+'.</b> עיכוב באיסוף החומרים דוחה את המסירה באותו מספר ימים.</li>'+
+    '<li><b>איש קשר אחד</b> שמאשר החלטות. כשכמה אנשים נותנים הערות סותרות, הסרט נפגע.</li></ul>')+
+
+  s(3,'תשלום',
+    '<table><tr><th>מתי</th><th>כמה</th></tr>'+
+    '<tr><td>באישור ההסכם</td><td>50%'+(g('pr')?' · '+nis(Number(g('pr'))/2)+' ש"ח':'')+'</td></tr>'+
+    '<tr><td>לפני מסירת הקבצים</td><td>50%'+(g('pr')?' · '+nis(Number(g('pr'))/2)+' ש"ח':'')+'</td></tr></table>'+
+    '<p>סה"כ <b>'+(g('pr')?nis(g('pr'))+' ש"ח':'לפי היקף שיסוכם')+'</b>. המחיר '+esc(vat)+' מע"מ. חשבונית מונפקת על כל תשלום.</p>')+
+
+  s(4,'סבבי הערות',
+    '<p>המחיר כולל <b>'+esc(rev)+' סבבי הערות</b>. סבב הוא רשימה אחת מרוכזת, לא הודעות שמגיעות בטפטוף.</p>'+
+    '<p>סבב נוסף מעבר לכך, או בקשה לשינוי כיוון מהיסוד אחרי שהתסריט אושר, מחויב החל מ-<b>'+nis(hr)+' ש"ח</b> לפי היקף. אודיע לך לפני שאני מתחיל ואשאל אם להמשיך. לא יהיו חיובים שתגלה בדיעבד.</p>')+
+
+  s(5,'לוח זמנים',
+    '<p>זמן ההפקה הוא <b>'+esc(dy)+' ימי עבודה</b> מרגע שקיבלתי את כל החומרים ואת השאלון המלא.</p>'+
+    '<p>אני מתחייב למסור את הסרט לפחות <b>48 שעות</b> לפני האירוע, כדי שיהיה זמן לבדוק אותו מול ציוד ההקרנה.</p>')+
+
+  s(6,'ביטול',
+    '<ul><li><b>ביטול מצדך תוך 14 יום ולפני שהתחלתי בעריכה:</b> החזר מלא של המקדמה.</li>'+
+    '<li><b>ביטול אחרי שהתחלתי בעריכה:</b> המקדמה נשארת כתשלום על העבודה שבוצעה. לא אדרוש את היתרה.</li>'+
+    '<li><b>דחיית האירוע:</b> הסרט עובר לתאריך החדש בלי תוספת תשלום, בכפוף לזמינות.</li>'+
+    '<li><b>ביטול מצדי:</b> אחזיר את כל מה ששולם במלואו ואעזור למצוא מחליף.</li></ul>')+
+
+  s(7,'הזכויות בסרט',
+    '<p><b>הסרט שלך.</b> אתה יכול להקרין, לשתף ולהעלות אותו לכל מקום, בלי הגבלה ובלי לבקש רשות.</p>'+
+    '<p>השימוש שלי בסרט לתיק עבודות ולפרסום תלוי בסימון הנפרד למטה. אם לא תסמן אותו, הסרט יישאר פרטי.</p>')+
+
+  s(8,'החומרים שלך',
+    '<p>אני שומר את החומרים 12 חודשים מהמסירה ואז מוחק. אם תרצה שאשמור לאורך זמן, תגיד לי.</p>')+
+
+  s(9,'כלים דיגיטליים',
+    '<p>חלק מהסצנות מיוצרות בכלי בינה מלאכותית. הבימוי, העריכה, בחירת הרגעים והקצב הם שלי. אני מגלה את זה מראש כדי שלא תהיינה הפתעות.</p>')+
+
+  s(10,'גבול האחריות',
+    '<p>אחריותי הכספית מוגבלת לסכום ששילמת בפועל.</p>'+
+    '<p>אינני אחראי לתקלות בציוד ההקרנה באולם. <b>מומלץ לבדוק את הסרט על המקרן של המקום לפני האירוע</b>, ואני זמין לעזור בבדיקה.</p>');
+
+  if(g('em'))$('sem').value=g('em');
+  if(g('n'))$('sig').placeholder=g('n');
+
+  const tick=()=>{$('st').textContent='DRAFT · '+new Date().toLocaleString('he-IL');};
+  tick();
+
+  $('sub').addEventListener('click',submit);
+  $('pdf').addEventListener('click',()=>window.print());
+}
+
+function fact(l,v,big){return '<div class="fact"><span>'+l+'</span><b'+(big?' class="big"':'')+'>'+v+'</b></div>';}
+function s(n,t,b){return '<h2><span class="n">'+String(n).padStart(2,'0')+'</span>'+t+'</h2>'+b;}
+function heb(d){const p=d.split('-');return p.length===3?p[2]+'.'+p[1]+'.'+p[0]:d;}
+
+async function submit(){
+  const er=$('er');er.hidden=true;
+  if(!$('k1').checked||!$('k2').checked){
+    er.textContent='כדי לאשר צריך לסמן את שני הסימונים הראשונים.';er.hidden=false;return;}
+  if($('sig').value.trim().length<2){
+    er.textContent='חסר שם מלא לאישור.';er.hidden=false;$('sig').focus();return;}
+  if(!/^\S+@\S+\.\S+$/.test($('sem').value.trim())){
+    er.textContent='חסרה כתובת מייל תקינה לקבלת העותק.';er.hidden=false;$('sem').focus();return;}
+
+  $('sub').disabled=true;$('sub').textContent='שולח...';
+  const now=new Date().toLocaleString('he-IL');
+  const fd=new FormData();
+  fd.append('_subject','הסכם אושר · '+(P.get('n')||''));
+  fd.append('_replyto',$('sem').value.trim());
+  fd.append('לקוח',P.get('n')||'');
+  fd.append('אירוע',(P.get('ev')||'')+' · '+(P.get('ed')||''));
+  fd.append('אורך',P.get('ln')||'');
+  fd.append('מחיר',(P.get('pr')||'')+' ש"ח · '+(P.get('vat')||''));
+  fd.append('סבבי הערות',P.get('rev')||'');
+  fd.append('ימי עבודה',P.get('dy')||'');
+  fd.append('תוספות',P.get('ad')||'');
+  fd.append('אישר תנאים','כן');
+  fd.append('אישר זכויות בחומרים','כן');
+  fd.append('אישר שימוש בתיק עבודות',$('k3').checked?'כן':'לא');
+  fd.append('שם המאשר',$('sig').value.trim());
+  fd.append('מייל המאשר',$('sem').value.trim());
+  fd.append('חותמת זמן',now);
+  fd.append('קישור ההסכם',location.href);
+
+  try{
+    const r=await fetch(FORMSPREE,{method:'POST',body:fd,headers:{Accept:'application/json'}});
+    if(!r.ok)throw new Error();
+    $('st').textContent='APPROVED · '+now;
+    document.querySelector('.consent .btns').style.display='none';
+    $('dn').style.display='block';
+    $('dn').scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(x){
+    $('sub').disabled=false;$('sub').textContent='מאשר את ההסכם';
+    er.textContent='השליחה נכשלה. אפשר לנסות שוב, או לשלוח וואטסאפ ל-052-6479739.';
+    er.hidden=false;
+  }
+}
+</script>
+</body>
+</html>
