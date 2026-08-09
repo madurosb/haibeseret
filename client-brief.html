@@ -29,6 +29,49 @@ h1 em{font-style:normal;color:var(--gold)}
 header p{margin:0;color:var(--mut);font-size:.95rem}
 header p+p{margin-top:9px}
 
+/* --- part banners --- */
+.part{display:flex;align-items:baseline;gap:12px;margin:0 0 8px}
+.part__n{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.18em;
+  color:var(--gold);border:1px solid var(--gold-dim);border-radius:2px;padding:4px 8px;
+  background:rgba(226,169,76,.08);white-space:nowrap}
+.part__t{font-family:'Suez One',serif;font-size:clamp(1.05rem,3.4vw,1.35rem);margin:0}
+.part__d{color:var(--mut);font-size:.9rem;margin:0 0 24px;line-height:1.6}
+.part__d b{color:var(--txt);font-weight:600}
+hr.pdiv{border:0;border-top:1px solid var(--line);margin:40px 0 26px}
+
+/* --- optional notice --- */
+.relax{border:1px solid var(--gold-dim);background:rgba(226,169,76,.06);border-radius:3px;
+  padding:16px 18px;margin:0 0 28px}
+.relax p{margin:0;font-size:.93rem;line-height:1.65;color:#d8d4cc}
+.relax p b{color:var(--gold)}
+.relax p+p{margin-top:8px}
+
+/* --- voice escape hatch --- */
+.voice{border:1px solid var(--line);background:var(--panel);border-radius:3px;
+  padding:18px;margin:0 0 30px}
+.voice h4{font-family:'Suez One',serif;font-weight:400;margin:0 0 6px;font-size:1.02rem}
+.voice p{margin:0 0 14px;color:var(--mut);font-size:.9rem;line-height:1.6}
+.voice a{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.1em;
+  color:var(--gold);border:1px solid var(--gold-dim);border-radius:2px;padding:11px 16px;
+  transition:background .18s}
+.voice a:hover{background:rgba(226,169,76,.1)}
+
+/* --- autosave chip --- */
+.saved{position:fixed;bottom:14px;left:14px;z-index:20;font-family:'IBM Plex Mono',monospace;
+  font-size:.63rem;letter-spacing:.13em;color:var(--gold);background:rgba(8,8,10,.92);
+  border:1px solid var(--gold-dim);border-radius:2px;padding:7px 11px;
+  opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+.saved.on{opacity:1;transform:none}
+.restore{border:1px solid var(--gold-dim);background:rgba(226,169,76,.07);border-radius:3px;
+  padding:13px 16px;margin:0 0 24px;font-size:.9rem;color:#d8d4cc;
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.restore button{background:none;border:1px solid var(--line);color:var(--mut);
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;
+  padding:7px 11px;border-radius:2px;cursor:pointer}
+.restore button:hover{color:var(--txt);border-color:var(--gold-dim)}
+@media print{.saved,.restore,.voice,.relax{display:none!important}}
+
 fieldset{border:0;padding:0;margin:0 0 34px}
 legend{display:flex;align-items:baseline;gap:10px;width:100%;padding:0 0 14px;
   border-bottom:1px solid var(--line);margin-bottom:18px}
@@ -114,10 +157,19 @@ button.ghost:hover{background:var(--panel);border-color:var(--gold-dim);color:va
 <header>
   <h1>שאלון <em>תוכן</em></h1>
   <p>זה המסמך שממנו נבנה התסריט של הסרט. אין תשובות נכונות ולא צריך לכתוב יפה - פרט אחד אמיתי שווה יותר מפסקה מנוסחת.</p>
-  <p>לוקח בערך 15 דקות. אם משהו לא ברור, דלג ונדבר עליו בטלפון.</p>
+  <p><b style="color:var(--txt)">חלק א' לוקח שלוש דקות והוא כל מה שצריך כדי להתחיל.</b> חלק ב' הוא רשות. ענו על מה שקל לכם, ואת השאר נשלים יחד בשיחה.</p>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;margin-top:14px">התשובות נשמרות אצלכם בדפדפן תוך כדי כתיבה. אפשר לסגור ולחזור.</p>
 </header>
 
 <form id="briefForm" novalidate>
+
+<div class="restore" id="restoreBar" hidden>
+  <span>מצאתי טיוטה שמורה מהפעם הקודמת ומילאתי אותה בשבילכם.</span>
+  <button type="button" id="clearDraft">התחל מחדש</button>
+</div>
+
+<div class="part"><span class="part__n">PART A</span><h2 class="part__t">מה שחייב</h2></div>
+<p class="part__d">חמש שאלות, שלוש דקות. <b>זה כל מה שאני צריך כדי להתחיל לעבוד.</b></p>
 
 <fieldset>
   <legend><span class="reel">R01</span><b>מי אתם</b></legend>
@@ -137,21 +189,37 @@ button.ghost:hover{background:var(--panel);border-color:var(--gold-dim);color:va
     </select></div>
   <div class="q" id="dateQ"><label for="f5">תאריך האירוע <span class="req">*</span></label>
     <input id="f5" name="תאריך האירוע" class="dmy" inputmode="numeric" placeholder="יום/חודש/שנה" maxlength="10" required></div>
+  <div class="q"><label for="f7">למי הסרט מיועד <span class="req">*</span></label>
+    <span class="hint">שם מלא, וגם איך מבטאים אותו אם זה לא מובן מאליו. שם שמבוטא לא נכון בהקראה הורס רגע.</span>
+    <input id="f7" name="הגיבור" type="text" required></div>
   <div class="q" id="placeQ"><label for="f6">איפה זה מתקיים</label>
     <span class="hint">שם האולם או המקום. אני צריך לדעת מול איזה ציוד הקרנה אנחנו עובדים.</span>
     <input id="f6" name="מקום האירוע" type="text"></div>
 </fieldset>
 
+<hr class="pdiv">
+
+<div class="part"><span class="part__n">PART B</span><h2 class="part__t">מה שיהפוך אותו לסרט</h2></div>
+<p class="part__d">מכאן והלאה <b>שום שדה אינו חובה.</b> כל פרט שתכתבו חוסך לנו זמן בשיחה, אבל אף אחד לא נשאר ריק - את מה שתדלגו עליו נעבור יחד בשיחת התכנון.</p>
+
+<div class="relax">
+  <p><b>אל תתאמצו לנסח.</b> נקודות, מילים בודדות ושברי משפטים עובדים בדיוק כמו פסקאות. אני זה שהופך את זה לתסריט.</p>
+  <p>אם נתקעתם בשאלה - דלגו עליה. זה לא מבחן.</p>
+</div>
+
+<div class="voice">
+  <h4>קל לכם יותר לספר מאשר לכתוב?</h4>
+  <p>שלחו לי הודעה קולית בוואטסאפ במקום למלא. חמש דקות של דיבור חופשי שוות יותר מעמוד כתוב, ואני שומע גם את מה שלא נכתב - את הצחוק, את ההתרגשות ואת הדרך שבה אתם מספרים. מלאו את חלק א' כאן, ואת השאר ספרו לי בקול.</p>
+  <a href="https://wa.me/972526479739?text=%D7%94%D7%99%D7%99%20%D7%A0%D7%99%D7%A8%2C%20%D7%9E%D7%99%D7%9C%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%97%D7%9C%D7%A7%20%D7%90%27%20%D7%91%D7%A9%D7%90%D7%9C%D7%95%D7%9F%20%D7%95%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%93%D7%99%D7%A3%20%D7%9C%D7%A1%D7%A4%D7%A8%20%D7%90%D7%AA%20%D7%94%D7%A9%D7%90%D7%A8%20%D7%91%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%A7%D7%95%D7%9C%D7%99%D7%AA" target="_blank" rel="noopener">שלח הודעה קולית בוואטסאפ</a>
+</div>
+
 <fieldset>
   <legend><span class="reel">R02</span><b>הגיבור של הסרט</b></legend>
-  <div class="q"><label for="f7">למי הסרט מיועד <span class="req">*</span></label>
-    <span class="hint">שם מלא, וגם איך מבטאים אותו אם זה לא מובן מאליו. שם שמבוטא לא נכון בהקראה הורס רגע.</span>
-    <input id="f7" name="הגיבור" type="text" required></div>
   <div class="q"><label for="f8">מה הקשר שלך אליו</label>
     <input id="f8" name="קשר לגיבור" type="text" placeholder="אמא / חבר מהצבא / בן"></div>
-  <div class="q"><label for="f9">שלושה דברים שכולם יודעים עליו <span class="req">*</span></label>
+  <div class="q"><label for="f9">שלושה דברים שכולם יודעים עליו</label>
     <span class="hint">הדברים שמישהו היה אומר עליו במשפט אחד. גם אם זה מצחיק או קטנטן.</span>
-    <textarea id="f9" name="שלושה דברים" required></textarea></div>
+    <textarea id="f9" name="שלושה דברים"></textarea></div>
   <div class="q"><label for="f10">בדיחה פנימית או משפט שהוא תמיד אומר</label>
     <span class="hint">זה בדרך כלל הרגע שהאולם צוחק. שווה לחשוב עליו רגע.</span>
     <textarea id="f10" name="בדיחה פנימית"></textarea></div>
@@ -162,11 +230,11 @@ button.ghost:hover{background:var(--panel);border-color:var(--gold-dim);color:va
 <fieldset>
   <legend><span class="reel">R03</span><b>הסיפור</b></legend>
   <p class="tip">כתוב כמו שאתה מספר לחבר. אני עורך אחר כך.</p>
-  <div class="q"><label for="f12">שלוש עד חמש תחנות בחיים שלו שחייבות להיות בסרט <span class="req">*</span></label>
+  <div class="q"><label for="f12">שלוש עד חמש תחנות בחיים שלו שחייבות להיות בסרט</label>
     <span class="hint">איפה נולד, רגע מפנה, איך נפגשתם, מה השתנה. לא צריך כרונולוגיה מלאה.</span>
-    <textarea id="f12" name="תחנות בחיים" required style="min-height:130px"></textarea></div>
-  <div class="q"><label for="f13">הסיפור שתמיד מספרים עליו במשפחה <span class="req">*</span></label>
-    <textarea id="f13" name="הסיפור המשפחתי" required></textarea></div>
+    <textarea id="f12" name="תחנות בחיים" style="min-height:130px"></textarea></div>
+  <div class="q"><label for="f13">הסיפור שתמיד מספרים עליו במשפחה</label>
+    <textarea id="f13" name="הסיפור המשפחתי"></textarea></div>
   <div class="q"><label for="f14">מי האנשים שחייבים להופיע</label>
     <span class="hint">שמות, ואיך לכתוב אותם בכתוביות.</span>
     <textarea id="f14" name="אנשים שחייבים להופיע"></textarea></div>
@@ -177,9 +245,9 @@ button.ghost:hover{background:var(--panel);border-color:var(--gold-dim);color:va
 
 <fieldset>
   <legend><span class="reel">R04</span><b>הטון</b></legend>
-  <div class="q"><span class="lbl">מה אתה רוצה שיקרה באולם כשהסרט נגמר <span class="req">*</span></span>
+  <div class="q"><span class="lbl">מה אתה רוצה שיקרה באולם כשהסרט נגמר</span>
     <div class="opts">
-      <label class="opt"><input type="radio" name="הטון" value="בוכים" required><span>שהם יבכו</span></label>
+      <label class="opt"><input type="radio" name="הטון" value="בוכים"><span>שהם יבכו</span></label>
       <label class="opt"><input type="radio" name="הטון" value="צוחקים"><span>שהם יצחקו</span></label>
       <label class="opt"><input type="radio" name="הטון" value="גם וגם"><span>גם וגם - צחוק שהופך לדמעה</span></label>
       <label class="opt"><input type="radio" name="הטון" value="חגיגי"><span>שירגישו גאווה וחגיגיות</span></label>
@@ -201,7 +269,7 @@ button.ghost:hover{background:var(--panel);border-color:var(--gold-dim);color:va
 
 <fieldset>
   <legend><span class="reel">R05</span><b>חומרים</b></legend>
-  <div class="q"><span class="lbl">מה יש לך <span class="req">*</span></span>
+  <div class="q"><span class="lbl">מה יש לך</span>
     <div class="opts">
       <label class="opt"><input type="checkbox" name="חומרים" value="תמונות דיגיטליות"><span>תמונות דיגיטליות</span></label>
       <label class="opt"><input type="checkbox" name="חומרים" value="תמונות מודפסות"><span>תמונות מודפסות שצריך לסרוק</span></label>
@@ -249,6 +317,7 @@ button.ghost:hover{background:var(--panel);border-color:var(--gold-dim);color:va
 </div>
 
 <div id="summary" hidden></div>
+<div class="saved" id="savedChip">נשמר</div>
 
 <script>
 /* שנה את המזהה אם תרצה נקודת קליטה נפרדת לשאלון */
@@ -275,6 +344,65 @@ function syncEvent(){
   if(none){dateIn.value='';document.getElementById('f6').value='';}
 }
 evSel.addEventListener('change',syncEvent);syncEvent();
+/* ---------- autosave draft ---------- */
+(function(){
+  var KEY='haiBeseretBriefDraft', chip=document.getElementById('savedChip'),
+      bar=document.getElementById('restoreBar'), t=null;
+
+  function collect(){
+    var d={};
+    form.querySelectorAll('input,textarea,select').forEach(function(el){
+      if(!el.name) return;
+      if(el.type==='checkbox'){ (d[el.name]=d[el.name]||[]); if(el.checked) d[el.name].push(el.value); }
+      else if(el.type==='radio'){ if(el.checked) d[el.name]=el.value; }
+      else if(el.value) d[el.name]=el.value;
+    });
+    return d;
+  }
+  function apply(d){
+    var any=false;
+    form.querySelectorAll('input,textarea,select').forEach(function(el){
+      if(!el.name || !(el.name in d)) return;
+      var v=d[el.name];
+      if(el.type==='checkbox'){ if(Array.isArray(v)&&v.indexOf(el.value)>-1){el.checked=true;any=true;} }
+      else if(el.type==='radio'){ if(el.value===v){el.checked=true;any=true;} }
+      else if(v){ el.value=v; any=true; }
+    });
+    return any;
+  }
+  function flash(){ if(!chip)return; chip.classList.add('on');
+    clearTimeout(chip._t); chip._t=setTimeout(function(){chip.classList.remove('on');},1400); }
+
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify({t:Date.now(), d:collect()})); flash(); }catch(e){}
+  }
+  window.__briefSave=save;
+  window.__briefClear=function(){ try{ localStorage.removeItem(KEY); }catch(e){} };
+
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(raw){
+      var o=JSON.parse(raw);
+      /* discard drafts older than 60 days */
+      if(o && o.d && Date.now()-(o.t||0) < 60*864e5){
+        if(apply(o.d) && bar){ bar.hidden=false; if(typeof syncEvent==='function') syncEvent(); }
+      } else { localStorage.removeItem(KEY); }
+    }
+  }catch(e){}
+
+  form.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(save,700); });
+  form.addEventListener('change',save);
+  window.addEventListener('pagehide',save);
+
+  var cd=document.getElementById('clearDraft');
+  if(cd) cd.addEventListener('click',function(){
+    if(!confirm('למחוק את הטיוטה השמורה ולהתחיל מחדש?')) return;
+    window.__briefClear(); form.reset();
+    if(typeof syncEvent==='function') syncEvent();
+    bar.hidden=true;
+  });
+})();
+
 const btn=document.getElementById('btn');
 const err=document.getElementById('err');
 
@@ -287,7 +415,7 @@ form.addEventListener('submit',async e=>{
     return !el.value.trim();
   });
   if(missing){
-    err.textContent='חסרות תשובות בשדות המסומנים בכוכבית.';
+    err.textContent='חסרות תשובות בחלק א\'. שאר השאלון הוא רשות.';
     err.hidden=false;
     missing.scrollIntoView({behavior:'smooth',block:'center'});
     (missing.focus||function(){}).call(missing);
@@ -303,6 +431,8 @@ form.addEventListener('submit',async e=>{
     const r=await fetch(ENDPOINT,{method:'POST',body:fd,headers:{Accept:'application/json'}});
     if(!r.ok)throw new Error('bad status');
     buildSummary(fd);
+    if(window.__briefClear) window.__briefClear();
+    var rb=document.getElementById('restoreBar'); if(rb) rb.hidden=true;
     form.style.display='none';
     document.getElementById('done').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});

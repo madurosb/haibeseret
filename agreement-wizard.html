@@ -77,6 +77,11 @@ details.adv summary:hover{color:var(--gold)}
   margin-inline-end:8px}
 .doc p{margin:0 0 12px;font-size:.97rem}
 .doc ul{margin:0 0 14px;padding-inline-start:20px}
+.doc .hl{border-right:2px solid var(--gold);background:rgba(226,169,76,.07);
+  padding:13px 15px;border-radius:2px;margin:16px 0 12px;font-size:.95rem}
+.doc .hl b{color:var(--gold)}
+@media print{.doc .hl{background:none;border-right:2px solid #000}
+  .doc .hl b{color:#000}}
 .doc li{margin-bottom:6px;font-size:.96rem}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;
   background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden;
@@ -215,7 +220,7 @@ th{background:var(--panel);font-weight:600;font-size:.86rem;color:var(--mut)}
   <div class="consent">
     <h2>אישור</h2>
     <label class="chk"><input type="checkbox" id="k1">
-      <span>קראתי את ההסכם במלואו ואני מסכים לכל תנאיו, כולל התשלום, לוח הזמנים, סבבי ההערות ותנאי הביטול.</span></label>
+      <span>קראתי את ההסכם במלואו ואני מסכים לכל תנאיו, כולל התשלום, לוח הזמנים, סבבי ההערות, חלון היציאה ותנאי הביטול.</span></label>
     <label class="chk"><input type="checkbox" id="k2">
       <span>אני מאשר שיש לי זכות להשתמש בחומרים שאעביר, ושהפרטים שמסרתי נכונים.</span></label>
     <label class="chk"><input type="checkbox" id="k3">
@@ -338,9 +343,10 @@ function renderAgreement(){
 
   s(3,'תשלום',
     '<table><tr><th>מתי</th><th>כמה</th></tr>'+
-    '<tr><td>באישור ההסכם</td><td>50%'+(g('pr')?' · '+nis(Number(g('pr'))/2)+' ש"ח':'')+'</td></tr>'+
-    '<tr><td>לפני מסירת הקבצים</td><td>50%'+(g('pr')?' · '+nis(Number(g('pr'))/2)+' ש"ח':'')+'</td></tr></table>'+
-    '<p>סה"כ <b>'+(g('pr')?nis(g('pr'))+' ש"ח':'לפי היקף שיסוכם')+'</b>. המחיר '+esc(vat)+' מע"מ. חשבונית מונפקת על כל תשלום.</p>')+
+    '<tr><td>מקדמה, באישור ההסכם</td><td>30%'+(g('pr')?' · '+nis(Math.round(Number(g('pr'))*0.3))+' ש"ח':'')+'</td></tr>'+
+    '<tr><td>יתרה, לפני מסירת הקבצים</td><td>70%'+(g('pr')?' · '+nis(Number(g('pr'))-Math.round(Number(g('pr'))*0.3))+' ש"ח':'')+'</td></tr></table>'+
+    '<p>סה"כ <b>'+(g('pr')?nis(g('pr'))+' ש"ח':'לפי היקף שיסוכם')+'</b>. המחיר '+esc(vat)+' מע"מ. חשבונית מונפקת על כל תשלום.</p>'+
+    '<p class="hl"><b>חלון יציאה.</b> אחרי שיחת התכנון, אם תרגיש שזה לא מתאים לך, תגיד לי ואחזיר את המקדמה במלואה. בלי הסברים ובלי דמי ביטול. אתה מחליט אחרי שראית איך אני עובד, לא לפני.</p>')+
 
   s(4,'סבבי הערות',
     '<p>המחיר כולל <b>'+esc(rev)+' סבבי הערות</b>. סבב הוא רשימה אחת מרוכזת, לא הודעות שמגיעות בטפטוף.</p>'+
@@ -348,10 +354,12 @@ function renderAgreement(){
 
   s(5,'לוח זמנים',
     '<p>זמן ההפקה הוא <b>'+esc(dy)+' ימי עבודה</b> מרגע שקיבלתי את כל החומרים ואת השאלון המלא.</p>'+
-    '<p>אני מתחייב למסור את הסרט לפחות <b>48 שעות</b> לפני האירוע, כדי שיהיה זמן לבדוק אותו מול ציוד ההקרנה.</p>')+
+    '<p>אני מתחייב למסור את הסרט לפחות <b>48 שעות</b> לפני האירוע, כדי שיהיה זמן לבדוק אותו מול ציוד ההקרנה.</p>'+
+    '<p class="hl"><b>אין הפתעות ביום האירוע.</b> אתה רואה את הסרט, נותן הערות ומאשר אותו לפני שהוא עולה למסך. סרט לא מוקרן בלי האישור שלך.</p>')+
 
   s(6,'ביטול',
-    '<ul><li><b>ביטול מצדך תוך 14 יום ולפני שהתחלתי בעריכה:</b> החזר מלא של המקדמה.</li>'+
+    '<ul><li><b>עד תום שיחת התכנון:</b> החזר מלא של המקדמה, ללא תנאי וללא צורך בנימוק.</li>'+
+    '<li><b>ביטול מצדך תוך 14 יום ולפני שהתחלתי בעריכה:</b> החזר מלא של המקדמה.</li>'+
     '<li><b>ביטול אחרי שהתחלתי בעריכה:</b> המקדמה נשארת כתשלום על העבודה שבוצעה. לא אדרוש את היתרה.</li>'+
     '<li><b>דחיית האירוע:</b> הסרט עובר לתאריך החדש בלי תוספת תשלום, בכפוף לזמינות.</li>'+
     '<li><b>ביטול מצדי:</b> אחזיר את כל מה ששולם במלואו ואעזור למצוא מחליף.</li></ul>')+
