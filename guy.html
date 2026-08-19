@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>הצעה אישית · גיא · סרט AI — ניר בראינין</title>
+<meta name="description" content="הצעת עבודה אישית. אוגוסט 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@300;400;600;800&family=Azeret+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0907;          /* courtside dark */
+  --ink-2:#161210;        /* panel */
+  --ink-3:#211B17;        /* panel raised */
+  --gold:#E9A23B;         /* basketball leather */
+  --gold-2:#F5BE6B;
+  --gold-soft:rgba(233,162,59,.09);
+  --gold-line:rgba(233,162,59,.34);
+  --court:rgba(233,162,59,.16);   /* court paint lines */
+  --bone:#EDEAE4;
+  --steel:#9E9A93;
+  --steel-2:#BAB6AF;
+  --line:rgba(237,234,228,.15);
+  --disp:'Frank Ruhl Libre',Georgia,serif;
+  --body:'Assistant',system-ui,sans-serif;
+  --mono:'Azeret Mono',ui-monospace,monospace;
+  --gut:clamp(20px,5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);color:var(--bone);
+  font-family:var(--body);font-weight:400;
+  font-size:clamp(15.5px,1vw + 13px,17.5px);line-height:1.6;
+  overflow-x:hidden;position:relative;
+}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+a{color:inherit}
+
+/* ---- hardwood floor grain (vertical planks) ---- */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:repeating-linear-gradient(
+    90deg,
+    rgba(233,162,59,.030) 0px,
+    rgba(233,162,59,.030) 1px,
+    transparent 1px,
+    transparent 62px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,.012) 0px,
+    rgba(255,255,255,.012) 26px,
+    transparent 26px,
+    transparent 62px
+  );
+}
+/* ---- film/photo grain ---- */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:91;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+
+/* ---- fixed court markings ---- */
+#court{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  overflow:hidden;
+}
+#court svg{position:absolute;stroke:var(--court);fill:none;stroke-width:1.4}
+#court .c-key{
+  bottom:-16vh;left:50%;transform:translateX(-50%);
+  width:min(120vw,1200px);height:auto;opacity:.9;
+}
+#court .c-arc{
+  top:-22vh;right:-16vw;width:min(90vw,760px);height:auto;opacity:.55;
+}
+
+/* everything above the court */
+.wrap,#hud,#leader,#sticky,section{position:relative;z-index:2}
+
+/* ============ LEADER — basketball shot clock ============ */
+#leader{position:fixed;inset:0;z-index:200;background:#060504;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s}
+#leader.gone{opacity:0;visibility:hidden}
+#leader .lwrap{position:relative;width:min(56vmin,320px)}
+#leader svg{width:100%;height:auto;display:block;animation:spin 3.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.b-body{fill:none;stroke:var(--gold);stroke-width:2.2}
+.b-seam{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.85}
+#leadnum{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:700;font-size:clamp(48px,13vmin,78px);
+  color:var(--bone);letter-spacing:-.02em;
+}
+#leadlabel{
+  position:absolute;bottom:14%;left:0;right:0;text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.34em;
+  color:var(--steel);text-transform:uppercase;
+}
+#skip{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);background:none;border:1px solid var(--line);color:var(--steel);font-family:var(--mono);font-size:12px;letter-spacing:.16em;padding:9px 20px;cursor:pointer;border-radius:2px}
+
+/* ============ HUD — scoreboard ============ */
+#hud{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px var(--gut);
+  background:linear-gradient(to bottom,rgba(11,9,7,.96),rgba(11,9,7,0));
+  pointer-events:none;
+}
+.board{display:flex;align-items:center;gap:10px}
+.board .bq{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--steel);
+  border:1px solid var(--line);padding:3px 7px;border-radius:2px;text-transform:uppercase;
+}
+.board .bclock{
+  font-family:var(--mono);font-weight:700;font-size:15px;color:var(--gold);
+  letter-spacing:.04em;font-variant-numeric:tabular-nums;
+}
+#hud .hud-r{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--steel);text-transform:uppercase}
+@media(max-width:760px){#hud .hud-r{display:none}}
+
+/* ============ SHELL ============ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--gut)}
+section{padding:clamp(48px,7vw,96px) 0}
+h2{font-family:var(--disp);font-weight:900;font-size:clamp(27px,4.4vw,48px);line-height:1.06;letter-spacing:-.01em;margin-bottom:.45em}
+h3{font-family:var(--body);font-weight:800;font-size:clamp(17px,1.8vw,21px);line-height:1.25}
+p{max-width:60ch}
+.lede{font-size:clamp(16.5px,1.4vw,19.5px);color:#D6D2CB;font-weight:300;line-height:1.55}
+.muted{color:var(--steel-2)}
+em{color:var(--gold);font-style:normal}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5em}
+
+/* ============ HERO ============ */
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:80px 0 0}
+.bars{position:absolute;left:0;right:0;height:5svh;background:#060504;z-index:3}
+.bars.t{top:0}.bars.b{bottom:0}
+#heroArc{
+  position:absolute;top:50%;right:-8%;transform:translateY(-52%);
+  width:min(78vw,700px);height:auto;z-index:0;pointer-events:none;
+  stroke:var(--court);fill:none;stroke-width:1.4;opacity:.85;
+}
+#hero > *:not(.bars):not(#heroArc){position:relative;z-index:2}
+#hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,9.2vw,98px);line-height:.95;letter-spacing:-.025em}
+#hero h1 .ln{display:block;overflow:hidden}
+#hero h1 .ln span{display:block;animation:rise .9s cubic-bezier(.16,1,.3,1) both}
+@keyframes rise{from{transform:translateY(104%)}to{transform:translateY(0)}}
+#hero h1 .thin{font-weight:500;color:var(--steel)}
+.hero-sub{margin-top:clamp(22px,3vw,34px);font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--steel);text-transform:uppercase;line-height:2}
+
+/* bouncing ball scroll cue */
+.scrollcue{margin-top:clamp(26px,3.6vw,42px);display:flex;align-items:center;gap:17px;color:var(--bone);text-decoration:none;width:fit-content;padding-bottom:clamp(24px,4vw,48px)}
+.scrollcue .sc-txt{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.4vw,27px);line-height:1.15}
+.scrollcue .sc-sub{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--steel);text-transform:uppercase;margin-top:7px}
+.sc-ball{width:clamp(44px,5.4vw,54px);height:clamp(44px,5.4vw,54px);flex:none;animation:dribble 1.25s cubic-bezier(.5,0,.6,1) infinite}
+.sc-ball svg{width:100%;height:100%;display:block}
+.sc-ball .b-body{stroke-width:2.4}
+@keyframes dribble{
+  0%{transform:translateY(-14px) scaleY(1)}
+  42%{transform:translateY(0) scaleY(1)}
+  50%{transform:translateY(2px) scale(1.06,.9)}
+  58%{transform:translateY(0) scaleY(1)}
+  100%{transform:translateY(-14px) scaleY(1)}
+}
+.scrollcue:hover .sc-ball{animation-duration:.7s}
+
+/* ============ GROUP LABEL — court centre line ============ */
+.grouplabel{display:flex;align-items:center;gap:14px;margin:clamp(30px,4vw,48px) 0 12px}
+.grouplabel .gl-n{
+  font-family:var(--mono);font-weight:700;font-size:13px;color:var(--ink);
+  background:var(--gold);width:26px;height:26px;flex:none;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+}
+.grouplabel .gl-t{font-size:15.5px;color:var(--steel-2)}
+.grouplabel .gl-t b{color:var(--bone);font-weight:700}
+.grouplabel::after{content:'';flex:1;height:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);min-height:3px}
+
+/* ============ PACKAGE CARDS — jersey style ============ */
+.pkgs{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}
+.pkg{
+  background:var(--ink-2);padding:clamp(22px,2.4vw,28px);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  border-top:2px solid var(--gold);
+}
+.pkg::before{ /* faint jersey number watermark */
+  content:attr(data-num);position:absolute;top:-.18em;left:-.06em;
+  font-family:var(--mono);font-weight:700;font-size:9em;line-height:1;
+  color:rgba(233,162,59,.045);pointer-events:none;
+}
+.pkg > *{position:relative;z-index:1}
+.pkg .pn{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--gold);margin-bottom:12px}
+.pkg .pt{font-family:var(--disp);font-weight:900;font-size:clamp(24px,2.9vw,32px);line-height:1;margin-bottom:8px}
+.pkg .pd{font-size:15.5px;color:var(--steel-2);margin-bottom:20px;line-height:1.45}
+.pkg .price{font-family:var(--mono);font-size:clamp(23px,2.7vw,30px);font-weight:700;letter-spacing:-.02em;display:block}
+.pkg .price small{display:block;font-family:var(--body);font-weight:400;font-size:13px;color:var(--steel-2);letter-spacing:0;margin-top:6px;line-height:1.5}
+.pkg details{margin:20px 0 0;border-top:1px solid var(--line)}
+.pkg summary{list-style:none;cursor:pointer;padding:15px 0 0;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:600;color:var(--gold)}
+.pkg summary::-webkit-details-marker{display:none}
+.pkg summary .chev{width:11px;height:11px;border-right:1.6px solid var(--gold);border-bottom:1.6px solid var(--gold);transform:rotate(45deg);transition:transform .25s;flex:none;margin-bottom:4px}
+.pkg details[open] summary .chev{transform:rotate(-135deg);margin-bottom:0;margin-top:4px}
+.pkg ul{list-style:none;display:grid;gap:9px;padding:16px 0 2px}
+.pkg li{font-size:15px;line-height:1.45;padding-right:15px;position:relative;color:#D6D2CB}
+.pkg li::before{content:'';position:absolute;right:0;top:.62em;width:6px;height:1px;background:var(--gold)}
+.pkg .pcta{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;padding:14px 18px;font-weight:800;font-size:15.5px;border-radius:2px;transition:background .2s,color .2s}
+.pkg .pcta:hover{background:var(--gold);color:var(--ink)}
+
+/* WHERE PICKER */
+.where{margin-top:2px;background:var(--ink-2);padding:clamp(20px,2.6vw,28px)}
+.where .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:8px}
+.where p{font-size:15.5px;color:#D6D2CB;margin-bottom:18px}
+.where .opts{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.where button{background:var(--ink-3);border:1px solid transparent;color:var(--bone);font:inherit;font-size:15px;cursor:pointer;padding:16px 14px;text-align:right;border-radius:2px;transition:border-color .2s,background .2s;line-height:1.4}
+.where button:hover{background:#2A231E}
+.where button[aria-pressed="true"]{border-color:var(--gold);background:#2A231E}
+.where button b{display:block;font-weight:700;margin-bottom:4px}
+.where button span{font-size:13px;color:var(--steel-2)}
+.where .wcta{margin-top:18px;display:none;align-items:center;justify-content:center;gap:9px;background:var(--gold);color:var(--ink);text-decoration:none;padding:15px 20px;font-weight:800;font-size:16px;border-radius:2px}
+.where .wcta.on{display:flex}
+
+.advice{background:var(--gold-soft);border:1px solid var(--gold-line);padding:clamp(20px,2.6vw,28px);margin-top:2px}
+.advice .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:12px}
+.advice p{font-size:16px;max-width:70ch;color:#E0DCD6}
+.advice p + p{margin-top:.7em}
+
+.extras{margin-top:2px;background:var(--ink-2);padding:clamp(20px,2.6vw,28px)}
+.extras .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:14px}
+.extras ul{list-style:none;display:grid;gap:11px}
+.extras li{font-size:15.5px;color:#D6D2CB;padding-right:15px;position:relative;line-height:1.5}
+.extras li::before{content:'';position:absolute;right:0;top:.62em;width:6px;height:1px;background:var(--gold)}
+.extras b{color:var(--bone);font-weight:700}
+
+/* CTA */
+.cta-block{text-align:center;padding:clamp(44px,6vw,72px) 0 0}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:var(--ink);text-decoration:none;padding:19px 44px;font-weight:800;font-size:17.5px;border-radius:2px;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:var(--gold-2)}
+.btn span{font-family:var(--mono);font-size:12px;opacity:.7}
+.cta-note{margin-top:18px;font-size:15px;color:var(--steel-2)}
+
+/* REVEAL */
+#revealWrap{padding:clamp(48px,7vw,86px) 0 0;text-align:center}
+#reveal{display:block;width:100%;max-width:560px;margin:0 auto;background:transparent;border:1px solid var(--line);color:var(--bone);font:inherit;cursor:pointer;padding:clamp(22px,3vw,30px);border-radius:2px;text-align:center;transition:border-color .25s,background .25s}
+#reveal:hover{border-color:var(--gold);background:var(--ink-2)}
+#reveal .rk{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:12px}
+#reveal .rt{font-family:var(--disp);font-weight:900;font-size:clamp(21px,2.6vw,28px);line-height:1.2;display:block}
+#reveal .rs{display:block;margin-top:11px;font-size:14.5px;color:var(--steel-2);line-height:1.5}
+#reveal .rball{display:block;width:38px;height:38px;margin:18px auto 0}
+#reveal:hover .rball{animation:dribble 1.1s cubic-bezier(.5,0,.6,1) infinite}
+
+/* ============ DETAILS ============ */
+#details[hidden]{display:none}
+#details section{border-top:1px solid var(--line)}
+/* scoreboard strip */
+.slate{
+  display:flex;flex-wrap:wrap;align-items:stretch;
+  border:1px solid var(--line);margin-bottom:clamp(24px,3.4vw,40px);
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+}
+.slate div{padding:10px 15px;border-left:1px solid var(--line);color:var(--steel);display:flex;align-items:center}
+.slate div:first-child{border-left:none}
+.slate .s-k{
+  color:var(--ink);background:var(--gold);font-weight:700;letter-spacing:.1em;
+}
+.slate .s-grow{flex:1;min-width:0}
+
+.quotes{display:grid;gap:2px}
+.q{background:var(--ink-2);padding:clamp(20px,2.6vw,28px);border-right:2px solid var(--gold)}
+.q p{font-family:var(--disp);font-weight:500;font-size:clamp(18px,2vw,24px);line-height:1.35;max-width:none}
+.q .qa{display:block;margin-top:12px;font-size:15px;color:var(--steel-2);line-height:1.5}
+.q .qa b{color:var(--bone);font-weight:600}
+
+/* SPLIT — two jerseys */
+.split{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.side{background:var(--ink-2);padding:clamp(22px,2.6vw,30px);position:relative;overflow:hidden}
+.side.mine{border-top:2px solid var(--gold)}
+.side.yours{border-top:2px solid var(--steel)}
+.side .sk{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.side.mine .sk{color:var(--gold)}
+.side.yours .sk{color:var(--steel)}
+.side h3{font-family:var(--disp);font-weight:900;font-size:clamp(23px,2.8vw,30px);margin-bottom:16px}
+.side ul{list-style:none;display:grid;gap:10px}
+.side li{font-size:15.5px;line-height:1.45;padding-right:15px;position:relative;color:#D6D2CB}
+.side li::before{content:'';position:absolute;right:0;top:.62em;width:6px;height:1px}
+.side.mine li::before{background:var(--gold)}
+.side.yours li::before{background:var(--steel)}
+
+/* RIGHTS */
+.rights{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.rway{background:var(--ink-2);padding:clamp(22px,2.6vw,30px);display:flex;flex-direction:column;gap:11px}
+.rway.good{border-top:2px solid var(--gold)}
+.rway.hard{border-top:2px solid var(--steel)}
+.rway .rk2{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase}
+.rway.good .rk2{color:var(--gold)}
+.rway.hard .rk2{color:var(--steel)}
+.rway h3{font-family:var(--disp);font-weight:900;font-size:clamp(21px,2.5vw,27px)}
+.rway p{font-size:15.5px;color:#D6D2CB;max-width:none}
+.rway ul{list-style:none;display:grid;gap:9px;margin-top:2px}
+.rway li{font-size:15px;line-height:1.45;padding-right:15px;position:relative;color:#C9C5BE}
+.rway li::before{content:'';position:absolute;right:0;top:.62em;width:6px;height:1px;background:var(--gold)}
+.rnote{margin-top:2px;background:var(--ink-2);padding:clamp(20px,2.6vw,28px);font-size:15.5px;color:var(--steel-2);line-height:1.65}
+.rnote b{color:var(--bone);font-weight:600}
+
+.gloss{display:grid;gap:1px;background:var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr))}
+.gloss > div{background:var(--ink);padding:clamp(20px,2.4vw,26px);display:flex;flex-direction:column}
+.gloss .gt{display:block;font-weight:800;font-size:17.5px;margin-bottom:8px;color:var(--bone)}
+.gloss p{font-size:15px;color:#C9C5BE;max-width:none;flex:1}
+.gloss .tags{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.6;color:var(--steel)}
+.gloss .tags b{color:var(--gold);font-weight:600}
+
+/* PROCESS — quarters */
+.steps{border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(14px,3vw,36px);align-items:baseline;padding:clamp(18px,2.4vw,26px) 0;border-bottom:1px solid var(--line)}
+.step .sn{
+  font-family:var(--mono);font-weight:700;font-size:12px;color:var(--gold);
+  border:1px solid var(--gold-line);border-radius:50%;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:none;
+  align-self:start;margin-top:2px;
+}
+.step .sb h3{margin-bottom:7px}
+.step .sb p{font-size:15px;color:var(--steel-2)}
+.step .sd{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--steel);white-space:nowrap}
+@media(max-width:640px){.step{grid-template-columns:auto 1fr}.step .sd{grid-column:2;padding-top:8px}}
+
+#promise{background:var(--bone);color:var(--ink)}
+#promise .slate{border-color:rgba(11,9,7,.2)}
+#promise .slate div{border-color:rgba(11,9,7,.2);color:#4E4A45}
+#promise .slate .s-k{color:var(--bone);background:#A9701C}
+#promise h2{color:var(--ink)}
+.prom{display:grid;gap:1px;background:rgba(11,9,7,.16);grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.prom > div{background:var(--bone);padding:clamp(18px,2.2vw,26px)}
+.prom .pt2{display:block;font-weight:800;font-size:17px;margin-bottom:8px;color:var(--ink)}
+.prom p{font-size:15px;color:#3E3A35;max-width:none}
+.notincl{margin-top:clamp(32px,4vw,50px);border-top:2px solid rgba(11,9,7,.35);padding-top:28px}
+.notincl h3{font-family:var(--disp);font-weight:900;font-size:clamp(22px,2.8vw,30px);color:var(--ink);margin-bottom:6px}
+.notincl .sub{font-size:15.5px;color:#4E4A45;margin-bottom:20px}
+.notincl ul{list-style:none;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.notincl li{font-size:15.5px;color:#302C28;padding-right:20px;position:relative;font-weight:600}
+.notincl li::before{content:'×';position:absolute;right:0;color:#A9701C;font-weight:800}
+
+.terms{display:grid;gap:1px;background:var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.terms > div{background:var(--ink);padding:clamp(18px,2.2vw,24px)}
+.terms .tl{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.terms p{font-size:15px;max-width:none;color:#D6D2CB}
+
+#foot{text-align:center;padding:clamp(56px,8vw,96px) 0 clamp(100px,13vw,150px);border-top:1px solid var(--line)}
+#foot h2{max-width:20ch;margin:0 auto .45em}
+.valid{font-size:16px;color:var(--steel-2);margin-bottom:32px;line-height:1.8;max-width:44ch;margin-left:auto;margin-right:auto}
+.valid b{color:var(--bone);font-weight:600}
+.sig{margin-top:clamp(48px,7vw,80px);font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--steel);text-transform:uppercase;line-height:2.1}
+.sig .sig-n{color:var(--bone);letter-spacing:.16em}
+
+#sticky{position:fixed;bottom:0;left:0;right:0;z-index:85;padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom));background:rgba(11,9,7,.96);backdrop-filter:blur(14px);border-top:1px solid var(--gold-line);transform:translateY(101%);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+#sticky.up{transform:translateY(0)}
+#sticky a{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--gold);color:var(--ink);text-decoration:none;padding:14px;font-weight:800;font-size:16px;border-radius:2px}
+@media(min-width:820px){#sticky{display:none}}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}#sticky{transform:none}}
+
+@media print{
+  body{background:#fff;color:#000}
+  body::before,body::after,#leader,#hud,#sticky,#court,#heroArc,.bars,.scrollcue,#revealWrap,.where .opts{display:none!important}
+  #details[hidden]{display:block!important}
+  .pkg details{display:block}
+  .pkg::before{display:none}
+  section{page-break-inside:avoid;padding:22px 0}
+  #promise{background:#fff}
+  .pkg,.q,.gloss > div,.terms > div,.prom > div,.extras,.advice,.side,.rway,.rnote,.where{background:#fff!important;border:1px solid #ccc}
+  h2,.pkg .pt,#hero h1,.gloss .gt,.side h3,.rway h3{color:#000}
+  .gloss p,.pkg li,.terms p,.extras li,.side li,.rway p,.rway li{color:#333}
+  .btn,.pkg .pcta{border:1px solid #000;color:#000;background:#fff}
+  .slate .s-k{background:#000;color:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- COURT MARKINGS -->
+<div id="court" aria-hidden="true">
+  <!-- the key + free throw circle, bottom centre -->
+  <svg class="c-key" viewBox="0 0 800 420" preserveAspectRatio="xMidYMax meet">
+    <rect x="280" y="120" width="240" height="300"/>
+    <circle cx="400" cy="120" r="80"/>
+    <path d="M120 420 A 280 280 0 0 1 680 420"/>
+    <line x1="120" y1="420" x2="120" y2="350"/>
+    <line x1="680" y1="420" x2="680" y2="350"/>
+  </svg>
+  <!-- centre circle, top right -->
+  <svg class="c-arc" viewBox="0 0 600 600">
+    <circle cx="300" cy="300" r="290"/>
+    <circle cx="300" cy="300" r="150"/>
+    <line x1="10" y1="300" x2="590" y2="300"/>
+  </svg>
+</div>
+
+<!-- LEADER -->
+<div id="leader">
+  <div class="lwrap">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="b-body" cx="50" cy="50" r="46"/>
+      <line class="b-seam" x1="4" y1="50" x2="96" y2="50"/>
+      <line class="b-seam" x1="50" y1="4" x2="50" y2="96"/>
+      <path class="b-seam" d="M18 12 C 40 34, 40 66, 18 88"/>
+      <path class="b-seam" d="M82 12 C 60 34, 60 66, 82 88"/>
+    </svg>
+    <div id="leadnum">3</div>
+  </div>
+  <div id="leadlabel">Shot Clock</div>
+  <button id="skip" type="button">דלג</button>
+</div>
+
+<!-- HUD -->
+<div id="hud">
+  <div class="board">
+    <span class="bq">Q1</span>
+    <span class="bclock" id="clock">12:00</span>
+  </div>
+  <div class="hud-r">NIR BRAININ · CREATIVE AI STUDIO · TEL AVIV</div>
+</div>
+
+<div class="wrap">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="bars t"></div><div class="bars b"></div>
+  <svg id="heroArc" viewBox="0 0 600 600" aria-hidden="true">
+    <path d="M60 590 A 270 270 0 0 1 540 590"/>
+    <circle cx="300" cy="320" r="115"/>
+    <rect x="215" y="320" width="170" height="270"/>
+  </svg>
+  <div class="eyebrow">הצעה אישית · רק בשבילך</div>
+  <h1>
+    <span class="ln"><span style="animation-delay:.05s">גיא,</span></span>
+    <span class="ln"><span class="thin" style="animation-delay:.15s">אתה מביא</span></span>
+    <span class="ln"><span style="animation-delay:.25s">את הסיפור.</span></span>
+    <span class="ln"><span class="thin" style="animation-delay:.35s">אני את ה-AI.</span></span>
+  </h1>
+  <div class="hero-sub">
+    פרויקט סרט אישי · כדורסל<br>
+    ניר בראינין · אוגוסט 2026
+  </div>
+  <a class="scrollcue" href="#pkgs">
+    <span class="sc-ball" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <circle class="b-body" cx="50" cy="50" r="45" stroke="#E9A23B" fill="none"/>
+        <line class="b-seam" x1="5" y1="50" x2="95" y2="50" stroke="#E9A23B"/>
+        <line class="b-seam" x1="50" y1="5" x2="50" y2="95" stroke="#E9A23B"/>
+        <path class="b-seam" d="M19 13 C 40 34, 40 66, 19 87" stroke="#E9A23B" fill="none"/>
+        <path class="b-seam" d="M81 13 C 60 34, 60 66, 81 87" stroke="#E9A23B" fill="none"/>
+      </svg>
+    </span>
+    <span class="sc-txt">האפשרויות
+      <span class="sc-sub">ללמוד · או שאני אעשה · גלול</span>
+    </span>
+  </a>
+</section>
+
+<!-- PACKAGES -->
+<section id="pkgs">
+  <h2>שתי דרכים, ארבע אפשרויות.</h2>
+  <p class="lede">
+    ביקשת שני דברים שונים — ללמוד AI, ולעשות את הסרט. הפרדתי אותם, כי לערבב אותם
+    יוצא יקר יותר לך ופחות טוב לשנינו. מחירים סופיים, אני עוסק פטור — אין מע"מ.
+  </p>
+
+  <div class="grouplabel">
+    <span class="gl-n">1</span>
+    <span class="gl-t"><b>אתה לומד</b> ועושה את זה בעצמך</span>
+  </div>
+
+  <div class="pkgs">
+
+    <div class="pkg" data-num="01">
+      <div class="pn">אפשרות א׳</div>
+      <div class="pt">מפגש ראשון</div>
+      <div class="pd">שעתיים להבין את הבסיס ולצאת עם משהו ביד. משם אתה ממשיך לבד.</div>
+      <span class="price">900 ₪<small>מפגש אחד · שעתיים · בלי התחייבות להמשך</small></span>
+      <details>
+        <summary>מה נעשה שם <span class="chev"></span></summary>
+        <ul>
+          <li>סקירה של הכלים — מה יש, מה שווה כסף ומה לא</li>
+          <li>בונים דמות אחת יחד, מאפס</li>
+          <li>מפיקים ממנה שוט ראשון מתנועע</li>
+          <li>אתה יוצא עם הקובץ ועם הפרומפטים</li>
+          <li>מסמך סיכום עם כל מה שעברנו</li>
+          <li>שבוע של שאלות בוואטסאפ אחרי</li>
+        </ul>
+      </details>
+      <a class="pcta" href="#where">מעניין אותי</a>
+    </div>
+
+    <div class="pkg" data-num="02">
+      <div class="pn">אפשרות ב׳</div>
+      <div class="pt">מסלול מלא</div>
+      <div class="pd">שלושה מפגשים. בסוף אתה עושה את הסרט הזה לבד, מהתחלה עד הסוף.</div>
+      <span class="price">2,400 ₪<small>3 מפגשים × שעתיים · 400 ₪ לשעה במקום 450</small></span>
+      <details>
+        <summary>מה נעשה שם <span class="chev"></span></summary>
+        <ul>
+          <li><b>מפגש 1</b> — כלים, בניית דמות, שמירה עליה בין שוטים</li>
+          <li><b>מפגש 2</b> — מתמונה לווידאו, תנועות מצלמה, שוטים מורכבים</li>
+          <li><b>מפגש 3</b> — עריכה, קצב, סאונד וקולור</li>
+          <li>עובדים על הפרויקט <b>שלך</b>, לא על תרגילים</li>
+          <li>מסמך מלא עם כל הפרומפטים והכלים</li>
+          <li>חודש של שאלות בוואטסאפ אחרי</li>
+        </ul>
+      </details>
+      <a class="pcta" href="#where">מעניין אותי</a>
+    </div>
+
+  </div>
+
+  <!-- WHERE -->
+  <div class="where" id="where">
+    <span class="an">אם בחרת שיעורים — איפה נוח לך?</span>
+    <p>אפשר בכל אחת מהאפשרויות, אין הבדל במחיר. עובדים על המחשבים שלנו.</p>
+    <div class="opts">
+      <button type="button" aria-pressed="false" data-w="אצלך בתל אביב">
+        <b>אצלי בתל אביב</b><span>מרחב עבודה שקט</span></button>
+      <button type="button" aria-pressed="false" data-w="אצלי">
+        <b>אצלך</b><span>אני מגיע אליך</span></button>
+      <button type="button" aria-pressed="false" data-w="בבית קפה או חלל עבודה">
+        <b>בית קפה או חלל עבודה</b><span>נמצא משהו באמצע</span></button>
+    </div>
+    <a class="wcta" id="wgo" href="#" target="_blank" rel="noopener">בוא נקבע ✓</a>
+  </div>
+
+  <div class="grouplabel">
+    <span class="gl-n">2</span>
+    <span class="gl-t"><b>אני מפיק</b> את הסרט עבורך</span>
+  </div>
+
+  <div class="pkgs">
+
+    <div class="pkg" data-num="03">
+      <div class="pn">אפשרות ג׳</div>
+      <div class="pt">הסרט</div>
+      <div class="pd">אתה מביא סטוריבורד, אני מחזיר סרט מוגמר. בלי שיעורים.</div>
+      <span class="price">3,000 ₪<small>60–90 שניות · עד 20 שוטים · 18–22 ימי עבודה</small></span>
+      <details>
+        <summary>מה כלול <span class="chev"></span></summary>
+        <ul>
+          <li>עיצוב הדמות בשני הגילים ושמירה עליה</li>
+          <li>עד 20 שוטים מוגמרים</li>
+          <li>עריכה, קולור, מוזיקה וסאונד דיזיין</li>
+          <li>דיאלוג או קריינות אם התסריט דורש</li>
+          <li>3 סבבי תיקונים</li>
+          <li>קובץ מאסטר בפורמט שנסגור מראש</li>
+          <li>קרדיט משותף מוסכם מראש</li>
+        </ul>
+      </details>
+      <a class="pcta" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%9E%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%90%D7%95%D7%AA%D7%99%20%D7%A9%D7%AA%D7%A2%D7%A9%D7%94%20%D7%90%D7%AA%20%D7%94%D7%A1%D7%A8%D7%98." target="_blank" rel="noopener">מעניין אותי</a>
+    </div>
+
+    <div class="pkg" data-num="04">
+      <div class="pn">אפשרות ד׳</div>
+      <div class="pt">הסרט + המסלול</div>
+      <div class="pd">גם הסרט וגם שלושת המפגשים. אחרי האספקה נשב על הפרויקט שלך.</div>
+      <span class="price">5,000 ₪<small>הסרט + 3 מפגשים × שעתיים · חוסך 400 ₪</small></span>
+      <details>
+        <summary>מה כלול <span class="chev"></span></summary>
+        <ul>
+          <li>כל מה שבאפשרות ג׳</li>
+          <li><b>ועוד:</b> שלושת המפגשים של המסלול המלא</li>
+          <li>פותח את התיקייה — הפרומפטים, מה עבד ומה נפל</li>
+          <li>מקבל את קבצי העבודה, לא רק את הסרט</li>
+          <li>מסמך מלא עם כל הכלים והפרומפטים</li>
+          <li>הלימוד הוא על הסרט שלך, לא על דוגמאות</li>
+        </ul>
+      </details>
+      <a class="pcta" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%9E%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%90%D7%95%D7%AA%D7%99%20%D7%94%D7%A1%D7%A8%D7%98%20%2B%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C." target="_blank" rel="noopener">מעניין אותי</a>
+    </div>
+
+  </div>
+
+  <div class="advice">
+    <span class="an">מה הייתי אומר לך אם היינו חברים</span>
+    <p>בכנות? <b>קח את המפגש הראשון.</b> 900 ₪, שעתיים, ואתה יוצא עם דמות וקטע ראשון שאתה בנית.
+    זה גם הכי זול וגם הכי מתאים לך — אתה צלם, יש לך עין, ואת רוב מה שקשה ב-AI אתה כבר יודע:
+    לדעת מה טוב ומה לא.</p>
+    <p>אחרי המפגש הראשון תדע לבד מה הצעד הבא. אולי תמשיך למסלול המלא, אולי תגלה שאתה מסתדר לבד,
+    ואולי תחליט שאתה מעדיף שאני אעשה את הסרט ואתה תתרכז בבימוי. <b>כל אחת מהתשובות האלה בסדר גמור</b>
+    — ואת ה-900 ₪ אני מוריד לך מכל מסלול שתבחר אחריו תוך חודש.</p>
+    <p>מה שהייתי נמנע ממנו זה לעשות את הסרט ביחד בזמן אמת. זה נשמע נחמד, אבל בפועל זה מאט
+    את ההפקה, מייקר לך, והתוצאה יוצאת פחות טובה משתי האפשרויות בנפרד.</p>
+  </div>
+
+  <div class="extras">
+    <span class="an">חשוב שנסגור מראש</span>
+    <ul>
+      <li><b>המפגש הראשון יורד מהמחיר.</b> התחלת ב-900 ₪ והתקדמת לכל מסלול תוך חודש? הסכום יורד במלואו.</li>
+      <li><b>הסיפור, התסריט והסטוריבורד — שלך.</b> אתה צלם ואתה יודע לספר סיפור. תבוא עם הסטוריבורד כמו שאתה מדמיין אותו.</li>
+      <li><b>מספר השוטים קבוע.</b> לא כי אני קמצן — כי כל שוט הוא 10 עד 30 ניסיונות עד שהוא נכון. שוט נוסף — <b>180 ₪</b>.</li>
+      <li><b>גרסה קצרה יותר?</b> 30–40 שניות ועד 10 שוטים — <b>1,900 ₪</b>. לפעמים סצנה אחת מדויקת חזקה מדקה שנגררת.</li>
+      <li><b>שעתיים נוספות של מפגש</b> מעבר לחבילה — <b>800 ₪</b>.</li>
+    </ul>
+  </div>
+
+  <div class="cta-block">
+    <a class="btn" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%94%D7%A6%D7%A2%D7%94.%20%D7%91%D7%95%D7%90%20%D7%A0%D7%93%D7%91%D7%A8." target="_blank" rel="noopener">
+      בוא נדבר בוואטסאפ <span>→</span>
+    </a>
+    <p class="cta-note">אין לחץ. תחזור אליי כשנוח לך.</p>
+  </div>
+
+  <div id="revealWrap">
+    <button id="reveal" type="button" aria-expanded="false" aria-controls="details">
+      <span class="rk">כל השאר</span>
+      <span class="rt">רוצה לראות איך<br>זה עובד בפועל?</span>
+      <span class="rs">הזכויות על מלו בול, חלוקת העבודה בינינו,<br>מה כל מונח אומר בעברית והתהליך שלב־שלב.</span>
+      <span class="rball" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" stroke="#E9A23B" stroke-width="2.4" fill="none"/>
+          <line x1="5" y1="50" x2="95" y2="50" stroke="#E9A23B" stroke-width="1.5"/>
+          <line x1="50" y1="5" x2="50" y2="95" stroke="#E9A23B" stroke-width="1.5"/>
+          <path d="M19 13 C 40 34, 40 66, 19 87" stroke="#E9A23B" stroke-width="1.5" fill="none"/>
+          <path d="M81 13 C 60 34, 60 66, 81 87" stroke="#E9A23B" stroke-width="1.5" fill="none"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- DETAILS -->
+<div id="details">
+<div class="wrap">
+
+<section id="heard">
+  <div class="slate"><div class="s-k">01</div><div>מהשיחה שלנו</div><div class="s-grow"></div></div>
+  <h2>אלה הדברים שאמרת.</h2>
+  <div class="quotes">
+    <div class="q"><p>"אני לא יודע כלום על AI."</p>
+      <span class="qa"><b>אז נתחיל מהבסיס.</b> ובגלל שאתה צלם, החלק הקשה כבר אצלך בכיס.</span></div>
+    <div class="q"><p>"אני רוצה גם ללמוד וגם לעשות את הסרט."</p>
+      <span class="qa"><b>אפשר —</b> אבל בנפרד, ולא באותו זמן. הסבר למה בהמשך.</span></div>
+    <div class="q"><p>"יש לי רעיון: מלו בול הילד פוגש את מלו בול המבוגר."</p>
+      <span class="qa"><b>רעיון חזק.</b> יש נושא אחד שצריך לסגור לפניו — הסקשן הבא.</span></div>
+  </div>
+</section>
+
+<!-- RIGHTS -->
+<section id="rights">
+  <div class="slate"><div class="s-k">02</div><div>הזכויות</div><div class="s-grow"></div><div>נדבר על זה</div></div>
+  <h2>הנקודה על מלו בול.</h2>
+  <p class="lede" style="margin-bottom:clamp(24px,3vw,36px)">
+    מלו הוא שחקן NBA פעיל, ובשנתיים האחרונות החוק בארה"ב השתנה בדיוק סביב הנושא הזה:
+    יצירת דמות AI של אדם אמיתי בלי אישור היא היום עילה לתביעה ברוב המדינות —
+    <em>והאחריות היא גם על מי שמייצר, לא רק על מי שמפרסם.</em>
+    אני לא עורך דין, אבל זה משהו שאני חייב להעלות לפני שמתחילים.
+  </p>
+  <div class="rights">
+    <div class="rway good">
+      <span class="rk2">ההמלצה שלי</span>
+      <h3>דמות מקורית</h3>
+      <p>לא מלו — <b>דמות משלנו</b>. אותו סיפור בדיוק: ילד שפוגש את עצמו המבוגר, אחרי שהחלום התגשם.</p>
+      <ul>
+        <li>אין מי שישווה לפנים אמיתיות — הרבה יותר קל טכנית</li>
+        <li>הסיפור נהיה אוניברסלי: הילד יכול להיות כל אחד</li>
+        <li>הסרט שלך לגמרי — לתיק העבודות, לפסטיבלים, לכל מקום</li>
+        <li>אפס חשיפה לשנינו</li>
+      </ul>
+    </div>
+    <div class="rway hard">
+      <span class="rk2">האפשרות השנייה</span>
+      <h3>מלו האמיתי</h3>
+      <p>אפשרי מבחינה טכנית, אבל אז <b>הזכויות והאחריות עליך</b> — כולל מול מלו, מול הליגה
+      ומול כל צילום ארכיון שנשתמש בו.</p>
+      <ul>
+        <li>יש כאן עילה לתביעה, וזה לא תיאורטי</li>
+        <li>אני עסק קטן ולא יכול לקחת על עצמי סיכון כזה</li>
+        <li>אם נלך לשם — זה ייכתב בחוזה במפורש</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rnote">
+    <b>מה שהייתי מציע:</b> נדבר על זה בשיחה נפרדת לפני שסוגרים משהו. אני אשמח לעבור איתך על שתי
+    האפשרויות ולראות מה מתאים למה שאתה רוצה לעשות עם הסרט בסוף. לדעתי הדמות המקורית תוציא
+    סרט טוב יותר בכל מקרה.
+  </div>
+</section>
+
+<section id="split">
+  <div class="slate"><div class="s-k">03</div><div>חלוקת העבודה</div><div class="s-grow"></div><div>אם אני מפיק</div></div>
+  <h2>מי עושה מה.</h2>
+  <p class="lede" style="margin-bottom:clamp(24px,3vw,36px)">
+    זה לא "אני מפיק ואתה מסתכל". אתה במאי הסרט —
+    <em>אני מנהל הצילום הטכני שלו.</em>
+  </p>
+  <div class="split">
+    <div class="side yours">
+      <div class="sk">אתה</div>
+      <h3>הסיפור</h3>
+      <ul>
+        <li>הרעיון והתסריט</li>
+        <li>הסטוריבורד — איך אתה רואה כל שוט</li>
+        <li>בימוי: מה מרגש, מה חשוב, מה מיותר</li>
+        <li>שפה ויזואלית ורפרנסים</li>
+        <li>ההחלטה הסופית על כל שוט</li>
+      </ul>
+    </div>
+    <div class="side mine">
+      <div class="sk">אני</div>
+      <h3>הביצוע</h3>
+      <ul>
+        <li>עיצוב הדמות ושמירה עליה בין שוטים</li>
+        <li>ייצור כל השוטים — עד שהם נכונים</li>
+        <li>עריכה, קצב, קולור</li>
+        <li>מוזיקה, סאונד דיזיין, קריינות</li>
+        <li>כל הצד הטכני והאספקה</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="slate"><div class="s-k">04</div><div>למה אני</div><div class="s-grow"></div></div>
+  <h2>אנחנו מדברים<br>אותה שפה.</h2>
+  <p class="lede">
+    דיברנו על זה בטלפון אז לא ארחיב — רק דבר אחד שחשוב לי שתדע לפני שאנחנו מתחילים:
+    <em>הדברים שאתה כבר יודע כצלם הם החלק הקשה.</em>
+    לדעת מה טוב, מה משעמם, איפה לשים את המצלמה, מתי לחתוך.
+  </p>
+  <p style="margin-top:1.2em">
+    את הכלים אפשר ללמוד בשעתיים. את העין — לא. אתה מגיע עם החלק שלא לומדים,
+    <span class="muted">ואני רק אתן לך את הכפתורים.</span>
+  </p>
+</section>
+
+<section id="gloss">
+  <div class="slate"><div class="s-k">05</div><div>מונחים</div><div class="s-grow"></div></div>
+  <h2>מה זה אומר בעברית.</h2>
+  <div class="gloss">
+    <div><span class="gt">שוט</span>
+      <p>יחידה אחת רצופה של וידאו, בדרך כלל 3–5 שניות. סרט של 60 שניות הוא בערך 15–20 שוטים. זו היחידה שלפיה נמדדת העבודה, כי כל שוט נוצר בנפרד.</p>
+      <span class="tags">עד 20 ב<b>הסרט</b> · עד 10 בגרסה הקצרה</span></div>
+    <div><span class="gt">שמירה על הדמות</span>
+      <p>הקושי הגדול ב-AI: שאותו בן אדם ייראה אותו בן אדם בכל שוט. אצלך זה כפול — אותה דמות בשני גילים שצריכה להיראות כמו אותו אדם. זה החלק שלוקח את רוב הזמן.</p>
+      <span class="tags">לומדים ב<b>מפגש 1</b> · כלול בהפקה</span></div>
+    <div><span class="gt">מתמונה לווידאו</span>
+      <p>ב-AI לא מצלמים סרט — מייצרים תמונה, ואז מניעים אותה. השליטה על התנועה, על המצלמה ועל מה קורה בפריים היא מיומנות בפני עצמה.</p>
+      <span class="tags">לומדים ב<b>מפגש 2</b></span></div>
+    <div><span class="gt">סאונד דיזיין</span>
+      <p>כל מה שנשמע ואינו מוזיקה — צעדים, חבטת כדור, קהל, נשימה, חלל. זה מה שגורם למוח להאמין שהמקום קיים. בסרטי AI זה בדרך כלל מה שחסר.</p>
+      <span class="tags">לומדים ב<b>מפגש 3</b> · כלול בהפקה</span></div>
+    <div><span class="gt">סבב תיקונים</span>
+      <p>אתה חוזר אליי עם רשימת הערות אחת ואני מתקן. סבב = רשימה אחת, לא הערה בכל פעם שקופצת. מעבר לכלול — 180 ₪ לסבב.</p>
+      <span class="tags">3 ב<b>הסרט</b></span></div>
+    <div><span class="gt">קבצי עבודה</span>
+      <p>לא רק הסרט המוגמר — גם הפרומפטים, הגרסאות שנפלו והקבצים מאחורי הקלעים. מי שרוצה ללמוד צריך לראות גם את מה שלא עבד.</p>
+      <span class="tags">כלול ב<b>הסרט + המסלול</b></span></div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="slate"><div class="s-k">06</div><div>איך זה עובד</div><div class="s-grow"></div><div>אם אני מפיק</div></div>
+  <h2>מהרגע שאמרת כן.</h2>
+  <div class="steps">
+    <div class="step"><div class="sn">1</div>
+      <div class="sb"><h3>שיחה על הזכויות</h3><p>קודם כל סוגרים אם הדמות מקורית או לא. זה משפיע על הכל, אז זה קורה ראשון.</p></div>
+      <div class="sd">לפני שמתחילים</div></div>
+    <div class="step"><div class="sn">2</div>
+      <div class="sb"><h3>אתה שולח סטוריבורד</h3><p>התסריט והסטוריבורד כמו שאתה מדמיין. לא צריך לצייר יפה — צריך שיהיה ברור.</p></div>
+      <div class="sd">לפני שמתחילים</div></div>
+    <div class="step"><div class="sn">3</div>
+      <div class="sb"><h3>שיחת קונספט + חוזה</h3><p>עוברים על הסטוריבורד יחד וסוגרים את מספר השוטים ואת הפורמט. חוזה של עמוד אחד בעברית פשוטה.</p></div>
+      <div class="sd">יום 1</div></div>
+    <div class="step"><div class="sn">4</div>
+      <div class="sb"><h3>עיצוב הדמות</h3><p>אני בונה את הדמות בשני הגילים ושולח לך. פה אתה מאשר — או שמשנים לפני שנוגעים בשוט אחד.</p></div>
+      <div class="sd">ימים 2–5</div></div>
+    <div class="step"><div class="sn">5</div>
+      <div class="sb"><h3>הפקת השוטים</h3><p>שוט־שוט, 10 עד 30 ניסיונות לכל אחד. שולח לך התקדמות באמצע, לא נעלם.</p></div>
+      <div class="sd">ימים 6–15</div></div>
+    <div class="step"><div class="sn">6</div>
+      <div class="sb"><h3>עריכה וסאונד</h3><p>קצב, קולור, מוזיקה, סאונד. פה זה הופך משוטים לסרט.</p></div>
+      <div class="sd">ימים 16–20</div></div>
+    <div class="step"><div class="sn">7</div>
+      <div class="sb"><h3>אספקה</h3><p>הסרט בתיקייה מסודרת בדרייב. ואם בחרת באפשרות ד׳ — קובעים את המפגשים.</p></div>
+      <div class="sd">יום 21</div></div>
+  </div>
+  <p class="muted" style="margin-top:22px;font-size:15.5px">
+    בשיעורים בלבד אין תהליך ואין חוזה — קובעים תאריך, נפגשים, עובדים.
+  </p>
+</section>
+
+</div><!-- /wrap -->
+
+<section id="promise">
+  <div class="wrap">
+    <div class="slate"><div class="s-k">07</div><div>מה מובטח</div><div class="s-grow"></div><div>בכתב</div></div>
+    <h2>ההתחייבויות שלי.</h2>
+    <div class="prom">
+      <div><span class="pt2">מחיר סגור</span><p>המחיר של המסלול לא זז. תוספות — רק אם אתה מבקש, ורק אחרי שסיכמנו על המספר.</p></div>
+      <div><span class="pt2">אתה יוצא אחרי הדמות</span><p>בהפקה: אחרי שלב 4, אם הדמות לא מה שדמיינת — אני מחזיר את המקדמה במלואה. בלי שאלות.</p></div>
+      <div><span class="pt2">קרדיט משותף</span><p>סיפור ובימוי — שלך. בימוי AI והפקה — שלי. שם מלא בכל פרסום, ושנינו רשאים להציג בתיק העבודות.</p></div>
+      <div><span class="pt2">הקבצים שלך</span><p>הסרט שלך לגמרי. אין רישוי, אין תוקף, אין תשלום חוזר.</p></div>
+      <div><span class="pt2">שקיפות מלאה</span><p>אני לא מסתיר איך זה נעשה. גם אם לקחת רק את ההפקה — תשאל ואני אענה.</p></div>
+      <div><span class="pt2">איש אחד</span><p>אני, מהדמות עד הייצוא. אותו ווטסאפ, בלי להעביר אותך למישהו אחר.</p></div>
+    </div>
+    <div class="notincl">
+      <h3>מה לא כלול</h3>
+      <p class="sub">כדי שלא תהיה אי הבנה — אלה הדברים שאני <b>לא</b> עושה:</p>
+      <ul>
+        <li>כתיבת התסריט והסטוריבורד</li>
+        <li>הסדרת זכויות לדמויות של אנשים אמיתיים</li>
+        <li>ייעוץ משפטי — אני לא עורך דין</li>
+        <li>שימוש בצילומי ארכיון או שידורים מוגנים</li>
+        <li>הפצה, קמפיינים או הגשה לפסטיבלים</li>
+        <li>מנויים לכלי AI שתרצה לעצמך אחרי השיעורים</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+<section id="terms">
+  <div class="slate"><div class="s-k">08</div><div>תנאים</div><div class="s-grow"></div><div>קצר</div></div>
+  <h2>הדברים היבשים.</h2>
+  <div class="terms">
+    <div><span class="tl">מע"מ</span><p>עוסק פטור — <b>אין מע"מ.</b> המחיר שכתוב הוא המחיר שאתה משלם.</p></div>
+    <div><span class="tl">תשלום</span><p>שיעורים: בסוף המפגש.<br>הפקה: 30% בהתחלה, 70% באספקה.<br>העברה או ביט.</p></div>
+    <div><span class="tl">קבלה</span><p>קבלה מסודרת על כל תשלום.</p></div>
+    <div><span class="tl">חוזה</span><p>רק אם אני מפיק — עמוד אחד, עברית פשוטה. <b>על שיעורים אין חוזה,</b> רק קובעים ונפגשים.</p></div>
+    <div><span class="tl">שוט נוסף</span><p>מעל התקרה שסגרנו — 180 ₪ לשוט, בתיאום מראש.</p></div>
+    <div><span class="tl">ביטול מפגש</span><p>עד 24 שעות לפני — נזיז בלי חיוב. פחות מזה — המפגש נחשב.</p></div>
+  </div>
+</section>
+</div>
+
+</div><!-- /details -->
+
+<div class="wrap">
+<section id="foot">
+  <h2>אז מה, מתחילים?</h2>
+  <p class="valid">
+    <b>אין פה לחץ ואין שעון שרץ.</b><br>
+    תסתכל, תחשוב, ותחזור אליי כשנוח לך.
+  </p>
+  <a class="btn" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%94%D7%A6%D7%A2%D7%94.%20%D7%91%D7%95%D7%90%20%D7%A0%D7%93%D7%91%D7%A8." target="_blank" rel="noopener">
+    בוא נדבר בוואטסאפ <span>→</span>
+  </a>
+  <div class="sig">
+    <span class="sig-n">ניר בראינין · סטודיו קריאייטיב AI · תל אביב</span><br>
+    052-647-9739 · nirbrainin.com<br>
+    הצעה אישית · הוכנה עבור גיא
+  </div>
+</section>
+</div>
+
+<div id="sticky">
+  <a href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%94%D7%A6%D7%A2%D7%94.%20%D7%91%D7%95%D7%90%20%D7%A0%D7%93%D7%91%D7%A8." target="_blank" rel="noopener">בוא נדבר בוואטסאפ</a>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* shot-clock leader */
+  var leader = document.getElementById('leader'),
+      num = document.getElementById('leadnum'),
+      skip = document.getElementById('skip'),
+      n = 3, timer;
+  function endLeader(){
+    clearInterval(timer);
+    leader.classList.add('gone');
+    setTimeout(function(){ if(leader.parentNode) leader.remove(); }, 700);
+  }
+  if(reduce || sessionStorage.getItem('seen')){ endLeader(); }
+  else {
+    sessionStorage.setItem('seen','1');
+    timer = setInterval(function(){
+      n--;
+      if(n <= 0){ endLeader(); return; }
+      num.textContent = n;
+    }, 600);
+  }
+  skip.addEventListener('click', endLeader);
+
+  /* reveal */
+  var details = document.getElementById('details'),
+      reveal = document.getElementById('reveal'),
+      rwrap = document.getElementById('revealWrap');
+  details.hidden = true;
+  reveal.addEventListener('click', function(){
+    details.hidden = false;
+    reveal.setAttribute('aria-expanded','true');
+    var y = details.getBoundingClientRect().top + window.scrollY - 40;
+    rwrap.style.display = 'none';
+    window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* where picker */
+  var wbtns = document.querySelectorAll('.where .opts button'),
+      wgo = document.getElementById('wgo'),
+      wa = 'https://wa.me/972526479739?text=';
+  wbtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      wbtns.forEach(function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      wgo.href = wa + encodeURIComponent('ניר, מעניינים אותי השיעורים. מבחינתי נוח ' + b.dataset.w + '.');
+      wgo.classList.add('on');
+    });
+  });
+
+  /* scroll-driven game clock: 12:00 -> 00:00 */
+  var clock = document.getElementById('clock');
+  function pad(v){ return v < 10 ? '0'+v : ''+v; }
+  function updateClock(){
+    var max = document.documentElement.scrollHeight - window.innerHeight,
+        p = max > 0 ? Math.min(window.scrollY / max, 1) : 0,
+        left = Math.round((1 - p) * 720); /* 12 minutes in seconds */
+    clock.textContent = pad(Math.floor(left/60)) + ':' + pad(left % 60);
+  }
+
+  var sticky = document.getElementById('sticky'),
+      hero = document.getElementById('hero');
+  function updateSticky(){
+    sticky.classList.toggle('up', window.scrollY > hero.offsetHeight * 0.9);
+  }
+
+  var raf = false;
+  window.addEventListener('scroll', function(){
+    if(raf) return; raf = true;
+    requestAnimationFrame(function(){ updateClock(); updateSticky(); raf = false; });
+  }, {passive:true});
+  updateClock(); updateSticky();
+
+  if(window.matchMedia('(min-width:820px)').matches){
+    document.querySelectorAll('.pkg details').forEach(function(d){ d.open = true; });
+  }
+})();
+</script>
+</body>
+</html>
