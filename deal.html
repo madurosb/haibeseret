@@ -14,7 +14,6 @@
   --panel-2:#181822;
   --metal:#4b4d57;
   --metal-light:#9497a3;
-  --metal-dark:#26262e;
   --gold:#d4af37;
   --gold-bright:#ffd873;
   --gold-dim:#8a6f2a;
@@ -28,24 +27,16 @@
   --font-body:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-led:'Courier New', 'Consolas', monospace;
 }
-
 *{box-sizing:border-box; margin:0; padding:0;}
 html,body{height:100%;}
 body{
-  background:var(--void);
-  color:var(--text);
-  font-family:var(--font-body);
-  overflow:hidden;
-  position:relative;
-  -webkit-font-smoothing:antialiased;
-  user-select:none;
+  background:var(--void); color:var(--text); font-family:var(--font-body);
+  overflow:hidden; position:relative; -webkit-font-smoothing:antialiased; user-select:none;
 }
-
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
 }
 
-/* ambient studio backdrop, present behind everything */
 #studio-bg{
   position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
@@ -55,90 +46,46 @@ body{
     linear-gradient(180deg, #0a0a10 0%, #08080c 55%, #050507 100%);
 }
 #studio-bg::before{
-  content:'';
-  position:absolute; inset:0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+  content:''; position:absolute; inset:0;
+  background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
   opacity:0.5;
 }
 .spotlight{
   position:absolute; top:-20%; width:38vw; height:140%;
   background:linear-gradient(180deg, rgba(255,235,180,0.09), transparent 70%);
-  filter:blur(6px);
-  transform-origin:top center;
-  animation:sweep 14s ease-in-out infinite;
-  mix-blend-mode:screen;
+  filter:blur(6px); transform-origin:top center; animation:sweep 14s ease-in-out infinite; mix-blend-mode:screen;
 }
 .spotlight.s2{ animation-delay:-7s; opacity:0.7; background:linear-gradient(180deg, rgba(150,225,255,0.07), transparent 70%);}
-@keyframes sweep{
-  0%,100%{ left:-10%; transform:rotate(-14deg) scaleY(1); }
-  50%{ left:65%; transform:rotate(10deg) scaleY(1.05); }
-}
+@keyframes sweep{ 0%,100%{ left:-10%; transform:rotate(-14deg) scaleY(1); } 50%{ left:65%; transform:rotate(10deg) scaleY(1.05); } }
 
 #app{ position:relative; z-index:1; height:100vh; width:100vw; }
-
-.screen{
-  position:absolute; inset:0;
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .45s ease;
-}
+.screen{ position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .45s ease; }
 .screen.active{ display:flex; opacity:1; pointer-events:auto; }
 
 /* ============================================================
-   TYPOGRAPHY HELPERS
+   TYPOGRAPHY / BUTTONS
    ============================================================ */
-.eyebrow{
-  font-family:var(--font-body); font-size:12px; letter-spacing:.35em; font-weight:600;
-  color:var(--gold); text-transform:uppercase; opacity:.85;
-}
+.eyebrow{ font-family:var(--font-body); font-size:12px; letter-spacing:.35em; font-weight:600; color:var(--gold); text-transform:uppercase; opacity:.85; }
 .display-title{
-  font-family:var(--font-display); font-weight:900; text-transform:uppercase;
-  letter-spacing:.02em; line-height:.92;
+  font-family:var(--font-display); font-weight:900; text-transform:uppercase; letter-spacing:.02em; line-height:.92;
   background:linear-gradient(180deg, var(--gold-bright) 10%, var(--gold) 55%, var(--gold-dim) 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 0 40px rgba(212,175,55,0.25);
-  filter:drop-shadow(0 2px 0 rgba(0,0,0,0.6));
+  text-shadow:0 0 40px rgba(212,175,55,0.25); filter:drop-shadow(0 2px 0 rgba(0,0,0,0.6));
 }
-.led{
-  font-family:var(--font-led); font-weight:700; letter-spacing:.06em; font-variant-numeric:tabular-nums;
-  color:var(--gold-bright);
-  text-shadow:0 0 6px rgba(255,216,115,0.7), 0 0 22px rgba(255,157,46,0.35);
-}
+.led{ font-family:var(--font-led); font-weight:700; letter-spacing:.06em; font-variant-numeric:tabular-nums; color:var(--gold-bright); text-shadow:0 0 6px rgba(255,216,115,0.7), 0 0 22px rgba(255,157,46,0.35); }
 .btn{
-  font-family:var(--font-body); font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-  border:none; cursor:pointer; border-radius:6px; padding:16px 38px; font-size:15px;
-  transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
-  position:relative;
+  font-family:var(--font-body); font-weight:700; letter-spacing:.08em; text-transform:uppercase; border:none; cursor:pointer;
+  border-radius:6px; padding:16px 38px; font-size:15px; transition:transform .12s ease, box-shadow .12s ease, filter .12s ease; position:relative;
 }
 .btn:active{ transform:translateY(2px) scale(.98); }
 .btn:focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; }
-.btn-gold{
-  background:linear-gradient(180deg, var(--gold-bright), var(--gold) 60%, var(--gold-dim));
-  color:#20180a;
-  box-shadow:0 6px 0 var(--gold-dim), 0 10px 24px rgba(212,175,55,0.35);
-}
+.btn-gold{ background:linear-gradient(180deg, var(--gold-bright), var(--gold) 60%, var(--gold-dim)); color:#20180a; box-shadow:0 6px 0 var(--gold-dim), 0 10px 24px rgba(212,175,55,0.35); }
 .btn-gold:hover{ filter:brightness(1.08); box-shadow:0 6px 0 var(--gold-dim), 0 14px 30px rgba(212,175,55,0.5); }
-.btn-deal{
-  background:linear-gradient(180deg, #47eaa0, var(--green) 60%, #1c9e63);
-  color:#062b1a;
-  box-shadow:0 6px 0 #1c9e63, 0 10px 24px rgba(53,214,138,0.35);
-}
+.btn-deal{ background:linear-gradient(180deg, #47eaa0, var(--green) 60%, #1c9e63); color:#062b1a; box-shadow:0 6px 0 #1c9e63, 0 10px 24px rgba(53,214,138,0.35); }
 .btn-deal:hover{ filter:brightness(1.08); }
-.btn-nodeal{
-  background:linear-gradient(180deg, #ff7a7a, var(--red) 60%, #a11f1f);
-  color:#2a0505;
-  box-shadow:0 6px 0 #a11f1f, 0 10px 24px rgba(255,59,59,0.35);
-}
+.btn-nodeal{ background:linear-gradient(180deg, #ff7a7a, var(--red) 60%, #a11f1f); color:#2a0505; box-shadow:0 6px 0 #a11f1f, 0 10px 24px rgba(255,59,59,0.35); }
 .btn-nodeal:hover{ filter:brightness(1.08); }
-.btn-ghost{
-  background:transparent; color:var(--metal-light); border:1px solid var(--metal);
-  box-shadow:none;
-}
+.btn-ghost{ background:transparent; color:var(--metal-light); border:1px solid var(--metal); box-shadow:none; }
 .btn-ghost:hover{ color:var(--text); border-color:var(--gold); }
 
 /* ============================================================
@@ -146,17 +93,9 @@ body{
    ============================================================ */
 #screen-start .title-block{ text-align:center; }
 #screen-start .display-title{ font-size:min(16vw, 128px); }
-#screen-start .title-or{
-  font-family:var(--font-body); font-size:18px; letter-spacing:.6em; color:var(--metal-light);
-  margin:2px 0; font-weight:600;
-}
-#screen-start .subtitle{
-  margin-top:18px; font-family:var(--font-body); font-size:13px; letter-spacing:.45em;
-  color:var(--text-dim); text-transform:uppercase;
-}
-#screen-start .cases-row{
-  display:flex; gap:14px; margin:44px 0 40px; justify-content:center; flex-wrap:wrap; max-width:640px;
-}
+#screen-start .title-or{ font-family:var(--font-body); font-size:18px; letter-spacing:.6em; color:var(--metal-light); margin:2px 0; font-weight:600; }
+#screen-start .subtitle{ margin-top:18px; font-size:13px; letter-spacing:.45em; color:var(--text-dim); text-transform:uppercase; }
+#screen-start .cases-row{ display:flex; gap:14px; margin:44px 0 40px; justify-content:center; flex-wrap:wrap; max-width:640px; }
 #screen-start .mini-case{ width:34px; height:24px; opacity:.55; animation:bob 3.4s ease-in-out infinite; }
 #screen-start .mini-case:nth-child(odd){ animation-delay:-1.2s; }
 #screen-start .mini-case:nth-child(3n){ animation-delay:-2.1s; }
@@ -164,82 +103,32 @@ body{
 #play-btn{ font-size:20px; padding:20px 56px; }
 
 /* ============================================================
-   BRIEFCASE VISUAL (signature element)
+   BRIEFCASE VISUAL
    ============================================================ */
 .case{
-  --case-w:60px; --case-h:44px;
-  width:var(--case-w); height:var(--case-h);
-  position:relative;
-  border-radius:6px;
+  --case-w:56px; --case-h:42px; width:var(--case-w); height:var(--case-h); position:relative; border-radius:6px;
   background:linear-gradient(155deg, #6a6d7a 0%, #3c3e48 42%, #24252c 100%);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.35),
-    inset 0 -6px 10px rgba(0,0,0,0.45),
-    0 5px 10px rgba(0,0,0,0.55);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.35), inset 0 -6px 10px rgba(0,0,0,0.45), 0 5px 10px rgba(0,0,0,0.55);
   border:1px solid #14141a;
 }
-.case::before{ /* handle */
-  content:'';
-  position:absolute; top:-9px; left:50%; transform:translateX(-50%);
-  width:22px; height:10px; border-radius:4px 4px 0 0;
-  background:linear-gradient(180deg,#8a8d99,#4c4e58);
-  border:1px solid #1c1c22; border-bottom:none;
-}
-.case::after{ /* center seam highlight */
-  content:'';
-  position:absolute; left:6px; right:6px; top:44%; height:1px;
-  background:rgba(255,255,255,0.14);
-}
-.case .latch{
-  position:absolute; width:5px; height:9px; border-radius:1px;
-  background:linear-gradient(180deg,#ffe9b0,#c99a2e);
-  box-shadow:0 0 4px rgba(255,216,115,0.5);
-  top:50%; transform:translateY(-50%);
-}
-.case .latch.l{ left:9px; }
-.case .latch.r{ right:9px; }
+.case::before{ content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%); width:22px; height:10px; border-radius:4px 4px 0 0; background:linear-gradient(180deg,#8a8d99,#4c4e58); border:1px solid #1c1c22; border-bottom:none; }
+.case::after{ content:''; position:absolute; left:6px; right:6px; top:44%; height:1px; background:rgba(255,255,255,0.14); }
+.case .latch{ position:absolute; width:5px; height:9px; border-radius:1px; background:linear-gradient(180deg,#ffe9b0,#c99a2e); box-shadow:0 0 4px rgba(255,216,115,0.5); top:50%; transform:translateY(-50%); }
+.case .latch.l{ left:9px; } .case .latch.r{ right:9px; }
 .case .plate{
-  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-  min-width:20px; padding:1px 5px; text-align:center;
-  background:linear-gradient(180deg,#1a1a20,#0b0b0f);
-  border:1px solid rgba(212,175,55,0.5); border-radius:3px;
-  font-family:var(--font-led); font-size:12px; font-weight:700;
-  color:var(--gold-bright); text-shadow:0 0 4px rgba(255,216,115,0.6);
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); min-width:20px; padding:1px 5px; text-align:center;
+  background:linear-gradient(180deg,#1a1a20,#0b0b0f); border:1px solid rgba(212,175,55,0.5); border-radius:3px;
+  font-family:var(--font-led); font-size:12px; font-weight:700; color:var(--gold-bright); text-shadow:0 0 4px rgba(255,216,115,0.6);
 }
-
-/* clickable case button on the game grid */
-.case-slot{
-  background:none; border:none; cursor:pointer; padding:10px 4px;
-  display:flex; flex-direction:column; align-items:center; gap:6px;
-  transition:transform .15s ease;
-}
+.case-slot{ background:none; border:none; cursor:pointer; padding:8px 4px; display:flex; flex-direction:column; align-items:center; gap:5px; transition:transform .15s ease; }
 .case-slot .case{ transition:box-shadow .18s ease, transform .18s ease, filter .3s ease; }
-.case-slot:hover:not(:disabled) .case{
-  transform:translateY(-4px);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.35),
-    inset 0 -6px 10px rgba(0,0,0,0.45),
-    0 0 0 2px rgba(51,224,255,0.5),
-    0 10px 18px rgba(51,224,255,0.25);
-}
+.case-slot:hover:not(:disabled) .case{ transform:translateY(-4px); box-shadow:inset 0 1px 1px rgba(255,255,255,0.35), inset 0 -6px 10px rgba(0,0,0,0.45), 0 0 0 2px rgba(51,224,255,0.5), 0 10px 18px rgba(51,224,255,0.25); }
 .case-slot:disabled{ cursor:default; }
-.case-slot .num{
-  font-family:var(--font-body); font-weight:700; font-size:11px; color:var(--text-dim);
-  letter-spacing:.05em;
-}
-.case-slot.is-player .case{
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.35),
-    inset 0 -6px 10px rgba(0,0,0,0.45),
-    0 0 0 2px var(--gold-bright),
-    0 0 22px rgba(255,216,115,0.55);
-  animation:playerPulse 2.2s ease-in-out infinite;
-}
+.case-slot .num{ font-weight:700; font-size:10.5px; color:var(--text-dim); letter-spacing:.05em; }
+.case-slot.is-player .case{ box-shadow:inset 0 1px 1px rgba(255,255,255,0.35), inset 0 -6px 10px rgba(0,0,0,0.45), 0 0 0 2px var(--gold-bright), 0 0 22px rgba(255,216,115,0.55); animation:playerPulse 2.2s ease-in-out infinite; }
 .case-slot.is-player .num{ color:var(--gold-bright); }
-@keyframes playerPulse{
-  0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.18); }
-}
-.case-slot.is-opened{ opacity:.28; pointer-events:none; }
+@keyframes playerPulse{ 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.18); } }
+.case-slot.is-opened{ opacity:.25; pointer-events:none; }
 .case-slot.is-opened .case{ filter:grayscale(.7); }
 .case-slot.is-eligible .case{ animation:eligibleGlow 1.8s ease-in-out infinite; }
 @keyframes eligibleGlow{
@@ -250,203 +139,172 @@ body{
 /* ============================================================
    GAME SCREEN
    ============================================================ */
-#screen-game{ justify-content:flex-start; padding:16px 18px 10px; }
-#game-header{
-  width:100%; max-width:1180px; display:flex; align-items:center; justify-content:space-between;
-  padding:10px 22px; border-radius:10px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-  border:1px solid rgba(255,255,255,0.07);
-  margin-bottom:14px; flex-wrap:wrap; gap:8px;
+#screen-game{ justify-content:flex-start; padding:14px 14px 18px; overflow-y:auto; }
+#stage-frame{
+  position:relative; width:100%; max-width:900px; margin:0 auto; padding:14px 18px 20px; border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+  border:1px solid rgba(212,175,55,0.22);
+  box-shadow:0 0 0 1px rgba(0,0,0,0.4) inset, 0 20px 60px rgba(0,0,0,0.5);
 }
-#game-header .brand{ font-family:var(--font-display); font-weight:900; letter-spacing:.05em; color:var(--gold); font-size:20px; text-transform:uppercase;}
-#round-banner{ text-align:center; }
-#round-banner .r-label{ font-size:11px; letter-spacing:.3em; color:var(--text-dim); text-transform:uppercase; }
-#round-banner .r-instruction{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--text); letter-spacing:.03em; text-transform:uppercase; }
-#round-progress{ font-family:var(--font-led); font-size:13px; color:var(--cyan); text-shadow:0 0 6px rgba(51,224,255,0.5);}
+#game-header{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+#game-header .brand{ font-family:var(--font-display); font-weight:900; letter-spacing:.05em; color:var(--gold); font-size:19px; text-transform:uppercase;}
 
-#player-case-panel{
-  display:flex; align-items:center; gap:10px; padding:6px 16px; border-radius:8px;
-  border:1px solid var(--gold-dim); background:rgba(212,175,55,0.06);
-}
-#player-case-panel .case{ --case-w:38px; --case-h:28px; transform:scale(1); }
+#player-case-panel{ display:flex; align-items:center; gap:9px; padding:5px 14px; border-radius:8px; border:1px solid var(--gold-dim); background:rgba(212,175,55,0.06); }
+#player-case-panel .case{ --case-w:34px; --case-h:25px; }
 #player-case-panel .lbl{ display:flex; flex-direction:column; }
-#player-case-panel .lbl .t1{ font-size:10px; letter-spacing:.25em; color:var(--text-dim); text-transform:uppercase; }
-#player-case-panel .lbl .t2{ font-family:var(--font-led); font-size:16px; color:var(--gold-bright); }
+#player-case-panel .lbl .t1{ font-size:9.5px; letter-spacing:.22em; color:var(--text-dim); text-transform:uppercase; }
+#player-case-panel .lbl .t2{ font-family:var(--font-led); font-size:15px; color:var(--gold-bright); }
 #player-case-panel.empty{ opacity:.4; }
 
-#game-body{
-  width:100%; max-width:1180px; flex:1; display:grid;
-  grid-template-columns:170px 1fr 170px;
-  gap:18px; min-height:0; align-items:stretch;
-  overflow:hidden;
+#ticker-bar{
+  display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; padding:7px 14px; margin-bottom:12px;
+  border-radius:8px; background:rgba(0,0,0,0.35); border:1px solid rgba(212,175,55,0.18);
 }
+.tick-seg{ font-family:var(--font-led); font-size:12.5px; letter-spacing:.05em; color:var(--gold-bright); text-shadow:0 0 6px rgba(255,216,115,0.4); white-space:nowrap; }
+.tick-sep{ color:var(--metal); }
+#tick-avg-arrow{ font-size:11px; margin-left:3px; }
+#tick-avg-arrow.up{ color:var(--green); }
+#tick-avg-arrow.down{ color:var(--red); }
 
-.money-board{
-  background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
-  border:1px solid rgba(255,255,255,0.07); border-radius:10px;
-  padding:10px 8px; display:flex; flex-direction:column; gap:4px;
-  overflow-y:auto;
+#board-panel{ margin-bottom:12px; display:flex; flex-direction:column; gap:8px; }
+.board-row{ background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:7px 12px; }
+.board-row-head{ display:flex; justify-content:space-between; align-items:center; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); margin-bottom:5px; }
+.board-row-head span:last-child{ font-family:var(--font-led); color:var(--text); font-size:11.5px; }
+.board-chips{ display:flex; flex-wrap:wrap; gap:4px; }
+.board-chip{
+  font-family:var(--font-led); font-size:11.5px; padding:3px 7px; border-radius:5px; background:rgba(255,255,255,0.05);
+  color:var(--text); letter-spacing:.02em; transition:all .4s ease; border:1px solid rgba(255,255,255,0.06);
 }
-.money-board .mb-title{
-  font-size:10px; letter-spacing:.25em; text-align:center; color:var(--text-dim);
-  text-transform:uppercase; margin-bottom:4px;
+#board-chips-high .board-chip{ color:var(--gold-bright); border-color:rgba(212,175,55,0.25); }
+.board-chip.eliminated{ opacity:.28; text-decoration:line-through; background:transparent; color:#5a5a63; transform:scale(.88); border-color:transparent; }
+.board-chip.bursting{ animation:chipBurst .42s ease; }
+@keyframes chipBurst{
+  0%{ transform:scale(1); box-shadow:0 0 0 rgba(255,59,59,0);}
+  40%{ transform:scale(1.25); background:rgba(255,59,59,0.55); color:#fff; box-shadow:0 0 16px rgba(255,59,59,0.6);}
+  100%{ transform:scale(.88); }
 }
-.mb-row{
-  font-family:var(--font-led); font-size:13px; text-align:center; padding:4px 2px; border-radius:4px;
-  color:var(--text); background:rgba(255,255,255,0.025); letter-spacing:.02em;
-  transition:all .5s ease; position:relative;
-}
-.mb-row.tier-high{ color:var(--gold-bright); }
-.mb-row.eliminated{
-  color:#5a5a63; background:transparent; text-decoration:line-through;
-  transform:scale(.92); opacity:.45;
-}
-.mb-row.flash{ animation:mbFlash .9s ease; }
-@keyframes mbFlash{
-  0%{ background:rgba(255,59,59,0.5); color:#fff; transform:scale(1.08);}
-  100%{ background:transparent; }
-}
+.spread-bar{ margin-top:6px; height:4px; border-radius:2px; background:rgba(255,255,255,0.06); overflow:hidden; }
+.spread-fill{ height:100%; background:linear-gradient(90deg, var(--gold-dim), var(--gold-bright)); transition:width .5s ease; }
 
-#case-grid-wrap{ display:flex; align-items:center; justify-content:center; overflow:auto; }
-#case-grid{
-  display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:2px 6px;
-  max-width:560px; width:100%;
-}
+#round-instruction-banner{ text-align:center; margin-bottom:8px; }
+#round-instruction-text{ font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:.03em; text-transform:uppercase; color:var(--text); }
+
+#case-grid-wrap{ display:flex; justify-content:center; }
+#case-grid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:3px 6px; max-width:600px; width:100%; }
 
 /* ============================================================
    OVERLAYS
    ============================================================ */
-.overlay{
-  position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center;
-  background:rgba(4,4,7,0.78); backdrop-filter:blur(6px);
-  padding:20px;
-}
+.overlay{ position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; background:rgba(4,4,7,0.8); backdrop-filter:blur(6px); padding:20px; }
 .overlay.active{ display:flex; animation:overlayFade .35s ease; }
 @keyframes overlayFade{ from{ opacity:0; } to{ opacity:1; } }
 .overlay-card{
-  background:linear-gradient(180deg, var(--panel-2), var(--panel));
-  border:1px solid rgba(212,175,55,0.25); border-radius:16px;
-  padding:40px 46px; text-align:center; max-width:520px; width:100%;
-  box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(212,175,55,0.08);
+  background:linear-gradient(180deg, var(--panel-2), var(--panel)); border:1px solid rgba(212,175,55,0.25); border-radius:16px;
+  padding:36px 42px; text-align:center; max-width:520px; width:100%; box-shadow:0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(212,175,55,0.08);
   animation:cardIn .4s cubic-bezier(.2,.9,.25,1.1);
 }
 @keyframes cardIn{ from{ opacity:0; transform:scale(.85) translateY(20px);} to{ opacity:1; transform:scale(1) translateY(0);} }
+@keyframes shakeKf{
+  0%,100%{ transform:translate(0,0); } 20%{ transform:translate(-6px,2px) rotate(-0.6deg); } 40%{ transform:translate(5px,-3px) rotate(0.5deg); }
+  60%{ transform:translate(-4px,3px) rotate(-0.4deg); } 80%{ transform:translate(3px,-2px) rotate(0.3deg); }
+}
+.shake{ animation:shakeKf .4s ease; }
 
-/* case opening overlay */
-#overlay-opening .case{ --case-w:120px; --case-h:88px; margin:0 auto 8px; }
+#flash-bloom{ position:fixed; inset:0; z-index:50; pointer-events:none; opacity:0; }
+#flash-bloom.go{ animation:flashPulse .5s ease-out; }
+#flash-bloom.low.go{ background:radial-gradient(circle at 50% 42%, rgba(200,200,210,0.5), transparent 65%); }
+#flash-bloom.mid.go{ background:radial-gradient(circle at 50% 42%, rgba(255,216,115,0.65), transparent 65%); }
+#flash-bloom.big.go{ background:radial-gradient(circle at 50% 42%, rgba(255,157,46,0.8), transparent 68%); }
+#flash-bloom.huge.go{ background:radial-gradient(circle at 50% 42%, rgba(255,80,80,0.9), rgba(255,157,46,0.5) 45%, transparent 72%); }
+@keyframes flashPulse{ 0%{opacity:0;} 15%{opacity:1;} 100%{opacity:0;} }
+
+#overlay-opening .case{ --case-w:78px; --case-h:58px; margin:0 auto 10px; }
 #overlay-opening .case-lid{
-  position:absolute; inset:0; border-radius:6px;
-  background:linear-gradient(155deg, #6a6d7a 0%, #3c3e48 42%, #24252c 100%);
-  border:1px solid #14141a; transform-origin:top center;
-  transition:transform .55s cubic-bezier(.6,0,.2,1), opacity .3s ease .35s;
+  position:absolute; inset:0; border-radius:6px; background:linear-gradient(155deg, #6a6d7a 0%, #3c3e48 42%, #24252c 100%);
+  border:1px solid #14141a; transform-origin:top center; transition:transform .5s cubic-bezier(.6,0,.2,1), opacity .3s ease .3s;
 }
 #overlay-opening .case-lid.open{ transform:rotateX(-115deg) translateY(-6px); opacity:0; }
-#overlay-opening .amount-reveal{
-  font-family:var(--font-led); font-size:56px; font-weight:800; margin-top:18px;
-  opacity:0; transform:scale(.6); transition:all .4s cubic-bezier(.2,.9,.25,1.4);
-}
-#overlay-opening .amount-reveal.show{ opacity:1; transform:scale(1); }
-#overlay-opening .amount-reveal.low{ color:var(--metal-light); text-shadow:0 0 12px rgba(150,150,160,0.4); }
-#overlay-opening .amount-reveal.mid{ color:var(--gold-bright); text-shadow:0 0 16px rgba(255,216,115,0.55); }
-#overlay-opening .amount-reveal.big{ color:var(--amber); text-shadow:0 0 26px rgba(255,157,46,0.7); font-size:64px; }
-#overlay-opening .amount-reveal.huge{ color:var(--red); text-shadow:0 0 32px rgba(255,59,59,0.75); font-size:70px; }
-#overlay-opening .caption{ font-size:12px; letter-spacing:.3em; color:var(--text-dim); text-transform:uppercase; margin-top:10px;}
+.amount-reveal{ font-family:var(--font-led); font-size:52px; font-weight:800; margin-top:14px; opacity:0; transform:scale(.75); transition:opacity .2s ease, transform .2s ease; color:var(--text); }
+.amount-reveal.show{ opacity:1; transform:scale(1); }
+.amount-reveal.low{ color:var(--metal-light); text-shadow:0 0 12px rgba(150,150,160,0.4); }
+.amount-reveal.mid{ color:var(--gold-bright); text-shadow:0 0 16px rgba(255,216,115,0.55); }
+.amount-reveal.big{ color:var(--amber); text-shadow:0 0 26px rgba(255,157,46,0.7); font-size:58px; }
+.amount-reveal.huge{ color:var(--red); text-shadow:0 0 32px rgba(255,59,59,0.75); font-size:64px; }
+.amount-reveal.locked-pulse{ animation:lockPulse .4s ease; }
+@keyframes lockPulse{ 0%{ transform:scale(1);} 45%{ transform:scale(1.22);} 100%{ transform:scale(1);} }
 
-/* banker call */
-#overlay-bankercall .phone{
-  font-size:64px; animation:ring 0.32s ease-in-out infinite;
-  filter:drop-shadow(0 0 20px rgba(212,175,55,0.5));
-}
+.reaction-line{ margin-top:14px; font-family:var(--font-display); font-weight:800; letter-spacing:.02em; font-size:17px; text-transform:uppercase; min-height:22px; opacity:0; transition:opacity .3s ease; }
+.reaction-line.good{ color:var(--green); opacity:1; text-shadow:0 0 10px rgba(53,214,138,0.4); }
+.reaction-line.bad{ color:var(--amber); opacity:1; text-shadow:0 0 10px rgba(255,157,46,0.4); }
+.impact-line{ margin-top:6px; font-family:var(--font-led); font-size:12px; color:var(--text-dim); min-height:16px; }
+
+#overlay-bankercall .phone{ font-size:60px; animation:ring 0.32s ease-in-out infinite; filter:drop-shadow(0 0 20px rgba(212,175,55,0.5)); }
 @keyframes ring{ 0%,100%{ transform:rotate(0);} 25%{ transform:rotate(-14deg);} 75%{ transform:rotate(14deg);} }
-#overlay-bankercall .msg{ margin-top:18px; font-family:var(--font-display); font-weight:800; letter-spacing:.04em; font-size:24px; color:var(--gold-bright); text-transform:uppercase;}
+#overlay-bankercall .msg{ margin-top:16px; font-family:var(--font-display); font-weight:800; letter-spacing:.04em; font-size:23px; color:var(--gold-bright); text-transform:uppercase;}
 
-/* banker offer */
-.offer-amount{
-  font-family:var(--font-led); font-size:min(15vw,64px); font-weight:800; color:var(--gold-bright);
-  text-shadow:0 0 10px rgba(255,216,115,0.6), 0 0 34px rgba(255,157,46,0.35);
-  margin:14px 0 26px; letter-spacing:.02em;
-}
+.offer-amount{ font-family:var(--font-led); font-size:min(15vw,58px); font-weight:800; color:var(--gold-bright); text-shadow:0 0 10px rgba(255,216,115,0.6), 0 0 34px rgba(255,157,46,0.35); margin:12px 0 4px; letter-spacing:.02em; }
+.offer-context{ margin-bottom:16px; font-size:11.5px; color:var(--text-dim); letter-spacing:.02em; }
 .btn-row{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
 
-/* final two */
-.final-two-row{ display:flex; gap:28px; justify-content:center; margin:20px 0 26px; flex-wrap:wrap; }
-.final-two-amt{
-  font-family:var(--font-led); font-size:34px; font-weight:800; padding:14px 22px; border-radius:10px;
-  background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.3); color:var(--gold-bright);
-  text-shadow:0 0 10px rgba(255,216,115,0.5);
-}
+.final-two-row{ display:flex; gap:24px; justify-content:center; margin:16px 0 20px; flex-wrap:wrap; }
+.final-two-amt{ font-family:var(--font-led); font-size:30px; font-weight:800; padding:12px 20px; border-radius:10px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.3); color:var(--gold-bright); text-shadow:0 0 10px rgba(255,216,115,0.5); }
 
-/* transitions (no deal banner) */
-#overlay-nodealflash .overlay-card{ padding:30px 60px; border-color:rgba(255,59,59,0.4); }
-#overlay-nodealflash .display-title{ font-size:44px; background:linear-gradient(180deg,#ff8a8a,#ff3b3b,#8f1616); -webkit-background-clip:text; background-clip:text;}
+#overlay-nodealflash .overlay-card{ padding:28px 56px; border-color:rgba(255,59,59,0.4); }
+#overlay-nodealflash .display-title{ font-size:42px; background:linear-gradient(180deg,#ff8a8a,#ff3b3b,#8f1616); -webkit-background-clip:text; background-clip:text;}
 
-/* deal accepted */
-#overlay-dealaccepted .display-title{ font-size:38px; }
-#overlay-dealaccepted .winnings{ margin:14px 0 10px; }
-.reveal-line{ margin-top:22px; padding-top:18px; border-top:1px solid rgba(255,255,255,0.08); }
+#overlay-dealaccepted .display-title{ font-size:36px; }
+.reveal-line{ margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08); }
 .reveal-line .t{ font-size:11px; letter-spacing:.25em; color:var(--text-dim); text-transform:uppercase; }
-.reveal-line .v{ font-family:var(--font-led); font-size:30px; color:var(--gold-bright); margin:4px 0 10px; }
-.verdict{ font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:19px; text-transform:uppercase;}
+.reveal-line .v{ font-family:var(--font-led); font-size:28px; color:var(--gold-bright); margin:4px 0 8px; }
+.verdict{ font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:18px; text-transform:uppercase;}
 .verdict.good{ color:var(--green); }
 .verdict.bad{ color:var(--amber); }
 
-/* final reveal / celebration */
-#overlay-finalreveal .amount-reveal{ font-size:min(16vw,72px); }
 .confetti-wrap{ position:fixed; inset:0; pointer-events:none; z-index:30; overflow:hidden; }
-.confetti-piece{
-  position:absolute; top:-5%; width:9px; height:14px; opacity:.9;
-  animation:fall linear forwards;
-}
-@keyframes fall{
-  to{ transform:translateY(110vh) rotate(540deg); opacity:.2; }
-}
+.confetti-piece{ position:absolute; top:-5%; width:9px; height:14px; opacity:.9; animation:fall linear forwards; }
+@keyframes fall{ to{ transform:translateY(110vh) rotate(540deg); opacity:.2; } }
 
-/* stats */
-.stats-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 22px; text-align:left; margin:22px 0 8px; }
-.stat-item .t{ font-size:10.5px; letter-spacing:.2em; color:var(--text-dim); text-transform:uppercase; }
-.stat-item .v{ font-family:var(--font-led); font-size:19px; color:var(--text); margin-top:2px; }
+.stats-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px 20px; text-align:left; margin:18px 0 6px; }
+.stat-item .t{ font-size:10px; letter-spacing:.2em; color:var(--text-dim); text-transform:uppercase; }
+.stat-item .v{ font-family:var(--font-led); font-size:18px; color:var(--text); margin-top:2px; }
 .stat-item .v.gold{ color:var(--gold-bright); }
-.stat-item .v.green{ color:var(--green); }
-.stat-item .v.red{ color:var(--red); }
 
-/* what-if compare */
-.compare-row{ display:flex; gap:20px; justify-content:center; margin:22px 0; flex-wrap:wrap; }
-.compare-col{ padding:16px 24px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); min-width:170px;}
-.compare-col .t{ font-size:11px; letter-spacing:.2em; color:var(--text-dim); text-transform:uppercase; }
-.compare-col .v{ font-family:var(--font-led); font-size:26px; margin-top:6px; }
+.compare-row{ display:flex; gap:18px; justify-content:center; margin:18px 0; flex-wrap:wrap; }
+.compare-col{ padding:14px 22px; border-radius:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); min-width:160px;}
+.compare-col .t{ font-size:10.5px; letter-spacing:.2em; color:var(--text-dim); text-transform:uppercase; }
+.compare-col .v{ font-family:var(--font-led); font-size:24px; margin-top:5px; }
 .compare-col.deal .v{ color:var(--green); }
 .compare-col.case .v{ color:var(--gold-bright); }
 
-/* locked state cursor */
-body.locked #case-grid{ pointer-events:none; opacity:.75; }
+body.locked #case-grid{ pointer-events:none; opacity:.7; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width:820px){
-  #game-body{ grid-template-columns:1fr; grid-template-rows:auto 1fr auto; overflow-y:auto; }
-  .money-board{ flex-direction:row; overflow-x:auto; overflow-y:hidden; padding:8px; gap:6px; }
-  .money-board .mb-title{ display:none; }
-  .mb-row{ flex:0 0 auto; min-width:64px; font-size:11px; }
   #case-grid{ grid-template-columns:repeat(5, minmax(0,1fr)); max-width:420px; }
   #screen-start .display-title{ font-size:18vw; }
   .stats-grid{ grid-template-columns:1fr; }
-  .overlay-card{ padding:28px 22px; }
+  .overlay-card{ padding:26px 20px; }
+  .amount-reveal{ font-size:42px; }
+  .amount-reveal.big{ font-size:46px; }
+  .amount-reveal.huge{ font-size:50px; }
 }
 @media (max-width:480px){
   #case-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); }
-  .case{ --case-w:48px; --case-h:36px; }
-  .offer-amount{ font-size:42px; }
+  .case{ --case-w:46px; --case-h:34px; }
+  .offer-amount{ font-size:40px; }
+  .tick-seg{ font-size:11px; }
 }
 </style>
 </head>
 <body>
 
 <div id="studio-bg"><div class="spotlight"></div><div class="spotlight s2"></div></div>
+<div id="flash-bloom"></div>
 
 <div id="app">
 
-  <!-- ============ START SCREEN ============ -->
   <section id="screen-start" class="screen active">
     <div class="title-block">
       <div class="eyebrow" style="margin-bottom:10px;">A HIGH-STAKES GAME</div>
@@ -458,24 +316,39 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
     <button class="btn btn-gold" id="play-btn">Play</button>
   </section>
 
-  <!-- ============ GAME SCREEN ============ -->
   <section id="screen-game" class="screen">
-    <div id="game-header">
-      <div class="brand">DEAL · NO DEAL</div>
-      <div id="round-banner">
-        <div class="r-label" id="round-label">Choose Your Case</div>
-        <div class="r-instruction" id="round-instruction">Pick one case to keep</div>
+    <div id="stage-frame">
+      <div id="game-header">
+        <div class="brand">DEAL · NO DEAL</div>
+        <div id="player-case-panel" class="empty">
+          <div class="case"><span class="latch l"></span><span class="latch r"></span><span class="plate">?</span></div>
+          <div class="lbl"><span class="t1">Your Case</span><span class="t2" id="player-case-num">—</span></div>
+        </div>
       </div>
-      <div id="player-case-panel" class="empty">
-        <div class="case" id="player-case-visual"><span class="latch l"></span><span class="latch r"></span><span class="plate">?</span></div>
-        <div class="lbl"><span class="t1">Your Case</span><span class="t2" id="player-case-num">—</span></div>
-      </div>
-    </div>
 
-    <div id="game-body">
-      <div class="money-board" id="board-low"><div class="mb-title">Low Tier</div></div>
+      <div id="ticker-bar">
+        <span class="tick-seg" id="tick-round">GET READY</span>
+        <span class="tick-sep">•</span>
+        <span class="tick-seg" id="tick-cases">CASES LEFT 26</span>
+        <span class="tick-sep">•</span>
+        <span class="tick-seg">AVG <span id="tick-avg-val">$0</span><span id="tick-avg-arrow"></span></span>
+      </div>
+
+      <div id="board-panel">
+        <div class="board-row">
+          <div class="board-row-head"><span>Low Tier</span><span id="low-count">13 / 13</span></div>
+          <div class="board-chips" id="board-chips-low"></div>
+          <div class="spread-bar"><div class="spread-fill" id="spread-low" style="width:100%"></div></div>
+        </div>
+        <div class="board-row">
+          <div class="board-row-head"><span>High Tier</span><span id="high-count">13 / 13</span></div>
+          <div class="board-chips" id="board-chips-high"></div>
+          <div class="spread-bar"><div class="spread-fill" id="spread-high" style="width:100%"></div></div>
+        </div>
+      </div>
+
+      <div id="round-instruction-banner"><span id="round-instruction-text">Choose your case</span></div>
       <div id="case-grid-wrap"><div id="case-grid"></div></div>
-      <div class="money-board" id="board-high"><div class="mb-title">High Tier</div></div>
     </div>
   </section>
 
@@ -486,12 +359,13 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
 <div class="overlay" id="overlay-opening">
   <div class="overlay-card">
     <div class="eyebrow" id="opening-num-label">CASE #—</div>
-    <div class="case" style="margin-top:14px;">
-      <span class="latch l"></span><span class="latch r"></span><span class="plate">?</span>
+    <div class="case" style="margin:12px auto 4px;">
+      <span class="latch l"></span><span class="latch r"></span><span class="plate" id="opening-plate-num">—</span>
       <div class="case-lid" id="opening-lid"></div>
     </div>
-    <div class="amount-reveal" id="opening-amount">$0</div>
-    <div class="caption">has been removed from play</div>
+    <div class="amount-reveal" id="opening-amount">$?</div>
+    <div class="reaction-line" id="opening-reaction"></div>
+    <div class="impact-line" id="opening-impact"></div>
   </div>
 </div>
 
@@ -505,8 +379,9 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
 <div class="overlay" id="overlay-offer">
   <div class="overlay-card">
     <div class="eyebrow" id="offer-round-label">ROUND 1 OFFER</div>
-    <div style="font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:22px; text-transform:uppercase; margin-top:8px;">Banker's Offer</div>
-    <div class="offer-amount" id="offer-amount">$0</div>
+    <div style="font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:21px; text-transform:uppercase; margin-top:6px;">Banker's Offer</div>
+    <div class="offer-amount" id="offer-amount">$?</div>
+    <div class="offer-context" id="offer-context"></div>
     <div class="btn-row">
       <button class="btn btn-deal" id="offer-deal-btn">Deal</button>
       <button class="btn btn-nodeal" id="offer-nodeal-btn">No Deal</button>
@@ -515,18 +390,17 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
 </div>
 
 <div class="overlay" id="overlay-nodealflash">
-  <div class="overlay-card">
-    <div class="display-title">NO DEAL!</div>
-  </div>
+  <div class="overlay-card"><div class="display-title">NO DEAL!</div></div>
 </div>
 
 <div class="overlay" id="overlay-finaltwo">
   <div class="overlay-card">
     <div class="eyebrow">FINAL TWO</div>
-    <div style="font-family:var(--font-display); font-weight:800; font-size:22px; text-transform:uppercase; margin-top:6px;">Two cases remain</div>
+    <div style="font-family:var(--font-display); font-weight:800; font-size:21px; text-transform:uppercase; margin-top:6px;">Two cases remain</div>
     <div class="final-two-row" id="final-two-amounts"></div>
-    <div style="font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:18px; text-transform:uppercase; color:var(--text-dim);">Final Offer</div>
-    <div class="offer-amount" id="finaltwo-offer-amount">$0</div>
+    <div style="font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:17px; text-transform:uppercase; color:var(--text-dim);">Final Offer</div>
+    <div class="offer-amount" id="finaltwo-offer-amount">$?</div>
+    <div class="offer-context" id="finaltwo-context"></div>
     <div class="btn-row">
       <button class="btn btn-deal" id="finaltwo-deal-btn">Deal</button>
       <button class="btn btn-nodeal" id="finaltwo-nodeal-btn">No Deal</button>
@@ -537,8 +411,8 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
 <div class="overlay" id="overlay-dealaccepted">
   <div class="overlay-card">
     <div class="display-title">DEAL ACCEPTED</div>
-    <div class="winnings">
-      <div class="eyebrow">Your Winnings</div>
+    <div>
+      <div class="eyebrow" style="margin-top:10px;">Your Winnings</div>
       <div class="offer-amount" id="dealaccepted-amount" style="margin-bottom:0;">$0</div>
     </div>
     <div class="reveal-line">
@@ -546,7 +420,7 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
       <div class="v" id="dealaccepted-casevalue">$0</div>
       <div class="verdict" id="dealaccepted-verdict">—</div>
     </div>
-    <div class="btn-row" style="margin-top:26px;">
+    <div class="btn-row" style="margin-top:24px;">
       <button class="btn btn-gold" id="whatif-btn">What If?</button>
       <button class="btn btn-ghost" id="dealaccepted-finish-btn">See Final Results</button>
     </div>
@@ -556,12 +430,12 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
 <div class="overlay" id="overlay-whatif">
   <div class="overlay-card">
     <div class="eyebrow">WHAT IF…</div>
-    <div style="font-family:var(--font-display); font-weight:800; font-size:20px; text-transform:uppercase; margin-top:6px;">Playing it out as No Deal</div>
-    <div class="case" style="margin:18px auto;"><span class="latch l"></span><span class="latch r"></span><span class="plate" id="whatif-plate">?</span>
+    <div style="font-family:var(--font-display); font-weight:800; font-size:19px; text-transform:uppercase; margin-top:6px;">Playing it out as No Deal</div>
+    <div class="case" style="margin:16px auto;"><span class="latch l"></span><span class="latch r"></span><span class="plate" id="whatif-plate">?</span>
       <div class="case-lid" id="whatif-lid"></div>
     </div>
-    <div class="amount-reveal show mid" id="whatif-amount" style="font-size:36px;">$0</div>
-    <div class="caption" id="whatif-progress">Opening case 1 of 20…</div>
+    <div class="amount-reveal show mid" id="whatif-amount" style="font-size:34px;">$?</div>
+    <div class="impact-line" id="whatif-progress">Opening case 1 of 20…</div>
   </div>
 </div>
 
@@ -579,18 +453,18 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
 <div class="overlay" id="overlay-finalreveal">
   <div class="overlay-card">
     <div class="eyebrow" id="finalreveal-label">FINAL CASE</div>
-    <div class="case" style="margin:16px auto;"><span class="latch l"></span><span class="latch r"></span><span class="plate">?</span>
+    <div class="case" style="margin:14px auto 4px;"><span class="latch l"></span><span class="latch r"></span><span class="plate">?</span>
       <div class="case-lid" id="finalreveal-lid"></div>
     </div>
-    <div class="amount-reveal" id="finalreveal-amount">$0</div>
-    <div class="caption" id="finalreveal-caption"></div>
+    <div class="amount-reveal" id="finalreveal-amount">$?</div>
+    <div class="reaction-line" id="finalreveal-caption" style="opacity:1; color:var(--gold-bright);"></div>
   </div>
 </div>
 
 <div class="overlay" id="overlay-stats">
   <div class="overlay-card">
     <div class="eyebrow" id="stats-outcome-label">GAME OVER</div>
-    <div class="display-title" style="font-size:30px;">Final Results</div>
+    <div class="display-title" style="font-size:28px;">Final Results</div>
     <div class="stats-grid">
       <div class="stat-item"><div class="t">Final Winnings</div><div class="v gold" id="stats-winnings">$0</div></div>
       <div class="stat-item"><div class="t">Your Case Value</div><div class="v" id="stats-casevalue">$0</div></div>
@@ -599,11 +473,11 @@ body.locked #case-grid{ pointer-events:none; opacity:.75; }
       <div class="stat-item"><div class="t">Highest Remaining</div><div class="v" id="stats-highest">$0</div></div>
       <div class="stat-item"><div class="t">Lowest Remaining</div><div class="v" id="stats-lowest">$0</div></div>
     </div>
-    <div style="margin-top:6px;">
-      <div class="t" style="font-size:10.5px; letter-spacing:.2em; color:var(--text-dim); text-transform:uppercase;">Was it a good deal?</div>
+    <div style="margin-top:4px;">
+      <div style="font-size:10px; letter-spacing:.2em; color:var(--text-dim); text-transform:uppercase;">Was it a good deal?</div>
       <div class="verdict" id="stats-gooddeal" style="margin-top:4px;">—</div>
     </div>
-    <button class="btn btn-gold" id="newgame-btn" style="margin-top:26px;">New Game</button>
+    <button class="btn btn-gold" id="newgame-btn" style="margin-top:24px;">New Game</button>
   </div>
 </div>
 
@@ -621,49 +495,44 @@ var AMOUNTS = [0.01,1,5,10,25,50,75,100,200,300,400,500,750,
 var LOW_TIER = AMOUNTS.slice(0,13);
 var HIGH_TIER = AMOUNTS.slice(13);
 var TOTAL_CASES = 26;
-// round index (1-based) -> cases to open that round. after round 9, exactly 1 non-player case remains -> Final Two.
-var ROUND_SCHEDULE = [null,6,5,4,3,2,1,1,1,1];
-var OFFER_PCT_RANGE = {
-  1:[0.25,0.35], 2:[0.35,0.45], 3:[0.45,0.55], 4:[0.55,0.65], 5:[0.65,0.75]
-};
-var OFFER_PCT_RANGE_LATE = [0.75,1.02];
-var FINAL_TWO_PCT_RANGE = [0.82,1.08];
+var ROUND_SCHEDULE = [null,6,5,4,3,2,1,1,1,1]; // after round 9, exactly 1 non-player case remains -> Final Two
+var OFFER_PCT_RANGE = { 1:[0.15,0.25], 2:[0.28,0.38], 3:[0.40,0.50], 4:[0.52,0.62], 5:[0.62,0.74] };
+var OFFER_PCT_RANGE_LATE = [0.74,0.92];
+var FINAL_TWO_PCT_RANGE = [0.85,1.05];
+
+var GOOD_LINES = [
+  "Good riddance — that lifts your average.",
+  "That's one less threat to your case.",
+  "The board just got friendlier.",
+  "Relief. Your odds just improved.",
+  "Exactly the kind of case you wanted gone."
+];
+var BAD_LINES = [
+  "Ouch — that hurts your average.",
+  "That one really mattered.",
+  "The board just got tougher.",
+  "A tough one to lose.",
+  "Your odds just took a hit."
+];
 
 /* ============================================================
    STATE
    ============================================================ */
 var G = null;
-
 function freshState(){
   return {
-    caseValues:{},          // caseId(1..26) -> amount
-    playerCase:null,
-    opened:{},               // caseId -> true
-    openedCount:0,
-    round:0,
-    toOpenThisRound:0,
-    openedThisRound:0,
-    lastOffer:null,
-    lastOfferRound:0,
-    dealAccepted:false,
-    dealAmount:null,
-    dealRoundLabel:'',
-    finalWinnings:null,
-    remainingAtDecision:null, // snapshot [highest, lowest] captured at the moment the game ends
-    endedViaDeal:false,
-    playedToEnd:false
+    caseValues:{}, playerCase:null, opened:{}, openedValues:{}, openedCount:0,
+    round:0, toOpenThisRound:0, openedThisRound:0,
+    lastOffer:null, lastOfferRound:0, lastTickerAvg:null,
+    dealAccepted:false, dealAmount:null, dealRoundLabel:'',
+    finalWinnings:null, remainingAtDecision:null, endedViaDeal:false, playedToEnd:false
   };
 }
-
 function shuffle(arr){
   var a = arr.slice();
-  for(var i=a.length-1;i>0;i--){
-    var j = Math.floor(Math.random()*(i+1));
-    var t=a[i]; a[i]=a[j]; a[j]=t;
-  }
+  for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
   return a;
 }
-
 function initGame(){
   G = freshState();
   var shuffled = shuffle(AMOUNTS);
@@ -671,42 +540,31 @@ function initGame(){
 }
 
 /* ============================================================
-   FORMAT HELPERS
+   HELPERS
    ============================================================ */
-function fmtMoney(v){
-  if(v < 1){ return '$' + v.toFixed(2); }
-  return '$' + Math.round(v).toLocaleString('en-US');
-}
-function amountTier(v){
-  if(v < 1000) return 'low';
-  if(v < 50000) return 'mid';
-  if(v < 300000) return 'big';
-  return 'huge';
-}
+function fmtMoney(v){ if(v<1){ return '$'+v.toFixed(2); } return '$'+Math.round(v).toLocaleString('en-US'); }
+function amountTier(v){ if(v<1000) return 'low'; if(v<50000) return 'mid'; if(v<300000) return 'big'; return 'huge'; }
+function average(arr){ return arr.reduce(function(a,b){return a+b;},0)/arr.length; }
+function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function sleep(ms){ return new Promise(function(resolve){ setTimeout(resolve, ms); }); }
 
 /* ============================================================
    AUDIO — procedural SFX (no external assets)
    ============================================================ */
 var actx = null;
 function ensureAudio(){
-  if(!actx){
-    try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ actx=null; }
-  }
-  if(actx && actx.state === 'suspended'){ actx.resume(); }
+  if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ actx=null; } }
+  if(actx && actx.state==='suspended'){ actx.resume(); }
 }
 function tone(freq, startOffset, dur, opts){
   if(!actx) return;
-  opts = opts||{};
-  var type = opts.type || 'sine';
-  var vol = opts.vol!==undefined?opts.vol:0.18;
-  var glideTo = opts.glideTo;
-  var t0 = actx.currentTime + startOffset;
-  var osc = actx.createOscillator();
-  var gain = actx.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, t0);
+  opts=opts||{};
+  var type=opts.type||'sine', vol=opts.vol!==undefined?opts.vol:0.18, glideTo=opts.glideTo;
+  var t0=actx.currentTime+startOffset;
+  var osc=actx.createOscillator(), gain=actx.createGain();
+  osc.type=type; osc.frequency.setValueAtTime(freq,t0);
   if(glideTo){ osc.frequency.exponentialRampToValueAtTime(glideTo, t0+dur); }
-  gain.gain.setValueAtTime(0.0001, t0);
+  gain.gain.setValueAtTime(0.0001,t0);
   gain.gain.exponentialRampToValueAtTime(vol, t0+Math.min(0.02,dur*0.3));
   gain.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
   osc.connect(gain); gain.connect(actx.destination);
@@ -714,50 +572,52 @@ function tone(freq, startOffset, dur, opts){
 }
 function noiseBurst(startOffset, dur, vol){
   if(!actx) return;
-  var t0 = actx.currentTime + startOffset;
-  var bufferSize = actx.sampleRate * dur;
-  var buffer = actx.createBuffer(1, bufferSize, actx.sampleRate);
-  var data = buffer.getChannelData(0);
-  for(var i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1) * (1 - i/bufferSize); }
-  var src = actx.createBufferSource();
-  src.buffer = buffer;
-  var gain = actx.createGain();
-  gain.gain.setValueAtTime((vol||0.15), t0);
-  src.connect(gain); gain.connect(actx.destination);
-  src.start(t0);
+  var t0=actx.currentTime+startOffset;
+  var bufferSize=actx.sampleRate*dur;
+  var buffer=actx.createBuffer(1,bufferSize,actx.sampleRate);
+  var data=buffer.getChannelData(0);
+  for(var i=0;i<bufferSize;i++){ data[i]=(Math.random()*2-1)*(1-i/bufferSize); }
+  var src=actx.createBufferSource(); src.buffer=buffer;
+  var gain=actx.createGain(); gain.gain.setValueAtTime(vol||0.15,t0);
+  src.connect(gain); gain.connect(actx.destination); src.start(t0);
+}
+var droneStarted=false;
+function startDrone(){
+  if(droneStarted || !actx) return;
+  droneStarted=true;
+  try{
+    var o1=actx.createOscillator(), o2=actx.createOscillator(), g=actx.createGain();
+    o1.type='sine'; o2.type='sine'; o1.frequency.value=55; o2.frequency.value=55.6;
+    g.gain.value=0.0; g.gain.linearRampToValueAtTime(0.026, actx.currentTime+2.2);
+    o1.connect(g); o2.connect(g); g.connect(actx.destination);
+    o1.start(); o2.start();
+  }catch(e){}
 }
 var SFX = {
   select:function(){ tone(660,0,.08,{type:'triangle',vol:.15}); tone(880,.06,.08,{type:'triangle',vol:.12}); },
+  caseThunk:function(){ noiseBurst(0,.12,.14); tone(120,0,.1,{type:'sine',vol:.2}); },
+  tick:function(progress){ tone(300+progress*550,0,.045,{type:'square',vol:0.045+progress*0.09}); },
+  lockThunk:function(){ tone(85,0,.2,{type:'sine',vol:.24}); noiseBurst(0,.14,.12); },
   openLow:function(){ tone(300,0,.25,{type:'sine',vol:.16,glideTo:220}); },
   openMid:function(){ tone(440,0,.18,{type:'triangle',vol:.18}); tone(660,.1,.22,{type:'triangle',vol:.16}); },
   openBig:function(){ tone(520,0,.16,{type:'sawtooth',vol:.12}); tone(780,.12,.18,{type:'triangle',vol:.16}); tone(1040,.24,.3,{type:'triangle',vol:.18}); },
   openHuge:function(){ tone(200,0,.3,{type:'sawtooth',vol:.14}); tone(150,.28,.35,{type:'sawtooth',vol:.15}); noiseBurst(.05,.4,.06); },
-  caseThunk:function(){ noiseBurst(0,.12,.14); tone(120,0,.1,{type:'sine',vol:.2}); },
-  bankerRing:function(){
-    for(var i=0;i<3;i++){
-      tone(1000,i*.55,.18,{type:'square',vol:.08});
-      tone(1200,i*.55+.2,.18,{type:'square',vol:.08});
-    }
-  },
+  bankerRing:function(){ for(var i=0;i<3;i++){ tone(1000,i*.55,.18,{type:'square',vol:.08}); tone(1200,i*.55+.2,.18,{type:'square',vol:.08}); } },
   offerReveal:function(){ tone(220,0,.5,{type:'sine',vol:.14,glideTo:440}); tone(330,.08,.6,{type:'triangle',vol:.1,glideTo:660}); },
   deal:function(){ tone(523,0,.16,{type:'triangle',vol:.18}); tone(659,.12,.16,{type:'triangle',vol:.18}); tone(784,.24,.3,{type:'triangle',vol:.2}); },
   nodeal:function(){ tone(200,0,.28,{type:'sawtooth',vol:.16,glideTo:90}); },
   finalReveal:function(){ tone(392,0,.18,{type:'triangle',vol:.18}); tone(523,.15,.18,{type:'triangle',vol:.18}); tone(659,.3,.18,{type:'triangle',vol:.2}); tone(784,.45,.4,{type:'triangle',vol:.22}); },
-  celebrate:function(){
-    var notes=[523,659,784,1047,1319];
-    notes.forEach(function(f,i){ tone(f,i*.09,.35,{type:'triangle',vol:.16}); });
-  }
+  celebrate:function(){ [523,659,784,1047,1319].forEach(function(f,i){ tone(f,i*.09,.35,{type:'triangle',vol:.16}); }); }
 };
+function playTierRevealSound(tier){
+  if(tier==='low') SFX.openLow(); else if(tier==='mid') SFX.openMid(); else if(tier==='big') SFX.openBig(); else SFX.openHuge();
+}
 
 /* ============================================================
    DOM refs
    ============================================================ */
 var $ = function(id){ return document.getElementById(id); };
 var elCaseGrid = $('case-grid');
-var elBoardLow = $('board-low');
-var elBoardHigh = $('board-high');
-var elRoundLabel = $('round-label');
-var elRoundInstruction = $('round-instruction');
 var elPlayerPanel = $('player-case-panel');
 var elPlayerCaseNum = $('player-case-num');
 
@@ -765,68 +625,69 @@ var locked = false;
 function setLocked(v){ locked=v; document.body.classList.toggle('locked', v); }
 
 /* ============================================================
-   RENDER: start screen mini cases
+   START SCREEN
    ============================================================ */
 function renderStartCases(){
-  var row = $('start-cases-row');
-  row.innerHTML = '';
+  var row = $('start-cases-row'); row.innerHTML='';
   for(var i=0;i<10;i++){
-    var d = document.createElement('div');
-    d.className = 'mini-case case';
-    d.innerHTML = '<span class="latch l"></span><span class="latch r"></span><span class="plate">'+(i+1)+'</span>';
+    var d=document.createElement('div'); d.className='mini-case case';
+    d.innerHTML='<span class="latch l"></span><span class="latch r"></span><span class="plate">'+(i+1)+'</span>';
     row.appendChild(d);
   }
 }
 
 /* ============================================================
-   RENDER: money boards
+   BOARD
    ============================================================ */
-function renderBoards(){
-  elBoardLow.innerHTML = '<div class="mb-title">Low Tier</div>';
-  elBoardHigh.innerHTML = '<div class="mb-title">High Tier</div>';
-  LOW_TIER.forEach(function(v){ elBoardLow.appendChild(makeBoardRow(v,false)); });
-  HIGH_TIER.forEach(function(v){ elBoardHigh.appendChild(makeBoardRow(v,true)); });
+function renderBoardPanel(){
+  var lowWrap=$('board-chips-low'); lowWrap.innerHTML='';
+  var highWrap=$('board-chips-high'); highWrap.innerHTML='';
+  LOW_TIER.forEach(function(v){ lowWrap.appendChild(makeChip(v)); });
+  HIGH_TIER.forEach(function(v){ highWrap.appendChild(makeChip(v)); });
+  updateBoardCounts();
 }
-function makeBoardRow(v, isHigh){
-  var row = document.createElement('div');
-  row.className = 'mb-row' + (isHigh?' tier-high':'');
-  row.textContent = fmtMoney(v);
-  row.dataset.amount = v;
-  return row;
+function makeChip(v){
+  var c=document.createElement('div'); c.className='board-chip'; c.dataset.amount=v; c.textContent=fmtMoney(v);
+  return c;
 }
-function markAmountEliminated(v){
-  var rows = document.querySelectorAll('.mb-row[data-amount="'+v+'"]');
-  rows.forEach(function(r){
-    r.classList.add('flash');
-    setTimeout(function(){ r.classList.add('eliminated'); r.classList.remove('flash'); }, 850);
-  });
+function eliminateChip(value){
+  G.openedValues[value]=true;
+  var chip=document.querySelector('.board-chip[data-amount="'+value+'"]');
+  if(chip){
+    chip.classList.add('bursting');
+    setTimeout(function(){ chip.classList.add('eliminated'); chip.classList.remove('bursting'); }, 420);
+  }
+  updateBoardCounts();
+}
+function updateBoardCounts(){
+  var lowLeft=0, highLeft=0;
+  LOW_TIER.forEach(function(v){ if(!G.openedValues[v]) lowLeft++; });
+  HIGH_TIER.forEach(function(v){ if(!G.openedValues[v]) highLeft++; });
+  $('low-count').textContent = lowLeft+' / 13';
+  $('high-count').textContent = highLeft+' / 13';
+  $('spread-low').style.width = (lowLeft/13*100)+'%';
+  $('spread-high').style.width = (highLeft/13*100)+'%';
 }
 
 /* ============================================================
-   RENDER: case grid
+   CASE GRID
    ============================================================ */
 function renderCaseGrid(){
-  elCaseGrid.innerHTML = '';
-  for(var id=1; id<=TOTAL_CASES; id++){
-    elCaseGrid.appendChild(makeCaseSlot(id));
-  }
+  elCaseGrid.innerHTML='';
+  for(var id=1; id<=TOTAL_CASES; id++){ elCaseGrid.appendChild(makeCaseSlot(id)); }
 }
 function makeCaseSlot(id){
-  var btn = document.createElement('button');
-  btn.className = 'case-slot';
-  btn.dataset.id = id;
-  btn.innerHTML =
-    '<div class="case"><span class="latch l"></span><span class="latch r"></span><span class="plate">'+id+'</span></div>'+
-    '<span class="num">CASE '+id+'</span>';
+  var btn=document.createElement('button'); btn.className='case-slot'; btn.dataset.id=id;
+  btn.innerHTML='<div class="case"><span class="latch l"></span><span class="latch r"></span><span class="plate">'+id+'</span></div><span class="num">CASE '+id+'</span>';
   btn.addEventListener('click', function(){ onCaseClick(id); });
   return btn;
 }
 function refreshCaseGrid(){
-  var slots = elCaseGrid.querySelectorAll('.case-slot');
+  var slots=elCaseGrid.querySelectorAll('.case-slot');
   slots.forEach(function(slot){
-    var id = parseInt(slot.dataset.id,10);
-    var isPlayer = (G.playerCase === id);
-    var isOpened = !!G.opened[id];
+    var id=parseInt(slot.dataset.id,10);
+    var isPlayer=(G.playerCase===id);
+    var isOpened=!!G.opened[id];
     slot.classList.toggle('is-player', isPlayer);
     slot.classList.toggle('is-opened', isOpened);
     var eligible = !locked && !isOpened && (G.playerCase===null || !isPlayer);
@@ -836,410 +697,419 @@ function refreshCaseGrid(){
 }
 
 /* ============================================================
-   RENDER: header / round banner / player panel
+   TICKER
    ============================================================ */
-function updateHeader(){
-  if(G.playerCase===null){
-    elRoundLabel.textContent = 'Step One';
-    elRoundInstruction.textContent = 'Choose your case';
-    elPlayerPanel.classList.add('empty');
-    elPlayerCaseNum.textContent = '—';
-  } else {
-    elRoundLabel.textContent = 'Round ' + G.round;
-    var remaining = G.toOpenThisRound - G.openedThisRound;
-    elRoundInstruction.textContent = 'Open ' + remaining + ' case' + (remaining===1?'':'s');
-    elPlayerPanel.classList.remove('empty');
-    elPlayerCaseNum.textContent = '#' + G.playerCase;
+function renderTicker(){
+  var vals=remainingValues();
+  var avg=average(vals);
+  var casesLeft = G.playerCase===null ? TOTAL_CASES : (vals.length-1);
+  $('tick-round').textContent = G.playerCase===null ? 'GET READY' : ('ROUND '+G.round);
+  $('tick-cases').textContent = 'CASES LEFT '+casesLeft;
+  var arrow='', arrowClass='';
+  if(G.lastTickerAvg!==null){
+    if(avg > G.lastTickerAvg+0.001){ arrow='▲'; arrowClass='up'; }
+    else if(avg < G.lastTickerAvg-0.001){ arrow='▼'; arrowClass='down'; }
   }
+  var arrowEl=$('tick-avg-arrow'); arrowEl.textContent=arrow; arrowEl.className=arrowClass;
+  $('tick-avg-val').textContent = fmtMoney(avg);
+  G.lastTickerAvg = avg;
+
+  if(G.playerCase!==null){
+    var remaining = G.toOpenThisRound - G.openedThisRound;
+    $('round-instruction-text').textContent = 'Open '+remaining+' case'+(remaining===1?'':'s');
+  } else {
+    $('round-instruction-text').textContent = 'Choose your case';
+  }
+  if(G.playerCase===null){ elPlayerPanel.classList.add('empty'); elPlayerCaseNum.textContent='—'; }
+  else { elPlayerPanel.classList.remove('empty'); elPlayerCaseNum.textContent='#'+G.playerCase; }
 }
 
 /* ============================================================
-   GAME FLOW
+   GAME MATH
    ============================================================ */
-function onCaseClick(id){
+function remainingValues(){
+  var vals=[];
+  for(var id=1; id<=TOTAL_CASES; id++){ if(!G.opened[id]) vals.push(G.caseValues[id]); }
+  return vals;
+}
+function tensionLevel(){
+  var roundProgress = Math.min((G.round||0)/9, 1);
+  var vals = remainingValues();
+  var maxVal = vals.length ? Math.max.apply(null, vals) : 0;
+  var stake = Math.min(maxVal/1000000, 1);
+  var t = 1 + 9*(0.55*roundProgress + 0.45*stake);
+  return Math.max(1, Math.min(10, Math.round(t)));
+}
+function computeReaction(value){
+  var before=remainingValues();
+  var avgBefore=average(before);
+  var after=before.filter(function(v){ return v!==value; });
+  var avgAfter=average(after);
+  return { good: avgAfter > avgBefore, avgBefore:avgBefore, avgAfter:avgAfter };
+}
+
+/* ============================================================
+   FLICKER / LOCK / IMPACT FX
+   ============================================================ */
+function flickerDelays(tension, ticksOverride){
+  var n = ticksOverride || (14+tension);
+  var delays=[];
+  for(var i=0;i<n;i++){ var p=i/(n-1); var eased=p*p*p; delays.push(28+eased*185); }
+  return delays;
+}
+async function flickerAndLock(el, tension, finalText, opts){
+  opts=opts||{};
+  var delays=flickerDelays(tension, opts.ticks);
+  var pool=opts.pool||AMOUNTS;
+  for(var i=0;i<delays.length;i++){
+    var rv=pool[Math.floor(Math.random()*pool.length)];
+    el.textContent=fmtMoney(rv);
+    SFX.tick(i/(delays.length-1));
+    await sleep(delays[i]);
+  }
+  el.textContent=finalText;
+}
+function triggerFlash(tier){
+  var el=$('flash-bloom');
+  el.className = tier;
+  void el.offsetWidth;
+  el.classList.add('go');
+  setTimeout(function(){ el.classList.remove('go'); }, 500);
+}
+function triggerShake(el){
+  if(!el) return;
+  el.classList.remove('shake');
+  void el.offsetWidth;
+  el.classList.add('shake');
+  setTimeout(function(){ el.classList.remove('shake'); }, 420);
+}
+
+/* ============================================================
+   CASE OPEN SEQUENCE
+   ============================================================ */
+function markCaseOpened(id){
+  var value=G.caseValues[id];
+  G.opened[id]=true;
+  G.openedCount++;
+  eliminateChip(value);
+  renderTicker();
+}
+
+async function openCaseSequence(id){
+  var value=G.caseValues[id];
+  var tier=amountTier(value);
+  var tension=tensionLevel();
+
+  $('opening-num-label').textContent='CASE #'+id;
+  $('opening-plate-num').textContent=id;
+  var lid=$('opening-lid'); lid.classList.remove('open');
+  var amtEl=$('opening-amount');
+  amtEl.className='amount-reveal show';
+  amtEl.textContent='$?';
+  var reactEl=$('opening-reaction'); reactEl.textContent=''; reactEl.className='reaction-line';
+  $('opening-impact').textContent='';
+  $('overlay-opening').classList.add('active');
+  SFX.caseThunk();
+
+  await sleep(180);
+  lid.classList.add('open');
+  await sleep(260);
+
+  await flickerAndLock(amtEl, tension, fmtMoney(value));
+
+  amtEl.classList.add(tier);
+  amtEl.classList.add('locked-pulse');
+  SFX.lockThunk();
+  triggerFlash(tier);
+  if(tier==='big' || tier==='huge'){ triggerShake($('overlay-opening').querySelector('.overlay-card')); }
+  await sleep(550);
+
+  var reaction = computeReaction(value);
+  markCaseOpened(id);
+  refreshCaseGrid();
+
+  reactEl.textContent = reaction.good ? pickRandom(GOOD_LINES) : pickRandom(BAD_LINES);
+  reactEl.className = 'reaction-line ' + (reaction.good ? 'good' : 'bad');
+  $('opening-impact').textContent = 'Average in play: ' + fmtMoney(reaction.avgBefore) + ' \u2192 ' + fmtMoney(reaction.avgAfter);
+  playTierRevealSound(tier);
+
+  await sleep(1500);
+  $('overlay-opening').classList.remove('active');
+}
+
+async function onCaseClick(id){
   if(locked) return;
   if(G.opened[id]) return;
 
-  if(G.playerCase === null){
-    ensureAudio();
-    SFX.select();
-    G.playerCase = id;
-    G.round = 1;
-    G.toOpenThisRound = ROUND_SCHEDULE[1];
-    G.openedThisRound = 0;
-    updateHeader();
+  if(G.playerCase===null){
+    ensureAudio(); SFX.select();
+    G.playerCase=id;
+    G.round=1;
+    G.toOpenThisRound=ROUND_SCHEDULE[1];
+    G.openedThisRound=0;
+    renderTicker();
     refreshCaseGrid();
     return;
   }
-  if(id === G.playerCase) return;
-  ensureAudio();
-  SFX.select();
-  openCaseAnimated(id, function(){
-    G.openedThisRound++;
-    updateHeader();
-    refreshCaseGrid();
-    checkRoundProgress();
-  });
-}
+  if(id===G.playerCase) return;
 
-function openCaseAnimated(id, onDone){
+  ensureAudio(); SFX.select();
   setLocked(true);
-  var value = G.caseValues[id];
-  var tier = amountTier(value);
-  $('opening-num-label').textContent = 'CASE #' + id;
-  var lid = $('opening-lid');
-  lid.classList.remove('open');
-  var amtEl = $('opening-amount');
-  amtEl.className = 'amount-reveal ' + tier;
-  amtEl.classList.remove('show');
-  amtEl.textContent = fmtMoney(value);
-  $('overlay-opening').classList.add('active');
-
-  SFX.caseThunk();
-  setTimeout(function(){
-    lid.classList.add('open');
-  }, 260);
-  setTimeout(function(){
-    amtEl.classList.add('show');
-    if(tier==='low') SFX.openLow();
-    else if(tier==='mid') SFX.openMid();
-    else if(tier==='big') SFX.openBig();
-    else SFX.openHuge();
-  }, 620);
-  setTimeout(function(){
-    G.opened[id] = true;
-    G.openedCount++;
-    markAmountEliminated(value);
-    $('overlay-opening').classList.remove('active');
-    setLocked(false);
-    onDone();
-  }, 1650);
+  await openCaseSequence(id);
+  G.openedThisRound++;
+  refreshCaseGrid();
+  await afterCaseOpened();
 }
 
-function remainingValues(){
-  // all values not yet opened (includes player's own case, still "in play")
-  var vals = [];
-  for(var id=1; id<=TOTAL_CASES; id++){
-    if(!G.opened[id]) vals.push(G.caseValues[id]);
-  }
-  return vals;
+async function afterCaseOpened(){
+  if(G.openedThisRound < G.toOpenThisRound){ setLocked(false); return; }
+  var nonPlayerRemaining = remainingValues().length - 1;
+  await sleep(450);
+  if(nonPlayerRemaining === 1){ await bankerSequence(true); }
+  else { await bankerSequence(false); }
 }
 
-function computeOffer(round, isFinalTwo){
-  var vals = remainingValues();
-  var avg = vals.reduce(function(a,b){return a+b;},0) / vals.length;
-  var range = isFinalTwo ? FINAL_TWO_PCT_RANGE : (OFFER_PCT_RANGE[round] || OFFER_PCT_RANGE_LATE);
-  var pct = range[0] + Math.random()*(range[1]-range[0]);
-  var raw = avg * pct;
-  var step = raw < 1000 ? 5 : raw < 20000 ? 50 : raw < 200000 ? 500 : 5000;
-  var offer = Math.max(step, Math.round(raw/step)*step);
-  return offer;
-}
-
-function checkRoundProgress(){
-  if(G.openedThisRound < G.toOpenThisRound) return;
-  var nonPlayerRemaining = remainingValues().length - 1; // exclude player's own case
-  setLocked(true);
-  setTimeout(function(){
-    if(nonPlayerRemaining === 1){
-      showFinalTwo();
-    } else {
-      showBankerCall();
-    }
-  }, 500);
-}
-
-function showBankerCall(){
+/* ============================================================
+   BANKER SEQUENCE
+   ============================================================ */
+async function bankerSequence(isFinalTwo){
   ensureAudio();
   SFX.bankerRing();
   $('overlay-bankercall').classList.add('active');
-  setTimeout(function(){
-    $('overlay-bankercall').classList.remove('active');
-    showBankerOffer();
-  }, 1700);
-}
+  await sleep(1600);
+  $('overlay-bankercall').classList.remove('active');
 
-function showBankerOffer(){
-  var offer = computeOffer(G.round, false);
+  var vals=remainingValues();
+  var avg=average(vals);
+  var round = isFinalTwo ? (G.round+1) : G.round;
+  var range = isFinalTwo ? FINAL_TWO_PCT_RANGE : (OFFER_PCT_RANGE[round] || OFFER_PCT_RANGE_LATE);
+  var pct = range[0] + Math.random()*(range[1]-range[0]);
+  var raw = avg*pct;
+  var step = raw<1000?5 : raw<20000?50 : raw<200000?500 : 5000;
+  var offer = Math.max(step, Math.round(raw/step)*step);
   G.lastOffer = offer;
-  G.lastOfferRound = G.round;
-  $('offer-round-label').textContent = 'ROUND ' + G.round + ' OFFER';
-  var amtEl = $('offer-amount');
-  amtEl.textContent = fmtMoney(offer);
-  $('overlay-offer').classList.add('active');
+  G.lastOfferRound = round;
+
+  var overlayId = isFinalTwo ? 'overlay-finaltwo' : 'overlay-offer';
+  var amtEl = isFinalTwo ? $('finaltwo-offer-amount') : $('offer-amount');
+  var contextEl = isFinalTwo ? $('finaltwo-context') : $('offer-context');
+
+  if(isFinalTwo){
+    var sortedVals = vals.slice().sort(function(a,b){return a-b;});
+    var wrap=$('final-two-amounts'); wrap.innerHTML='';
+    sortedVals.forEach(function(v){ var d=document.createElement('div'); d.className='final-two-amt'; d.textContent=fmtMoney(v); wrap.appendChild(d); });
+  } else {
+    $('offer-round-label').textContent = 'ROUND '+G.round+' OFFER';
+  }
+
+  amtEl.textContent='$?';
+  contextEl.textContent='';
+  $(overlayId).classList.add('active');
+  var tension=tensionLevel();
+  await sleep(450);
+  await flickerAndLock(amtEl, tension, fmtMoney(offer), {ticks:14});
+  SFX.lockThunk();
+  triggerFlash(isFinalTwo ? 'huge' : 'mid');
+  contextEl.textContent = 'Based on '+vals.length+' case'+(vals.length===1?'':'s')+' remaining \u00b7 average in play '+fmtMoney(avg);
   SFX.offerReveal();
   setLocked(false);
 }
 
-$('offer-deal-btn').addEventListener('click', function(){
-  $('overlay-offer').classList.remove('active');
-  acceptDeal(G.lastOffer, 'ROUND ' + G.round);
-});
-$('offer-nodeal-btn').addEventListener('click', function(){
-  $('overlay-offer').classList.remove('active');
-  rejectDeal();
-});
+$('offer-deal-btn').addEventListener('click', function(){ $('overlay-offer').classList.remove('active'); acceptDeal(G.lastOffer, 'ROUND '+G.round); });
+$('offer-nodeal-btn').addEventListener('click', function(){ $('overlay-offer').classList.remove('active'); rejectDeal(); });
+$('finaltwo-deal-btn').addEventListener('click', function(){ $('overlay-finaltwo').classList.remove('active'); acceptDeal(G.lastOffer, 'FINAL TWO'); });
+$('finaltwo-nodeal-btn').addEventListener('click', function(){ $('overlay-finaltwo').classList.remove('active'); ensureAudio(); SFX.nodeal(); runFinalReveal(); });
 
-function rejectDeal(){
-  ensureAudio();
-  SFX.nodeal();
+async function rejectDeal(){
+  ensureAudio(); SFX.nodeal();
   setLocked(true);
   $('overlay-nodealflash').classList.add('active');
-  setTimeout(function(){
-    $('overlay-nodealflash').classList.remove('active');
-    G.round++;
-    G.toOpenThisRound = ROUND_SCHEDULE[G.round] || 1;
-    G.openedThisRound = 0;
-    updateHeader();
-    refreshCaseGrid();
-    setLocked(false);
-  }, 950);
-}
-
-/* ---------- Final Two ---------- */
-function showFinalTwo(){
-  var vals = remainingValues(); // exactly 2 values: player's + last case
-  vals.sort(function(a,b){return a-b;});
-  var wrap = $('final-two-amounts');
-  wrap.innerHTML = '';
-  vals.forEach(function(v){
-    var d = document.createElement('div');
-    d.className = 'final-two-amt';
-    d.textContent = fmtMoney(v);
-    wrap.appendChild(d);
-  });
-  var offer = computeOffer(G.round+1, true);
-  G.lastOffer = offer;
-  G.lastOfferRound = G.round+1;
-  $('finaltwo-offer-amount').textContent = fmtMoney(offer);
-  $('overlay-finaltwo').classList.add('active');
-  ensureAudio();
-  SFX.offerReveal();
+  await sleep(950);
+  $('overlay-nodealflash').classList.remove('active');
+  G.round++;
+  G.toOpenThisRound = ROUND_SCHEDULE[G.round] || 1;
+  G.openedThisRound = 0;
+  renderTicker();
+  refreshCaseGrid();
   setLocked(false);
 }
-$('finaltwo-deal-btn').addEventListener('click', function(){
-  $('overlay-finaltwo').classList.remove('active');
-  acceptDeal(G.lastOffer, 'FINAL TWO');
-});
-$('finaltwo-nodeal-btn').addEventListener('click', function(){
-  $('overlay-finaltwo').classList.remove('active');
-  ensureAudio();
-  SFX.nodeal();
-  runFinalReveal();
-});
 
-/* ---------- Deal accepted ---------- */
+/* ============================================================
+   DEAL ACCEPTED / WHAT IF
+   ============================================================ */
 function acceptDeal(amount, roundLabel){
-  ensureAudio();
-  SFX.deal();
-  G.dealAccepted = true;
-  G.dealAmount = amount;
-  G.dealRoundLabel = roundLabel;
-  var vals = remainingValues();
-  G.remainingAtDecision = [Math.max.apply(null,vals), Math.min.apply(null,vals)];
-
-  $('dealaccepted-amount').textContent = fmtMoney(amount);
-  var caseValue = G.caseValues[G.playerCase];
-  $('dealaccepted-casevalue').textContent = fmtMoney(caseValue);
-  var verdictEl = $('dealaccepted-verdict');
-  if(amount >= caseValue){
-    verdictEl.textContent = 'GREAT DEAL!';
-    verdictEl.className = 'verdict good';
-  } else {
-    verdictEl.textContent = 'YOU COULD HAVE WON MORE.';
-    verdictEl.className = 'verdict bad';
-  }
+  ensureAudio(); SFX.deal();
+  G.dealAccepted=true; G.dealAmount=amount; G.dealRoundLabel=roundLabel;
+  var vals=remainingValues();
+  G.remainingAtDecision=[Math.max.apply(null,vals), Math.min.apply(null,vals)];
+  $('dealaccepted-amount').textContent=fmtMoney(amount);
+  var caseValue=G.caseValues[G.playerCase];
+  $('dealaccepted-casevalue').textContent=fmtMoney(caseValue);
+  var verdictEl=$('dealaccepted-verdict');
+  if(amount>=caseValue){ verdictEl.textContent='GREAT DEAL!'; verdictEl.className='verdict good'; }
+  else { verdictEl.textContent='YOU COULD HAVE WON MORE.'; verdictEl.className='verdict bad'; }
   $('overlay-dealaccepted').classList.add('active');
   setLocked(true);
 }
-
 $('dealaccepted-finish-btn').addEventListener('click', function(){
   $('overlay-dealaccepted').classList.remove('active');
-  G.finalWinnings = G.dealAmount;
-  G.endedViaDeal = true;
+  G.finalWinnings=G.dealAmount; G.endedViaDeal=true;
   showStats();
 });
+$('whatif-btn').addEventListener('click', function(){ $('overlay-dealaccepted').classList.remove('active'); runWhatIf(); });
 
-$('whatif-btn').addEventListener('click', function(){
-  $('overlay-dealaccepted').classList.remove('active');
-  runWhatIf();
-});
-
-function runWhatIf(){
-  var ids = [];
-  for(var id=1; id<=TOTAL_CASES; id++){
-    if(id!==G.playerCase && !G.opened[id]) ids.push(id);
-  }
+async function runWhatIf(){
+  var ids=[];
+  for(var id=1; id<=TOTAL_CASES; id++){ if(id!==G.playerCase && !G.opened[id]) ids.push(id); }
   $('overlay-whatif').classList.add('active');
-  var idx = 0;
-  function step(){
-    if(idx >= ids.length){
-      $('overlay-whatif').classList.remove('active');
-      finishWhatIf();
-      return;
-    }
-    var cid = ids[idx];
-    var value = G.caseValues[cid];
-    $('whatif-plate').textContent = cid;
-    var lid = $('whatif-lid'); lid.classList.remove('open');
-    var amtEl = $('whatif-amount');
-    amtEl.textContent = fmtMoney(value);
-    $('whatif-progress').textContent = 'Opening case ' + (idx+1) + ' of ' + ids.length + '…';
-    setTimeout(function(){ lid.classList.add('open'); }, 90);
-    var tier = amountTier(value);
-    if(tier==='low') SFX.openLow(); else if(tier==='mid') SFX.openMid(); else if(tier==='big') SFX.openBig(); else SFX.openHuge();
-    G.opened[cid]=true;
-    markAmountEliminated(value);
-    idx++;
-    setTimeout(step, 480);
+  for(var i=0;i<ids.length;i++){
+    var cid=ids[i];
+    var value=G.caseValues[cid];
+    $('whatif-plate').textContent=cid;
+    var lid=$('whatif-lid'); lid.classList.remove('open');
+    var amtEl=$('whatif-amount');
+    amtEl.className='amount-reveal show mid';
+    amtEl.textContent='$?';
+    $('whatif-progress').textContent='Opening case '+(i+1)+' of '+ids.length+'\u2026';
+    await sleep(70);
+    lid.classList.add('open');
+    await flickerAndLock(amtEl, 4, fmtMoney(value), {ticks:8});
+    var tier=amountTier(value);
+    amtEl.className='amount-reveal show '+tier;
+    playTierRevealSound(tier);
+    markCaseOpened(cid);
+    await sleep(240);
   }
-  setTimeout(step, 300);
+  $('overlay-whatif').classList.remove('active');
+  finishWhatIf();
 }
-
 function finishWhatIf(){
-  $('whatifresult-deal').textContent = fmtMoney(G.dealAmount);
-  $('whatifresult-case').textContent = fmtMoney(G.caseValues[G.playerCase]);
+  $('whatifresult-deal').textContent=fmtMoney(G.dealAmount);
+  $('whatifresult-case').textContent=fmtMoney(G.caseValues[G.playerCase]);
   $('overlay-whatifresult').classList.add('active');
 }
 $('whatifresult-continue-btn').addEventListener('click', function(){
   $('overlay-whatifresult').classList.remove('active');
-  G.finalWinnings = G.dealAmount;
-  G.endedViaDeal = true;
+  G.finalWinnings=G.dealAmount; G.endedViaDeal=true;
   showStats();
 });
 
-/* ---------- Final reveal (played to the end) ---------- */
-function runFinalReveal(){
-  var otherId = null;
-  for(var id=1; id<=TOTAL_CASES; id++){
-    if(id!==G.playerCase && !G.opened[id]){ otherId = id; break; }
-  }
-  var vals = remainingValues();
-  G.remainingAtDecision = [Math.max.apply(null,vals), Math.min.apply(null,vals)];
+/* ============================================================
+   FINAL REVEAL
+   ============================================================ */
+async function runFinalReveal(){
+  setLocked(true);
+  var otherId=null;
+  for(var id=1; id<=TOTAL_CASES; id++){ if(id!==G.playerCase && !G.opened[id]){ otherId=id; break; } }
+  var vals=remainingValues();
+  G.remainingAtDecision=[Math.max.apply(null,vals), Math.min.apply(null,vals)];
 
-  $('finalreveal-label').textContent = 'THE OTHER CASE — #' + otherId;
-  var lid = $('finalreveal-lid'); lid.classList.remove('open');
-  var amtEl = $('finalreveal-amount');
-  amtEl.className = 'amount-reveal';
-  amtEl.classList.remove('show');
-  var otherValue = G.caseValues[otherId];
-  amtEl.textContent = fmtMoney(otherValue);
-  $('finalreveal-caption').textContent = 'was not your case';
+  await revealFinalCase(otherId, 'THE OTHER CASE \u2014 #'+otherId, 'was not your case', false);
+  G.opened[otherId]=true;
+
+  await sleep(400);
+  await revealFinalCase(G.playerCase, 'YOUR CASE \u2014 #'+G.playerCase, 'YOU WON', true);
+
+  G.finalWinnings=G.caseValues[G.playerCase];
+  G.endedViaDeal=false; G.playedToEnd=true;
+  await sleep(300);
+  $('overlay-finalreveal').classList.remove('active');
+  showStats();
+}
+async function revealFinalCase(id, label, caption, celebrate){
+  var value=G.caseValues[id];
+  var tier=amountTier(value);
+  $('finalreveal-label').textContent=label;
+  var lid=$('finalreveal-lid'); lid.classList.remove('open');
+  var amtEl=$('finalreveal-amount');
+  amtEl.className='amount-reveal show';
+  amtEl.textContent='$?';
+  $('finalreveal-caption').textContent='';
   $('overlay-finalreveal').classList.add('active');
-  setTimeout(function(){ lid.classList.add('open'); }, 200);
-  setTimeout(function(){
-    amtEl.classList.add(amountTier(otherValue));
-    amtEl.classList.add('show');
-    SFX.finalReveal();
-  }, 550);
-
-  setTimeout(function(){
-    G.opened[otherId] = true;
-    revealPlayerCase();
-  }, 2400);
+  await sleep(200);
+  lid.classList.add('open');
+  await sleep(250);
+  await flickerAndLock(amtEl, 10, fmtMoney(value), {ticks:26});
+  amtEl.classList.add(tier);
+  SFX.lockThunk();
+  triggerFlash(tier);
+  triggerShake($('overlay-finalreveal').querySelector('.overlay-card'));
+  await sleep(600);
+  $('finalreveal-caption').textContent=caption;
+  SFX.finalReveal();
+  if(celebrate){ SFX.celebrate(); launchConfetti(); }
+  await sleep(2200);
 }
-
-function revealPlayerCase(){
-  var value = G.caseValues[G.playerCase];
-  $('finalreveal-label').textContent = 'YOUR CASE — #' + G.playerCase;
-  var lid = $('finalreveal-lid'); lid.classList.remove('open');
-  var amtEl = $('finalreveal-amount');
-  amtEl.className = 'amount-reveal';
-  amtEl.classList.remove('show');
-  amtEl.textContent = fmtMoney(value);
-  $('finalreveal-caption').textContent = 'YOU WON';
-  setTimeout(function(){ lid.classList.add('open'); }, 200);
-  setTimeout(function(){
-    amtEl.classList.add(amountTier(value));
-    amtEl.classList.add('show');
-    SFX.celebrate();
-    launchConfetti();
-  }, 550);
-  setTimeout(function(){
-    $('overlay-finalreveal').classList.remove('active');
-    G.finalWinnings = value;
-    G.endedViaDeal = false;
-    G.playedToEnd = true;
-    showStats();
-  }, 2700);
-}
-
 function launchConfetti(){
-  var wrap = $('confetti-wrap');
-  var colors = ['#d4af37','#ffd873','#33e0ff','#f1efe9','#ff9d2e'];
+  var wrap=$('confetti-wrap');
+  var colors=['#d4af37','#ffd873','#33e0ff','#f1efe9','#ff9d2e'];
   for(var i=0;i<70;i++){
-    var p = document.createElement('div');
-    p.className = 'confetti-piece';
-    p.style.left = (Math.random()*100)+'vw';
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDuration = (2.2+Math.random()*1.6)+'s';
-    p.style.animationDelay = (Math.random()*0.4)+'s';
-    p.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    var p=document.createElement('div'); p.className='confetti-piece';
+    p.style.left=(Math.random()*100)+'vw';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration=(2.2+Math.random()*1.6)+'s';
+    p.style.animationDelay=(Math.random()*0.4)+'s';
+    p.style.borderRadius=Math.random()>0.5?'50%':'2px';
     wrap.appendChild(p);
     (function(el){ setTimeout(function(){ el.remove(); }, 4500); })(p);
   }
 }
 
-/* ---------- Stats ---------- */
+/* ============================================================
+   STATS
+   ============================================================ */
 function showStats(){
-  var caseValue = G.caseValues[G.playerCase];
-  $('stats-winnings').textContent = fmtMoney(G.finalWinnings);
-  $('stats-casevalue').textContent = fmtMoney(caseValue);
-  $('stats-finaloffer').textContent = fmtMoney(G.lastOffer);
-  $('stats-dealstatus').textContent = G.endedViaDeal ? ('DEAL (' + G.dealRoundLabel + ')') : 'NO DEAL';
-  $('stats-highest').textContent = fmtMoney(G.remainingAtDecision[0]);
-  $('stats-lowest').textContent = fmtMoney(G.remainingAtDecision[1]);
+  var caseValue=G.caseValues[G.playerCase];
+  $('stats-winnings').textContent=fmtMoney(G.finalWinnings);
+  $('stats-casevalue').textContent=fmtMoney(caseValue);
+  $('stats-finaloffer').textContent=fmtMoney(G.lastOffer);
+  $('stats-dealstatus').textContent = G.endedViaDeal ? ('DEAL ('+G.dealRoundLabel+')') : 'NO DEAL';
+  $('stats-highest').textContent=fmtMoney(G.remainingAtDecision[0]);
+  $('stats-lowest').textContent=fmtMoney(G.remainingAtDecision[1]);
 
-  var outcomeLabel = $('stats-outcome-label');
-  var gd = $('stats-gooddeal');
+  var outcomeLabel=$('stats-outcome-label');
+  var gd=$('stats-gooddeal');
   if(G.endedViaDeal){
-    outcomeLabel.textContent = 'YOU MADE A DEAL';
-    if(G.dealAmount >= caseValue){
-      gd.textContent='YES — YOU BEAT YOUR CASE'; gd.className='verdict good';
-    } else {
-      gd.textContent='NO — YOUR CASE WAS WORTH MORE'; gd.className='verdict bad';
-    }
+    outcomeLabel.textContent='YOU MADE A DEAL';
+    if(G.dealAmount>=caseValue){ gd.textContent='YES \u2014 YOU BEAT YOUR CASE'; gd.className='verdict good'; }
+    else { gd.textContent='NO \u2014 YOUR CASE WAS WORTH MORE'; gd.className='verdict bad'; }
   } else {
-    outcomeLabel.textContent = 'YOU PLAYED IT TO THE END';
-    gd.textContent = 'YOU WENT ALL THE WAY';
-    gd.className = 'verdict good';
+    outcomeLabel.textContent='YOU PLAYED IT TO THE END';
+    gd.textContent='YOU WENT ALL THE WAY';
+    gd.className='verdict good';
   }
   $('overlay-stats').classList.add('active');
   setLocked(true);
 }
-
 $('newgame-btn').addEventListener('click', function(){
   $('overlay-stats').classList.remove('active');
-  $('confetti-wrap').innerHTML = '';
+  $('confetti-wrap').innerHTML='';
   startNewGame();
 });
 
 /* ============================================================
-   BOOT / SCREEN SWITCHING
+   BOOT
    ============================================================ */
 function goToScreen(id){
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   $(id).classList.add('active');
 }
-
 function startNewGame(){
   initGame();
-  renderBoards();
+  renderBoardPanel();
   renderCaseGrid();
-  updateHeader();
+  renderTicker();
   refreshCaseGrid();
   setLocked(false);
   goToScreen('screen-game');
 }
-
 $('play-btn').addEventListener('click', function(){
-  ensureAudio();
-  SFX.select();
+  ensureAudio(); startDrone(); SFX.select();
   startNewGame();
 });
 
 renderStartCases();
-initGame(); // pre-shuffle so first paint of grid (if ever shown early) has values
+initGame();
 
 })();
 </script>
