@@ -296,13 +296,17 @@ section{padding-block:clamp(72px,11vh,150px)}
 .capfoot{max-width:min(63vh,780px);margin:clamp(10px,2vh,22px) auto 0}
 .capprog{height:1px;background:rgba(237,237,234,.16);position:relative;overflow:hidden}
 .capprog i{position:absolute;inset:0 100% 0 0;background:var(--mg);transition:right .1s linear}
-.caphint{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
-  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
-  opacity:.5;margin-top:12px}
-.caphint b{color:var(--mg);font-weight:400}
-.capreplay{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--mg);opacity:0;pointer-events:none;transition:opacity .4s}
-.capband.done .capreplay{opacity:1;pointer-events:auto}
+.caphint{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;
+  font-family:var(--f-mono);font-size:clamp(.72rem,.95vw,.84rem);letter-spacing:.06em;
+  margin-top:16px;color:rgba(237,237,234,.82)}
+.caphint .hmain{color:#EDEDEA}
+.caphint .kbd{color:rgba(237,237,234,.62);display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.key{display:inline-grid;place-items:center;min-width:1.9em;height:1.9em;padding:0 .35em;
+  border:1px solid rgba(237,237,234,.4);border-radius:4px;color:var(--mg);
+  font-weight:400;font-size:1em;line-height:1;
+  box-shadow:0 2px 0 rgba(237,237,234,.14);transition:.25s}
+.caphint .kbd:hover .key{border-color:var(--mg)}
+@media(pointer:coarse){.caphint .kbd{display:none}}
 @media(max-width:940px){
   .capplate,.capfoot{max-width:min(56vh,560px)}
   .capgrid{grid-template-areas:"v" "s"}
@@ -510,8 +514,8 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
         <div class="capfoot">
           <div class="capprog"><i id="capProg"></i></div>
           <div class="caphint">
-            <span>Click a stage <span class="kbd">&nbsp;·&nbsp; <b>←</b> <b>→</b> keys</span></span>
-            <button class="capreplay" id="capReplay">↻ Replay the sequence</button>
+            <span class="hmain">Click any stage to play it</span>
+            <span class="kbd">or use the <b class="key">←</b> <b class="key">→</b> arrow keys on your keyboard</span>
           </div>
         </div>
       </div>
@@ -807,13 +811,12 @@ function toggleRow(row){
   const t0=performance.now();
   (function hold(){
     const d=row.getBoundingClientRect().top-anchor;
-    if(Math.abs(d)>0.5) scrollBy(0,d);
-    if(performance.now()-t0<640) requestAnimationFrame(hold);
+    // instant, or the global smooth scroll-behavior fights this loop and drifts
+    if(Math.abs(d)>0.5) scrollBy({top:d,left:0,behavior:"instant"});
+    if(performance.now()-t0<620) requestAnimationFrame(hold);
     else if(!wasOpen){
-      const r=row.getBoundingClientRect();
-      const panelBottom=r.bottom;
-      if(r.top>150||panelBottom>innerHeight)
-        scrollTo({top:row.offsetTop-96,behavior:"smooth"});
+      const target=scrollY+row.getBoundingClientRect().top-88;
+      scrollTo({top:Math.max(0,target),behavior:"smooth"});
     }
   })();
 }
@@ -843,8 +846,8 @@ const CHAPTERS = [
   ["04","Print production","Label stock material handling, finishing requirements, and print-floor troubleshooting."]
 ];
 const capBand=$("#capabilities"), capPlate=$("#capPlate"), capStages=$("#capStages"),
-      capProg=$("#capProg"), capReplay=$("#capReplay");
-let capCur=-1, capInView=false, capStarted=false, advTimer=null;
+      capProg=$("#capProg");
+let capCur=-1, capInView=false, capStarted=false, advTimer=null, stallTimer=null, fbTimer=null;
 const vids=[];
 
 CHAPTERS.forEach(([n,title,desc],i)=>{
@@ -863,36 +866,46 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
   v.src=V["cap"+(i+1)];
   v.addEventListener("timeupdate",()=>{
     if(i!==capCur||!v.duration) return;
+    clearTimeout(stallTimer); clearTimeout(fbTimer);
+    capProg.style.transition="right .1s linear";
     capProg.style.right=(100-(v.currentTime/v.duration)*100)+"%";
   });
   v.addEventListener("ended",()=>{
     if(i!==capCur) return;
     capProg.style.right="0%";
-    clearTimeout(advTimer);
-    if(i<CHAPTERS.length-1){
-      advTimer=setTimeout(()=>{ if(capInView) selectCap(i+1,false); },900);
-    } else capBand.classList.add("done");
+    advanceFrom(i);
   });
   capPlate.appendChild(v);
   vids.push(v);
 });
 const capItems=$$("#capStages .capitem");
 
+function advanceFrom(i){
+  if(i!==capCur) return;
+  clearTimeout(advTimer);
+  const next=(i+1)%CHAPTERS.length;
+  advTimer=setTimeout(()=>{ if(capInView) selectCap(next,false); },900);
+}
 function selectCap(i,manual){
   if(i<0||i>=CHAPTERS.length) return;
-  clearTimeout(advTimer);
-  if(manual) capBand.classList.remove("done");
+  clearTimeout(advTimer); clearTimeout(stallTimer); clearTimeout(fbTimer);
   if(capCur>=0&&capCur!==i){ const p=vids[capCur]; p.pause(); p.classList.remove("on"); }
   capCur=i;
   capItems.forEach((el,k)=>el.classList.toggle("on",k===i));
   const v=vids[i];
   v.classList.add("on");
-  capProg.style.right="100%";
-  if(i+1<vids.length) vids[i+1].preload="auto";
+  capProg.style.transition="none"; capProg.style.right="100%";
+  requestAnimationFrame(()=>{capProg.style.transition="right .1s linear";});
+  vids[(i+1)%vids.length].preload="auto";
   if(reduce) return;
   try{ v.currentTime=0; const pr=v.play(); if(pr&&pr.catch) pr.catch(()=>{}); }catch(e){}
+  // if playback never gets going (blocked or unsupported), keep the sequence moving anyway
+  stallTimer=setTimeout(()=>{
+    if(i!==capCur||!v.paused&&v.currentTime>0) return;
+    capProg.style.transition="right 3s linear"; capProg.style.right="0%";
+    fbTimer=setTimeout(()=>advanceFrom(i),3000);
+  },1000);
 }
-capReplay.addEventListener("click",()=>{ capBand.classList.remove("done"); selectCap(0,true); });
 
 new IntersectionObserver(es=>es.forEach(e=>{
   capInView=e.isIntersecting;
