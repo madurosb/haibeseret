@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runsheet · שיעור ראשון · גיא · בבית</title>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;800&family=Azeret+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0907;--ink-2:#161210;--ink-3:#211B17;
+  --gold:#E9A23B;--green:#5FBF7F;--red:#E06A4A;
+  --bone:#EDEAE4;--steel:#9E9A93;--steel-2:#BAB6AF;
+  --line:rgba(237,234,228,.15);
+  --body:'Assistant',system-ui,sans-serif;
+  --mono:'Azeret Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.55;padding-bottom:120px}
+
+#bar{position:sticky;top:0;z-index:50;background:rgba(11,9,7,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--gold);padding:12px clamp(14px,3vw,28px);display:flex;align-items:center;gap:clamp(12px,2.5vw,26px);flex-wrap:wrap}
+#bar .clock{font-family:var(--mono);font-weight:700;font-size:clamp(26px,4vw,38px);color:var(--gold);font-variant-numeric:tabular-nums}
+#bar .now{flex:1;min-width:150px}
+#bar .now b{display:block;font-size:15px;font-weight:800;line-height:1.2}
+#bar .now span{font-size:12.5px;color:var(--steel);font-family:var(--mono);letter-spacing:.05em}
+#bar .pace{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:2px;border:1px solid var(--line);color:var(--steel);white-space:nowrap}
+#bar .pace.ok{color:var(--green);border-color:rgba(95,191,127,.4)}
+#bar .pace.late{color:var(--red);border-color:rgba(224,106,74,.4)}
+#bar button{background:var(--gold);color:var(--ink);border:none;font:inherit;font-weight:800;font-size:14px;padding:11px 20px;border-radius:2px;cursor:pointer;white-space:nowrap}
+#bar button.ghost{background:none;border:1px solid var(--line);color:var(--steel-2);font-weight:600}
+
+.wrap{max-width:940px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+h1{font-size:clamp(22px,3.4vw,30px);font-weight:800;margin:28px 0 6px;line-height:1.2}
+.sub{color:var(--steel);font-size:15px;margin-bottom:8px}
+
+.phase{margin-top:34px}
+.phase>.ph{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.phase>.ph::after{content:'';flex:1;height:1px;background:var(--line)}
+.phase>.ph .cnt{color:var(--steel);letter-spacing:.06em}
+
+.block{background:var(--ink-2);border-right:2px solid var(--line);margin-bottom:2px;padding:16px 18px;transition:border-color .2s,background .2s}
+.block.live{border-right-color:var(--gold);background:var(--ink-3)}
+.block.done{opacity:.5}
+.block .bh{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.block .bt{font-family:var(--mono);font-size:12.5px;color:var(--gold);font-weight:700;white-space:nowrap}
+.block .bn{font-weight:800;font-size:17.5px;line-height:1.25}
+.block .bg{font-size:14.5px;color:var(--steel-2);margin-bottom:12px;line-height:1.45}
+.block .bg b{color:var(--bone)}
+
+ul.chk{list-style:none;display:grid;gap:3px}
+ul.chk li{position:relative}
+ul.chk label{display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:7px 9px;border-radius:2px;font-size:15px;line-height:1.45;transition:background .15s}
+ul.chk label:hover{background:rgba(255,255,255,.03)}
+ul.chk input{position:absolute;opacity:0;pointer-events:none}
+ul.chk .box{width:19px;height:19px;flex:none;margin-top:2px;border:1.5px solid var(--steel);border-radius:3px;position:relative;transition:background .15s,border-color .15s}
+ul.chk input:checked + .box{background:var(--gold);border-color:var(--gold)}
+ul.chk input:checked + .box::after{content:'';position:absolute;left:5.5px;top:1.5px;width:5px;height:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg)}
+ul.chk input:focus-visible + .box{outline:2px solid var(--gold);outline-offset:2px}
+ul.chk input:checked ~ .txt{color:var(--steel);text-decoration:line-through;text-decoration-color:rgba(158,154,147,.5)}
+ul.chk .txt b{color:var(--bone);font-weight:700}
+ul.chk input:checked ~ .txt b{color:var(--steel)}
+ul.chk .note{display:block;font-size:13px;color:var(--steel);margin-top:3px;line-height:1.4;text-decoration:none}
+
+.say{background:rgba(233,162,59,.09);border:1px solid rgba(233,162,59,.3);padding:13px 15px;margin:12px 0 4px;border-radius:2px}
+.say .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:7px}
+.say p{font-size:15px;line-height:1.5;color:#E4E0DA}
+.say p+p{margin-top:.5em}
+
+.warn{background:rgba(224,106,74,.09);border:1px solid rgba(224,106,74,.32);padding:13px 15px;margin:12px 0 4px;border-radius:2px;font-size:14.5px;line-height:1.5;color:#E4E0DA}
+.warn b{color:var(--red)}
+
+#rules{position:fixed;bottom:0;left:0;right:0;z-index:60;background:rgba(11,9,7,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:10px clamp(14px,3vw,28px)}
+#rules .rh{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+#rules .rh .arw{width:9px;height:9px;border-right:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(-135deg);transition:transform .25s}
+#rules.open .rh .arw{transform:rotate(45deg)}
+#rules ol{display:none;list-style:none;counter-reset:r;margin-top:12px;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}
+#rules.open ol{display:grid}
+#rules li{counter-increment:r;font-size:14px;line-height:1.45;padding-right:26px;position:relative;color:var(--steel-2)}
+#rules li::before{content:counter(r);position:absolute;right:0;top:1px;font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--gold);width:17px;height:17px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:700}
+#rules li b{color:var(--bone)}
+
+@media print{body{background:#fff;color:#000;padding:0}#bar,#rules{display:none}.block,.say,.warn{background:#fff!important;border:1px solid #ccc;page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <div class="clock" id="clock">0:00</div>
+  <div class="now">
+    <b id="nowName">לחץ "התחל" כשגיא מתיישב</b>
+    <span id="nowRange">שעתיים · 8 בלוקים</span>
+  </div>
+  <div class="pace" id="pace">—</div>
+  <button id="start">התחל</button>
+  <button id="reset" class="ghost">אפס</button>
+</div>
+
+<div class="wrap">
+
+<h1>Runsheet · שיעור ראשון · אצלי בבית</h1>
+<p class="sub">גיא · צלם · אפס ידע ב-AI · שעתיים · 900 ₪<br>המטרה: הוא מבין את הבסיס, ויוצא עם דמות ושוט שהוא בנה</p>
+
+<!-- ===== DAY BEFORE ===== -->
+<div class="phase">
+  <div class="ph">יום לפני <span class="cnt">הכנה</span></div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">~45 דק׳</span><span class="bn">החזרה הגנרלית</span></div>
+    <div class="bg">בקובץ הנפרד. <b>אל תדלג.</b> בלי זה אתה לא באמת יודע כמה זמן דברים לוקחים.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">רצתי על כל השיעור ומילאתי את הזמנים האמיתיים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">התאמתי את התוכנית לפי מה שיצא</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt"><b>תיק חירום מוכן:</b> דמות + 2 שוטים + רצף שיפור פרומפט</span></label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">15 דק׳</span><span class="bn">כלים וקרדיטים</span></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">יש קרדיטים בשפע<span class="note">להיגמר באמצע שיעור בתשלום = הכי גרוע שיש</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">החלטתי על <b>כלי אחד</b> לתמונות וכלי אחד לווידאו<span class="note">אחד ואחד. שלושה כלים בשעתיים = הוא לא ילמד אף אחד</span></span></label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">10 דק׳</span><span class="bn">הודעה לגיא</span></div>
+    <div class="say">
+      <span class="sk">לשלוח בוואטסאפ</span>
+      <p>"היי גיא, מחכה לך מחר ב-[שעה]. הכתובת: [כתובת מלאה + קומה + דירה].<br>
+      חניה: [איפה לחנות / איזה רחוב].<br>
+      אין אינטרקום? תתקשר כשאתה למטה ואני יורד.</p>
+      <p>תביא לפטופ אם יש לך, ואם יש רפרנסים לאיך אתה מדמיין את הילד — תשלח או תביא בטלפון.</p>
+      <p>ואל תדאג שאתה לא יודע כלום, זו בדיוק הנקודה. נתראה!"</p>
+    </div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שלחתי כתובת מלאה, קומה, מספר דירה והוראות חניה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שלחתי מיקום בוואטסאפ<span class="note">הרבה יותר קל מכתובת. שנייה של עבודה, חוסך לו עשר דקות</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שלחתי לו את דף הסילבוס</span></label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== HOSTING ===== -->
+<div class="phase">
+  <div class="ph">שעה לפני <span class="cnt">הבית</span></div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">30 דק׳</span><span class="bn">להפוך את הדירה למקום עבודה</span></div>
+    <div class="bg">הוא משלם 900 ₪ ומגיע לדירה פרטית. <b>הרושם הזה הוא חלק מהמוצר</b> — הוא מספר לחברים איפה היה, לא רק מה למד.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt"><b>שני כיסאות ליד אותו שולחן, זה לצד זה</b><span class="note">לא זה מול זה. אתם מסתכלים על אותו מסך — זו הישיבה של חדר עריכה</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">מסך שני / חיבור ללפטופ שלו מוכן<span class="note">אם אין — הוא יושב מול המסך שלך ואתה בצד. עדיף</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שקע פנוי + מפצל לטעינת הלפטופ שלו</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אזור העבודה נקי ומסודר — שולחן, רצפה, מה שנראה מהכיסא שלו</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שירותים נקיים + סבון + מגבת</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">מים, קפה, משהו לנשנש — מוכן מראש<span class="note">שלא תקום להרתיח באמצע בלוק</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אור טוב על השולחן<span class="note">הוא צלם. הוא ישים לב</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">טמפרטורה נעימה — מזגן/חימום דולק מראש</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אין רעשים מפריעים — כביסה, שכנים, שיפוצים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אם יש בעלי חיים — סגורים, או שווידאתי מראש שזה בסדר מבחינתו</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">מישהו נוסף בבית? עדכנתי שיש שיעור ואני לא זמין</span></label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">15 דק׳</span><span class="bn">המחשב</span></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">סגרתי כל טאב, התראה, מייל וסלאק<span class="note">הודעה אישית שקופצת באמצע — מביך ולא מקצועי</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">מצב "נא לא להפריע" דלוק, טלפון על שקט והפוך</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הכלים פתוחים ומחוברים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">תיקיית <b>GUY-LESSON-01</b> על שולחן העבודה, ריקה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">תיק החירום בתיקייה נפרדת ומוכן לשליפה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הוט־ספוט מהטלפון בדוק ועובד</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">תוכנת הקלטת מסך מוכנה<span class="note">רק ללחוץ. לא לחפש אותה מולו</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">פתחתי את הדף הזה בטלפון או בטאבלט<span class="note">לא במסך הראשי — שהוא לא יראה את הרנשיט</span></span></label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== THE LESSON ===== -->
+<div class="phase">
+  <div class="ph">השיעור <span class="cnt">שעתיים · 8 בלוקים</span></div>
+
+  <div class="block" data-start="0" data-end="10">
+    <div class="bh"><span class="bt">0:00–0:10</span><span class="bn">1 · נכנסים ומתיישבים</span></div>
+    <div class="bg">בבית זה שונה מבמשרד — <b>יש רגע חברתי לפני שמתחילים.</b> אל תילחם בו, פשוט תתחם אותו.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">קפה, שירותים, מתיישבים ליד השולחן</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אמרתי לו בדיוק מה הוא ייקח הביתה בסוף השעתיים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שאלתי מה הכי מבלבל אותו ב-AI<span class="note">התשובה תגיד לך על מה להתעכב</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">ביקשתי רשות להקליט מסך והתחלתי להקליט</span></label></li>
+    </ul>
+    <div class="say">
+      <span class="sk">לפתוח בזה</span>
+      <p>"בשעתיים הקרובות אנחנו לא מכסים את כל עולם ה-AI — אנחנו בונים בסיס. אתה תבין איך הדבר הזה עובד,
+      ותצא עם דמות ועם שוט מתנועע שאתה עשית.</p>
+      <p>ודבר אחד שחשוב שתדע מראש — <b>רוב מה שננסה ייצא מכוער.</b> זה לא כישלון, זו העבודה.
+      גם אצלי, כל שוט בפרויקט אמיתי הוא 20 ניסיונות."</p>
+    </div>
+  </div>
+
+  <div class="block" data-start="10" data-end="25">
+    <div class="bh"><span class="bt">0:10–0:25</span><span class="bn">2 · מה זה הדבר הזה בכלל</span></div>
+    <div class="bg"><b>אתה מסביר, הוא מקשיב.</b> זה הבלוק היחיד שהוא כזה — וזה בסדר גמור. בלי המפה הזאת כל השאר לא יתיישב לו.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">מה זה מודל שמייצר תמונה — בלי מונחים טכניים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt"><b>למה אותו פרומפט נותן תוצאה שונה כל פעם</b><span class="note">זו התובנה שהכי מבלבלת מתחילים. תשקיע בה</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">השרשרת: תמונה → וידאו → סאונד → עריכה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">מה עולה כסף ובערך כמה בחודש</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">באיזה כלי אנחנו עובדים היום ולמה דווקא בו</span></label></li>
+    </ul>
+    <div class="warn"><b>מלכודת מספר 1:</b> פה הכי קל להיסחף. אתה יודע המון ויתחשק לך לספר הכל. <b>תעצור ב-15 דקות גם באמצע משפט.</b> אם הבלוק הזה גולש ל-25 — נשרף לך השוט המתנועע, וזה מה שהבטחת לו.</div>
+  </div>
+
+  <div class="block" data-start="25" data-end="45">
+    <div class="bh"><span class="bt">0:25–0:45</span><span class="bn">3 · התמונה הראשונה שלו</span></div>
+    <div class="bg">הוא עובר לנהיגה. <b>נושא פשוט וכיפי — עדיין לא הפרויקט שלו.</b> המטרה היא שהוא יתגבר על הפחד מהמסך הריק.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הראיתי לו את הממשק — 60 שניות, לא יותר</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt"><b>הוא כותב פרומפט ראשון בעצמו</b>, מה שבא לו<span class="note">גם אם יוצא גרוע. במיוחד אם יוצא גרוע</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הסתכלנו על התוצאה ושאלתי אותו מה לא עובד<span class="note">הוא צלם — הוא ידע להגיד. זה הרגע שהוא מבין שהעין שלו רלוונטית</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הוא הריץ את אותו פרומפט שוב וראה שיוצא אחרת</span></label></li>
+    </ul>
+    <div class="warn"><b>מלכודת מספר 2:</b> אתה תראה אותו מקליד לאט ומגמגם ותרצה לקחת את המקלדת. <b>אל תיקח.</b> מהרגע שאתה מקליד — אתה מדגים והוא צופה. תגיד לו מה לכתוב, ותן לו לכתוב.</div>
+  </div>
+
+  <div class="block" data-start="45" data-end="60">
+    <div class="bh"><span class="bt">0:45–1:00</span><span class="bn">4 · איך כותבים פרומפט</span></div>
+    <div class="bg">מגרוע לטוב על אותה תמונה. <b>פה נופל האסימון הראשון.</b></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">לימדתי מבנה: <b>מי · מה עושה · איפה · אור · עדשה · אווירה</b></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">חיברתי למונחי צילום שהוא כבר מכיר</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הוא עשה 3–4 סבבי שיפור בעצמו</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הראיתי את רצף השיפור שהכנתי מראש</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שמרנו לתיקייה</span></label></li>
+    </ul>
+  </div>
+
+  <div class="block" data-start="60" data-end="68">
+    <div class="bh"><span class="bt">1:00–1:08</span><span class="bn">5 · הפסקה</span></div>
+    <div class="bg">קפה, רגליים, אוויר. <b>אל תדלג</b> — הריכוז נופל אחרי שעה וזה יפגע בחלק החשוב.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">קמנו מהכיסא באמת</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">דיברנו על הסרט שלו — לא על AI<span class="note">שיחה אנושית. זה מה שיגרום לו לחזור למסלול המלא</span></span></label></li>
+    </ul>
+  </div>
+
+  <div class="block" data-start="68" data-end="90">
+    <div class="bh"><span class="bt">1:08–1:30</span><span class="bn">6 · עכשיו הילד הכדורסלן</span></div>
+    <div class="bg">רק עכשיו נכנס הפרויקט שלו — <b>ככלי תרגול על מה שלמד</b>, לא כמשימה. הוא כבר יודע לכתוב פרומפט, אז זה מרגיש אפשרי.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הוא בונה את הילד לפי מה שלמד בבלוק 4</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אני מכוון, הוא מקליד ומחליט</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">4–6 סבבים עד שהוא אומר "וואו"</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שמרנו את הפריים הנבחר</span></label></li>
+    </ul>
+    <div class="say">
+      <span class="sk">לחבר לפרויקט שלו</span>
+      <p>"שים לב — עכשיו כשאתה יודע לכתוב פרומפט, הדמות מהסרט שלך היא בסך הכל עוד פרומפט.
+      זה בדיוק אותו דבר שעשינו לפני עשרים דקות, רק עם נושא שאכפת לך ממנו."</p>
+    </div>
+  </div>
+
+  <div class="block" data-start="90" data-end="108">
+    <div class="bh"><span class="bt">1:30–1:48</span><span class="bn">7 · מזיזים את התמונה</span></div>
+    <div class="bg">האסימון השני, וההבטחה מההצעה. <b>הבלוק הזה חייב לקרות</b> — אם משהו קודם גלש, מקצרים אותו ולא את זה.</div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הסברתי שווידאו נוצר <b>מהתמונה</b>, לא מאפס</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הוא בחר תנועת מצלמה, בשפה של צלם</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שלחנו לג'נרוט</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt"><b>בזמן ההמתנה</b> הסברתי מה קורה מאחורי הקלעים<span class="note">אף פעם לא לשבת בשקט מול פס טעינה. זמן ההמתנה הוא זמן הוראה</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">צפינו וניתחנו מה עבד ומה נשבר</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שמרנו בתיקייה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt"><b>אם נשאר זמן:</b> הצצה של 5 דקות לעקביות דמות<span class="note">רק הדגמה מהתיק המוכן. זה הראשון שנופל אם צפוף</span></span></label></li>
+    </ul>
+  </div>
+
+  <div class="block" data-start="108" data-end="120">
+    <div class="bh"><span class="bt">1:48–2:00</span><span class="bn">8 · סוגרים</span></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">נתתי לו <b>תרגיל אחד</b> לשבוע הקרוב<span class="note">אחד. "תבנה שלושה פריימים של אותה דמות". לא רשימה</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">העברתי את התיקייה — פריימים, וידאו, פרומפטים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">עצרתי את ההקלטה ואמרתי מתי אשלח אותה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הזכרתי: שבוע של שאלות בוואטסאפ, בלי תשלום</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שאלתי: <b>"מה היה הכי שימושי ומה היה מיותר?"</b><span class="note">זה השיעור הראשון שלך. המשוב שווה יותר מה-900 ₪</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">גבינו תשלום</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">הזכרתי שה-900 יורדים ממסלול תוך חודש — <b>פעם אחת</b></span></label></li>
+    </ul>
+    <div class="warn"><b>אל תמכור.</b> משפט אחד על ההנחה, בטון של מידע, וממשיכים. אם השיעור היה טוב הוא יחזור מעצמו. אם תדחוף — הרסת את מה שבנית בשעתיים.</div>
+  </div>
+</div>
+
+<!-- ===== AFTER ===== -->
+<div class="phase">
+  <div class="ph">אחרי <span class="cnt">אותו ערב · 48 שעות · שבוע</span></div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">אותו ערב</span><span class="bn">בזמן שזה טרי</span></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">רשמתי כמה זמן <b>באמת</b> לקח כל בלוק<span class="note">זה מה שיבנה את מסלול 3 המפגשים נכון</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">רשמתי מה עבד, מה נפל, ומה הוא שאל שלא ידעתי</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">רשמתי איפה נגמר לו הריכוז</span></label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">תוך 48 שעות</span><span class="bn">מסמך הסיכום</span></div>
+    <div class="bg">הבטחת בהצעה. <b>לשלוח מוקדם ממה שהוא מצפה.</b></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שלחתי מסמך עם הכלים, הפרומפטים והשלבים</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">צירפתי לינק להקלטת המסך</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שלחתי קבלה</span></label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="bh"><span class="bt">אחרי שבוע</span><span class="bn">מעקב</span></div>
+    <ul class="chk">
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">שאלתי איך הלך עם התרגיל<span class="note">הודעה אחת, ידידותית, בלי מכירה</span></span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">אם היה מרוצה — ביקשתי המלצה קצרה או הפניה</span></label></li>
+      <li><label><input type="checkbox"><span class="box"></span><span class="txt">עדכנתי את הסילבוס לפי מה שלמדתי</span></label></li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<div id="rules">
+  <div class="rh" id="rulesToggle">
+    <span>7 כללים · ללחוץ כדי לפתוח</span><span class="arw"></span>
+  </div>
+  <ol>
+    <li><b>בבלוק 2 אתה מדבר.</b> בכל השאר — הוא על המקלדת.</li>
+    <li><b>פחות זה יותר.</b> נושא אחד לעומק עדיף על חמישה בשטחיות.</li>
+    <li><b>תראה כישלונות.</b> הניסיונות שנפלו מלמדים יותר מהתוצאה היפה.</li>
+    <li><b>"אני לא יודע"</b> זו תשובה לגיטימית ומוסיפה אמינות.</li>
+    <li><b>זמן המתנה = זמן הוראה.</b> לא לשבת בשקט מול פס טעינה.</li>
+    <li><b>תשאל אותו שאלות.</b> הוא צלם, יש לו דעה על כל פריים.</li>
+    <li><b>הבטחת שוט מתנועע.</b> אם צפוף — מקצרים הכל חוץ מבלוק 7.</li>
+  </ol>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var KEY='guy-runsheet-home';
+  var boxes=[].slice.call(document.querySelectorAll('ul.chk input'));
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(boxes.map(function(b){return b.checked?1:0}))); }catch(e){} }
+  try{ var raw=localStorage.getItem(KEY); if(raw){ var st=JSON.parse(raw); boxes.forEach(function(b,i){ b.checked=!!st[i]; }); } }catch(e){}
+  boxes.forEach(function(b){ b.addEventListener('change', save); });
+
+  var clockEl=document.getElementById('clock'),
+      nowName=document.getElementById('nowName'),
+      nowRange=document.getElementById('nowRange'),
+      paceEl=document.getElementById('pace'),
+      startBtn=document.getElementById('start'),
+      resetBtn=document.getElementById('reset'),
+      blocks=[].slice.call(document.querySelectorAll('.block[data-start]')),
+      t0=null, tick=null;
+
+  try{ var s=localStorage.getItem(KEY+'-t0'); if(s) t0=parseInt(s,10); }catch(e){}
+  function pad(v){ return v<10?'0'+v:''+v; }
+
+  function render(){
+    if(t0===null) return;
+    var mins=(Date.now()-t0)/60000, m=Math.floor(mins), sec=Math.floor((mins-m)*60);
+    clockEl.textContent=m+':'+pad(sec);
+    var live=null;
+    blocks.forEach(function(b){
+      var st=+b.dataset.start, en=+b.dataset.end;
+      b.classList.remove('live');
+      b.classList.toggle('done', mins>=en);
+      if(mins>=st && mins<en) live=b;
+    });
+    if(live){
+      live.classList.add('live');
+      nowName.textContent=live.querySelector('.bn').textContent;
+      var left=Math.max(0, Math.ceil(+live.dataset.end - mins));
+      nowRange.textContent=live.querySelector('.bt').textContent+' · נשארו '+left+' דק׳';
+      paceEl.textContent = left<=2 ? 'לסגור ולהתקדם' : 'בזמן';
+      paceEl.className='pace '+(left<=2?'late':'ok');
+    } else if(mins>=120){
+      nowName.textContent='השיעור הסתיים';
+      nowRange.textContent='תשלום · משוב · הקלטה';
+      paceEl.textContent='סיום'; paceEl.className='pace';
+    }
+  }
+  function run(){ if(tick) clearInterval(tick); tick=setInterval(render,1000); render(); }
+  if(t0!==null){ startBtn.textContent='רץ'; run(); }
+  startBtn.addEventListener('click', function(){
+    if(t0!==null) return;
+    t0=Date.now();
+    try{ localStorage.setItem(KEY+'-t0', String(t0)); }catch(e){}
+    startBtn.textContent='רץ'; run();
+  });
+  resetBtn.addEventListener('click', function(){
+    if(!confirm('לאפס את הטיימר ואת כל הסימונים?')) return;
+    try{ localStorage.removeItem(KEY); localStorage.removeItem(KEY+'-t0'); }catch(e){}
+    location.reload();
+  });
+
+  var rules=document.getElementById('rules');
+  document.getElementById('rulesToggle').addEventListener('click', function(){ rules.classList.toggle('open'); });
+})();
+</script>
+</body>
+</html>
