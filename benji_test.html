@@ -210,54 +210,106 @@ section{padding-block:clamp(72px,11vh,150px)}
 .notes p:first-child{margin-top:0}
 
 /* ---------- process ---------- */
-.show{position:relative}
-.showhead{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(14px,2.4vw,30px);
-  align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:18px}
-.shownum{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;color:var(--mg)}
-.showtitle{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
-  font-size:clamp(1.5rem,4vw,3.1rem);line-height:1.08;letter-spacing:-.005em;margin:0;min-width:0}
-.showcount{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;opacity:.45;white-space:nowrap}
+/* ---------- process walk-through ---------- */
+.wt{position:relative;margin-top:clamp(24px,3.5vw,44px)}
+.wt-stage{position:relative;overflow:hidden;background:#0A101C;color:#EDEDEA;
+  --line:rgba(237,237,234,.22);height:clamp(600px,90vh,960px)}
 
-.showbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.72fr);
-  gap:clamp(22px,4vw,60px);align-items:start;padding-top:clamp(24px,3.5vw,44px)}
-@media(max-width:880px){.showbody{grid-template-columns:1fr}}
+/* atmosphere: the same sheet, blurred, as the canvas of the section */
+.wt-bg{position:absolute;inset:0;z-index:0}
+.wt-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:blur(38px) saturate(.8) brightness(.46);transform:scale(1.18);
+  opacity:0;transition:opacity .85s ease}
+.wt-bg img.on{opacity:.72;animation:wtDrift 22s ease-in-out infinite alternate}
+@keyframes wtDrift{from{transform:scale(1.18) translate3d(0,0,0)}
+  to{transform:scale(1.26) translate3d(-1.6%,-1.2%,0)}}
+.wt-tint{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(130% 100% at 26% 48%,rgba(10,16,28,0) 0%,rgba(10,16,28,.34) 44%,rgba(10,16,28,.86) 76%,#0A101C 100%)}
 
-.stagewrap{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);
-  height:clamp(360px,62vh,620px);cursor:zoom-in}
-.stagewrap figure{position:absolute;inset:0;margin:0;padding:clamp(10px,1.4vw,18px);
-  opacity:0;visibility:hidden;transform:translateX(var(--enter,34px)) scale(1.012);
-  transition:opacity .5s cubic-bezier(.3,0,.2,1),transform .62s cubic-bezier(.22,.7,.25,1),visibility .5s}
-.stagewrap figure.on{opacity:1;visibility:visible;transform:none}
-.stagewrap figure.was{opacity:0;visibility:visible;transform:translateX(var(--leave,-34px)) scale(.988)}
-.stagewrap img{width:100%;height:100%;object-fit:contain;object-position:center;
-  opacity:0;transition:opacity .5s}
-.stagewrap img.in{opacity:1}
-.zoomcue{position:absolute;right:12px;bottom:12px;z-index:3;pointer-events:none;
-  font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
-  background:rgba(13,21,36,.82);color:#EDEDEA;padding:7px 11px;border-radius:2px;
-  opacity:0;transition:opacity .3s}
-.stagewrap:hover .zoomcue{opacity:1}
+.wt-inner{position:relative;z-index:2;height:100%;max-width:var(--maxw);margin:0 auto;
+  padding:clamp(22px,3.4vh,42px) var(--pad) clamp(16px,2.2vh,26px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);grid-template-rows:1fr auto;
+  column-gap:clamp(26px,4.5vw,76px);row-gap:clamp(16px,2.4vh,30px);align-items:center}
 
-.showcopy{position:relative;min-height:1px}
-.showcopy p{margin:0 0 22px;font-size:clamp(.95rem,1.25vw,1.08rem);line-height:1.66;opacity:.75}
-.showcopy.anim p,.showcopy.anim .showacts{animation:riseIn .6s cubic-bezier(.22,.7,.25,1) both}
-.showcopy.anim .showacts{animation-delay:.08s}
-@keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.showacts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+/* the sheet itself — whole, undistorted, dominant */
+.wt-plate{position:relative;grid-column:1;grid-row:1;height:100%;cursor:zoom-in}
+.wt-plate figure{position:absolute;inset:0;margin:0;opacity:0;visibility:hidden;
+  transform:translateX(var(--enter,26px)) scale(1.015);
+  transition:opacity .55s cubic-bezier(.3,0,.2,1),transform .7s cubic-bezier(.22,.7,.25,1),visibility .55s}
+.wt-plate figure.on{opacity:1;visibility:visible;transform:none}
+.wt-plate figure.was{opacity:0;visibility:visible;transform:translateX(var(--leave,-26px)) scale(.99)}
+.wt-plate img{width:100%;height:100%;object-fit:contain;object-position:left center;
+  filter:drop-shadow(0 26px 60px rgba(0,0,0,.6));opacity:0;transition:opacity .55s}
+.wt-plate img.in{opacity:1}
+.wt-plate figure.on img{animation:wtBreathe 16s ease-in-out infinite alternate}
+@keyframes wtBreathe{from{scale:1}to{scale:1.018}}
+.wt-zoom{position:absolute;left:0;bottom:0;z-index:3;font-family:var(--f-mono);font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(237,237,234,.75);
+  border:1px solid rgba(237,237,234,.3);padding:7px 11px;border-radius:2px;
+  opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none}
+.wt-plate:hover .wt-zoom{opacity:1;transform:none}
 
-.shownav{display:flex;align-items:center;gap:12px;margin-top:clamp(24px,3vw,38px);flex-wrap:wrap}
-.navbtn{width:46px;height:46px;border:1px solid var(--line);border-radius:50%;
-  display:grid;place-items:center;font-size:1rem;transition:.28s}
-.navbtn:hover:not(:disabled){border-color:var(--mg);color:var(--mg);transform:translateY(-2px)}
-.navbtn:disabled{opacity:.3;cursor:default}
-.dots{display:flex;gap:6px;flex:1;min-width:140px}
-.dot{flex:1;height:2px;background:var(--line);position:relative;transition:background-color .3s}
-.dot::after{content:"";position:absolute;inset:-9px 0}
-.dot.on{background:var(--mg)}
-.dot:hover{background:rgba(224,33,138,.5)}
-.showkeys{font-family:var(--f-mono);font-size:clamp(.66rem,.9vw,.76rem);letter-spacing:.08em;
-  display:inline-flex;align-items:center;gap:7px;opacity:.72}
-@media(pointer:coarse){.showkeys{display:none}}
+/* the veil: image shades into the type instead of stopping at a card edge */
+.wt-veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  linear-gradient(97deg,rgba(10,16,28,0) 30%,rgba(10,16,28,.38) 43%,
+  rgba(10,16,28,.84) 57%,#0A101C 70%)}
+
+.wt-copy{grid-column:2;grid-row:1;position:relative;z-index:3}
+.wt-copy.anim>*{animation:wtRise .62s cubic-bezier(.22,.7,.25,1) both}
+.wt-copy.anim>*:nth-child(2){animation-delay:.06s}
+.wt-copy.anim>*:nth-child(3){animation-delay:.12s}
+.wt-copy.anim>*:nth-child(4){animation-delay:.18s}
+.wt-copy.anim>*:nth-child(5){animation-delay:.24s}
+@keyframes wtRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.wt-step{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mg);margin-bottom:clamp(12px,1.8vh,20px);display:flex;align-items:center;gap:12px}
+.wt-step i{display:block;width:clamp(22px,3vw,54px);height:1px;background:currentColor;opacity:.6}
+.wt-title{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
+  font-size:clamp(1.65rem,3.5vw,3rem);line-height:1.06;letter-spacing:-.005em;margin:0 0 16px}
+.wt-desc{margin:0 0 clamp(20px,3vh,32px);font-size:clamp(.95rem,1.2vw,1.08rem);line-height:1.66;
+  color:rgba(237,237,234,.74);max-width:40ch}
+.wt-acts{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wt-stage .navbtn{width:48px;height:48px;border:1px solid rgba(237,237,234,.28);border-radius:50%;
+  display:grid;place-items:center;font-size:1rem;color:#EDEDEA;transition:.28s}
+.wt-stage .navbtn:hover{border-color:var(--mg);color:var(--mg);transform:translateY(-2px)}
+.wt-stage .btn{border-color:rgba(237,237,234,.3);color:#EDEDEA;padding:13px 18px}
+.wt-stage .btn:hover{background:var(--mg);border-color:var(--mg);color:#fff}
+.wt-keys{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.07em;
+  color:rgba(237,237,234,.58);margin-top:clamp(14px,2vh,20px);
+  display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap}
+.wt-keys .key{border-color:rgba(237,237,234,.38)}
+@media(pointer:coarse){.wt-keys{display:none}}
+
+/* job-progress rail, not a carousel dot row */
+.wt-rail{grid-column:1 / -1;grid-row:2;position:relative;z-index:3;
+  display:grid;grid-template-columns:repeat(7,1fr);gap:clamp(6px,.8vw,12px)}
+.wt-rail button{display:block;text-align:left;padding-top:10px}
+.wt-rail .seg{display:block;height:2px;background:rgba(237,237,234,.2);transition:.4s}
+.wt-rail .lab{display:block;margin-top:8px;font-family:var(--f-mono);font-size:.56rem;
+  letter-spacing:.16em;color:rgba(237,237,234,.34);transition:.4s}
+.wt-rail button:hover .seg{background:rgba(237,237,234,.55)}
+.wt-rail button.on .seg{background:var(--mg);height:3px}
+.wt-rail button.on .lab{color:#EDEDEA}
+@media(max-width:1080px){.wt-rail .lab{font-size:.5rem;letter-spacing:.1em}}
+
+@media(max-width:880px){
+  .wt-stage{height:auto}
+  .wt-inner{grid-template-columns:1fr;grid-template-rows:auto auto auto;
+    padding-block:clamp(20px,3vh,34px) clamp(18px,2.5vh,26px);row-gap:clamp(18px,3vh,28px)}
+  .wt-plate{grid-column:1;grid-row:1;height:clamp(320px,50vh,480px)}
+  .wt-plate img{object-position:center}
+  .wt-copy{grid-column:1;grid-row:2}
+  .wt-desc{max-width:none}
+  .wt-rail{grid-row:3}
+  .wt-veil{background:linear-gradient(to bottom,rgba(10,16,28,0) 26%,rgba(10,16,28,.5) 42%,
+    rgba(10,16,28,.9) 56%,#0A101C 68%)}
+  .wt-title{font-size:clamp(1.55rem,7vw,2.2rem)}
+}
+@media(max-width:520px){
+  .wt-rail{grid-template-columns:repeat(7,1fr);gap:5px}
+  .wt-rail .lab{display:none}
+  .wt-rail button{padding-top:6px}
+}
 
 /* ---------- capabilities band ---------- */
 .capband{background:#0C1322;color:#EDEDEA;--line:rgba(237,237,234,.17);
@@ -504,31 +556,33 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     A walk-through of how a job actually moves through pre-press — what gets checked, what gets
     corrected, and what happens when the screen and the press disagree.
   </p>
-  <div class="show rv" id="procShow">
-    <div class="showhead">
-      <span class="shownum" id="showNum">01</span>
-      <h4 class="showtitle" id="showTitle"></h4>
-      <span class="showcount" id="showCount"></span>
-    </div>
-    <div class="showbody">
-      <div class="stagewrap" id="showStage"><span class="zoomcue">Click to enlarge</span></div>
-      <div class="showcopy" id="showCopy">
-        <p id="showDesc"></p>
-        <div class="showacts">
-          <button class="btn" id="showZoom">Open full sheet ↗</button>
-        </div>
-        <div class="shownav">
+</section>
+
+<div class="wt rv" id="procShow">
+  <div class="wt-stage">
+    <div class="wt-bg" id="wtBg"></div>
+    <div class="wt-tint" aria-hidden="true"></div>
+    <div class="wt-veil" aria-hidden="true"></div>
+    <div class="wt-inner">
+      <div class="wt-plate" id="wtPlate">
+        <span class="wt-zoom">Click to enlarge</span>
+      </div>
+      <div class="wt-copy" id="wtCopy">
+        <div class="wt-step"><i></i><span id="wtStep"></span></div>
+        <h4 class="wt-title" id="wtTitle"></h4>
+        <p class="wt-desc" id="wtDesc"></p>
+        <div class="wt-acts">
           <button class="navbtn" id="showPrev" aria-label="Previous stage">←</button>
           <button class="navbtn" id="showNext" aria-label="Next stage">→</button>
-          <span class="dots" id="showDots"></span>
+          <button class="btn" id="showZoom">Open full sheet ↗</button>
         </div>
-        <div class="shownav" style="margin-top:14px">
-          <span class="showkeys">Use the <b class="key">←</b> <b class="key">→</b> arrow keys on your keyboard</span>
-        </div>
+        <div class="wt-keys">Use the <b class="key">←</b> <b class="key">→</b> arrow keys on your keyboard</div>
       </div>
+      <div class="wt-rail" id="wtRail"></div>
     </div>
   </div>
-</section>
+</div>
+
 
 <!-- ============ CAPABILITIES ============ -->
 <section class="capband" id="capabilities">
@@ -650,7 +704,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 
 <footer class="wrap" id="footer">
   <div style="border-top:1px solid var(--line);padding-top:26px">
-    <p class="bigline" style="font-size:clamp(1.45rem,3.4vw,2.7rem);line-height:1.12;margin:0 0 8px;max-width:20ch">Press-ready is a decision, not a file format.</p>
+    <p class="bigline" style="font-size:clamp(1.35rem,3.1vw,2.6rem);line-height:1.14;margin:0 0 8px;max-width:none">Press-ready is a decision, not a file format.</p>
   </div>
   <img class="fmark" data-a="logo-new" alt="Benjamin Kljuno">
   <div class="colourbar" aria-hidden="true">
@@ -826,47 +880,55 @@ PROJECTS.forEach((p,i)=>{
 $("#workCount").textContent=PROJECTS.length;
 
 /* ================= BUILD PROCESS GRID ================= */
-const showStage=$("#showStage"), showCopy=$("#showCopy"), showDots=$("#showDots");
-const slides=[];
+const wtPlate=$("#wtPlate"), wtBg=$("#wtBg"), wtRail=$("#wtRail"), wtCopy=$("#wtCopy");
+const slides=[], bgs=[];
 let showCur=0, procInView=false;
 
 PROCESS.forEach(([n,label,desc],i)=>{
+  const b=document.createElement("img");
+  b.dataset.a="case-"+(i+1); b.alt=""; b.setAttribute("aria-hidden","true");
+  wtBg.appendChild(b); bgs.push(b);
+
   const fig=document.createElement("figure");
-  fig.innerHTML=`<img data-a="case-${i+1}" alt="Pre-press process, part ${n}: ${label}">`;
-  showStage.appendChild(fig); slides.push(fig);
-  const d=document.createElement("button");
-  d.className="dot"; d.type="button";
-  d.setAttribute("aria-label","Go to part "+n);
-  d.addEventListener("click",()=>goSlide(i));
-  showDots.appendChild(d);
+  fig.innerHTML='<img data-a="case-'+(i+1)+'" alt="Pre-press process, part '+n+': '+label+'">';
+  wtPlate.appendChild(fig); slides.push(fig);
+
+  const t=document.createElement("button");
+  t.type="button"; t.setAttribute("aria-label","Go to part "+n+": "+label);
+  t.innerHTML='<i class="seg"></i><span class="lab">'+n+'</span>';
+  t.addEventListener("click",()=>goSlide(i));
+  wtRail.appendChild(t);
 });
-const dots=$$("#showDots .dot");
+const rail=$$("#wtRail button");
+wtPlate.addEventListener("click",e=>{
+  if(e.target.closest("button")) return;
+  lbImg.src=src("case-"+(showCur+1)); lb.classList.add("open");
+  document.body.style.overflow="hidden";
+});
 
 function goSlide(i,dir){
   i=(i+PROCESS.length)%PROCESS.length;
   if(i===showCur && slides[i].classList.contains("on")) return;
   const d = dir!==undefined ? dir : (i>showCur?1:-1);
   const prev=slides[showCur];
-  prev.classList.remove("on");
-  prev.classList.add("was");
-  prev.style.setProperty("--leave",(d>0?-34:34)+"px");
-  setTimeout(()=>prev.classList.remove("was"),620);
+  prev.classList.remove("on"); prev.classList.add("was");
+  prev.style.setProperty("--leave",(d>0?-26:26)+"px");
+  setTimeout(()=>prev.classList.remove("was"),700);
+  bgs[showCur].classList.remove("on");
   showCur=i;
   const cur=slides[i];
-  cur.style.setProperty("--enter",(d>0?34:-34)+"px");
+  cur.style.setProperty("--enter",(d>0?26:-26)+"px");
   cur.classList.remove("was");
-  requestAnimationFrame(()=>cur.classList.add("on"));
+  requestAnimationFrame(()=>{cur.classList.add("on"); bgs[i].classList.add("on");});
   const [n,label,desc]=PROCESS[i];
-  $("#showNum").textContent=n;
-  $("#showTitle").textContent=label;
-  $("#showCount").textContent=n+" / 0"+PROCESS.length;
-  $("#showDesc").textContent=desc;
-  dots.forEach((el,k)=>el.classList.toggle("on",k===i));
+  $("#wtStep").textContent="Step "+n+" of 0"+PROCESS.length;
+  $("#wtTitle").textContent=label;
+  $("#wtDesc").textContent=desc;
+  rail.forEach((el,k)=>el.classList.toggle("on",k===i));
   $("#showZoom").dataset.lb="case-"+(i+1);
-  showStage.dataset.lb="case-"+(i+1);
-  showCopy.classList.remove("anim"); void showCopy.offsetWidth;
-  if(!reduce) showCopy.classList.add("anim");
-  watch(cur);
+  wtCopy.classList.remove("anim"); void wtCopy.offsetWidth;
+  if(!reduce) wtCopy.classList.add("anim");
+  watch(cur); watch(wtBg);
 }
 $("#showPrev").addEventListener("click",()=>goSlide(showCur-1,-1));
 $("#showNext").addEventListener("click",()=>goSlide(showCur+1,1));
