@@ -469,10 +469,17 @@ section{padding-block:clamp(72px,11vh,150px)}
 
 /* ---------- footer ---------- */
 footer{padding:clamp(30px,4vh,56px) 0 0}
-.colourbar{display:flex;height:8px;margin-top:44px}
+.colourbar{display:flex;gap:3px;height:16px;padding:3px;background:#EDEDEA;
+  margin-top:clamp(32px,4.5vw,56px)}
 .colourbar i{flex:1}
 .fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;padding:22px 0 26px;align-items:center}
-.fmark{width:clamp(180px,21vw,270px);height:auto;margin:30px 0 4px}
+.ftop{border-top:1px solid var(--line);padding-top:clamp(24px,3vw,40px);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:clamp(24px,5vw,72px);flex-wrap:wrap}
+.ftop .bigline{margin:0;max-width:none;flex:1 1 380px;
+  font-size:clamp(1.3rem,2.9vw,2.4rem);line-height:1.14}
+.fmark{width:clamp(148px,16vw,215px);height:auto;margin:0;flex:none}
+@media(max-width:640px){.fmark{width:clamp(140px,42vw,190px)}}
 
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
@@ -703,10 +710,10 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 </main>
 
 <footer class="wrap" id="footer">
-  <div style="border-top:1px solid var(--line);padding-top:26px">
-    <p class="bigline" style="font-size:clamp(1.35rem,3.1vw,2.6rem);line-height:1.14;margin:0 0 8px;max-width:none">Press-ready is a decision, not a file format.</p>
+  <div class="ftop">
+    <p class="bigline">Press-ready is a decision, not a file format.</p>
+    <img class="fmark" data-a="logo-new" alt="Benjamin Kljuno">
   </div>
-  <img class="fmark" data-a="logo-new" alt="Benjamin Kljuno">
   <div class="colourbar" aria-hidden="true">
     <i style="background:var(--cy)"></i><i style="background:var(--mg)"></i>
     <i style="background:var(--yl)"></i><i style="background:var(--kk)"></i>
