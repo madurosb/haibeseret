@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>הפלייבוק · גיא — ניר בראינין</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@300;400;600;800&family=Azeret+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0907;--ink-2:#161210;--ink-3:#211B17;--ink-4:#2B2420;
+  --gold:#E9A23B;--gold-2:#F5BE6B;
+  --gold-soft:rgba(233,162,59,.09);--gold-line:rgba(233,162,59,.34);
+  --court:rgba(233,162,59,.16);
+  --green:#5FBF7F;
+  --bone:#EDEAE4;--steel:#9E9A93;--steel-2:#BAB6AF;
+  --line:rgba(237,234,228,.15);
+  --disp:'Frank Ruhl Libre',Georgia,serif;
+  --body:'Assistant',system-ui,sans-serif;
+  --mono:'Azeret Mono',ui-monospace,monospace;
+  --gut:clamp(18px,4.5vw,56px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--bone);font-family:var(--body);font-size:clamp(15.5px,1vw+13px,17px);line-height:1.6;overflow-x:hidden;position:relative}
+::selection{background:var(--gold);color:var(--ink)}
+a{color:var(--gold)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:repeating-linear-gradient(90deg,rgba(233,162,59,.03) 0,rgba(233,162,59,.03) 1px,transparent 1px,transparent 62px),repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0,rgba(255,255,255,.012) 26px,transparent 26px,transparent 62px)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:91;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+#court{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#court svg{position:absolute;stroke:var(--court);fill:none;stroke-width:1.4}
+#court .c-key{bottom:-18vh;left:50%;transform:translateX(-50%);width:min(120vw,1200px)}
+#court .c-arc{top:-26vh;right:-18vw;width:min(90vw,720px);opacity:.45}
+.wrap{max-width:940px;margin:0 auto;padding:0 var(--gut);position:relative;z-index:2}
+
+#nav{position:sticky;top:0;z-index:60;background:rgba(11,9,7,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+#nav .in{max-width:940px;margin:0 auto;padding:9px var(--gut);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+#nav .in::-webkit-scrollbar{display:none}
+#nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--steel);text-decoration:none;padding:7px 11px;border-radius:2px;white-space:nowrap;border:1px solid transparent}
+#nav a:hover{color:var(--bone);border-color:var(--line)}
+
+header{padding:clamp(48px,8vw,96px) 0 clamp(30px,4.5vw,48px)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:1.4em}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(34px,7.4vw,72px);line-height:.98;letter-spacing:-.02em}
+h1 .thin{font-weight:500;color:var(--steel);display:block}
+.intro{margin-top:clamp(22px,3vw,34px);font-size:clamp(16px,1.4vw,19px);color:#D6D2CB;font-weight:300;line-height:1.55;max-width:58ch}
+.intro b{color:var(--bone);font-weight:600}
+
+section{padding:clamp(40px,5.5vw,76px) 0;border-top:1px solid var(--line);position:relative;z-index:2}
+h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line-height:1.06;margin-bottom:.4em}
+.lede{font-size:clamp(15.5px,1.3vw,18px);color:#D6D2CB;font-weight:300;line-height:1.55;max-width:60ch}
+.slate{display:flex;flex-wrap:wrap;border:1px solid var(--line);margin-bottom:clamp(20px,3vw,32px);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.slate div{padding:10px 14px;border-left:1px solid var(--line);color:var(--steel);display:flex;align-items:center}
+.slate div:first-child{border-left:none}
+.slate .s-k{color:var(--ink);background:var(--gold);font-weight:700;letter-spacing:.1em}
+.slate .s-grow{flex:1;min-width:0}
+
+.links{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.lcard{background:var(--ink-2);padding:clamp(18px,2.2vw,26px);border-top:2px solid var(--gold);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.lcard:hover{background:var(--ink-3)}
+.lcard .lk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.lcard b{font-size:17.5px;font-weight:800}
+.lcard p{font-size:14.5px;color:var(--steel-2);line-height:1.45}
+.lcard .go{font-family:var(--mono);font-size:12px;color:var(--gold);margin-top:auto;padding-top:8px}
+
+/* RECEIPT */
+.receipt{margin-top:2px;background:var(--ink-2);border:1px dashed var(--gold-line);padding:clamp(18px,2.4vw,26px);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.receipt .ri{flex:1;min-width:200px}
+.receipt .rk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:7px}
+.receipt b{display:block;font-size:17px;font-weight:800;margin-bottom:4px}
+.receipt p{font-size:14.5px;color:var(--steel-2);line-height:1.45}
+.receipt a{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:var(--ink);text-decoration:none;padding:14px 26px;font-weight:800;font-size:15.5px;border-radius:2px;white-space:nowrap}
+.receipt a:hover{background:var(--gold-2)}
+
+.chapters{margin-top:2px;background:var(--ink-2);padding:clamp(18px,2.2vw,26px)}
+.chapters .ck{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:14px}
+.chapters ol{list-style:none;display:grid;gap:1px;background:var(--line)}
+.chapters li{background:var(--ink-2);display:flex;gap:14px;align-items:baseline;padding:10px 2px}
+.chapters .tc{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;min-width:62px}
+.chapters .tt{font-size:15px;color:#D6D2CB}
+
+/* BUILDER */
+.builder{background:var(--ink-2);border:1px solid var(--gold-line);padding:clamp(18px,2.4vw,28px);margin-top:6px}
+.tabs{display:flex;gap:2px;margin-bottom:20px;flex-wrap:wrap}
+.tabs button{flex:1;min-width:110px;background:var(--ink-3);border:1px solid transparent;color:var(--steel-2);font:inherit;font-size:14.5px;font-weight:600;padding:12px 10px;cursor:pointer;border-radius:2px;transition:.2s}
+.tabs button:hover{background:var(--ink-4)}
+.tabs button[aria-selected="true"]{background:var(--gold);color:var(--ink);font-weight:800}
+.fields{display:grid;gap:16px}
+.f{display:grid;gap:7px}
+.f label{font-size:14px;font-weight:700;color:var(--bone)}
+.f label small{display:block;font-weight:400;font-size:12.5px;color:var(--steel);margin-top:2px;line-height:1.4}
+.f input[type=text]{background:var(--ink);border:1px solid var(--line);color:var(--bone);font:inherit;font-size:15px;padding:11px 13px;border-radius:2px;width:100%}
+.f input[type=text]:focus{outline:none;border-color:var(--gold)}
+.f input::placeholder{color:#5C5852}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chips button{background:var(--ink);border:1px solid var(--line);color:var(--steel-2);font:inherit;font-size:12.5px;padding:6px 11px;border-radius:14px;cursor:pointer;transition:.15s;font-family:var(--mono)}
+.chips button:hover{border-color:var(--gold);color:var(--bone)}
+.chips button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+.out{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+.out .ok{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:10px}
+.out pre{background:var(--ink);border:1px solid var(--line);border-radius:2px;padding:15px;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:#D6D2CB;white-space:pre-wrap;word-break:break-word;direction:ltr;text-align:left;min-height:80px}
+.out .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.out .row button{background:var(--gold);color:var(--ink);border:none;font:inherit;font-weight:800;font-size:14.5px;padding:12px 22px;border-radius:2px;cursor:pointer}
+.out .row button.ghost{background:none;border:1px solid var(--line);color:var(--steel-2);font-weight:600}
+.out .row button:hover{filter:brightness(1.08)}
+.hint{margin-top:14px;font-size:14px;color:var(--steel);line-height:1.5}
+.hint b{color:var(--gold)}
+
+/* LIBRARY */
+.lib{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));margin-top:2px}
+.lib > a,.lib > div{background:var(--ink-2);padding:clamp(18px,2.2vw,24px);display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit}
+.lib .lk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.lib b{font-size:16.5px;font-weight:800}
+.lib p{font-size:14px;color:var(--steel-2);line-height:1.45}
+.lib .soon{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--steel);letter-spacing:.06em}
+.lib .ready{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;color:var(--gold)}
+.lib > div{opacity:.62;border-top:2px solid var(--line)}
+.lib > a{border-top:2px solid var(--gold)}
+
+/* MODELS */
+.mods{display:grid;gap:1px;background:var(--line);margin-top:2px}
+.mods > div{background:var(--ink);padding:16px 18px}
+.mods .mtop{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.mods .mn{font-weight:800;font-size:17px}
+.mods .via{font-family:var(--mono);font-size:11.5px;color:var(--gold);letter-spacing:.06em}
+.mods .tagm{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:3px 8px;border-radius:2px}
+.mods .md{font-size:14.5px;color:#D6D2CB;line-height:1.5}
+.grouphead{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin:26px 0 10px;display:flex;align-items:center;gap:12px}
+.grouphead::after{content:'';flex:1;height:1px;background:var(--line)}
+.advice{background:var(--gold-soft);border:1px solid var(--gold-line);padding:clamp(18px,2.4vw,26px);margin-top:2px}
+.advice .ak{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:11px}
+.advice p{font-size:15.5px;line-height:1.55;color:#E4E0DA;max-width:62ch}
+.advice p+p{margin-top:.65em}
+.advice b{color:var(--gold)}
+
+/* DRILL */
+.drill{background:var(--ink-2);padding:clamp(18px,2.4vw,28px);border-top:2px solid var(--gold)}
+.drill .dk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:10px}
+.drill h3{font-family:var(--disp);font-weight:900;font-size:clamp(21px,2.6vw,28px);margin-bottom:10px}
+.drill > p{font-size:15.5px;color:#D6D2CB;margin-bottom:8px;max-width:60ch}
+.rule{background:var(--ink);border-right:2px solid var(--gold);padding:14px 16px;margin:16px 0 20px;font-size:15px;line-height:1.5;color:#E4E0DA}
+.rule b{color:var(--gold)}
+.steps{display:grid;gap:2px}
+.stp{background:var(--ink-3);border-radius:2px}
+.stp label{display:flex;gap:13px;align-items:flex-start;cursor:pointer;padding:15px 16px}
+.stp input{position:absolute;opacity:0;pointer-events:none}
+.stp .box{width:22px;height:22px;flex:none;margin-top:1px;border:1.5px solid var(--steel);border-radius:50%;position:relative;transition:.15s}
+.stp input:checked + .box{background:var(--gold);border-color:var(--gold)}
+.stp input:checked + .box::after{content:'';position:absolute;left:7px;top:3.5px;width:6px;height:11px;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.stp .txt b{display:block;font-weight:800;font-size:16px;margin-bottom:4px}
+.stp .txt p{font-size:14.5px;color:var(--steel-2);line-height:1.45;max-width:none}
+.stp input:checked ~ .txt b,.stp input:checked ~ .txt p{color:var(--steel)}
+.stp input:checked ~ .txt b{text-decoration:line-through}
+#drillBar{margin-top:16px;display:flex;align-items:center;gap:13px}
+#drillBar .track{flex:1;height:4px;background:var(--ink-3);border-radius:2px;overflow:hidden}
+#drillBar .fill{height:100%;width:0;background:var(--gold);transition:width .35s}
+#drillBar .lbl{font-family:var(--mono);font-size:12.5px;color:var(--steel);white-space:nowrap}
+#drillDone{margin-top:14px;display:none;background:rgba(95,191,127,.1);border:1px solid rgba(95,191,127,.35);padding:15px 17px;border-radius:2px;font-size:15px;line-height:1.55;color:#E4E0DA}
+#drillDone.on{display:block}
+#drillDone b{color:var(--green)}
+
+.sup{background:var(--gold-soft);border:1px solid var(--gold-line);padding:clamp(20px,2.6vw,30px)}
+.sup h3{font-family:var(--disp);font-weight:900;font-size:clamp(21px,2.6vw,28px);margin-bottom:12px}
+.sup p{font-size:16px;line-height:1.55;color:#E4E0DA;max-width:60ch}
+.sup p+p{margin-top:.65em}
+.sup b{color:var(--gold)}
+.sup .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);text-decoration:none;padding:15px 30px;font-weight:800;font-size:16px;border-radius:2px;margin-top:20px}
+.sup .btn:hover{background:var(--gold-2)}
+
+.fb{background:var(--ink-2);padding:clamp(18px,2.4vw,28px)}
+.fb .fq{margin-bottom:20px}
+.fb .fq > span{display:block;font-weight:700;font-size:15.5px;margin-bottom:9px}
+.fb textarea{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--bone);font:inherit;font-size:15px;padding:12px 13px;border-radius:2px;min-height:80px;resize:vertical}
+.fb textarea:focus{outline:none;border-color:var(--gold)}
+.fb .scale{display:flex;gap:5px;flex-wrap:wrap}
+.fb .scale button{flex:1;min-width:44px;background:var(--ink);border:1px solid var(--line);color:var(--steel-2);font:inherit;font-family:var(--mono);font-size:15px;padding:11px 0;border-radius:2px;cursor:pointer;transition:.15s}
+.fb .scale button:hover{border-color:var(--gold)}
+.fb .scale button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+.fb .send{background:var(--gold);color:var(--ink);border:none;font:inherit;font-weight:800;font-size:16px;padding:15px 32px;border-radius:2px;cursor:pointer}
+.fb .send:hover{background:var(--gold-2)}
+.fb .thanks{display:none;color:var(--green);font-size:15px;margin-top:12px}
+.fb .thanks.on{display:block}
+
+footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid var(--line);text-align:center;position:relative;z-index:2}
+.sig{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--steel);text-transform:uppercase;line-height:2.1}
+.sig .sig-n{color:var(--bone);letter-spacing:.16em}
+
+@media print{
+  body{background:#fff;color:#000}
+  body::before,body::after,#court,#nav{display:none}
+  .builder,.fb,.sup,.drill,.lcard,.chapters,.mods>div,.advice,.receipt{background:#fff!important;border:1px solid #ccc}
+  h1,h2,h3{color:#000}
+}
+</style>
+</head>
+<body>
+
+<div id="court" aria-hidden="true">
+  <svg class="c-key" viewBox="0 0 800 420" preserveAspectRatio="xMidYMax meet">
+    <rect x="280" y="120" width="240" height="300"/><circle cx="400" cy="120" r="80"/>
+    <path d="M120 420 A 280 280 0 0 1 680 420"/>
+  </svg>
+  <svg class="c-arc" viewBox="0 0 600 600">
+    <circle cx="300" cy="300" r="290"/><circle cx="300" cy="300" r="150"/>
+    <line x1="10" y1="300" x2="590" y2="300"/>
+  </svg>
+</div>
+
+<nav id="nav"><div class="in">
+  <a href="#files">הקבצים</a>
+  <a href="#builder">בונה פרומפטים</a>
+  <a href="#library">ספריית פרומפטים</a>
+  <a href="#models">מודלים ומנויים</a>
+  <a href="#drill">התרגיל</a>
+  <a href="#help">שאלות</a>
+  <a href="#feedback">משוב</a>
+</div></nav>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">אחרי המפגש הראשון</div>
+  <h1>גיא,<span class="thin">הנה הכל.</span></h1>
+  <p class="intro">
+    כל מה שעברנו, במקום אחד. <b>ההקלטה, הקבצים, ובונה פרומפטים שבניתי לך</b> —
+    כדי שלא תצטרך לזכור את המבנה בעל פה. תשמור את הדף במועדפים; אתה תחזור אליו.
+  </p>
+</header>
+
+<!-- FILES -->
+<section id="files">
+  <div class="slate"><div class="s-k">01</div><div>הקבצים</div><div class="s-grow"></div></div>
+  <h2>מה שיצרנו.</h2>
+  <div class="links">
+    <a class="lcard" href="https://drive.google.com/drive/folders/1bxigu1CfL9LqrYBvYn9-rKLO712f-VPF?usp=sharing" target="_blank" rel="noopener">
+      <span class="lk">Drive</span>
+      <b>התיקייה</b>
+      <p>הפריימים, הדמות והשוט המתנועע — הכל בפורמט מלא.</p>
+      <span class="go">לפתוח ←</span>
+    </a>
+    <a class="lcard" href="https://drive.google.com/file/d/1ZbdiHUPPQKxyVDmiJug9gq52z_UiyVQi/view?usp=drive_link" target="_blank" rel="noopener">
+      <span class="lk">Video</span>
+      <b>הקלטת המפגש</b>
+      <p>שעתיים מלאות, מההתחלה עד הסוף. תוכל לחזור לכל שלב.</p>
+      <span class="go">לצפייה ←</span>
+    </a>
+  </div>
+
+  <div class="receipt">
+    <div class="ri">
+      <span class="rk">תשלום</span>
+      <b>קבלה על השיעור</b>
+      <p>מפגש פרטי בן שעתיים · יום חמישי, 27 באוגוסט 2026</p>
+    </div>
+    <a href="https://drive.google.com/file/d/1n3VUJ8in_1a_N_4xHTX9X1A2zKRwc0Uq/view?usp=drive_link" target="_blank" rel="noopener">להורדת הקבלה ←</a>
+  </div>
+
+  <div class="chapters">
+    <span class="ck">איפה למצוא מה בהקלטה</span>
+    <ol>
+      <li><span class="tc">[00:00]</span><span class="tt">פתיחה — מה עושים היום</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">איך מכונה מייצרת תמונה, ולמה אותו פרומפט נותן תוצאה אחרת</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">הכלים — מה יש בשוק ובמה אנחנו עובדים</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">התמונה הראשונה — הממשק והפרומפט הראשון</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">מבנה הפרומפט: מי · מה עושה · איפה · אור · עדשה · אווירה</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">סבבי שיפור — מגרוע לטוב</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">בונים את הילד הכדורסלן</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">מתמונה לווידאו — תנועת מצלמה</span></li>
+      <li><span class="tc">[00:00]</span><span class="tt">קריאת התוצאה — מה עבד ומה נשבר</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- BUILDER -->
+<section id="builder">
+  <div class="slate"><div class="s-k">02</div><div>בונה פרומפטים</div><div class="s-grow"></div><div>הכלי</div></div>
+  <h2>לא תצטרך לזכור<br>את המבנה.</h2>
+  <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
+    תמלא את השדות, הפרומפט נבנה למטה, ואתה מעתיק. שלושה מצבים — דמות, סצנה, ועקביות.
+    <b>הצ'יפים הם אוצר מילים</b>: לחץ עליהם כדי ללמוד מה עובד.
+  </p>
+
+  <div class="builder">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-mode="char">דמות</button>
+      <button role="tab" aria-selected="false" data-mode="scene">לוקיישן</button>
+      <button role="tab" aria-selected="false" data-mode="consist">עקביות</button>
+    </div>
+    <div class="fields" id="fields"></div>
+    <div class="out">
+      <span class="ok">הפרומפט שלך</span>
+      <pre id="output">מלא את השדות למעלה…</pre>
+      <div class="row">
+        <button id="copy">העתק</button>
+        <button id="clear" class="ghost">נקה</button>
+        <button id="preset" class="ghost">מלא דוגמה</button>
+      </div>
+      <p class="hint" id="hint"></p>
+    </div>
+  </div>
+</section>
+
+<!-- LIBRARY -->
+<section id="library">
+  <div class="slate"><div class="s-k">03</div><div>ספריית פרומפטים</div><div class="s-grow"></div><div>מתעדכן</div></div>
+  <h2>דוגמאות שעובדות.</h2>
+  <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
+    אוסף פרומפטים מוכנים שאני אוסף מהעבודה שלי. <b>אני מוסיף אליו כל הזמן</b> —
+    ואשלח לך כשכל אחד מוכן.
+  </p>
+  <div class="lib">
+    <div>
+      <span class="lk">עקביות</span>
+      <b>Character Consistency</b>
+      <p>איך שומרים על אותה דמות בין שוטים — הטכניקות והניסוחים המדויקים.</p>
+      <span class="soon">בדרך · אשלח לך</span>
+    </div>
+    <div>
+      <span class="lk">לוקיישן</span>
+      <b>יצירת מיקומים</b>
+      <p>לבנות מקום שנשאר עקבי בין שוטים, עם אור ואווירה שמתנהגים נכון.</p>
+      <span class="soon">בדרך · אשלח לך</span>
+    </div>
+    <div>
+      <span class="lk">שונות</span>
+      <b>פרומפטים נוספים</b>
+      <p>תנועות מצלמה, סגנונות, מעברים — דברים שאני צובר תוך כדי עבודה.</p>
+      <span class="soon">בדרך · אשלח לך</span>
+    </div>
+  </div>
+</section>
+
+<!-- MODELS -->
+<section id="models">
+  <div class="slate"><div class="s-k">04</div><div>מודלים ומנויים</div><div class="s-grow"></div><div>אוגוסט 2026</div></div>
+  <h2>במה לעבוד,<br>ועל מה לשלם.</h2>
+
+  <div class="advice">
+    <span class="ak">ההמלצה שלי, לפני הכל</span>
+    <p><b>קח מנוי לחודש אחד בלבד — ובטל אותו לפני שהוא מתחדש.</b> תרשום לעצמך תזכורת ביומן ליומיים לפני.</p>
+    <p>חודש זה בדיוק מספיק כדי להבין אם אתה בכלל נהנה מזה ומייצר בקצב. אם כן — תחדש בלב שלם.
+    אם לא — לא שילמת על שנה שלמה של משהו שלא נגעת בו. <b>ואל תיקח חבילה שנתית עכשיו,</b>
+    גם אם ההנחה מפתה. היא תמיד תהיה שם.</p>
+  </div>
+
+  <div class="grouphead">וידאו · מה שעבדנו עליו</div>
+  <div class="mods">
+    <div>
+      <div class="mtop"><span class="mn">Seedance</span><span class="via">דרך Dreamina</span><span class="tagm">ההמלצה שלי</span></div>
+      <p class="md">המודל הכי טוב בשוק היום, ודרך Dreamina גם הכי משתלם. אם אתה מתחיל ממקום אחד — תתחיל מפה.</p>
+    </div>
+    <div>
+      <div class="mtop"><span class="mn">Kling</span><span class="tagm">מה שאני עובד איתו</span></div>
+      <p class="md">מה שאני משתמש בו מאז שהתחלתי, וזה מה שהראיתי לך במפגש. חזק במיוחד בדמויות ובשמירה על עקביות ביניהן — בדיוק מה שהפרויקט שלך צריך.</p>
+    </div>
+  </div>
+
+  <div class="grouphead">תמונות · מה שעבדנו עליו</div>
+  <div class="mods">
+    <div>
+      <div class="mtop"><span class="mn">ChatGPT</span></div>
+      <p class="md">לייצור תמונות ולעבודה על הרעיון עצמו. גם מה שנשתמש בו בתרגיל כדי לפרק את הסצנה.</p>
+    </div>
+    <div>
+      <div class="mtop"><span class="mn">Nano Banana</span><span class="via">דרך Flow</span></div>
+      <p class="md">מהיר וטוב לעריכת תמונות ולשינויים ממוקדים על משהו שכבר קיים.</p>
+    </div>
+    <div>
+      <div class="mtop"><span class="mn">Midjourney</span><span class="via">לא עברנו עליו</span></div>
+      <p class="md">קיים ורבים אוהבים אותו, אבל לא לימדתי אותך עליו ואין צורך שתיגע בו עכשיו. שווה להכיר בהמשך.</p>
+    </div>
+  </div>
+
+  <div class="grouphead">רוצה לבדוק הכל במקום אחד?</div>
+  <div class="mods">
+    <div>
+      <div class="mtop"><span class="mn">Higgsfield</span></div>
+      <p class="md">מאגד עשרות מודלים תחת מנוי אחד. אתה מחליף ביניהם בלחיצה במקום לפתוח חשבון בכל מקום.</p>
+    </div>
+    <div>
+      <div class="mtop"><span class="mn">Freepik</span></div>
+      <p class="md">אותו רעיון — כמה מודלים במקום אחד, ואפשר להשוות ביניהם על אותו פרומפט.</p>
+    </div>
+  </div>
+
+  <div class="advice">
+    <span class="ak">איך הייתי משתמש בהם</span>
+    <p>האתרים המאגדים הם <b>מגרש ניסויים, לא בית קבע.</b> קח אחד מהם לחודש, תריץ את אותו פרומפט
+    בכמה מודלים, ותראה במו עיניך מה ההבדל. זו הדרך הכי מהירה לפתח טעם.</p>
+    <p>ואחרי החודש הזה תדע איזה מודל אחד אתה פותח ב-80% מהמקרים — <b>ואז עוברים אליו ישירות.</b>
+    זה כמעט תמיד יוצא זול יותר מהמנוי המאגד, ברגע שאתה כבר לא צריך את התפריט.</p>
+  </div>
+</section>
+
+<!-- DRILL -->
+<section id="drill">
+  <div class="slate"><div class="s-k">05</div><div>התרגיל</div><div class="s-grow"></div><div>הפעם הראשונה לבד</div></div>
+  <h2>שתי סצנות,<br>מהתחלה עד הסוף.</h2>
+
+  <div class="drill">
+    <span class="dk">תרגיל · שישה שלבים</span>
+    <h3>שתי סצנות מהסרט שלך</h3>
+    <p>הפעם אתה עושה את כל התהליך לבד — מהרעיון ועד קובץ ערוך. לא משנה אם זו הפתיחה או הסוף,
+    מה שחשוב הוא שיהיו <b>שתי סצנות שבאות אחת אחרי השנייה בסרט</b>.</p>
+
+    <div class="rule">
+      <b>למה דווקא רצופות:</b> כי בסוף אתה הולך לערוך אותן יחד. אם תיקח סצנה מההתחלה וסצנה מהסוף —
+      אין לך מה לחבר, ופספסת את החלק הכי חשוב בתרגיל.
+    </div>
+
+    <div class="steps">
+      <div class="stp">
+        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <span class="txt"><b>1 · תבנה את הסצנה בצ'אט</b>
+        <p>פתח את ChatGPT או Gemini — מה שנוח לך — ותפרק את שתי הסצנות בדיוק כמו שעשינו במפגש: מה קורה, מי בפריים, כמה שוטים.</p></span></label>
+      </div>
+      <div class="stp">
+        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <span class="txt"><b>2 · תחליט מה אתה צריך</b>
+        <p>עבור על הפירוק ותסמן: כמה דמויות יש? כמה לוקיישנים? מה חוזר בין שתי הסצנות וחייב להישאר זהה?</p></span></label>
+      </div>
+      <div class="stp">
+        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <span class="txt"><b>3 · פרומפטים ותמונות</b>
+        <p>כתוב פרומפט לכל דמות ולכל לוקיישן — תשתמש בבונה למעלה — וייצר את התמונות. זה השלב שייקח לך הכי הרבה זמן, וזה בסדר.</p></span></label>
+      </div>
+      <div class="stp">
+        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <span class="txt"><b>4 · מתמונות לווידאו</b>
+        <p>קח את הפריימים שאתה הכי אוהב והפוך אותם לשוטים מתנועעים, בדיוק כמו שעשינו.</p></span></label>
+      </div>
+      <div class="stp">
+        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <span class="txt"><b>5 · לערוך</b>
+        <p>פה אתה בבית. תחבר את השוטים, תשחק עם הקצב, תוסיף מוזיקה או סאונד אם בא לך. זה החלק שהופך קטעים לסצנה.</p></span></label>
+      </div>
+      <div class="stp">
+        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <span class="txt"><b>6 · לייצא ולשלוח לי</b>
+        <p>ייצא, העלה לדרייב, ותשלח לי לינק. <b>תעלה גם את הניסיונות שנפלו</b> — עליהם נדבר לא פחות.</p></span></label>
+      </div>
+    </div>
+
+    <div id="drillBar">
+      <div class="track"><div class="fill" id="drillFill"></div></div>
+      <span class="lbl" id="drillLbl">0 מתוך 6</span>
+    </div>
+
+    <div id="drillDone">
+      <b>סיימת. כל הכבוד.</b> תשלח לי את הלינק בוואטסאפ ואני אעבור על הכל —
+      גם על מה שיצא טוב וגם על מה שנפל, ואגיד לך בדיוק מה גרם למה.
+    </div>
+  </div>
+</section>
+
+<!-- HELP -->
+<section id="help">
+  <div class="slate"><div class="s-k">06</div><div>נתקעת?</div><div class="s-grow"></div></div>
+  <div class="sup">
+    <h3>אני כאן, באמת.</h3>
+    <p>אמרתי לך את זה במפגש ואני חוזר על זה בכתב: <b>בשבועיים הקרובים אתה יכול לכתוב לי בוואטסאפ בכל שאלה.</b>
+    לא "שאלות קצרות בלבד" ולא "אם יש לי זמן" — פשוט תכתוב.</p>
+    <p>ואם משהו לא עובד ואתה לא מצליח להסביר במילים — <b>תשלח לי צילום מסך של הפרומפט ושל התוצאה.</b>
+    ככה אני רואה בשנייה מה קרה. זו הדרך הכי מהירה לקבל תשובה.</p>
+    <p>שאלה טיפשית היא שאלה שלא נשאלה. כל מה שנראה לך מובן מאליו — כנראה לא, ואני שמח שתשאל.</p>
+    <a class="btn" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9E%D7%94%D7%9E%D7%A4%D7%92%D7%A9" target="_blank" rel="noopener">לכתוב לי בוואטסאפ ←</a>
+  </div>
+</section>
+
+<!-- FEEDBACK -->
+<section id="feedback">
+  <div class="slate"><div class="s-k">07</div><div>משוב</div><div class="s-grow"></div><div>2 דקות</div></div>
+  <h2>עשה לי טובה אחת.</h2>
+  <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
+    אתה התלמיד הראשון שלי. <b>המשוב שלך שווה לי יותר מהתשלום</b> — הוא מה שיקבע איך ייראה המפגש הבא,
+    ולא רק שלך. תהיה כן, במיוחד על מה שלא עבד.
+  </p>
+
+  <form class="fb" id="fbForm" action="https://formspree.io/f/myegdygj" method="POST">
+    <input type="hidden" name="_subject" value="משוב על שיעור ראשון — גיא">
+    <div class="fq">
+      <span>כמה שימושי היה המפגש?</span>
+      <div class="scale" id="scale" role="group">
+        <button type="button" data-v="1">1</button><button type="button" data-v="2">2</button>
+        <button type="button" data-v="3">3</button><button type="button" data-v="4">4</button>
+        <button type="button" data-v="5">5</button><button type="button" data-v="6">6</button>
+        <button type="button" data-v="7">7</button><button type="button" data-v="8">8</button>
+        <button type="button" data-v="9">9</button><button type="button" data-v="10">10</button>
+      </div>
+      <input type="hidden" name="ציון" id="scaleVal">
+    </div>
+    <div class="fq">
+      <span>מה היה הכי שימושי?</span>
+      <textarea name="הכי שימושי" placeholder="החלק שבגללו הרגשת שהבנת משהו…"></textarea>
+    </div>
+    <div class="fq">
+      <span>מה היה מיותר או לא ברור?</span>
+      <textarea name="מיותר או לא ברור" placeholder="בלי לרכך. זה החלק שהכי עוזר לי…"></textarea>
+    </div>
+    <div class="fq">
+      <span>מה היית רוצה שנעשה במפגש הבא?</span>
+      <textarea name="מפגש הבא" placeholder="גם אם אתה עוד לא בטוח שיהיה כזה…"></textarea>
+    </div>
+    <button type="submit" class="send">שלח</button>
+    <p class="thanks" id="thanks">תודה. באמת.</p>
+  </form>
+</section>
+
+<footer>
+  <div class="sig">
+    <span class="sig-n">ניר בראינין · סטודיו קריאייטיב AI · תל אביב</span><br>
+    052-647-9739 · nirbrainin.com<br>
+    פלייבוק · מפגש ראשון · 27.08.2026
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var MODES = {
+    char: {
+      hint: 'שים לב לסדר: <b>מי → מה עושה → איפה → אור → עדשה → אווירה</b>. זה בדיוק המבנה שעברנו במפגש.',
+      fields: [
+        {k:'who', l:'מי', s:'גיל, מראה, בגדים. ככל שיותר ספציפי — יותר יציב.', ph:'a 12-year-old boy, lean build, short curly hair, oversized basketball jersey'},
+        {k:'action', l:'מה הוא עושה', s:'פעולה אחת ברורה. לא שלוש.', ph:'dribbling a worn basketball, mid-step'},
+        {k:'where', l:'איפה', s:'המקום והרקע.', ph:'empty outdoor court, cracked asphalt, chain-link fence'},
+        {k:'light', l:'אור', s:'הדבר שהכי משנה את התוצאה.', ph:'', chips:['golden hour','harsh midday sun','overcast soft light','backlit rim light','single window light','blue hour','stadium floodlights','deep shadows']},
+        {k:'lens', l:'עדשה ופריים', s:'המונחים שאתה כבר מכיר.', ph:'', chips:['35mm','50mm','85mm portrait','wide angle','shallow depth of field','low angle','eye level','close-up','medium shot','full body']},
+        {k:'mood', l:'אווירה וסגנון', s:'הטון של התמונה.', ph:'', chips:['cinematic','documentary','nostalgic','gritty','warm film grain','desaturated','high contrast','Kodak Portra','anamorphic']},
+        {k:'avoid', l:'מה לא רוצה', s:'לא כל מודל מתייחס, אבל שווה.', ph:'text, watermark, extra fingers, blurry'}
+      ]
+    },
+    scene: {
+      hint: 'בלוקיישן <b>המקום הוא הגיבור</b>, לא הדמות. תאר את המקום לעומק ואת האדם בקצרה.',
+      fields: [
+        {k:'where', l:'המקום', s:'תאר לעומק — זה הגיבור פה.', ph:'an empty school gymnasium at night, polished wood floor, championship banners'},
+        {k:'who', l:'מי בפריים', s:'בקצרה. אם אף אחד — השאר ריק.', ph:'a lone figure at the free-throw line, seen from behind'},
+        {k:'time', l:'זמן ומזג אוויר', s:'', ph:'', chips:['dawn','late afternoon','night','rain','dust in the air','fog','summer heat haze']},
+        {k:'light', l:'אור', s:'', ph:'', chips:['golden hour','harsh midday sun','overcast soft light','practical lights only','moonlight','stadium floodlights','light through high windows']},
+        {k:'lens', l:'עדשה ופריים', s:'', ph:'', chips:['wide establishing shot','35mm','ultra wide','symmetrical composition','shallow depth of field','high angle','low angle']},
+        {k:'mood', l:'אווירה', s:'', ph:'', chips:['cinematic','empty and still','nostalgic','tense','warm film grain','desaturated','anamorphic']},
+        {k:'avoid', l:'מה לא רוצה', s:'', ph:'text, watermark, distorted architecture'}
+      ]
+    },
+    consist: {
+      hint: 'הכלל היחיד שחשוב: <b>שנה משתנה אחד בכל פעם.</b> תיאור הדמות חייב להישאר מילה במילה זהה — העתק־הדבק, אל תכתוב מחדש.',
+      fields: [
+        {k:'anchor', l:'תיאור הדמות — קבוע', s:'זה העוגן. העתק אותו בדיוק לכל שוט, בלי לשנות אף מילה.', ph:'a 12-year-old boy, lean build, short curly dark hair, small scar above left eyebrow, oversized red basketball jersey number 7'},
+        {k:'action', l:'מה משתנה — הפעולה', s:'רק זה משתנה בין שוט לשוט.', ph:'sitting on the bench, tying his shoelaces'},
+        {k:'where', l:'מה משתנה — המיקום', s:'', ph:'courtside bench, empty gym'},
+        {k:'light', l:'מה משתנה — האור', s:'שנה רק אם אתה בודק את השפעת האור.', ph:'', chips:['same as previous shot','golden hour','overcast soft light','stadium floodlights','backlit rim light']},
+        {k:'lock', l:'מה לנעול', s:'המילים שמזכירות למודל לא לסטות.', ph:'', chips:['same face','same character','consistent facial features','identical clothing','same hairstyle','reference image attached']},
+        {k:'lens', l:'עדשה ופריים', s:'', ph:'', chips:['35mm','50mm','85mm portrait','medium shot','close-up','shallow depth of field']},
+        {k:'mood', l:'אווירה — קבוע', s:'שמור זהה לכל הסדרה כדי שהעולם יהיה אחיד.', ph:'', chips:['cinematic','warm film grain','desaturated','nostalgic','high contrast']}
+      ]
+    }
+  };
+
+  var fieldsEl=document.getElementById('fields'),
+      outEl=document.getElementById('output'),
+      hintEl=document.getElementById('hint'),
+      tabs=[].slice.call(document.querySelectorAll('.tabs button')),
+      mode='char', state={};
+
+  function build(){
+    var cfg=MODES[mode];
+    fieldsEl.innerHTML='';
+    state[mode]=state[mode]||{};
+    cfg.fields.forEach(function(f){
+      var wrap=document.createElement('div'); wrap.className='f';
+      var lab=document.createElement('label');
+      lab.innerHTML=f.l+(f.s?'<small>'+f.s+'</small>':'');
+      wrap.appendChild(lab);
+      var inp=document.createElement('input');
+      inp.type='text'; inp.placeholder=f.ph||''; inp.dir='ltr';
+      inp.value=state[mode][f.k]||'';
+      inp.addEventListener('input',function(){ state[mode][f.k]=inp.value; render(); });
+      wrap.appendChild(inp);
+      if(f.chips){
+        var chips=document.createElement('div'); chips.className='chips';
+        f.chips.forEach(function(c){
+          var b=document.createElement('button');
+          b.type='button'; b.textContent=c;
+          b.setAttribute('aria-pressed',(state[mode][f.k]||'').indexOf(c)>-1?'true':'false');
+          b.addEventListener('click',function(){
+            var cur=(state[mode][f.k]||'').split(', ').filter(Boolean), i=cur.indexOf(c);
+            if(i>-1) cur.splice(i,1); else cur.push(c);
+            state[mode][f.k]=cur.join(', ');
+            inp.value=state[mode][f.k];
+            b.setAttribute('aria-pressed',i>-1?'false':'true');
+            render();
+          });
+          chips.appendChild(b);
+        });
+        wrap.appendChild(chips);
+      }
+      fieldsEl.appendChild(wrap);
+    });
+    hintEl.innerHTML=cfg.hint;
+    render();
+  }
+
+  function render(){
+    var s=state[mode]||{}, parts=[];
+    MODES[mode].fields.forEach(function(f){
+      var v=(s[f.k]||'').trim();
+      if(!v||f.k==='avoid') return;
+      parts.push(v);
+    });
+    var txt=parts.join(', ');
+    if(s.avoid && s.avoid.trim()) txt+=(txt?'\n\n':'')+'--no '+s.avoid.trim();
+    outEl.textContent=txt||'מלא את השדות למעלה…';
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(o){ o.setAttribute('aria-selected',o===t?'true':'false'); });
+      mode=t.dataset.mode; build();
+    });
+  });
+
+  document.getElementById('copy').addEventListener('click',function(){
+    var btn=this, txt=outEl.textContent;
+    if(!txt||txt.indexOf('מלא את')===0) return;
+    function done(){ btn.textContent='הועתק ✓'; setTimeout(function(){ btn.textContent='העתק'; },1600); }
+    if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(done,done); }
+    else{
+      var ta=document.createElement('textarea'); ta.value=txt;
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+  document.getElementById('clear').addEventListener('click',function(){ state[mode]={}; build(); });
+  document.getElementById('preset').addEventListener('click',function(){
+    var s={};
+    MODES[mode].fields.forEach(function(f){
+      if(f.ph) s[f.k]=f.ph;
+      else if(f.chips) s[f.k]=f.chips.slice(0,2).join(', ');
+    });
+    state[mode]=s; build();
+  });
+  build();
+
+  /* DRILL */
+  var KEY='guy-drill-v2',
+      steps=[].slice.call(document.querySelectorAll('.dstep')),
+      fill=document.getElementById('drillFill'),
+      lbl=document.getElementById('drillLbl'),
+      doneBox=document.getElementById('drillDone');
+  try{ var raw=localStorage.getItem(KEY); if(raw){ var st=JSON.parse(raw); steps.forEach(function(x,i){ x.checked=!!st[i]; }); } }catch(e){}
+  function drill(){
+    var n=steps.filter(function(x){return x.checked;}).length;
+    fill.style.width=(n/steps.length*100)+'%';
+    lbl.textContent=n+' מתוך '+steps.length;
+    doneBox.classList.toggle('on', n===steps.length);
+    try{ localStorage.setItem(KEY, JSON.stringify(steps.map(function(x){return x.checked?1:0;}))); }catch(e){}
+  }
+  steps.forEach(function(x){ x.addEventListener('change', drill); });
+  drill();
+
+  /* FEEDBACK */
+  var scaleBtns=[].slice.call(document.querySelectorAll('#scale button')),
+      scaleVal=document.getElementById('scaleVal');
+  scaleBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      scaleBtns.forEach(function(o){ o.setAttribute('aria-pressed',o===b?'true':'false'); });
+      scaleVal.value=b.dataset.v;
+    });
+  });
+  var form=document.getElementById('fbForm'), thanks=document.getElementById('thanks');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+      .then(function(){ form.querySelector('.send').style.display='none'; thanks.classList.add('on'); })
+      .catch(function(){ thanks.textContent='משהו נתקע. תשלח לי בוואטסאפ במקום?'; thanks.classList.add('on'); });
+  });
+})();
+</script>
+</body>
+</html>
