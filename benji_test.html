@@ -135,8 +135,8 @@ header.nav.hide{transform:translateY(-110%)}
 /* ---------- section furniture ---------- */
 section{padding-block:clamp(72px,11vh,150px)}
 @media(max-width:880px){
-  section{padding-block:clamp(38px,6vh,60px)}
-  .capband{margin-block:0;padding-block:clamp(34px,5vh,56px)}
+  section{padding-block:clamp(30px,4.5vh,48px)}
+  section.capband{margin-block:0;padding-block:clamp(30px,4.5vh,48px) clamp(26px,4vh,42px)}
   .wt{margin-top:clamp(16px,3vw,26px)}
   footer{padding-top:clamp(22px,3vh,34px)}
   .shead{margin-bottom:clamp(20px,3vh,30px)}
@@ -189,7 +189,7 @@ section{padding-block:clamp(72px,11vh,150px)}
 .workdots button.on{opacity:1;background:var(--mg);transform:scale(1.25)}
 @media(max-width:760px){
   .grid{display:flex;grid-template-columns:none;gap:12px;
-    overflow-x:auto;overflow-y:hidden;touch-action:pan-x pinch-zoom;
+    overflow-x:auto;overflow-y:hidden;
     scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);
     margin-inline:calc(var(--pad) * -1);padding:2px var(--pad) 4px;
     -webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
@@ -370,15 +370,15 @@ section{padding-block:clamp(72px,11vh,150px)}
   /* the sheets become a swipeable channel rail; the copy rides along with each sheet */
   .wt-bg{display:none}
   .wt-copy{display:none}
-  .wt-scap{display:block;padding:18px 0 0}
+  .wt-scap{display:block;padding:16px 0 0;min-height:158px}
   .wt-sstep{display:block;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.2em;
     text-transform:uppercase;color:var(--mg);margin-bottom:10px}
   .wt-scap h4{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
     font-size:clamp(1.45rem,6.4vw,2rem);line-height:1.08;letter-spacing:-.005em;margin:0 0 10px}
   .wt-scap p{margin:0;font-size:.95rem;line-height:1.62;color:rgba(237,237,234,.72)}
   .wt-plate figure{display:flex;flex-direction:column}
-  .wt-plate figure img{flex:0 0 auto;height:clamp(270px,40vh,390px)}
-  .wt-plate{display:flex;overflow-x:auto;overflow-y:hidden;touch-action:pan-x pinch-zoom;
+  .wt-plate figure img{flex:0 0 auto;height:clamp(260px,37vh,370px)}
+  .wt-plate{display:flex;overflow-x:auto;overflow-y:hidden;
     scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
     -webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:pointer}
   .wt-plate::-webkit-scrollbar{display:none}
@@ -390,11 +390,12 @@ section{padding-block:clamp(72px,11vh,150px)}
     -webkit-mask-image:linear-gradient(to bottom,#000 0 84%,rgba(0,0,0,.5) 94%,transparent 100%);
     mask-image:linear-gradient(to bottom,#000 0 84%,rgba(0,0,0,.5) 94%,transparent 100%)}
   .wt-inner{grid-template-columns:1fr;grid-template-rows:auto auto auto;
-    padding-block:clamp(20px,3vh,34px) clamp(18px,2.5vh,26px);row-gap:clamp(18px,3vh,28px)}
+    padding-block:clamp(18px,2.6vh,28px) clamp(14px,2vh,20px);row-gap:10px}
   .wt-plate{grid-column:1;grid-row:1;height:auto;padding-inline:0;align-items:stretch}
-  .wt-cue{grid-column:1;grid-row:2;align-self:start;margin:14px 0 0}
+  .wt-rail{grid-row:2;margin-top:2px}
+  .wt-cue{grid-column:1;grid-row:3;align-self:start;margin:2px 0 0}
   .wt-desc{max-width:none}
-  .wt-rail{grid-row:3}
+
   .wt-veil{background:linear-gradient(to bottom,rgba(10,16,28,0) 26%,rgba(10,16,28,.5) 42%,
     rgba(10,16,28,.9) 56%,#0A101C 68%)}
   .wt-title{font-size:clamp(1.45rem,6.4vw,2rem);margin-bottom:12px}
@@ -473,7 +474,7 @@ section{padding-block:clamp(72px,11vh,150px)}
   .capframe,.capfoot{max-width:min(56vh,560px)}
   /* swipe rail: the next film peeks in, dimmed by the vignette — that is the affordance */
   .capplate{display:flex;gap:10px;padding-inline:8%;
-    overflow-x:auto;overflow-y:hidden;touch-action:pan-x pinch-zoom;
+    overflow-x:auto;overflow-y:hidden;
     scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
     -webkit-overflow-scrolling:touch;scrollbar-width:none}
   .capplate::-webkit-scrollbar{display:none}
@@ -1203,7 +1204,7 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
 
   const v=document.createElement("video");
   v.muted=true; v.playsInline=true; v.setAttribute("playsinline","");
-  v.preload = i===0 ? "auto" : "metadata";
+  v.preload = "auto";
   v.poster=V["poster"+(i+1)];
   v.src=V["cap"+(i+1)];
   v.addEventListener("timeupdate",()=>{
@@ -1217,6 +1218,12 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
     capProg.style.right="0%";
     advanceFrom(i);
   });
+  /* a stalled decode should never freeze the reel */
+  ["waiting","stalled","suspend"].forEach(ev=>v.addEventListener(ev,()=>{
+    if(i!==capCur||v.ended) return;
+    setTimeout(()=>{ if(i===capCur && v.paused && !v.ended) v.play().catch(()=>{}); },260);
+  }));
+  v.addEventListener("error",()=>{ if(i===capCur) advanceFrom(i); });
   capPlate.appendChild(v);
   vids.push(v);
 });
@@ -1243,6 +1250,16 @@ function capScrollTo(i){
   capPlate.scrollTo({left:v.offsetLeft-(capPlate.clientWidth-v.clientWidth)/2,
     behavior:reduce?"auto":"smooth"});
 }
+function playCap(v){
+  const go=()=>{
+    try{ if(v.readyState>=1) v.currentTime=0; }catch(e){}
+    const pr=v.play();
+    if(pr&&pr.catch) pr.catch(()=>{});
+  };
+  if(v.readyState>=2){ go(); return; }
+  v.addEventListener("loadeddata",go,{once:true});
+  try{ v.load(); }catch(e){}
+}
 function selectCap(i,manual,fromScroll){
   if(i<0||i>=CHAPTERS.length) return;
   clearTimeout(advTimer); clearTimeout(stallTimer); clearTimeout(fbTimer);
@@ -1255,15 +1272,14 @@ function selectCap(i,manual,fromScroll){
   v.classList.add("on");
   capProg.style.transition="none"; capProg.style.right="100%";
   requestAnimationFrame(()=>{capProg.style.transition="right .1s linear";});
-  vids[(i+1)%vids.length].preload="auto";
   if(reduce) return;
-  try{ v.currentTime=0; const pr=v.play(); if(pr&&pr.catch) pr.catch(()=>{}); }catch(e){}
+  playCap(v);
   // if playback never gets going (blocked or unsupported), keep the sequence moving anyway
   stallTimer=setTimeout(()=>{
-    if(i!==capCur||!v.paused&&v.currentTime>0) return;
+    if(i!==capCur||v.currentTime>0) return;
     capProg.style.transition="right 3s linear"; capProg.style.right="0%";
     fbTimer=setTimeout(()=>advanceFrom(i),3000);
-  },1000);
+  },1600);
 }
 
 (function(){
@@ -1326,19 +1342,33 @@ let cur=0, curFace=0, showMarks=false;
 
 function drawMarks(f){
   const [sw,sh]=f.media, [tx0,ty0,tx1,ty1]=f.trim, [bx0,by0,bx1,by1]=f.bleed;
-  const y=v=>sh-v; // flip PDF coords
+  const y=v=>sh-v;                       // flip PDF coords
   svSvg.setAttribute("viewBox",`0 0 ${sw} ${sh}`);
   svStage.style.setProperty("--ar", sw/sh);
-  const s=Math.max(sw,sh)/380;
+  // one viewBox unit is this many CSS px on screen — size type in real pixels
+  const disp = svStage.clientWidth || 700;
+  const u = sw / disp;                   // units per css px
+  const fs = Math.max(12.5, Math.min(17, disp*0.042)) * u;
+  const lw = 1.4 * u;
+  const pad = fs*0.45;
+  const trimTxt = `TRIM ${mm(tx1-tx0)} × ${mm(ty1-ty0)} mm`;
+  const bleedTxt = `BLEED ${mm(((tx0-bx0)+(bx1-tx1))/2)} mm`;
+  const chip=(x,baseY,txt,col)=>{
+    const w=txt.length*fs*0.62+pad*1.4, h=fs*1.42;
+    return `<rect x="${x-pad*0.5}" y="${baseY-fs*1.03}" width="${w}" height="${h}"
+        fill="#fff" rx="${lw*1.5}"/>
+      <text x="${x+pad*0.2}" y="${baseY}" fill="${col}" font-family="monospace"
+        font-weight="700" font-size="${fs}" letter-spacing="${fs*0.02}">${txt}</text>`;
+  };
+  const trimBase = Math.max(fs*1.15, y(ty1) - pad*0.8);
+  const bleedBase = Math.min(sh - pad*0.4, y(by0) + fs*1.3);
   svSvg.innerHTML=`
    <rect x="${bx0}" y="${y(by1)}" width="${bx1-bx0}" height="${by1-by0}"
-     fill="none" stroke="#00A3D9" stroke-width="${s}" stroke-dasharray="${s*4} ${s*3}"/>
+     fill="none" stroke="#00A3D9" stroke-width="${lw}" stroke-dasharray="${lw*4} ${lw*3}"/>
    <rect x="${tx0}" y="${y(ty1)}" width="${tx1-tx0}" height="${ty1-ty0}"
-     fill="none" stroke="#E0218A" stroke-width="${s*1.1}"/>
-   <text x="${tx0}" y="${y(ty1)-s*3}" fill="#E0218A" font-family="monospace"
-     font-size="${s*7}">TRIM ${mm(tx1-tx0)} × ${mm(ty1-ty0)} mm</text>
-   <text x="${bx0}" y="${y(by0)+s*10}" fill="#00A3D9" font-family="monospace"
-     font-size="${s*7}">BLEED ${mm(((tx0-bx0)+(bx1-tx1))/2)} mm</text>`;
+     fill="none" stroke="#E0218A" stroke-width="${lw*1.15}"/>
+   ${chip(tx0, trimBase, trimTxt, "#E0218A")}
+   ${chip(bx0, bleedBase, bleedTxt, "#00A3D9")}`;
 }
 
 function renderSheet(){
@@ -1369,6 +1399,7 @@ function renderSheet(){
   t.appendChild(m);
 }
 function openSheet(i){ cur=i; curFace=0; showMarks=false; renderSheet();
+  requestAnimationFrame(()=>{ if(sv.classList.contains("open")) drawMarks(PROJECTS[cur].faces[curFace]); });
   sv.classList.add("open"); document.body.style.overflow="hidden"; $("#svClose").focus(); }
 function closeSheet(){ sv.classList.remove("open"); document.body.style.overflow=""; }
 $("#svClose").onclick=closeSheet;
@@ -1401,7 +1432,7 @@ function paint(){
   const heroH=$("#hero").offsetHeight;
   const p1=Math.min(1,Math.max(0,(y-heroH*0.5)/(heroH*0.42)));
   const ct=$("#contact").getBoundingClientRect().top;
-  const p2=Math.min(1,Math.max(0,(ct-vh*0.45)/(vh*0.5)));
+  const p2=Math.min(1,Math.max(0,(ct-vh*0.18)/(vh*0.42)));
   const t=Math.min(p1,p2);
   const bg=mix(INK,PAPER,t), fg=mix(FG_D,FG_L,t);
   root.style.setProperty("--bg",rgb(bg));
@@ -1417,7 +1448,8 @@ function paint(){
   lastY=y;
 }
 addEventListener("scroll",()=>requestAnimationFrame(paint),{passive:true});
-addEventListener("resize",()=>{sizeLede();paint();});
+addEventListener("resize",()=>{sizeLede();paint();
+  if(sv.classList.contains("open")) drawMarks(PROJECTS[cur].faces[curFace]);});
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(sizeLede);
 
 /* ================= REVEAL ================= */
