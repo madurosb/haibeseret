@@ -12,7 +12,7 @@
   --gold:#E9A23B;--gold-2:#F5BE6B;
   --gold-soft:rgba(233,162,59,.09);--gold-line:rgba(233,162,59,.34);
   --court:rgba(233,162,59,.16);
-  --green:#5FBF7F;
+  --green:#5FBF7F;--red:#E06A4A;
   --bone:#EDEAE4;--steel:#9E9A93;--steel-2:#BAB6AF;
   --line:rgba(237,234,228,.15);
   --disp:'Frank Ruhl Libre',Georgia,serif;
@@ -63,7 +63,6 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .lcard p{font-size:14.5px;color:var(--steel-2);line-height:1.45}
 .lcard .go{font-family:var(--mono);font-size:12px;color:var(--gold);margin-top:auto;padding-top:8px}
 
-/* RECEIPT */
 .receipt{margin-top:2px;background:var(--ink-2);border:1px dashed var(--gold-line);padding:clamp(18px,2.4vw,26px);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .receipt .ri{flex:1;min-width:200px}
 .receipt .rk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:7px}
@@ -79,24 +78,31 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .chapters .tc{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;min-width:62px}
 .chapters .tt{font-size:15px;color:#D6D2CB}
 
-/* BUILDER */
+/* ===== BUILDER ===== */
 .builder{background:var(--ink-2);border:1px solid var(--gold-line);padding:clamp(18px,2.4vw,28px);margin-top:6px}
 .tabs{display:flex;gap:2px;margin-bottom:20px;flex-wrap:wrap}
 .tabs button{flex:1;min-width:110px;background:var(--ink-3);border:1px solid transparent;color:var(--steel-2);font:inherit;font-size:14.5px;font-weight:600;padding:12px 10px;cursor:pointer;border-radius:2px;transition:.2s}
 .tabs button:hover{background:var(--ink-4)}
 .tabs button[aria-selected="true"]{background:var(--gold);color:var(--ink);font-weight:800}
-.fields{display:grid;gap:16px}
-.f{display:grid;gap:7px}
-.f label{font-size:14px;font-weight:700;color:var(--bone)}
-.f label small{display:block;font-weight:400;font-size:12.5px;color:var(--steel);margin-top:2px;line-height:1.4}
-.f input[type=text]{background:var(--ink);border:1px solid var(--line);color:var(--bone);font:inherit;font-size:15px;padding:11px 13px;border-radius:2px;width:100%}
-.f input[type=text]:focus{outline:none;border-color:var(--gold)}
-.f input::placeholder{color:#5C5852}
+.fields{display:grid;gap:18px}
+.f{display:grid;gap:8px}
+.f > label{font-size:14.5px;font-weight:700;color:var(--bone)}
+.f > label small{display:block;font-weight:400;font-size:12.5px;color:var(--steel);margin-top:2px;line-height:1.4}
 .chips{display:flex;flex-wrap:wrap;gap:5px}
-.chips button{background:var(--ink);border:1px solid var(--line);color:var(--steel-2);font:inherit;font-size:12.5px;padding:6px 11px;border-radius:14px;cursor:pointer;transition:.15s;font-family:var(--mono)}
+.chips button{background:var(--ink);border:1px solid var(--line);color:var(--steel-2);font:inherit;font-size:13px;padding:7px 12px;border-radius:14px;cursor:pointer;transition:.15s}
 .chips button:hover{border-color:var(--gold);color:var(--bone)}
 .chips button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
-.out{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+.freewrap{display:flex;gap:6px;align-items:stretch}
+.freewrap input{flex:1;background:var(--ink);border:1px solid var(--line);color:var(--bone);font:inherit;font-size:15px;padding:11px 13px;border-radius:2px;min-width:0}
+.freewrap input:focus{outline:none;border-color:var(--gold)}
+.freewrap input::placeholder{color:#5C5852}
+.freewrap .tr{background:var(--ink-3);border:1px solid var(--line);color:var(--gold);font:inherit;font-size:12.5px;font-weight:700;padding:0 14px;border-radius:2px;cursor:pointer;white-space:nowrap;transition:.15s}
+.freewrap .tr:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.freewrap .tr:disabled{opacity:.5;cursor:default}
+.eng{font-family:var(--mono);font-size:12.5px;color:var(--green);direction:ltr;text-align:left;padding:2px 2px 0;display:none}
+.eng.on{display:block}
+
+.out{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
 .out .ok{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:10px}
 .out pre{background:var(--ink);border:1px solid var(--line);border-radius:2px;padding:15px;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:#D6D2CB;white-space:pre-wrap;word-break:break-word;direction:ltr;text-align:left;min-height:80px}
 .out .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
@@ -105,6 +111,8 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .out .row button:hover{filter:brightness(1.08)}
 .hint{margin-top:14px;font-size:14px;color:var(--steel);line-height:1.5}
 .hint b{color:var(--gold)}
+.trnote{margin-top:10px;font-size:13.5px;color:var(--steel);line-height:1.5;border-top:1px solid var(--line);padding-top:12px}
+.trnote b{color:var(--gold)}
 
 /* LIBRARY */
 .lib{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));margin-top:2px}
@@ -113,7 +121,6 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .lib b{font-size:16.5px;font-weight:800}
 .lib p{font-size:14px;color:var(--steel-2);line-height:1.45}
 .lib .soon{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--steel);letter-spacing:.06em}
-.lib .ready{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;color:var(--gold)}
 .lib > div{opacity:.62;border-top:2px solid var(--line)}
 .lib > a{border-top:2px solid var(--gold)}
 
@@ -127,11 +134,33 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .mods .md{font-size:14.5px;color:#D6D2CB;line-height:1.5}
 .grouphead{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin:26px 0 10px;display:flex;align-items:center;gap:12px}
 .grouphead::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* PRICING */
+.plans{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,262px),1fr));margin-top:2px}
+.plan{background:var(--ink-2);padding:clamp(18px,2.2vw,25px);display:flex;flex-direction:column;gap:11px;border-top:2px solid var(--line)}
+.plan.best{border-top-color:var(--gold)}
+.plan .ptop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.plan h3{font-family:var(--disp);font-weight:900;font-size:clamp(20px,2.3vw,25px)}
+.plan .for{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+.plan .tagp{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:3px 8px;border-radius:2px}
+.plan table{width:100%;border-collapse:collapse;font-size:14px}
+.plan td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.plan td:first-child{color:var(--steel-2);white-space:nowrap;padding-left:12px}
+.plan td:last-child{text-align:left;direction:ltr;font-family:var(--mono);font-size:13.5px;color:var(--bone)}
+.plan tr:last-child td{border-bottom:none}
+.plan .pnote{font-size:13.5px;color:var(--steel);line-height:1.5;margin-top:auto;padding-top:8px}
+.plan .pnote b{color:var(--gold)}
+
 .advice{background:var(--gold-soft);border:1px solid var(--gold-line);padding:clamp(18px,2.4vw,26px);margin-top:2px}
 .advice .ak{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:11px}
-.advice p{font-size:15.5px;line-height:1.55;color:#E4E0DA;max-width:62ch}
+.advice p{font-size:15.5px;line-height:1.55;color:#E4E0DA;max-width:64ch}
 .advice p+p{margin-top:.65em}
 .advice b{color:var(--gold)}
+.redbox{background:rgba(224,106,74,.09);border:1px solid rgba(224,106,74,.32);padding:clamp(18px,2.4vw,26px);margin-top:2px}
+.redbox .ak{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--red);text-transform:uppercase;display:block;margin-bottom:11px}
+.redbox p{font-size:15.5px;line-height:1.55;color:#E4E0DA;max-width:64ch}
+.redbox p+p{margin-top:.65em}
+.redbox b{color:var(--red)}
 
 /* DRILL */
 .drill{background:var(--ink-2);padding:clamp(18px,2.4vw,28px);border-top:2px solid var(--gold)}
@@ -188,7 +217,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 @media print{
   body{background:#fff;color:#000}
   body::before,body::after,#court,#nav{display:none}
-  .builder,.fb,.sup,.drill,.lcard,.chapters,.mods>div,.advice,.receipt{background:#fff!important;border:1px solid #ccc}
+  .builder,.fb,.sup,.drill,.lcard,.chapters,.mods>div,.advice,.receipt,.plan,.redbox{background:#fff!important;border:1px solid #ccc}
   h1,h2,h3{color:#000}
 }
 </style>
@@ -210,7 +239,8 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   <a href="#files">הקבצים</a>
   <a href="#builder">בונה פרומפטים</a>
   <a href="#library">ספריית פרומפטים</a>
-  <a href="#models">מודלים ומנויים</a>
+  <a href="#models">מודלים</a>
+  <a href="#plans">מנויים ומחירים</a>
   <a href="#drill">התרגיל</a>
   <a href="#help">שאלות</a>
   <a href="#feedback">משוב</a>
@@ -223,7 +253,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   <h1>גיא,<span class="thin">הנה הכל.</span></h1>
   <p class="intro">
     כל מה שעברנו, במקום אחד. <b>ההקלטה, הקבצים, ובונה פרומפטים שבניתי לך</b> —
-    כדי שלא תצטרך לזכור את המבנה בעל פה. תשמור את הדף במועדפים; אתה תחזור אליו.
+    שבו אתה יכול לכתוב בעברית והוא מתרגם לאנגלית. תשמור את הדף במועדפים; אתה תחזור אליו.
   </p>
 </header>
 
@@ -233,15 +263,13 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   <h2>מה שיצרנו.</h2>
   <div class="links">
     <a class="lcard" href="https://drive.google.com/drive/folders/1bxigu1CfL9LqrYBvYn9-rKLO712f-VPF?usp=sharing" target="_blank" rel="noopener">
-      <span class="lk">Drive</span>
-      <b>התיקייה</b>
+      <span class="lk">Drive</span><b>התיקייה</b>
       <p>הפריימים, הדמות והשוט המתנועע — הכל בפורמט מלא.</p>
       <span class="go">לפתוח ←</span>
     </a>
-    <a class="lcard" href="https://drive.google.com/file/d/1ZbdiHUPPQKxyVDmiJug9gq52z_UiyVQi/view?usp=drive_link" target="_blank" rel="noopener">
-      <span class="lk">Video</span>
-      <b>הקלטת המפגש</b>
-      <p>שעתיים מלאות, מההתחלה עד הסוף. תוכל לחזור לכל שלב.</p>
+    <a class="lcard" href="https://www.youtube.com/watch?v=LLanhvuHTaM" target="_blank" rel="noopener">
+      <span class="lk">YouTube · לא רשום</span><b>הקלטת המפגש</b>
+      <p>שעתיים מלאות. אפשר לצפות במהירות כפולה ולקפוץ לנקודה.</p>
       <span class="go">לצפייה ←</span>
     </a>
   </div>
@@ -273,11 +301,11 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 
 <!-- BUILDER -->
 <section id="builder">
-  <div class="slate"><div class="s-k">02</div><div>בונה פרומפטים</div><div class="s-grow"></div><div>הכלי</div></div>
-  <h2>לא תצטרך לזכור<br>את המבנה.</h2>
+  <div class="slate"><div class="s-k">02</div><div>בונה פרומפטים</div><div class="s-grow"></div><div>עברית ← אנגלית</div></div>
+  <h2>תכתוב בעברית.<br>יצא באנגלית.</h2>
   <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
-    תמלא את השדות, הפרומפט נבנה למטה, ואתה מעתיק. שלושה מצבים — דמות, סצנה, ועקביות.
-    <b>הצ'יפים הם אוצר מילים</b>: לחץ עליהם כדי ללמוד מה עובד.
+    בחר מהאפשרויות, או תכתוב חופשי בעברית ולחץ <b>"תרגם"</b>. הפרומפט נבנה למטה באנגלית ואתה מעתיק.
+    שלושה מצבים — דמות, לוקיישן, ועקביות.
   </p>
 
   <div class="builder">
@@ -288,14 +316,19 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     </div>
     <div class="fields" id="fields"></div>
     <div class="out">
-      <span class="ok">הפרומפט שלך</span>
-      <pre id="output">מלא את השדות למעלה…</pre>
+      <span class="ok">הפרומפט שלך · באנגלית</span>
+      <pre id="output">בחר או כתוב למעלה…</pre>
       <div class="row">
         <button id="copy">העתק</button>
+        <button id="translateAll" class="ghost">תרגם הכל לאנגלית</button>
         <button id="clear" class="ghost">נקה</button>
         <button id="preset" class="ghost">מלא דוגמה</button>
       </div>
       <p class="hint" id="hint"></p>
+      <p class="trnote">
+        <b>על התרגום:</b> הוא אוטומטי ולרוב טוב, אבל לא מושלם. אם משהו יוצא מוזר —
+        תערוך את האנגלית ידנית בשדה. <b>והכי בטוח:</b> תשתמש באפשרויות המוכנות, הן כבר בניסוח שעובד.
+      </p>
     </div>
   </div>
 </section>
@@ -305,43 +338,25 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   <div class="slate"><div class="s-k">03</div><div>ספריית פרומפטים</div><div class="s-grow"></div><div>מתעדכן</div></div>
   <h2>דוגמאות שעובדות.</h2>
   <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
-    אוסף פרומפטים מוכנים שאני אוסף מהעבודה שלי. <b>אני מוסיף אליו כל הזמן</b> —
-    ואשלח לך כשכל אחד מוכן.
+    אוסף פרומפטים מוכנים מהעבודה שלי. <b>אני מוסיף אליו כל הזמן</b> — ואשלח לך כשכל אחד מוכן.
   </p>
   <div class="lib">
-    <div>
-      <span class="lk">עקביות</span>
-      <b>Character Consistency</b>
+    <div><span class="lk">עקביות</span><b>Character Consistency</b>
       <p>איך שומרים על אותה דמות בין שוטים — הטכניקות והניסוחים המדויקים.</p>
-      <span class="soon">בדרך · אשלח לך</span>
-    </div>
-    <div>
-      <span class="lk">לוקיישן</span>
-      <b>יצירת מיקומים</b>
+      <span class="soon">בדרך · אשלח לך</span></div>
+    <div><span class="lk">לוקיישן</span><b>יצירת מיקומים</b>
       <p>לבנות מקום שנשאר עקבי בין שוטים, עם אור ואווירה שמתנהגים נכון.</p>
-      <span class="soon">בדרך · אשלח לך</span>
-    </div>
-    <div>
-      <span class="lk">שונות</span>
-      <b>פרומפטים נוספים</b>
+      <span class="soon">בדרך · אשלח לך</span></div>
+    <div><span class="lk">שונות</span><b>פרומפטים נוספים</b>
       <p>תנועות מצלמה, סגנונות, מעברים — דברים שאני צובר תוך כדי עבודה.</p>
-      <span class="soon">בדרך · אשלח לך</span>
-    </div>
+      <span class="soon">בדרך · אשלח לך</span></div>
   </div>
 </section>
 
 <!-- MODELS -->
 <section id="models">
-  <div class="slate"><div class="s-k">04</div><div>מודלים ומנויים</div><div class="s-grow"></div><div>אוגוסט 2026</div></div>
-  <h2>במה לעבוד,<br>ועל מה לשלם.</h2>
-
-  <div class="advice">
-    <span class="ak">ההמלצה שלי, לפני הכל</span>
-    <p><b>קח מנוי לחודש אחד בלבד — ובטל אותו לפני שהוא מתחדש.</b> תרשום לעצמך תזכורת ביומן ליומיים לפני.</p>
-    <p>חודש זה בדיוק מספיק כדי להבין אם אתה בכלל נהנה מזה ומייצר בקצב. אם כן — תחדש בלב שלם.
-    אם לא — לא שילמת על שנה שלמה של משהו שלא נגעת בו. <b>ואל תיקח חבילה שנתית עכשיו,</b>
-    גם אם ההנחה מפתה. היא תמיד תהיה שם.</p>
-  </div>
+  <div class="slate"><div class="s-k">04</div><div>מודלים</div><div class="s-grow"></div></div>
+  <h2>במה לעבוד.</h2>
 
   <div class="grouphead">וידאו · מה שעבדנו עליו</div>
   <div class="mods">
@@ -357,44 +372,134 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 
   <div class="grouphead">תמונות · מה שעבדנו עליו</div>
   <div class="mods">
-    <div>
-      <div class="mtop"><span class="mn">ChatGPT</span></div>
-      <p class="md">לייצור תמונות ולעבודה על הרעיון עצמו. גם מה שנשתמש בו בתרגיל כדי לפרק את הסצנה.</p>
-    </div>
-    <div>
-      <div class="mtop"><span class="mn">Nano Banana</span><span class="via">דרך Flow</span></div>
-      <p class="md">מהיר וטוב לעריכת תמונות ולשינויים ממוקדים על משהו שכבר קיים.</p>
-    </div>
-    <div>
-      <div class="mtop"><span class="mn">Midjourney</span><span class="via">לא עברנו עליו</span></div>
-      <p class="md">קיים ורבים אוהבים אותו, אבל לא לימדתי אותך עליו ואין צורך שתיגע בו עכשיו. שווה להכיר בהמשך.</p>
-    </div>
+    <div><div class="mtop"><span class="mn">ChatGPT</span></div>
+      <p class="md">לייצור תמונות ולעבודה על הרעיון עצמו. גם מה שנשתמש בו בתרגיל כדי לפרק את הסצנה.</p></div>
+    <div><div class="mtop"><span class="mn">Nano Banana</span><span class="via">דרך Flow</span></div>
+      <p class="md">מהיר וטוב לעריכת תמונות ולשינויים ממוקדים על משהו שכבר קיים.</p></div>
+    <div><div class="mtop"><span class="mn">Midjourney</span><span class="via">לא עברנו עליו</span></div>
+      <p class="md">קיים ורבים אוהבים אותו, אבל לא לימדתי אותך עליו ואין צורך שתיגע בו עכשיו. שווה להכיר בהמשך.</p></div>
   </div>
+</section>
 
-  <div class="grouphead">רוצה לבדוק הכל במקום אחד?</div>
-  <div class="mods">
-    <div>
-      <div class="mtop"><span class="mn">Higgsfield</span></div>
-      <p class="md">מאגד עשרות מודלים תחת מנוי אחד. אתה מחליף ביניהם בלחיצה במקום לפתוח חשבון בכל מקום.</p>
-    </div>
-    <div>
-      <div class="mtop"><span class="mn">Freepik</span></div>
-      <p class="md">אותו רעיון — כמה מודלים במקום אחד, ואפשר להשוות ביניהם על אותו פרומפט.</p>
-    </div>
-  </div>
+<!-- PLANS -->
+<section id="plans">
+  <div class="slate"><div class="s-k">05</div><div>מנויים ומחירים</div><div class="s-grow"></div><div>אוגוסט 2026</div></div>
+  <h2>על מה לשלם,<br>וכמה.</h2>
 
   <div class="advice">
-    <span class="ak">איך הייתי משתמש בהם</span>
-    <p>האתרים המאגדים הם <b>מגרש ניסויים, לא בית קבע.</b> קח אחד מהם לחודש, תריץ את אותו פרומפט
-    בכמה מודלים, ותראה במו עיניך מה ההבדל. זו הדרך הכי מהירה לפתח טעם.</p>
-    <p>ואחרי החודש הזה תדע איזה מודל אחד אתה פותח ב-80% מהמקרים — <b>ואז עוברים אליו ישירות.</b>
-    זה כמעט תמיד יוצא זול יותר מהמנוי המאגד, ברגע שאתה כבר לא צריך את התפריט.</p>
+    <span class="ak">ההמלצה שלי, לפני הכל</span>
+    <p><b>קח מנוי לחודש אחד בלבד — ובטל לפני שהוא מתחדש.</b> תשים תזכורת ביומן ליומיים לפני החידוש, ברגע שאתה משלם.</p>
+    <p>חודש זה בדיוק מספיק כדי להבין אם אתה נהנה מזה ומייצר בקצב. אם כן — תחדש בלב שלם.
+    <b>ואל תיקח שנתי עכשיו</b>, גם אם ההנחה מפתה. היא תמיד תחזור.</p>
+  </div>
+
+  <div class="grouphead">Dreamina · בשביל Seedance</div>
+  <div class="plans">
+    <div class="plan best">
+      <div class="ptop"><h3>חודש בודד</h3><span class="tagp">מה שהייתי לוקח</span></div>
+      <table>
+        <tr><td>Basic · 1,470 קרדיטים</td><td>€17</td></tr>
+        <tr><td>Standard · 3,665</td><td>€39</td></tr>
+        <tr><td>Advanced · 7,955</td><td>€77</td></tr>
+      </table>
+      <p class="pnote"><b>לא מתחדש אוטומטית.</b> יקר ב-€3 מהחודשי הרגיל — וזה שווה כל אגורה, כי אתה לא תשכח לבטל.</p>
+    </div>
+    <div class="plan">
+      <div class="ptop"><h3>חודשי</h3><span class="for">מתחדש</span></div>
+      <table>
+        <tr><td>Basic · 1,470 קרדיטים</td><td>€13.99</td></tr>
+        <tr><td>Standard · 3,665</td><td>€33</td></tr>
+        <tr><td>Advanced · 7,955</td><td>€64</td></tr>
+      </table>
+      <p class="pnote">זול יותר, אבל מתחדש לבד. רק אם אתה כבר יודע שאתה בפנים.</p>
+    </div>
+    <div class="plan">
+      <div class="ptop"><h3>חינם</h3><span class="for">להתנסות</span></div>
+      <table>
+        <tr><td>מחיר</td><td>€0</td></tr>
+        <tr><td>קרדיטים</td><td>בונוס יומי</td></tr>
+        <tr><td>סימן מים</td><td>יש</td></tr>
+      </table>
+      <p class="pnote"><b>תתחיל מפה.</b> תראה אם הממשק מדבר אליך לפני שאתה מוציא שקל.</p>
+    </div>
+  </div>
+
+  <div class="grouphead">Kling</div>
+  <div class="plans">
+    <div class="plan best">
+      <div class="ptop"><h3>Standard</h3><span class="tagp">להתחלה</span></div>
+      <table>
+        <tr><td>חודש ראשון</td><td>$6.99</td></tr>
+        <tr><td>אחר כך</td><td>$8.80</td></tr>
+        <tr><td>קרדיטים</td><td>660 / mo</td></tr>
+      </table>
+      <p class="pnote">הצעת חודש ראשון, פעם אחת בלבד. אפשר לבטל מתי שרוצים.</p>
+    </div>
+    <div class="plan">
+      <div class="ptop"><h3>Pro</h3><span class="for">אם מייצר הרבה</span></div>
+      <table>
+        <tr><td>חודש ראשון</td><td>$25.99</td></tr>
+        <tr><td>אחר כך</td><td>$32.56</td></tr>
+        <tr><td>קרדיטים</td><td>3,000 / mo</td></tr>
+      </table>
+      <p class="pnote">בערך פי 4.5 קרדיטים בפי 3.7 מחיר. משתלם רק אם אתה באמת מייצר.</p>
+    </div>
+    <div class="plan">
+      <div class="ptop"><h3>Premier / Ultra</h3><span class="for">לא בשבילך</span></div>
+      <table>
+        <tr><td>Premier</td><td>$64.99 → $80.96</td></tr>
+        <tr><td>Ultra</td><td>$127.99 → $159.99</td></tr>
+        <tr><td>קרדיטים</td><td>8,000 / 26,000</td></tr>
+      </table>
+      <p class="pnote">רמות של מי שמייצר יום־יום למחייה. <b>לא לשם אתה הולך עכשיו.</b></p>
+    </div>
+  </div>
+
+  <div class="grouphead">מאגדי מודלים · לבדוק הכל במקום אחד</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="ptop"><h3>Higgsfield</h3><span class="for">Plus</span></div>
+      <table>
+        <tr><td>מחיר</td><td>$59 / mo</td></tr>
+        <tr><td>קרדיטים</td><td>1,200</td></tr>
+        <tr><td>שווה ערך</td><td>~53 Seedance</td></tr>
+      </table>
+      <p class="pnote">גישה לעשרות מודלים תחת מנוי אחד.</p>
+    </div>
+    <div class="plan">
+      <div class="ptop"><h3>Higgsfield</h3><span class="for">Ultra</span></div>
+      <table>
+        <tr><td>חודש ראשון</td><td>$99</td></tr>
+        <tr><td>מתחדש ב־</td><td>$129</td></tr>
+        <tr><td>קרדיטים</td><td>3,000</td></tr>
+      </table>
+      <p class="pnote"><b>שים לב להפרש בחידוש.</b> ה-$99 הוא פעם אחת.</p>
+    </div>
+    <div class="plan best">
+      <div class="ptop"><h3>Magnific</h3><span class="tagp">היה Freepik</span></div>
+      <table>
+        <tr><td>Premium · 20K</td><td>₪59 / mo</td></tr>
+        <tr><td>Premium+ · 45K</td><td>₪132 / mo</td></tr>
+        <tr><td>Pro · 300K</td><td>₪840 / mo</td></tr>
+      </table>
+      <p class="pnote"><b>ב-Premium+ יש שימוש בלתי מוגבל</b> ב-Seedream, Nano Banana 2 ו-Kling. ובשקלים, בלי הפתעות מטבע.</p>
+    </div>
+  </div>
+
+  <div class="redbox">
+    <span class="ak">שתי מלכודות שתיתקל בהן</span>
+    <p><b>1 · הפופ־אפ עם השעון שרץ.</b> "55% הנחה אישית, נותרו 02:58:06". זה לא אישי וזה לא נגמר —
+    הטיימר מתאפס בכל ביקור. אם ההצעה טובה בשבילך היא תהיה טובה גם מחר. <b>אל תיתן לשעון להחליט במקומך.</b></p>
+    <p><b>2 · "חודש ראשון" מול מחיר חידוש.</b> כמעט בכל אתר המחיר הגדול הוא של החודש הראשון בלבד.
+    לפני שאתה משלם, תחפש את המילים הקטנות שכתוב בהן <b>renews at</b> — זה המחיר האמיתי שלך מהחודש השני.</p>
+    <p>ודבר אחרון: המחירים כאן נכונים לאוגוסט 2026, ובתחום הזה הם משתנים כל חודש.
+    <b>תמיד תבדוק בדף התמחור הרשמי לפני שאתה מזין כרטיס.</b></p>
   </div>
 </section>
 
 <!-- DRILL -->
 <section id="drill">
-  <div class="slate"><div class="s-k">05</div><div>התרגיל</div><div class="s-grow"></div><div>הפעם הראשונה לבד</div></div>
+  <div class="slate"><div class="s-k">06</div><div>התרגיל</div><div class="s-grow"></div><div>הפעם הראשונה לבד</div></div>
   <h2>שתי סצנות,<br>מהתחלה עד הסוף.</h2>
 
   <div class="drill">
@@ -409,36 +514,24 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     </div>
 
     <div class="steps">
-      <div class="stp">
-        <label><input type="checkbox" class="dstep"><span class="box"></span>
+      <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>1 · תבנה את הסצנה בצ'אט</b>
-        <p>פתח את ChatGPT או Gemini — מה שנוח לך — ותפרק את שתי הסצנות בדיוק כמו שעשינו במפגש: מה קורה, מי בפריים, כמה שוטים.</p></span></label>
-      </div>
-      <div class="stp">
-        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <p>פתח את ChatGPT או Gemini — מה שנוח לך — ותפרק את שתי הסצנות בדיוק כמו שעשינו במפגש: מה קורה, מי בפריים, כמה שוטים.</p></span></label></div>
+      <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>2 · תחליט מה אתה צריך</b>
-        <p>עבור על הפירוק ותסמן: כמה דמויות יש? כמה לוקיישנים? מה חוזר בין שתי הסצנות וחייב להישאר זהה?</p></span></label>
-      </div>
-      <div class="stp">
-        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <p>עבור על הפירוק ותסמן: כמה דמויות יש? כמה לוקיישנים? מה חוזר בין שתי הסצנות וחייב להישאר זהה?</p></span></label></div>
+      <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>3 · פרומפטים ותמונות</b>
-        <p>כתוב פרומפט לכל דמות ולכל לוקיישן — תשתמש בבונה למעלה — וייצר את התמונות. זה השלב שייקח לך הכי הרבה זמן, וזה בסדר.</p></span></label>
-      </div>
-      <div class="stp">
-        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <p>כתוב פרומפט לכל דמות ולכל לוקיישן — תשתמש בבונה למעלה — וייצר את התמונות. זה השלב שייקח לך הכי הרבה זמן, וזה בסדר.</p></span></label></div>
+      <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>4 · מתמונות לווידאו</b>
-        <p>קח את הפריימים שאתה הכי אוהב והפוך אותם לשוטים מתנועעים, בדיוק כמו שעשינו.</p></span></label>
-      </div>
-      <div class="stp">
-        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <p>קח את הפריימים שאתה הכי אוהב והפוך אותם לשוטים מתנועעים, בדיוק כמו שעשינו.</p></span></label></div>
+      <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>5 · לערוך</b>
-        <p>פה אתה בבית. תחבר את השוטים, תשחק עם הקצב, תוסיף מוזיקה או סאונד אם בא לך. זה החלק שהופך קטעים לסצנה.</p></span></label>
-      </div>
-      <div class="stp">
-        <label><input type="checkbox" class="dstep"><span class="box"></span>
+        <p>פה אתה בבית. תחבר את השוטים, תשחק עם הקצב, תוסיף מוזיקה או סאונד אם בא לך. זה החלק שהופך קטעים לסצנה.</p></span></label></div>
+      <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>6 · לייצא ולשלוח לי</b>
-        <p>ייצא, העלה לדרייב, ותשלח לי לינק. <b>תעלה גם את הניסיונות שנפלו</b> — עליהם נדבר לא פחות.</p></span></label>
-      </div>
+        <p>ייצא, העלה לדרייב, ותשלח לי לינק. <b>תעלה גם את הניסיונות שנפלו</b> — עליהם נדבר לא פחות.</p></span></label></div>
     </div>
 
     <div id="drillBar">
@@ -455,11 +548,13 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 
 <!-- HELP -->
 <section id="help">
-  <div class="slate"><div class="s-k">06</div><div>נתקעת?</div><div class="s-grow"></div></div>
+  <div class="slate"><div class="s-k">07</div><div>נתקעת?</div><div class="s-grow"></div></div>
   <div class="sup">
     <h3>אני כאן, באמת.</h3>
-    <p>אמרתי לך את זה במפגש ואני חוזר על זה בכתב: <b>בשבועיים הקרובים אתה יכול לכתוב לי בוואטסאפ בכל שאלה.</b>
-    לא "שאלות קצרות בלבד" ולא "אם יש לי זמן" — פשוט תכתוב.</p>
+    <p>אמרתי לך את זה במפגש ואני חוזר על זה בכתב: <b>בשבוע — ואפילו בשבועיים — הקרובים אתה יכול לכתוב לי
+    בוואטסאפ בכל שאלה, ואני מלווה אותך בתהליך.</b> לא "שאלות קצרות בלבד" ולא "אם יש לי זמן". פשוט תכתוב.</p>
+    <p>זה כולל גם ליווי תוך כדי התרגיל — תקוע על פרומפט, לא בטוח איזה מודל לבחור, משהו יוצא מוזר ואתה לא מבין למה.
+    <b>בדיוק בשביל זה אני שם.</b></p>
     <p>ואם משהו לא עובד ואתה לא מצליח להסביר במילים — <b>תשלח לי צילום מסך של הפרומפט ושל התוצאה.</b>
     ככה אני רואה בשנייה מה קרה. זו הדרך הכי מהירה לקבל תשובה.</p>
     <p>שאלה טיפשית היא שאלה שלא נשאלה. כל מה שנראה לך מובן מאליו — כנראה לא, ואני שמח שתשאל.</p>
@@ -469,7 +564,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 
 <!-- FEEDBACK -->
 <section id="feedback">
-  <div class="slate"><div class="s-k">07</div><div>משוב</div><div class="s-grow"></div><div>2 דקות</div></div>
+  <div class="slate"><div class="s-k">08</div><div>משוב</div><div class="s-grow"></div><div>2 דקות</div></div>
   <h2>עשה לי טובה אחת.</h2>
   <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
     אתה התלמיד הראשון שלי. <b>המשוב שלך שווה לי יותר מהתשלום</b> — הוא מה שיקבע איך ייראה המפגש הבא,
@@ -489,18 +584,12 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       </div>
       <input type="hidden" name="ציון" id="scaleVal">
     </div>
-    <div class="fq">
-      <span>מה היה הכי שימושי?</span>
-      <textarea name="הכי שימושי" placeholder="החלק שבגללו הרגשת שהבנת משהו…"></textarea>
-    </div>
-    <div class="fq">
-      <span>מה היה מיותר או לא ברור?</span>
-      <textarea name="מיותר או לא ברור" placeholder="בלי לרכך. זה החלק שהכי עוזר לי…"></textarea>
-    </div>
-    <div class="fq">
-      <span>מה היית רוצה שנעשה במפגש הבא?</span>
-      <textarea name="מפגש הבא" placeholder="גם אם אתה עוד לא בטוח שיהיה כזה…"></textarea>
-    </div>
+    <div class="fq"><span>מה היה הכי שימושי?</span>
+      <textarea name="הכי שימושי" placeholder="החלק שבגללו הרגשת שהבנת משהו…"></textarea></div>
+    <div class="fq"><span>מה היה מיותר או לא ברור?</span>
+      <textarea name="מיותר או לא ברור" placeholder="בלי לרכך. זה החלק שהכי עוזר לי…"></textarea></div>
+    <div class="fq"><span>מה היית רוצה שנעשה במפגש הבא?</span>
+      <textarea name="מפגש הבא" placeholder="גם אם אתה עוד לא בטוח שיהיה כזה…"></textarea></div>
     <button type="submit" class="send">שלח</button>
     <p class="thanks" id="thanks">תודה. באמת.</p>
   </form>
@@ -520,41 +609,109 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 (function(){
   'use strict';
 
+  /* he -> en options: [hebrew label, english value] */
   var MODES = {
     char: {
-      hint: 'שים לב לסדר: <b>מי → מה עושה → איפה → אור → עדשה → אווירה</b>. זה בדיוק המבנה שעברנו במפגש.',
+      hint: 'הסדר חשוב: <b>מי → מה עושה → איפה → אור → עדשה → אווירה</b>. בדיוק המבנה שעברנו במפגש.',
       fields: [
-        {k:'who', l:'מי', s:'גיל, מראה, בגדים. ככל שיותר ספציפי — יותר יציב.', ph:'a 12-year-old boy, lean build, short curly hair, oversized basketball jersey'},
-        {k:'action', l:'מה הוא עושה', s:'פעולה אחת ברורה. לא שלוש.', ph:'dribbling a worn basketball, mid-step'},
-        {k:'where', l:'איפה', s:'המקום והרקע.', ph:'empty outdoor court, cracked asphalt, chain-link fence'},
-        {k:'light', l:'אור', s:'הדבר שהכי משנה את התוצאה.', ph:'', chips:['golden hour','harsh midday sun','overcast soft light','backlit rim light','single window light','blue hour','stadium floodlights','deep shadows']},
-        {k:'lens', l:'עדשה ופריים', s:'המונחים שאתה כבר מכיר.', ph:'', chips:['35mm','50mm','85mm portrait','wide angle','shallow depth of field','low angle','eye level','close-up','medium shot','full body']},
-        {k:'mood', l:'אווירה וסגנון', s:'הטון של התמונה.', ph:'', chips:['cinematic','documentary','nostalgic','gritty','warm film grain','desaturated','high contrast','Kodak Portra','anamorphic']},
-        {k:'avoid', l:'מה לא רוצה', s:'לא כל מודל מתייחס, אבל שווה.', ph:'text, watermark, extra fingers, blurry'}
+        {k:'who', l:'מי', s:'גיל ומראה. ככל שיותר ספציפי — התוצאה יציבה יותר.',
+         ph:'ילד בן 12, רזה, שיער מתולתל קצר',
+         opts:[['ילד בן 8–10','an 8-year-old boy'],['ילד בן 12','a 12-year-old boy'],['נער בן 16','a 16-year-old teenager'],
+               ['גבר בשנות ה-20','a man in his twenties'],['גבר בשנות ה-30','a man in his thirties'],
+               ['רזה','lean build'],['אתלטי','athletic build'],['גבוה','tall'],
+               ['שיער מתולתל קצר','short curly hair'],['שיער מגולח','buzzed hair'],['אפרו','afro hair']]},
+        {k:'wear', l:'לבוש', s:'',
+         ph:'גופיית כדורסל אדומה גדולה מדי',
+         opts:[['גופיית כדורסל','a basketball jersey'],['גופייה גדולה מדי','an oversized jersey'],
+               ['חליפת אימון','a tracksuit'],['קפוצ׳ון','a hoodie'],['בגדי רחוב','streetwear'],
+               ['נעלי כדורסל ישנות','worn basketball sneakers']]},
+        {k:'action', l:'מה הוא עושה', s:'פעולה אחת ברורה. לא שלוש.',
+         ph:'מכדרר כדור שחוק, באמצע צעד',
+         opts:[['מכדרר','dribbling a basketball'],['קופץ לסל','jumping for a dunk'],['קולע','shooting a free throw'],
+               ['יושב על ספסל','sitting on a bench'],['קושר שרוכים','tying his shoelaces'],
+               ['מנגב זיעה','wiping sweat from his forehead'],['מסתכל למעלה','looking up'],
+               ['עומד לבד','standing alone'],['הולך ברחוב','walking down the street']]},
+        {k:'where', l:'איפה', s:'',
+         ph:'מגרש חוץ עם אספלט סדוק',
+         opts:[['מגרש חוץ סדוק','a cracked outdoor basketball court'],['אולם ספורט ריק','an empty gymnasium'],
+               ['חדר הלבשה','a locker room'],['רחוב בלילה','a city street at night'],
+               ['גדר רשת','chain-link fence in the background'],['יציע ריק','empty bleachers']]},
+        {k:'light', l:'אור', s:'הדבר שהכי משנה את התוצאה.', ph:'',
+         opts:[['שעת הזהב','golden hour'],['שמש צהריים קשה','harsh midday sun'],['מעונן ורך','overcast soft light'],
+               ['אור נגדי','backlit rim light'],['אור מחלון יחיד','single window light'],
+               ['שעה כחולה','blue hour'],['זרקורי אצטדיון','stadium floodlights'],['צללים עמוקים','deep shadows']]},
+        {k:'lens', l:'עדשה ופריים', s:'המונחים שאתה כבר מכיר.', ph:'',
+         opts:[['35 מ״מ','35mm'],['50 מ״מ','50mm'],['85 מ״מ פורטרט','85mm portrait lens'],
+               ['רחב','wide angle'],['עומק שדה רדוד','shallow depth of field'],
+               ['מלמטה','low angle'],['בגובה העיניים','eye level'],
+               ['קלוז אפ','close-up'],['בינוני','medium shot'],['גוף מלא','full body shot']]},
+        {k:'mood', l:'אווירה וסגנון', s:'', ph:'',
+         opts:[['קולנועי','cinematic'],['דוקומנטרי','documentary style'],['נוסטלגי','nostalgic'],
+               ['מחוספס','gritty'],['גרעין פילם חם','warm film grain'],['צבע מעומעם','desaturated'],
+               ['ניגודיות גבוהה','high contrast'],['Kodak Portra','shot on Kodak Portra'],['אנמורפי','anamorphic']]},
+        {k:'avoid', l:'מה לא רוצה', s:'לא כל מודל מתייחס, אבל שווה.', ph:'טקסט, סימן מים, אצבעות מעוותות',
+         opts:[['טקסט','text'],['סימן מים','watermark'],['אצבעות מעוותות','deformed fingers'],
+               ['מטושטש','blurry'],['פנים מעוותות','distorted face']]}
       ]
     },
     scene: {
-      hint: 'בלוקיישן <b>המקום הוא הגיבור</b>, לא הדמות. תאר את המקום לעומק ואת האדם בקצרה.',
+      hint: 'בלוקיישן <b>המקום הוא הגיבור</b>. תאר אותו לעומק ואת האדם בקצרה.',
       fields: [
-        {k:'where', l:'המקום', s:'תאר לעומק — זה הגיבור פה.', ph:'an empty school gymnasium at night, polished wood floor, championship banners'},
-        {k:'who', l:'מי בפריים', s:'בקצרה. אם אף אחד — השאר ריק.', ph:'a lone figure at the free-throw line, seen from behind'},
-        {k:'time', l:'זמן ומזג אוויר', s:'', ph:'', chips:['dawn','late afternoon','night','rain','dust in the air','fog','summer heat haze']},
-        {k:'light', l:'אור', s:'', ph:'', chips:['golden hour','harsh midday sun','overcast soft light','practical lights only','moonlight','stadium floodlights','light through high windows']},
-        {k:'lens', l:'עדשה ופריים', s:'', ph:'', chips:['wide establishing shot','35mm','ultra wide','symmetrical composition','shallow depth of field','high angle','low angle']},
-        {k:'mood', l:'אווירה', s:'', ph:'', chips:['cinematic','empty and still','nostalgic','tense','warm film grain','desaturated','anamorphic']},
-        {k:'avoid', l:'מה לא רוצה', s:'', ph:'text, watermark, distorted architecture'}
+        {k:'where', l:'המקום', s:'תאר לעומק — זה הגיבור פה.',
+         ph:'אולם ספורט ריק בלילה, רצפת עץ מבריקה',
+         opts:[['אולם ספורט ריק בלילה','an empty gymnasium at night'],['רצפת עץ מבריקה','polished wood floor'],
+               ['דגלי אליפות','championship banners hanging'],['מגרש חוץ סדוק','a cracked outdoor court'],
+               ['חדר הלבשה ישן','an old locker room'],['רחוב שכונתי','a quiet neighborhood street'],
+               ['יציע ריק','empty bleachers'],['שער רשת חלוד','a rusted chain-link gate']]},
+        {k:'who', l:'מי בפריים', s:'בקצרה. אם אף אחד — השאר ריק.',
+         ph:'דמות בודדה מגבה',
+         opts:[['דמות בודדה מגבה','a lone figure seen from behind'],['ילד קטן במרחק','a small child in the distance'],
+               ['אף אחד','no people'],['צללית','a silhouette']]},
+        {k:'time', l:'זמן ומזג אוויר', s:'', ph:'',
+         opts:[['שחר','dawn'],['אחר צהריים מאוחר','late afternoon'],['לילה','night'],
+               ['גשם','rain'],['אבק באוויר','dust in the air'],['ערפל','fog'],['אדוות חום','heat haze']]},
+        {k:'light', l:'אור', s:'', ph:'',
+         opts:[['שעת הזהב','golden hour'],['שמש קשה','harsh midday sun'],['מעונן ורך','overcast soft light'],
+               ['רק תאורת מקום','practical lights only'],['אור ירח','moonlight'],
+               ['זרקורי אצטדיון','stadium floodlights'],['אור מחלונות גבוהים','light through high windows']]},
+        {k:'lens', l:'עדשה ופריים', s:'', ph:'',
+         opts:[['שוט פתיחה רחב','wide establishing shot'],['35 מ״מ','35mm'],['רחב מאוד','ultra wide'],
+               ['קומפוזיציה סימטרית','symmetrical composition'],['עומק שדה רדוד','shallow depth of field'],
+               ['מלמעלה','high angle'],['מלמטה','low angle']]},
+        {k:'mood', l:'אווירה', s:'', ph:'',
+         opts:[['קולנועי','cinematic'],['ריק ודומם','empty and still'],['נוסטלגי','nostalgic'],
+               ['מתוח','tense'],['גרעין פילם חם','warm film grain'],['צבע מעומעם','desaturated'],['אנמורפי','anamorphic']]},
+        {k:'avoid', l:'מה לא רוצה', s:'', ph:'טקסט, סימן מים',
+         opts:[['טקסט','text'],['סימן מים','watermark'],['אדריכלות מעוותת','distorted architecture'],['אנשים','people']]}
       ]
     },
     consist: {
       hint: 'הכלל היחיד שחשוב: <b>שנה משתנה אחד בכל פעם.</b> תיאור הדמות חייב להישאר מילה במילה זהה — העתק־הדבק, אל תכתוב מחדש.',
       fields: [
-        {k:'anchor', l:'תיאור הדמות — קבוע', s:'זה העוגן. העתק אותו בדיוק לכל שוט, בלי לשנות אף מילה.', ph:'a 12-year-old boy, lean build, short curly dark hair, small scar above left eyebrow, oversized red basketball jersey number 7'},
-        {k:'action', l:'מה משתנה — הפעולה', s:'רק זה משתנה בין שוט לשוט.', ph:'sitting on the bench, tying his shoelaces'},
-        {k:'where', l:'מה משתנה — המיקום', s:'', ph:'courtside bench, empty gym'},
-        {k:'light', l:'מה משתנה — האור', s:'שנה רק אם אתה בודק את השפעת האור.', ph:'', chips:['same as previous shot','golden hour','overcast soft light','stadium floodlights','backlit rim light']},
-        {k:'lock', l:'מה לנעול', s:'המילים שמזכירות למודל לא לסטות.', ph:'', chips:['same face','same character','consistent facial features','identical clothing','same hairstyle','reference image attached']},
-        {k:'lens', l:'עדשה ופריים', s:'', ph:'', chips:['35mm','50mm','85mm portrait','medium shot','close-up','shallow depth of field']},
-        {k:'mood', l:'אווירה — קבוע', s:'שמור זהה לכל הסדרה כדי שהעולם יהיה אחיד.', ph:'', chips:['cinematic','warm film grain','desaturated','nostalgic','high contrast']}
+        {k:'anchor', l:'תיאור הדמות — קבוע', s:'זה העוגן. העתק אותו בדיוק לכל שוט, בלי לשנות אף מילה.',
+         ph:'ילד בן 12, רזה, שיער מתולתל כהה קצר, צלקת קטנה מעל הגבה השמאלית, גופיית כדורסל אדומה מספר 7',
+         opts:[['ילד בן 12','a 12-year-old boy'],['רזה','lean build'],['שיער מתולתל כהה','short dark curly hair'],
+               ['צלקת מעל הגבה','a small scar above his left eyebrow'],['גופייה אדומה מספר 7','a red jersey with the number 7']]},
+        {k:'action', l:'מה משתנה — הפעולה', s:'רק זה משתנה בין שוט לשוט.',
+         ph:'יושב על הספסל וקושר שרוכים',
+         opts:[['יושב על הספסל','sitting on the bench'],['קושר שרוכים','tying his shoelaces'],
+               ['מכדרר','dribbling'],['קולע','taking a shot'],['הולך החוצה','walking out']]},
+        {k:'where', l:'מה משתנה — המיקום', s:'', ph:'ספסל בצד המגרש, אולם ריק',
+         opts:[['ספסל בצד המגרש','courtside bench'],['אולם ריק','empty gym'],
+               ['מגרש חוץ','outdoor court'],['חדר הלבשה','locker room']]},
+        {k:'light', l:'מה משתנה — האור', s:'שנה רק אם אתה בודק את השפעת האור.', ph:'',
+         opts:[['כמו בשוט הקודם','same lighting as previous shot'],['שעת הזהב','golden hour'],
+               ['מעונן ורך','overcast soft light'],['זרקורי אצטדיון','stadium floodlights'],['אור נגדי','backlit rim light']]},
+        {k:'lock', l:'מה לנעול', s:'המילים שמזכירות למודל לא לסטות.', ph:'',
+         opts:[['אותן פנים','same face'],['אותה דמות','same character'],
+               ['תווי פנים עקביים','consistent facial features'],['אותם בגדים','identical clothing'],
+               ['אותה תסרוקת','same hairstyle'],['לפי תמונת ייחוס','matching the reference image']]},
+        {k:'lens', l:'עדשה ופריים', s:'', ph:'',
+         opts:[['35 מ״מ','35mm'],['50 מ״מ','50mm'],['85 מ״מ פורטרט','85mm portrait lens'],
+               ['בינוני','medium shot'],['קלוז אפ','close-up'],['עומק שדה רדוד','shallow depth of field']]},
+        {k:'mood', l:'אווירה — קבוע', s:'שמור זהה לכל הסדרה כדי שהעולם יהיה אחיד.', ph:'',
+         opts:[['קולנועי','cinematic'],['גרעין פילם חם','warm film grain'],
+               ['צבע מעומעם','desaturated'],['נוסטלגי','nostalgic'],['ניגודיות גבוהה','high contrast']]}
       ]
     }
   };
@@ -563,56 +720,108 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       outEl=document.getElementById('output'),
       hintEl=document.getElementById('hint'),
       tabs=[].slice.call(document.querySelectorAll('.tabs button')),
-      mode='char', state={};
+      mode='char',
+      state={};   /* state[mode][key] = {sel:[english...], he:'', en:''} */
+
+  function slot(){ return {sel:[], he:'', en:''}; }
 
   function build(){
     var cfg=MODES[mode];
     fieldsEl.innerHTML='';
     state[mode]=state[mode]||{};
     cfg.fields.forEach(function(f){
+      state[mode][f.k]=state[mode][f.k]||slot();
+      var st=state[mode][f.k];
+
       var wrap=document.createElement('div'); wrap.className='f';
       var lab=document.createElement('label');
       lab.innerHTML=f.l+(f.s?'<small>'+f.s+'</small>':'');
       wrap.appendChild(lab);
-      var inp=document.createElement('input');
-      inp.type='text'; inp.placeholder=f.ph||''; inp.dir='ltr';
-      inp.value=state[mode][f.k]||'';
-      inp.addEventListener('input',function(){ state[mode][f.k]=inp.value; render(); });
-      wrap.appendChild(inp);
-      if(f.chips){
+
+      if(f.opts){
         var chips=document.createElement('div'); chips.className='chips';
-        f.chips.forEach(function(c){
+        f.opts.forEach(function(pair){
+          var he=pair[0], en=pair[1];
           var b=document.createElement('button');
-          b.type='button'; b.textContent=c;
-          b.setAttribute('aria-pressed',(state[mode][f.k]||'').indexOf(c)>-1?'true':'false');
+          b.type='button'; b.textContent=he;
+          b.setAttribute('aria-pressed', st.sel.indexOf(en)>-1?'true':'false');
           b.addEventListener('click',function(){
-            var cur=(state[mode][f.k]||'').split(', ').filter(Boolean), i=cur.indexOf(c);
-            if(i>-1) cur.splice(i,1); else cur.push(c);
-            state[mode][f.k]=cur.join(', ');
-            inp.value=state[mode][f.k];
-            b.setAttribute('aria-pressed',i>-1?'false':'true');
+            var i=st.sel.indexOf(en);
+            if(i>-1) st.sel.splice(i,1); else st.sel.push(en);
+            b.setAttribute('aria-pressed', i>-1?'false':'true');
             render();
           });
           chips.appendChild(b);
         });
         wrap.appendChild(chips);
       }
+
+      var fw=document.createElement('div'); fw.className='freewrap';
+      var inp=document.createElement('input');
+      inp.type='text'; inp.placeholder=f.ph?('או בעברית: '+f.ph):'או תכתוב בעברית…';
+      inp.value=st.he;
+      fw.appendChild(inp);
+      var tr=document.createElement('button');
+      tr.type='button'; tr.className='tr'; tr.textContent='תרגם';
+      fw.appendChild(tr);
+      wrap.appendChild(fw);
+
+      var eng=document.createElement('div'); eng.className='eng';
+      if(st.en){ eng.textContent=st.en; eng.classList.add('on'); }
+      wrap.appendChild(eng);
+
+      inp.addEventListener('input',function(){
+        st.he=inp.value;
+        if(!inp.value){ st.en=''; eng.classList.remove('on'); render(); }
+      });
+      tr.addEventListener('click',function(){ translateField(st, inp, eng, tr); });
+
       fieldsEl.appendChild(wrap);
     });
     hintEl.innerHTML=cfg.hint;
     render();
   }
 
+  function isHebrew(s){ return /[\u0590-\u05FF]/.test(s); }
+
+  function translateField(st, inp, eng, btn){
+    var txt=(inp.value||'').trim();
+    if(!txt) return;
+    if(!isHebrew(txt)){ st.en=txt; eng.textContent=txt; eng.classList.add('on'); render(); return; }
+    btn.disabled=true; btn.textContent='…';
+    fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(txt)+'&langpair=he|en')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var t=(d && d.responseData && d.responseData.translatedText) ? d.responseData.translatedText : '';
+        if(t && t.toUpperCase().indexOf('MYMEMORY WARNING')===-1){
+          st.en=t; eng.textContent=t; eng.classList.add('on');
+        } else {
+          eng.textContent='התרגום לא הצליח — נסה לנסח קצר יותר, או בחר מהאפשרויות למעלה.';
+          eng.classList.add('on');
+        }
+        render();
+      })
+      .catch(function(){
+        eng.textContent='אין חיבור לשירות התרגום כרגע. בחר מהאפשרויות למעלה.';
+        eng.classList.add('on');
+      })
+      .then(function(){ btn.disabled=false; btn.textContent='תרגם'; });
+  }
+
   function render(){
-    var s=state[mode]||{}, parts=[];
+    var s=state[mode]||{}, parts=[], avoid=[];
     MODES[mode].fields.forEach(function(f){
-      var v=(s[f.k]||'').trim();
-      if(!v||f.k==='avoid') return;
-      parts.push(v);
+      var st=s[f.k]; if(!st) return;
+      var bits=st.sel.slice();
+      if(st.en) bits.push(st.en);
+      else if(st.he && !isHebrew(st.he)) bits.push(st.he);
+      if(!bits.length) return;
+      if(f.k==='avoid') avoid=avoid.concat(bits);
+      else parts.push(bits.join(', '));
     });
     var txt=parts.join(', ');
-    if(s.avoid && s.avoid.trim()) txt+=(txt?'\n\n':'')+'--no '+s.avoid.trim();
-    outEl.textContent=txt||'מלא את השדות למעלה…';
+    if(avoid.length) txt+=(txt?'\n\n':'')+'--no '+avoid.join(', ');
+    outEl.textContent=txt||'בחר או כתוב למעלה…';
   }
 
   tabs.forEach(function(t){
@@ -622,9 +831,17 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     });
   });
 
+  document.getElementById('translateAll').addEventListener('click',function(){
+    var btn=this;
+    var inputs=[].slice.call(fieldsEl.querySelectorAll('.freewrap .tr'));
+    btn.disabled=true; btn.textContent='מתרגם…';
+    inputs.forEach(function(b,i){ setTimeout(function(){ b.click(); }, i*450); });
+    setTimeout(function(){ btn.disabled=false; btn.textContent='תרגם הכל לאנגלית'; }, inputs.length*450+1200);
+  });
+
   document.getElementById('copy').addEventListener('click',function(){
     var btn=this, txt=outEl.textContent;
-    if(!txt||txt.indexOf('מלא את')===0) return;
+    if(!txt||txt.indexOf('בחר או')===0) return;
     function done(){ btn.textContent='הועתק ✓'; setTimeout(function(){ btn.textContent='העתק'; },1600); }
     if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(done,done); }
     else{
@@ -634,15 +851,19 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       document.body.removeChild(ta); done();
     }
   });
+
   document.getElementById('clear').addEventListener('click',function(){ state[mode]={}; build(); });
+
   document.getElementById('preset').addEventListener('click',function(){
     var s={};
     MODES[mode].fields.forEach(function(f){
-      if(f.ph) s[f.k]=f.ph;
-      else if(f.chips) s[f.k]=f.chips.slice(0,2).join(', ');
+      var st=slot();
+      if(f.opts) st.sel=f.opts.slice(0,2).map(function(p){ return p[1]; });
+      s[f.k]=st;
     });
     state[mode]=s; build();
   });
+
   build();
 
   /* DRILL */
@@ -651,7 +872,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       fill=document.getElementById('drillFill'),
       lbl=document.getElementById('drillLbl'),
       doneBox=document.getElementById('drillDone');
-  try{ var raw=localStorage.getItem(KEY); if(raw){ var st=JSON.parse(raw); steps.forEach(function(x,i){ x.checked=!!st[i]; }); } }catch(e){}
+  try{ var raw=localStorage.getItem(KEY); if(raw){ var st2=JSON.parse(raw); steps.forEach(function(x,i){ x.checked=!!st2[i]; }); } }catch(e){}
   function drill(){
     var n=steps.filter(function(x){return x.checked;}).length;
     fill.style.width=(n/steps.length*100)+'%';
