@@ -12,7 +12,7 @@
   --gold:#E9A23B;--gold-2:#F5BE6B;
   --gold-soft:rgba(233,162,59,.09);--gold-line:rgba(233,162,59,.34);
   --court:rgba(233,162,59,.16);
-  --green:#5FBF7F;--red:#E06A4A;
+  --green:#5FBF7F;--red:#E06A4A;--purple:#8E5BA6;--lime:#A9D64B;
   --bone:#EDEAE4;--steel:#9E9A93;--steel-2:#BAB6AF;
   --line:rgba(237,234,228,.15);
   --disp:'Frank Ruhl Libre',Georgia,serif;
@@ -55,6 +55,20 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .slate .s-k{color:var(--ink);background:var(--gold);font-weight:700;letter-spacing:.1em}
 .slate .s-grow{flex:1;min-width:0}
 
+/* VIDEO */
+.vid{position:relative;width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--line);margin-bottom:2px}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* CHAPTERS */
+.chgroup{margin-top:2px;background:var(--ink-2)}
+.chgroup > .gh{display:flex;align-items:center;gap:11px;padding:13px 16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;border-bottom:1px solid var(--line)}
+.chgroup > .gh .gn{background:var(--gold);color:var(--ink);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex:none}
+.chgroup ol{list-style:none;display:grid;gap:1px;background:var(--line)}
+.chgroup li a{background:var(--ink-2);display:flex;gap:13px;align-items:baseline;padding:10px 16px;text-decoration:none;color:inherit;transition:background .15s}
+.chgroup li a:hover{background:var(--ink-3)}
+.chgroup .tc{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;min-width:62px}
+.chgroup .tt{font-size:15px;color:#D6D2CB;line-height:1.4}
+
 .links{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
 .lcard{background:var(--ink-2);padding:clamp(18px,2.2vw,26px);border-top:2px solid var(--gold);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:background .2s}
 .lcard:hover{background:var(--ink-3)}
@@ -63,6 +77,33 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .lcard p{font-size:14.5px;color:var(--steel-2);line-height:1.45}
 .lcard .go{font-family:var(--mono);font-size:12px;color:var(--gold);margin-top:auto;padding-top:8px}
 
+/* GRANDMA BUTTON */
+.grandma{
+  margin-top:2px;background:linear-gradient(100deg,rgba(142,91,166,.16),rgba(169,214,75,.12));
+  border:1px solid rgba(142,91,166,.4);padding:clamp(20px,2.6vw,30px);
+  display:flex;gap:20px;align-items:center;flex-wrap:wrap;text-decoration:none;color:inherit;
+  overflow:hidden;position:relative;transition:border-color .25s;
+}
+.grandma:hover{border-color:var(--lime)}
+.grandma .gi{flex:1;min-width:220px}
+.grandma .gk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--lime);text-transform:uppercase;display:block;margin-bottom:8px}
+.grandma b{display:block;font-family:var(--disp);font-weight:900;font-size:clamp(21px,2.6vw,28px);margin-bottom:7px;line-height:1.15}
+.grandma p{font-size:15px;color:#D6D2CB;line-height:1.45;max-width:44ch}
+.grandma .go{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--lime);color:#1A2205;padding:12px 22px;font-weight:800;font-size:15px;border-radius:2px}
+.skate{width:112px;height:92px;flex:none;animation:roll 3.2s ease-in-out infinite}
+@keyframes roll{
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(-16px)}
+}
+.grandma:hover .skate{animation-duration:1.1s}
+.skate .wheel{transform-origin:center;animation:spin 1.1s linear infinite}
+.grandma:hover .skate .wheel{animation-duration:.35s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.skate .speed{opacity:0;animation:whoosh 1.1s ease-out infinite}
+.grandma:hover .skate .speed{opacity:1}
+@keyframes whoosh{0%{opacity:.7;transform:translateX(0)}100%{opacity:0;transform:translateX(22px)}}
+
+/* RECEIPT + BONUS */
 .receipt{margin-top:2px;background:var(--ink-2);border:1px dashed var(--gold-line);padding:clamp(18px,2.4vw,26px);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .receipt .ri{flex:1;min-width:200px}
 .receipt .rk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:7px}
@@ -71,14 +112,16 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .receipt a{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:var(--ink);text-decoration:none;padding:14px 26px;font-weight:800;font-size:15.5px;border-radius:2px;white-space:nowrap}
 .receipt a:hover{background:var(--gold-2)}
 
-.chapters{margin-top:2px;background:var(--ink-2);padding:clamp(18px,2.2vw,26px)}
-.chapters .ck{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:14px}
-.chapters ol{list-style:none;display:grid;gap:1px;background:var(--line)}
-.chapters li{background:var(--ink-2);display:flex;gap:14px;align-items:baseline;padding:10px 2px}
-.chapters .tc{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;min-width:62px}
-.chapters .tt{font-size:15px;color:#D6D2CB}
+.bonus{margin-top:2px;background:var(--gold-soft);border:1px solid var(--gold-line);padding:clamp(20px,2.6vw,30px)}
+.bonus .bk{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:10px}
+.bonus h3{font-family:var(--disp);font-weight:900;font-size:clamp(21px,2.6vw,28px);margin-bottom:11px}
+.bonus p{font-size:16px;line-height:1.55;color:#E4E0DA;max-width:62ch}
+.bonus p+p{margin-top:.6em}
+.bonus b{color:var(--gold)}
+.bonus .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);text-decoration:none;padding:14px 28px;font-weight:800;font-size:15.5px;border-radius:2px;margin-top:18px}
+.bonus .btn:hover{background:var(--gold-2)}
 
-/* ===== BUILDER ===== */
+/* BUILDER */
 .builder{background:var(--ink-2);border:1px solid var(--gold-line);padding:clamp(18px,2.4vw,28px);margin-top:6px}
 .tabs{display:flex;gap:2px;margin-bottom:20px;flex-wrap:wrap}
 .tabs button{flex:1;min-width:110px;background:var(--ink-3);border:1px solid transparent;color:var(--steel-2);font:inherit;font-size:14.5px;font-weight:600;padding:12px 10px;cursor:pointer;border-radius:2px;transition:.2s}
@@ -101,7 +144,6 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .freewrap .tr:disabled{opacity:.5;cursor:default}
 .eng{font-family:var(--mono);font-size:12.5px;color:var(--green);direction:ltr;text-align:left;padding:2px 2px 0;display:none}
 .eng.on{display:block}
-
 .out{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
 .out .ok{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:10px}
 .out pre{background:var(--ink);border:1px solid var(--line);border-radius:2px;padding:15px;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:#D6D2CB;white-space:pre-wrap;word-break:break-word;direction:ltr;text-align:left;min-height:80px}
@@ -116,15 +158,14 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 
 /* LIBRARY */
 .lib{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));margin-top:2px}
-.lib > a,.lib > div{background:var(--ink-2);padding:clamp(18px,2.2vw,24px);display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit}
+.lib > a{background:var(--ink-2);padding:clamp(18px,2.2vw,24px);display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit;border-top:2px solid var(--gold);transition:background .2s}
+.lib > a:hover{background:var(--ink-3)}
 .lib .lk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
 .lib b{font-size:16.5px;font-weight:800}
 .lib p{font-size:14px;color:var(--steel-2);line-height:1.45}
-.lib .soon{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--steel);letter-spacing:.06em}
-.lib > div{opacity:.62;border-top:2px solid var(--line)}
-.lib > a{border-top:2px solid var(--gold)}
+.lib .ready{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;color:var(--gold)}
 
-/* MODELS */
+/* MODELS + PLANS */
 .mods{display:grid;gap:1px;background:var(--line);margin-top:2px}
 .mods > div{background:var(--ink);padding:16px 18px}
 .mods .mtop{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
@@ -134,8 +175,6 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .mods .md{font-size:14.5px;color:#D6D2CB;line-height:1.5}
 .grouphead{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin:26px 0 10px;display:flex;align-items:center;gap:12px}
 .grouphead::after{content:'';flex:1;height:1px;background:var(--line)}
-
-/* PRICING */
 .plans{display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(min(100%,262px),1fr));margin-top:2px}
 .plan{background:var(--ink-2);padding:clamp(18px,2.2vw,25px);display:flex;flex-direction:column;gap:11px;border-top:2px solid var(--line)}
 .plan.best{border-top-color:var(--gold)}
@@ -150,7 +189,6 @@ h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.7vw,40px);line
 .plan tr:last-child td{border-bottom:none}
 .plan .pnote{font-size:13.5px;color:var(--steel);line-height:1.5;margin-top:auto;padding-top:8px}
 .plan .pnote b{color:var(--gold)}
-
 .advice{background:var(--gold-soft);border:1px solid var(--gold-line);padding:clamp(18px,2.4vw,26px);margin-top:2px}
 .advice .ak{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:11px}
 .advice p{font-size:15.5px;line-height:1.55;color:#E4E0DA;max-width:64ch}
@@ -216,8 +254,8 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 
 @media print{
   body{background:#fff;color:#000}
-  body::before,body::after,#court,#nav{display:none}
-  .builder,.fb,.sup,.drill,.lcard,.chapters,.mods>div,.advice,.receipt,.plan,.redbox{background:#fff!important;border:1px solid #ccc}
+  body::before,body::after,#court,#nav,.vid,.skate{display:none}
+  .builder,.fb,.sup,.drill,.lcard,.mods>div,.advice,.receipt,.plan,.redbox,.chgroup,.grandma,.bonus{background:#fff!important;border:1px solid #ccc}
   h1,h2,h3{color:#000}
 }
 </style>
@@ -236,11 +274,12 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 </div>
 
 <nav id="nav"><div class="in">
+  <a href="#lesson">ההקלטה</a>
   <a href="#files">הקבצים</a>
   <a href="#builder">בונה פרומפטים</a>
   <a href="#library">ספריית פרומפטים</a>
   <a href="#models">מודלים</a>
-  <a href="#plans">מנויים ומחירים</a>
+  <a href="#plans">מנויים</a>
   <a href="#drill">התרגיל</a>
   <a href="#help">שאלות</a>
   <a href="#feedback">משוב</a>
@@ -252,56 +291,178 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   <div class="eyebrow">אחרי המפגש הראשון</div>
   <h1>גיא,<span class="thin">הנה הכל.</span></h1>
   <p class="intro">
-    כל מה שעברנו, במקום אחד. <b>ההקלטה, הקבצים, ובונה פרומפטים שבניתי לך</b> —
-    שבו אתה יכול לכתוב בעברית והוא מתרגם לאנגלית. תשמור את הדף במועדפים; אתה תחזור אליו.
+    כל מה שעברנו, במקום אחד. <b>ההקלטה עם 40 נקודות קפיצה, הקבצים, ובונה פרומפטים שבניתי לך</b> —
+    שבו אתה כותב בעברית והוא מתרגם לאנגלית. תשמור את הדף במועדפים; אתה תחזור אליו.
   </p>
 </header>
 
+<!-- LESSON -->
+<section id="lesson">
+  <div class="slate"><div class="s-k">01</div><div>ההקלטה</div><div class="s-grow"></div><div>שעתיים</div></div>
+  <h2>כל המפגש,<br>מחולק לפרקים.</h2>
+  <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
+    לחיצה על כל שורה קופצת ישירות לנקודה בסרטון. <b>אל תצפה מההתחלה לסוף</b> —
+    תשתמש בזה כמו במילון, כשאתה נתקע במשהו ספציפי.
+  </p>
+
+  <div class="vid">
+    <iframe src="https://www.youtube.com/embed/LLanhvuHTaM?rel=0"
+      title="הקלטת המפגש הראשון" loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+
+  <div class="chgroup">
+    <div class="gh"><span class="gn">1</span><span>הבסיס · איך הכל עובד</span></div>
+    <ol>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=0s" target="_blank" rel="noopener"><span class="tc">0:00</span><span class="tt">שני מסלולים: מתי צריך עקביות ומתי לא</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=61s" target="_blank" rel="noopener"><span class="tc">1:01</span><span class="tt">הכלים שאנחנו עובדים איתם — קלינג וסידנס</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=113s" target="_blank" rel="noopener"><span class="tc">1:53</span><span class="tt">טקסט לווידאו מול תמונה לווידאו</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=192s" target="_blank" rel="noopener"><span class="tc">3:12</span><span class="tt">יצירת תמונה מול יצירת וידאו — איפה מתבלבלים</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=223s" target="_blank" rel="noopener"><span class="tc">3:43</span><span class="tt">הפלואו המלא: רעיון ← אלמנטים ← תמונות ← וידאו</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=266s" target="_blank" rel="noopener"><span class="tc">4:26</span><span class="tt">אנלוגיית הסושי — לפרק הכל לרכיבים</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=322s" target="_blank" rel="noopener"><span class="tc">5:22</span><span class="tt">תמיד ליצור את התמונה לפני הווידאו</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=395s" target="_blank" rel="noopener"><span class="tc">6:35</span><span class="tt">לפרק פרויקט: מי, איפה, ומה חייב להישאר עקבי</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=495s" target="_blank" rel="noopener"><span class="tc">8:15</span><span class="tt">מה זה SFX ואיך המודלים מייצרים סאונד</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=550s" target="_blank" rel="noopener"><span class="tc">9:10</span><span class="tt">הכלים לא חשובים — הפלואו חשוב</span></a></li>
+    </ol>
+  </div>
+
+  <div class="chgroup">
+    <div class="gh"><span class="gn">2</span><span>דמויות, מודלים ופרומפטים</span></div>
+    <ol>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=605s" target="_blank" rel="noopener"><span class="tc">10:05</span><span class="tt">קרקטר שיט: למה צריך את הדמות מכל הזוויות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=691s" target="_blank" rel="noopener"><span class="tc">11:31</span><span class="tt">רפרנסים: דמות מפורסמת מול דמות שאין לה תמונות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=842s" target="_blank" rel="noopener"><span class="tc">14:02</span><span class="tt">מודלים ליצירת תמונות — מה יש בשוק</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=940s" target="_blank" rel="noopener"><span class="tc">15:40</span><span class="tt">זה אף פעם לא יוצא בניסיון הראשון</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1027s" target="_blank" rel="noopener"><span class="tc">17:07</span><span class="tt">Flow מול ג'מיני — למה אני ממליץ על Flow</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1140s" target="_blank" rel="noopener"><span class="tc">19:00</span><span class="tt">Nano Banana — ההבדל בין הגרסאות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1321s" target="_blank" rel="noopener"><span class="tc">22:01</span><span class="tt">להיעזר בצ'אט כדי לכתוב פרומפטים</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1500s" target="_blank" rel="noopener"><span class="tc">25:00</span><span class="tt">לבקש ממנו לחקור באינטרנט את המבנה הנכון למודל</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1576s" target="_blank" rel="noopener"><span class="tc">26:16</span><span class="tt">הידע שלך כצלם הוא היתרון</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1691s" target="_blank" rel="noopener"><span class="tc">28:11</span><span class="tt">עברית או אנגלית בפרומפט — ולמה</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1826s" target="_blank" rel="noopener"><span class="tc">30:26</span><span class="tt">חסימות תוכן ואיך מתמודדים איתן</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=1913s" target="_blank" rel="noopener"><span class="tc">31:53</span><span class="tt">מה זה מורפינג ואיך מזהים אותו</span></a></li>
+    </ol>
+  </div>
+
+  <div class="chgroup">
+    <div class="gh"><span class="gn">3</span><span>התרגיל: בונים את הסבתא</span></div>
+    <ol>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=2256s" target="_blank" rel="noopener"><span class="tc">37:36</span><span class="tt">דמות אמיתית מול דמות מומצאת — מה ההבדל</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=2371s" target="_blank" rel="noopener"><span class="tc">39:31</span><span class="tt">בונים דמות מאפס</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=2404s" target="_blank" rel="noopener"><span class="tc">40:04</span><span class="tt">סגנונות: פלסטלינה, אנימציה, ריאליסטי</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=2693s" target="_blank" rel="noopener"><span class="tc">44:53</span><span class="tt">מגדירים אותה: שמלה, משקפיים, שיער, גיל</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=2957s" target="_blank" rel="noopener"><span class="tc">49:17</span><span class="tt">הכלל הכי חשוב: כמה שיותר ספציפי</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3047s" target="_blank" rel="noopener"><span class="tc">50:47</span><span class="tt">מונחי צילום בפרומפט: צמצם, פורטרט, סטודיו</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3080s" target="_blank" rel="noopener"><span class="tc">51:20</span><span class="tt">ליצור את הרולר בליידס כאלמנט נפרד</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3200s" target="_blank" rel="noopener"><span class="tc">53:20</span><span class="tt">קודם לסגור את הדמות, אחר כך הזוויות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3254s" target="_blank" rel="noopener"><span class="tc">54:14</span><span class="tt">יוצרים קרקטר שיט מכל הזוויות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3382s" target="_blank" rel="noopener"><span class="tc">56:22</span><span class="tt">לוקיישן: מקום מפורסם מול מקום מקומי</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3440s" target="_blank" rel="noopener"><span class="tc">57:20</span><span class="tt">"תשנה רק את הדבר הבא" — לתקן בלי לשבור</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3604s" target="_blank" rel="noopener"><span class="tc">1:00:04</span><span class="tt">לארגן את הקבצים בתיקיות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3766s" target="_blank" rel="noopener"><span class="tc">1:02:46</span><span class="tt">למה AI מוציא תוצאה שגויה — שתי הסיבות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3802s" target="_blank" rel="noopener"><span class="tc">1:03:22</span><span class="tt">מעצבים את הרולר בליידס</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3954s" target="_blank" rel="noopener"><span class="tc">1:05:54</span><span class="tt">אלמנטים: לצרף כמה תמונות ולתייג אותן</span></a></li>
+    </ol>
+  </div>
+
+  <div class="chgroup">
+    <div class="gh"><span class="gn">4</span><span>כסף, איכות, ומהתמונה לווידאו</span></div>
+    <ol>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=3989s" target="_blank" rel="noopener"><span class="tc">1:06:29</span><span class="tt">מה עולה כסף: המודל, השניות, האיכות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4171s" target="_blank" rel="noopener"><span class="tc">1:09:31</span><span class="tt">רזולוציה — למה 4K לא תמיד עוזר לך</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4274s" target="_blank" rel="noopener"><span class="tc">1:11:14</span><span class="tt">לשמור על איכות אחידה לאורך כל התהליך</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4304s" target="_blank" rel="noopener"><span class="tc">1:11:44</span><span class="tt">למה דווקא לבחור 480 — שתי סיבות</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4428s" target="_blank" rel="noopener"><span class="tc">1:13:48</span><span class="tt">כמה זה עולה לי בפועל בחודש</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4756s" target="_blank" rel="noopener"><span class="tc">1:19:16</span><span class="tt">תחביב מול עסק — מתי כדאי לשלם</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4895s" target="_blank" rel="noopener"><span class="tc">1:21:35</span><span class="tt">עוברים לווידאו: כותבים את הפרומפט עם הצ'אט</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=4912s" target="_blank" rel="noopener"><span class="tc">1:21:52</span><span class="tt">איזה צ'אט למה: GPT, ג'מיני, קלוד</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=5027s" target="_blank" rel="noopener"><span class="tc">1:23:47</span><span class="tt">מה זה "אלמנט" ומה ההבדל מדמות ולוקיישן</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=5225s" target="_blank" rel="noopener"><span class="tc">1:27:05</span><span class="tt">קלינג לא עובד בעברית</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=5380s" target="_blank" rel="noopener"><span class="tc">1:29:40</span><span class="tt">פרומפט מול תסריט — מה ההבדל</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=5470s" target="_blank" rel="noopener"><span class="tc">1:31:10</span><span class="tt">מוסיפים תאורת שקיעה וקונטרסט</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=5795s" target="_blank" rel="noopener"><span class="tc">1:36:35</span><span class="tt">מגבלת תווים — כשהפרומפט ארוך מדי</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=5922s" target="_blank" rel="noopener"><span class="tc">1:38:42</span><span class="tt">מולטישוט: כמה קאטים בתוך שוט אחד</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=6015s" target="_blank" rel="noopener"><span class="tc">1:40:15</span><span class="tt">בימוי מצלמה: רחפן, דולי, אורביט</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=6301s" target="_blank" rel="noopener"><span class="tc">1:45:01</span><span class="tt">תיוג עם @ — איך המודל מקשר תמונה לטקסט</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=6481s" target="_blank" rel="noopener"><span class="tc">1:48:01</span><span class="tt">חסימת זכויות יוצרים והטריקים לעקוף</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=6547s" target="_blank" rel="noopener"><span class="tc">1:49:07</span><span class="tt">מנסים בסידנס — ולמה גם שם יש חסימה</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=6720s" target="_blank" rel="noopener"><span class="tc">1:52:00</span><span class="tt">לכל מודל יש חוקים שונים</span></a></li>
+      <li><a href="https://www.youtube.com/watch?v=LLanhvuHTaM&t=6882s" target="_blank" rel="noopener"><span class="tc">1:54:42</span><span class="tt">סיכום — מה חשוב שתיקח מהמפגש</span></a></li>
+    </ol>
+  </div>
+</section>
+
 <!-- FILES -->
 <section id="files">
-  <div class="slate"><div class="s-k">01</div><div>הקבצים</div><div class="s-grow"></div></div>
+  <div class="slate"><div class="s-k">02</div><div>הקבצים</div><div class="s-grow"></div></div>
   <h2>מה שיצרנו.</h2>
   <div class="links">
     <a class="lcard" href="https://drive.google.com/drive/folders/1bxigu1CfL9LqrYBvYn9-rKLO712f-VPF?usp=sharing" target="_blank" rel="noopener">
       <span class="lk">Drive</span><b>התיקייה</b>
-      <p>הפריימים, הדמות והשוט המתנועע — הכל בפורמט מלא.</p>
+      <p>הסבתא, הרולר בליידס, פארק הירקון והקרקטר שיטים — הכל בפורמט מלא.</p>
       <span class="go">לפתוח ←</span>
     </a>
-    <a class="lcard" href="https://www.youtube.com/watch?v=LLanhvuHTaM" target="_blank" rel="noopener">
-      <span class="lk">YouTube · לא רשום</span><b>הקלטת המפגש</b>
-      <p>שעתיים מלאות. אפשר לצפות במהירות כפולה ולקפוץ לנקודה.</p>
-      <span class="go">לצפייה ←</span>
+    <a class="lcard" href="https://drive.google.com/file/d/1n3VUJ8in_1a_N_4xHTX9X1A2zKRwc0Uq/view?usp=drive_link" target="_blank" rel="noopener">
+      <span class="lk">קבלה</span><b>אישור תשלום</b>
+      <p>מפגש פרטי בן שעתיים · יום חמישי, 27 באוגוסט 2026.</p>
+      <span class="go">להורדה ←</span>
     </a>
   </div>
 
-  <div class="receipt">
-    <div class="ri">
-      <span class="rk">תשלום</span>
-      <b>קבלה על השיעור</b>
-      <p>מפגש פרטי בן שעתיים · יום חמישי, 27 באוגוסט 2026</p>
-    </div>
-    <a href="https://drive.google.com/file/d/1n3VUJ8in_1a_N_4xHTX9X1A2zKRwc0Uq/view?usp=drive_link" target="_blank" rel="noopener">להורדת הקבלה ←</a>
-  </div>
+  <!-- CHATGPT SESSION -->
+  <a class="grandma" href="https://chatgpt.com/share/6a9833df-fa04-83eb-8c42-8d5a4ef48cf0" target="_blank" rel="noopener">
+    <span class="skate" aria-hidden="true">
+      <svg viewBox="0 0 140 115">
+        <!-- speed lines -->
+        <g class="speed" stroke="#A9D64B" stroke-width="3" stroke-linecap="round" opacity=".7">
+          <line x1="8" y1="30" x2="30" y2="30"/>
+          <line x1="2" y1="46" x2="26" y2="46"/>
+          <line x1="10" y1="62" x2="28" y2="62"/>
+        </g>
+        <!-- boot -->
+        <path d="M52 14 h34 a12 12 0 0 1 12 12 v30 a10 10 0 0 0 10 10 h12 a8 8 0 0 1 8 8 v6 H52 a8 8 0 0 1-8-8 V22 a8 8 0 0 1 8-8 z"
+              fill="#A9D64B" stroke="#7FA836" stroke-width="2.5"/>
+        <!-- straps -->
+        <rect x="50" y="26" width="52" height="8" rx="3" fill="#DFF0A8" opacity=".85"/>
+        <rect x="50" y="46" width="44" height="7" rx="3" fill="#DFF0A8" opacity=".7"/>
+        <!-- purple accent, the grandma's dress -->
+        <path d="M60 14 h16 v14 h-16 z" fill="#8E5BA6" opacity=".75"/>
+        <!-- frame -->
+        <rect x="46" y="80" width="86" height="7" rx="3.5" fill="#7FA836"/>
+        <!-- wheels -->
+        <g fill="#DFF0A8" stroke="#7FA836" stroke-width="2.5">
+          <g class="wheel" style="transform-origin:59px 95px"><circle cx="59" cy="95" r="13"/><line x1="59" y1="84" x2="59" y2="106" stroke-width="2"/><line x1="48" y1="95" x2="70" y2="95" stroke-width="2"/></g>
+          <g class="wheel" style="transform-origin:89px 95px"><circle cx="89" cy="95" r="13"/><line x1="89" y1="84" x2="89" y2="106" stroke-width="2"/><line x1="78" y1="95" x2="100" y2="95" stroke-width="2"/></g>
+          <g class="wheel" style="transform-origin:119px 95px"><circle cx="119" cy="95" r="13"/><line x1="119" y1="84" x2="119" y2="106" stroke-width="2"/><line x1="108" y1="95" x2="130" y2="95" stroke-width="2"/></g>
+        </g>
+      </svg>
+    </span>
+    <span class="gi">
+      <span class="gk">הצ'אט מהמפגש</span>
+      <b>הסבתא על הרולר בליידס</b>
+      <p>כל השיחה שלנו עם ChatGPT — מהרגע שהמצאנו אותה, דרך הקרקטר שיט,
+      פארק הירקון, עיצוב הרולר בליידס ועד הפרומפט לווידאו. <b>הכל פתוח, אפשר להעתיק ולהמשיך משם.</b></p>
+      <span class="go">לפתוח את הצ'אט ←</span>
+    </span>
+  </a>
 
-  <div class="chapters">
-    <span class="ck">איפה למצוא מה בהקלטה</span>
-    <ol>
-      <li><span class="tc">[00:00]</span><span class="tt">פתיחה — מה עושים היום</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">איך מכונה מייצרת תמונה, ולמה אותו פרומפט נותן תוצאה אחרת</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">הכלים — מה יש בשוק ובמה אנחנו עובדים</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">התמונה הראשונה — הממשק והפרומפט הראשון</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">מבנה הפרומפט: מי · מה עושה · איפה · אור · עדשה · אווירה</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">סבבי שיפור — מגרוע לטוב</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">בונים את הילד הכדורסלן</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">מתמונה לווידאו — תנועת מצלמה</span></li>
-      <li><span class="tc">[00:00]</span><span class="tt">קריאת התוצאה — מה עבד ומה נשבר</span></li>
-    </ol>
+  <!-- BONUS HOUR -->
+  <div class="bonus">
+    <span class="bk">מתנה</span>
+    <h3>שעת תרגול, עליי.</h3>
+    <p>אתה התלמיד הראשון שלי — <b>אז שעת התרגול הראשונה שלך היא על חשבוני.</b></p>
+    <p>זה לא שיעור. אתה מגיע אליי עם פרויקט שאתה כבר עובד עליו, יושבים שעה ועובדים עליו יחד.
+    בלי מצגות ובלי תוכנית — אתה על המקלדת ואני עונה על מה שנתקע.
+    <b>הכי טוב לעשות את זה אחרי שתסיים את התרגיל למטה</b>, כדי שיהיה לנו על מה לדבר.</p>
+    <a class="btn" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%AA%20%D7%A9%D7%A2%D7%AA%20%D7%94%D7%AA%D7%A8%D7%92%D7%95%D7%9C" target="_blank" rel="noopener">לקבוע את השעה ←</a>
   </div>
 </section>
 
 <!-- BUILDER -->
 <section id="builder">
-  <div class="slate"><div class="s-k">02</div><div>בונה פרומפטים</div><div class="s-grow"></div><div>עברית ← אנגלית</div></div>
+  <div class="slate"><div class="s-k">03</div><div>בונה פרומפטים</div><div class="s-grow"></div><div>עברית ← אנגלית</div></div>
   <h2>תכתוב בעברית.<br>יצא באנגלית.</h2>
   <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
     בחר מהאפשרויות, או תכתוב חופשי בעברית ולחץ <b>"תרגם"</b>. הפרומפט נבנה למטה באנגלית ואתה מעתיק.
@@ -326,8 +487,8 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       </div>
       <p class="hint" id="hint"></p>
       <p class="trnote">
-        <b>על התרגום:</b> הוא אוטומטי ולרוב טוב, אבל לא מושלם. אם משהו יוצא מוזר —
-        תערוך את האנגלית ידנית בשדה. <b>והכי בטוח:</b> תשתמש באפשרויות המוכנות, הן כבר בניסוח שעובד.
+        <b>על התרגום:</b> אוטומטי ולרוב טוב, אבל לא מושלם. אם משהו יוצא מוזר — תערוך את האנגלית ידנית.
+        <b>והכי בטוח:</b> תשתמש באפשרויות המוכנות, הן כבר בניסוח שעובד.
       </p>
     </div>
   </div>
@@ -335,61 +496,68 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 
 <!-- LIBRARY -->
 <section id="library">
-  <div class="slate"><div class="s-k">03</div><div>ספריית פרומפטים</div><div class="s-grow"></div><div>מתעדכן</div></div>
-  <h2>דוגמאות שעובדות.</h2>
+  <div class="slate"><div class="s-k">04</div><div>ספריית פרומפטים</div><div class="s-grow"></div><div>מתעדכן</div></div>
+  <h2>הפרומפטים שהבטחתי.</h2>
   <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
-    אוסף פרומפטים מוכנים מהעבודה שלי. <b>אני מוסיף אליו כל הזמן</b> — ואשלח לך כשכל אחד מוכן.
+    שלושת המסמכים שדיברנו עליהם במפגש. <b>אני ממשיך להוסיף אליהם</b> — הקישורים חיים,
+    אז מה שתראה בעוד חודש יהיה יותר ממה שיש היום.
   </p>
   <div class="lib">
-    <div><span class="lk">עקביות</span><b>Character Consistency</b>
+    <a href="https://docs.google.com/document/d/12GvvRdrMq7qS_tkgE-k9T6LGWmrPbH5x/edit?usp=sharing&ouid=100296337382648077488&rtpof=true&sd=true" target="_blank" rel="noopener">
+      <span class="lk">עקביות</span><b>Character Consistency</b>
       <p>איך שומרים על אותה דמות בין שוטים — הטכניקות והניסוחים המדויקים.</p>
-      <span class="soon">בדרך · אשלח לך</span></div>
-    <div><span class="lk">לוקיישן</span><b>יצירת מיקומים</b>
+      <span class="ready">לפתוח את המסמך ←</span>
+    </a>
+    <a href="https://docs.google.com/document/d/1vVPOJy13MBZ1JQN_SwBFw5HobgzNBdUt/edit?usp=drive_link&ouid=100296337382648077488&rtpof=true&sd=true" target="_blank" rel="noopener">
+      <span class="lk">לוקיישן</span><b>Location Consistency</b>
       <p>לבנות מקום שנשאר עקבי בין שוטים, עם אור ואווירה שמתנהגים נכון.</p>
-      <span class="soon">בדרך · אשלח לך</span></div>
-    <div><span class="lk">שונות</span><b>פרומפטים נוספים</b>
+      <span class="ready">לפתוח את המסמך ←</span>
+    </a>
+    <a href="https://docs.google.com/document/d/1FADmVnP0IdwoVwXK_Z-dit6lX3AyLk57/edit?usp=drive_link&ouid=100296337382648077488&rtpof=true&sd=true" target="_blank" rel="noopener">
+      <span class="lk">שונות</span><b>פרומפטים נוספים</b>
       <p>תנועות מצלמה, סגנונות, מעברים — דברים שאני צובר תוך כדי עבודה.</p>
-      <span class="soon">בדרך · אשלח לך</span></div>
+      <span class="ready">לפתוח את המסמך ←</span>
+    </a>
   </div>
 </section>
 
 <!-- MODELS -->
 <section id="models">
-  <div class="slate"><div class="s-k">04</div><div>מודלים</div><div class="s-grow"></div></div>
+  <div class="slate"><div class="s-k">05</div><div>מודלים</div><div class="s-grow"></div></div>
   <h2>במה לעבוד.</h2>
 
   <div class="grouphead">וידאו · מה שעבדנו עליו</div>
   <div class="mods">
     <div>
       <div class="mtop"><span class="mn">Seedance</span><span class="via">דרך Dreamina</span><span class="tagm">ההמלצה שלי</span></div>
-      <p class="md">המודל הכי טוב בשוק היום, ודרך Dreamina גם הכי משתלם. אם אתה מתחיל ממקום אחד — תתחיל מפה.</p>
+      <p class="md">המודל הכי טוב בשוק היום — הנאמנות שלו לפיזיקה ולנראות אמיתית היא במקום ראשון. ודרך Dreamina גם הכי משתלם.</p>
     </div>
     <div>
       <div class="mtop"><span class="mn">Kling</span><span class="tagm">מה שאני עובד איתו</span></div>
-      <p class="md">מה שאני משתמש בו מאז שהתחלתי, וזה מה שהראיתי לך במפגש. חזק במיוחד בדמויות ובשמירה על עקביות ביניהן — בדיוק מה שהפרויקט שלך צריך.</p>
+      <p class="md">מה שאני משתמש בו מאז שהתחלתי, וזה מה שהראיתי לך. חזק בדמויות ובעקביות, ותומך באלמנטים ובתיוג — בדיוק מה שהפרויקט שלך צריך.</p>
     </div>
   </div>
 
   <div class="grouphead">תמונות · מה שעבדנו עליו</div>
   <div class="mods">
-    <div><div class="mtop"><span class="mn">ChatGPT</span></div>
-      <p class="md">לייצור תמונות ולעבודה על הרעיון עצמו. גם מה שנשתמש בו בתרגיל כדי לפרק את הסצנה.</p></div>
+    <div><div class="mtop"><span class="mn">ChatGPT</span><span class="tagm">לתמונות ולפרומפטים</span></div>
+      <p class="md">נכון להיום המודל הכי טוב לתווי פנים ולתאורה אמיתית — וגם מה שעוזר לנו לכתוב את הפרומפטים עצמם.</p></div>
     <div><div class="mtop"><span class="mn">Nano Banana</span><span class="via">דרך Flow</span></div>
-      <p class="md">מהיר וטוב לעריכת תמונות ולשינויים ממוקדים על משהו שכבר קיים.</p></div>
+      <p class="md">מהיר וטוב לעריכת תמונות ולשינויים ממוקדים. עדיף על ג'מיני כי אין סימן מים ויש שליטה מלאה ברזולוציה ובפורמט.</p></div>
     <div><div class="mtop"><span class="mn">Midjourney</span><span class="via">לא עברנו עליו</span></div>
-      <p class="md">קיים ורבים אוהבים אותו, אבל לא לימדתי אותך עליו ואין צורך שתיגע בו עכשיו. שווה להכיר בהמשך.</p></div>
+      <p class="md">קיים ורבים אוהבים אותו, אבל אין צורך שתיגע בו עכשיו. שווה להכיר בהמשך.</p></div>
   </div>
 </section>
 
 <!-- PLANS -->
 <section id="plans">
-  <div class="slate"><div class="s-k">05</div><div>מנויים ומחירים</div><div class="s-grow"></div><div>אוגוסט 2026</div></div>
+  <div class="slate"><div class="s-k">06</div><div>מנויים ומחירים</div><div class="s-grow"></div><div>אוגוסט 2026</div></div>
   <h2>על מה לשלם,<br>וכמה.</h2>
 
   <div class="advice">
     <span class="ak">ההמלצה שלי, לפני הכל</span>
-    <p><b>קח מנוי לחודש אחד בלבד — ובטל לפני שהוא מתחדש.</b> תשים תזכורת ביומן ליומיים לפני החידוש, ברגע שאתה משלם.</p>
-    <p>חודש זה בדיוק מספיק כדי להבין אם אתה נהנה מזה ומייצר בקצב. אם כן — תחדש בלב שלם.
+    <p><b>קח מנוי לחודש אחד בלבד — ובטל לפני שהוא מתחדש.</b> תשים תזכורת ביומן ליומיים לפני, ברגע שאתה משלם.</p>
+    <p>חודש זה בדיוק מספיק כדי להבין אם אתה נהנה ומייצר בקצב. אם כן — תחדש בלב שלם.
     <b>ואל תיקח שנתי עכשיו</b>, גם אם ההנחה מפתה. היא תמיד תחזור.</p>
   </div>
 
@@ -402,7 +570,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
         <tr><td>Standard · 3,665</td><td>€39</td></tr>
         <tr><td>Advanced · 7,955</td><td>€77</td></tr>
       </table>
-      <p class="pnote"><b>לא מתחדש אוטומטית.</b> יקר ב-€3 מהחודשי הרגיל — וזה שווה כל אגורה, כי אתה לא תשכח לבטל.</p>
+      <p class="pnote"><b>לא מתחדש אוטומטית.</b> יקר ב-€3 מהחודשי הרגיל — ושווה כל אגורה, כי אתה לא תשכח לבטל.</p>
     </div>
     <div class="plan">
       <div class="ptop"><h3>חודשי</h3><span class="for">מתחדש</span></div>
@@ -442,16 +610,16 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
         <tr><td>אחר כך</td><td>$32.56</td></tr>
         <tr><td>קרדיטים</td><td>3,000 / mo</td></tr>
       </table>
-      <p class="pnote">בערך פי 4.5 קרדיטים בפי 3.7 מחיר. משתלם רק אם אתה באמת מייצר.</p>
+      <p class="pnote">פי 4.5 קרדיטים בפי 3.7 מחיר. משתלם רק אם אתה באמת מייצר.</p>
     </div>
     <div class="plan">
-      <div class="ptop"><h3>Premier / Ultra</h3><span class="for">לא בשבילך</span></div>
+      <div class="ptop"><h3>Premier / Ultra</h3><span class="for">לא בשבילך עכשיו</span></div>
       <table>
         <tr><td>Premier</td><td>$64.99 → $80.96</td></tr>
         <tr><td>Ultra</td><td>$127.99 → $159.99</td></tr>
         <tr><td>קרדיטים</td><td>8,000 / 26,000</td></tr>
       </table>
-      <p class="pnote">רמות של מי שמייצר יום־יום למחייה. <b>לא לשם אתה הולך עכשיו.</b></p>
+      <p class="pnote">אני על Premier כי זה העסק שלי. <b>אתה לא שם עדיין.</b></p>
     </div>
   </div>
 
@@ -489,17 +657,17 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   <div class="redbox">
     <span class="ak">שתי מלכודות שתיתקל בהן</span>
     <p><b>1 · הפופ־אפ עם השעון שרץ.</b> "55% הנחה אישית, נותרו 02:58:06". זה לא אישי וזה לא נגמר —
-    הטיימר מתאפס בכל ביקור. אם ההצעה טובה בשבילך היא תהיה טובה גם מחר. <b>אל תיתן לשעון להחליט במקומך.</b></p>
+    הטיימר מתאפס בכל ביקור. אם ההצעה טובה בשבילך היא תהיה טובה גם מחר.</p>
     <p><b>2 · "חודש ראשון" מול מחיר חידוש.</b> כמעט בכל אתר המחיר הגדול הוא של החודש הראשון בלבד.
-    לפני שאתה משלם, תחפש את המילים הקטנות שכתוב בהן <b>renews at</b> — זה המחיר האמיתי שלך מהחודש השני.</p>
-    <p>ודבר אחרון: המחירים כאן נכונים לאוגוסט 2026, ובתחום הזה הם משתנים כל חודש.
+    לפני שאתה משלם, תחפש את המילים הקטנות <b>renews at</b> — זה המחיר האמיתי שלך מהחודש השני.</p>
+    <p>המחירים כאן נכונים לאוגוסט 2026, ובתחום הזה הם משתנים כל חודש.
     <b>תמיד תבדוק בדף התמחור הרשמי לפני שאתה מזין כרטיס.</b></p>
   </div>
 </section>
 
 <!-- DRILL -->
 <section id="drill">
-  <div class="slate"><div class="s-k">06</div><div>התרגיל</div><div class="s-grow"></div><div>הפעם הראשונה לבד</div></div>
+  <div class="slate"><div class="s-k">07</div><div>התרגיל</div><div class="s-grow"></div><div>הפעם הראשונה לבד</div></div>
   <h2>שתי סצנות,<br>מהתחלה עד הסוף.</h2>
 
   <div class="drill">
@@ -516,19 +684,19 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     <div class="steps">
       <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>1 · תבנה את הסצנה בצ'אט</b>
-        <p>פתח את ChatGPT או Gemini — מה שנוח לך — ותפרק את שתי הסצנות בדיוק כמו שעשינו במפגש: מה קורה, מי בפריים, כמה שוטים.</p></span></label></div>
+        <p>פתח את ChatGPT או Gemini ותפרק את שתי הסצנות כמו שעשינו עם הסבתא: מה קורה, מי בפריים, כמה שוטים.</p></span></label></div>
       <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>2 · תחליט מה אתה צריך</b>
-        <p>עבור על הפירוק ותסמן: כמה דמויות יש? כמה לוקיישנים? מה חוזר בין שתי הסצנות וחייב להישאר זהה?</p></span></label></div>
+        <p>עבור על הפירוק ותסמן: כמה דמויות? כמה לוקיישנים? מה חוזר בין שתי הסצנות וחייב להישאר זהה?</p></span></label></div>
       <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>3 · פרומפטים ותמונות</b>
-        <p>כתוב פרומפט לכל דמות ולכל לוקיישן — תשתמש בבונה למעלה — וייצר את התמונות. זה השלב שייקח לך הכי הרבה זמן, וזה בסדר.</p></span></label></div>
+        <p>כתוב פרומפט לכל דמות ולכל לוקיישן — תשתמש בבונה למעלה — וייצר את התמונות. זה השלב הארוך, וזה בסדר.</p></span></label></div>
       <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>4 · מתמונות לווידאו</b>
-        <p>קח את הפריימים שאתה הכי אוהב והפוך אותם לשוטים מתנועעים, בדיוק כמו שעשינו.</p></span></label></div>
+        <p>קח את הפריימים שאתה הכי אוהב והפוך אותם לשוטים מתנועעים, עם הנחיות מצלמה כמו שעשינו.</p></span></label></div>
       <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>5 · לערוך</b>
-        <p>פה אתה בבית. תחבר את השוטים, תשחק עם הקצב, תוסיף מוזיקה או סאונד אם בא לך. זה החלק שהופך קטעים לסצנה.</p></span></label></div>
+        <p>פה אתה בבית. תחבר את השוטים, תשחק עם הקצב, תוסיף מוזיקה או סאונד אם בא לך.</p></span></label></div>
       <div class="stp"><label><input type="checkbox" class="dstep"><span class="box"></span>
         <span class="txt"><b>6 · לייצא ולשלוח לי</b>
         <p>ייצא, העלה לדרייב, ותשלח לי לינק. <b>תעלה גם את הניסיונות שנפלו</b> — עליהם נדבר לא פחות.</p></span></label></div>
@@ -540,31 +708,30 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     </div>
 
     <div id="drillDone">
-      <b>סיימת. כל הכבוד.</b> תשלח לי את הלינק בוואטסאפ ואני אעבור על הכל —
-      גם על מה שיצא טוב וגם על מה שנפל, ואגיד לך בדיוק מה גרם למה.
+      <b>סיימת. כל הכבוד.</b> עכשיו זה הזמן המושלם לממש את שעת התרגול שעליי —
+      תשלח לי את הלינק ונקבע. נעבור על הכל יחד, כולל על מה שנפל.
     </div>
   </div>
 </section>
 
 <!-- HELP -->
 <section id="help">
-  <div class="slate"><div class="s-k">07</div><div>נתקעת?</div><div class="s-grow"></div></div>
+  <div class="slate"><div class="s-k">08</div><div>נתקעת?</div><div class="s-grow"></div></div>
   <div class="sup">
     <h3>אני כאן, באמת.</h3>
     <p>אמרתי לך את זה במפגש ואני חוזר על זה בכתב: <b>בשבוע — ואפילו בשבועיים — הקרובים אתה יכול לכתוב לי
     בוואטסאפ בכל שאלה, ואני מלווה אותך בתהליך.</b> לא "שאלות קצרות בלבד" ולא "אם יש לי זמן". פשוט תכתוב.</p>
-    <p>זה כולל גם ליווי תוך כדי התרגיל — תקוע על פרומפט, לא בטוח איזה מודל לבחור, משהו יוצא מוזר ואתה לא מבין למה.
+    <p>זה כולל ליווי תוך כדי התרגיל — תקוע על פרומפט, לא בטוח איזה מודל לבחור, משהו יוצא מוזר ואתה לא מבין למה.
     <b>בדיוק בשביל זה אני שם.</b></p>
     <p>ואם משהו לא עובד ואתה לא מצליח להסביר במילים — <b>תשלח לי צילום מסך של הפרומפט ושל התוצאה.</b>
-    ככה אני רואה בשנייה מה קרה. זו הדרך הכי מהירה לקבל תשובה.</p>
-    <p>שאלה טיפשית היא שאלה שלא נשאלה. כל מה שנראה לך מובן מאליו — כנראה לא, ואני שמח שתשאל.</p>
+    ככה אני רואה בשנייה מה קרה.</p>
     <a class="btn" href="https://wa.me/972526479739?text=%D7%A0%D7%99%D7%A8%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%9E%D7%94%D7%9E%D7%A4%D7%92%D7%A9" target="_blank" rel="noopener">לכתוב לי בוואטסאפ ←</a>
   </div>
 </section>
 
 <!-- FEEDBACK -->
 <section id="feedback">
-  <div class="slate"><div class="s-k">08</div><div>משוב</div><div class="s-grow"></div><div>2 דקות</div></div>
+  <div class="slate"><div class="s-k">09</div><div>משוב</div><div class="s-grow"></div><div>2 דקות</div></div>
   <h2>עשה לי טובה אחת.</h2>
   <p class="lede" style="margin-bottom:clamp(20px,2.6vw,30px)">
     אתה התלמיד הראשון שלי. <b>המשוב שלך שווה לי יותר מהתשלום</b> — הוא מה שיקבע איך ייראה המפגש הבא,
@@ -588,8 +755,8 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       <textarea name="הכי שימושי" placeholder="החלק שבגללו הרגשת שהבנת משהו…"></textarea></div>
     <div class="fq"><span>מה היה מיותר או לא ברור?</span>
       <textarea name="מיותר או לא ברור" placeholder="בלי לרכך. זה החלק שהכי עוזר לי…"></textarea></div>
-    <div class="fq"><span>מה היית רוצה שנעשה במפגש הבא?</span>
-      <textarea name="מפגש הבא" placeholder="גם אם אתה עוד לא בטוח שיהיה כזה…"></textarea></div>
+    <div class="fq"><span>מה היית רוצה שנעשה בשעת התרגול?</span>
+      <textarea name="שעת התרגול" placeholder="על מה בא לך שנעבוד יחד…"></textarea></div>
     <button type="submit" class="send">שלח</button>
     <p class="thanks" id="thanks">תודה. באמת.</p>
   </form>
@@ -609,49 +776,73 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
 (function(){
   'use strict';
 
-  /* he -> en options: [hebrew label, english value] */
+  var STYLE = [
+    ['קולנועי ריאליסטי','cinematic photorealistic'],
+    ['דוקומנטרי','documentary photography style'],
+    ['צילום אנלוגי 35 מ״מ','shot on 35mm film'],
+    ['אנימציה תלת מימד','3D animated film style'],
+    ['אנימה יפני','Japanese anime style'],
+    ['סטופ מושן פלסטלינה','claymation stop-motion'],
+    ['קומיקס / נובלה גרפית','graphic novel comic style'],
+    ['ציור בעיפרון','pencil sketch illustration'],
+    ['אקוורל','watercolor painting'],
+    ['וינטג׳ VHS שנות ה-80','1980s VHS retro look'],
+    ['פילם נואר שחור־לבן','black and white film noir'],
+    ['ניאון סייברפאנק','neon cyberpunk aesthetic'],
+    ['רטרו לו־פיי','lo-fi retro aesthetic'],
+    ['היפר־ריאליסטי','hyperrealistic, ultra detailed']
+  ];
+
   var MODES = {
     char: {
-      hint: 'הסדר חשוב: <b>מי → מה עושה → איפה → אור → עדשה → אווירה</b>. בדיוק המבנה שעברנו במפגש.',
+      hint: 'הסדר חשוב: <b>מי → מה עושה → איפה → אור → עדשה → סגנון</b>. בדיוק המבנה שעברנו במפגש.',
       fields: [
         {k:'who', l:'מי', s:'גיל ומראה. ככל שיותר ספציפי — התוצאה יציבה יותר.',
          ph:'ילד בן 12, רזה, שיער מתולתל קצר',
          opts:[['ילד בן 8–10','an 8-year-old boy'],['ילד בן 12','a 12-year-old boy'],['נער בן 16','a 16-year-old teenager'],
-               ['גבר בשנות ה-20','a man in his twenties'],['גבר בשנות ה-30','a man in his thirties'],
-               ['רזה','lean build'],['אתלטי','athletic build'],['גבוה','tall'],
-               ['שיער מתולתל קצר','short curly hair'],['שיער מגולח','buzzed hair'],['אפרו','afro hair']]},
-        {k:'wear', l:'לבוש', s:'',
+               ['גבר בשנות ה-20','a man in his twenties'],['גבר בשנות ה-30','a man in his thirties'],['אישה בת 70','a 70-year-old woman'],
+               ['רזה','lean build'],['רזה מאוד','very thin'],['אתלטי','athletic build'],['גבוה','tall'],
+               ['שיער מתולתל קצר','short curly hair'],['שיער לבן ארוך','long white hair'],['מגולח','buzzed hair']]},
+        {k:'wear', l:'לבוש ואביזרים', s:'',
          ph:'גופיית כדורסל אדומה גדולה מדי',
          opts:[['גופיית כדורסל','a basketball jersey'],['גופייה גדולה מדי','an oversized jersey'],
+               ['שמלה סגולה','a purple dress'],['משקפיים במסגרת צהובה','yellow-framed glasses'],
                ['חליפת אימון','a tracksuit'],['קפוצ׳ון','a hoodie'],['בגדי רחוב','streetwear'],
-               ['נעלי כדורסל ישנות','worn basketball sneakers']]},
+               ['נעלי כדורסל ישנות','worn basketball sneakers'],['רולר בליידס','inline skates']]},
         {k:'action', l:'מה הוא עושה', s:'פעולה אחת ברורה. לא שלוש.',
          ph:'מכדרר כדור שחוק, באמצע צעד',
          opts:[['מכדרר','dribbling a basketball'],['קופץ לסל','jumping for a dunk'],['קולע','shooting a free throw'],
                ['יושב על ספסל','sitting on a bench'],['קושר שרוכים','tying his shoelaces'],
                ['מנגב זיעה','wiping sweat from his forehead'],['מסתכל למעלה','looking up'],
-               ['עומד לבד','standing alone'],['הולך ברחוב','walking down the street']]},
+               ['עומד לבד','standing alone'],['הולך ברחוב','walking down the street'],
+               ['מחליק על רולר בליידס','rollerblading'],['שר','singing']]},
         {k:'where', l:'איפה', s:'',
          ph:'מגרש חוץ עם אספלט סדוק',
          opts:[['מגרש חוץ סדוק','a cracked outdoor basketball court'],['אולם ספורט ריק','an empty gymnasium'],
                ['חדר הלבשה','a locker room'],['רחוב בלילה','a city street at night'],
-               ['גדר רשת','chain-link fence in the background'],['יציע ריק','empty bleachers']]},
+               ['פארק עירוני','a city park'],['שביל בפארק','a park pathway'],
+               ['גדר רשת','chain-link fence in the background'],['יציע ריק','empty bleachers'],
+               ['רקע סטודיו אחיד','clean seamless studio backdrop']]},
         {k:'light', l:'אור', s:'הדבר שהכי משנה את התוצאה.', ph:'',
-         opts:[['שעת הזהב','golden hour'],['שמש צהריים קשה','harsh midday sun'],['מעונן ורך','overcast soft light'],
-               ['אור נגדי','backlit rim light'],['אור מחלון יחיד','single window light'],
-               ['שעה כחולה','blue hour'],['זרקורי אצטדיון','stadium floodlights'],['צללים עמוקים','deep shadows']]},
+         opts:[['שעת הזהב','golden hour'],['שקיעה','sunset light'],['שמש צהריים קשה','harsh midday sun'],
+               ['מעונן ורך','overcast soft light'],['אור נגדי','backlit rim light'],
+               ['אור מחלון יחיד','single window light'],['שעה כחולה','blue hour'],
+               ['זרקורי אצטדיון','stadium floodlights'],['צללים עמוקים','deep shadows'],
+               ['תאורת סטודיו רכה','soft studio lighting'],['קונטרסט גבוה','high contrast lighting']]},
         {k:'lens', l:'עדשה ופריים', s:'המונחים שאתה כבר מכיר.', ph:'',
          opts:[['35 מ״מ','35mm'],['50 מ״מ','50mm'],['85 מ״מ פורטרט','85mm portrait lens'],
-               ['רחב','wide angle'],['עומק שדה רדוד','shallow depth of field'],
-               ['מלמטה','low angle'],['בגובה העיניים','eye level'],
+               ['צמצם 2.8','shot at f/2.8'],['רחב','wide angle'],['עומק שדה רדוד','shallow depth of field'],
+               ['מלמטה','low angle'],['בגובה העיניים','eye level'],['מלמעלה','high angle'],
                ['קלוז אפ','close-up'],['בינוני','medium shot'],['גוף מלא','full body shot']]},
-        {k:'mood', l:'אווירה וסגנון', s:'', ph:'',
-         opts:[['קולנועי','cinematic'],['דוקומנטרי','documentary style'],['נוסטלגי','nostalgic'],
-               ['מחוספס','gritty'],['גרעין פילם חם','warm film grain'],['צבע מעומעם','desaturated'],
-               ['ניגודיות גבוהה','high contrast'],['Kodak Portra','shot on Kodak Portra'],['אנמורפי','anamorphic']]},
+        {k:'style', l:'סגנון גרפי', s:'זה מה שקובע אם זה נראה כמו צילום או כמו איור.', ph:'',
+         opts:STYLE},
+        {k:'mood', l:'אווירה ועיבוד', s:'', ph:'',
+         opts:[['נוסטלגי','nostalgic'],['מחוספס','gritty'],['גרעין פילם חם','warm film grain'],
+               ['צבע מעומעם','desaturated'],['ניגודיות גבוהה','high contrast'],
+               ['Kodak Portra','Kodak Portra color palette'],['אנמורפי','anamorphic'],['נקי וחד','clean and sharp']]},
         {k:'avoid', l:'מה לא רוצה', s:'לא כל מודל מתייחס, אבל שווה.', ph:'טקסט, סימן מים, אצבעות מעוותות',
          opts:[['טקסט','text'],['סימן מים','watermark'],['אצבעות מעוותות','deformed fingers'],
-               ['מטושטש','blurry'],['פנים מעוותות','distorted face']]}
+               ['מטושטש','blurry'],['פנים מעוותות','distorted face'],['מורפינג','morphing artifacts']]}
       ]
     },
     scene: {
@@ -662,13 +853,14 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
          opts:[['אולם ספורט ריק בלילה','an empty gymnasium at night'],['רצפת עץ מבריקה','polished wood floor'],
                ['דגלי אליפות','championship banners hanging'],['מגרש חוץ סדוק','a cracked outdoor court'],
                ['חדר הלבשה ישן','an old locker room'],['רחוב שכונתי','a quiet neighborhood street'],
+               ['פארק עירוני','an urban park'],['שביל בין עצים','a path lined with trees'],
                ['יציע ריק','empty bleachers'],['שער רשת חלוד','a rusted chain-link gate']]},
         {k:'who', l:'מי בפריים', s:'בקצרה. אם אף אחד — השאר ריק.',
          ph:'דמות בודדה מגבה',
          opts:[['דמות בודדה מגבה','a lone figure seen from behind'],['ילד קטן במרחק','a small child in the distance'],
-               ['אף אחד','no people'],['צללית','a silhouette']]},
+               ['אף אחד','no people'],['צללית','a silhouette'],['אנשים ברקע','people walking in the background']]},
         {k:'time', l:'זמן ומזג אוויר', s:'', ph:'',
-         opts:[['שחר','dawn'],['אחר צהריים מאוחר','late afternoon'],['לילה','night'],
+         opts:[['שחר','dawn'],['אחר צהריים מאוחר','late afternoon'],['שקיעה','sunset'],['לילה','night'],
                ['גשם','rain'],['אבק באוויר','dust in the air'],['ערפל','fog'],['אדוות חום','heat haze']]},
         {k:'light', l:'אור', s:'', ph:'',
          opts:[['שעת הזהב','golden hour'],['שמש קשה','harsh midday sun'],['מעונן ורך','overcast soft light'],
@@ -677,10 +869,11 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
         {k:'lens', l:'עדשה ופריים', s:'', ph:'',
          opts:[['שוט פתיחה רחב','wide establishing shot'],['35 מ״מ','35mm'],['רחב מאוד','ultra wide'],
                ['קומפוזיציה סימטרית','symmetrical composition'],['עומק שדה רדוד','shallow depth of field'],
-               ['מלמעלה','high angle'],['מלמטה','low angle']]},
+               ['מלמעלה','high angle'],['מלמטה','low angle'],['זווית רחפן','aerial drone view']]},
+        {k:'style', l:'סגנון גרפי', s:'שמור עליו זהה בכל הסצנות של אותו סרט.', ph:'', opts:STYLE},
         {k:'mood', l:'אווירה', s:'', ph:'',
-         opts:[['קולנועי','cinematic'],['ריק ודומם','empty and still'],['נוסטלגי','nostalgic'],
-               ['מתוח','tense'],['גרעין פילם חם','warm film grain'],['צבע מעומעם','desaturated'],['אנמורפי','anamorphic']]},
+         opts:[['ריק ודומם','empty and still'],['נוסטלגי','nostalgic'],['מתוח','tense'],
+               ['גרעין פילם חם','warm film grain'],['צבע מעומעם','desaturated'],['אנמורפי','anamorphic']]},
         {k:'avoid', l:'מה לא רוצה', s:'', ph:'טקסט, סימן מים',
          opts:[['טקסט','text'],['סימן מים','watermark'],['אדריכלות מעוותת','distorted architecture'],['אנשים','people']]}
       ]
@@ -689,7 +882,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       hint: 'הכלל היחיד שחשוב: <b>שנה משתנה אחד בכל פעם.</b> תיאור הדמות חייב להישאר מילה במילה זהה — העתק־הדבק, אל תכתוב מחדש.',
       fields: [
         {k:'anchor', l:'תיאור הדמות — קבוע', s:'זה העוגן. העתק אותו בדיוק לכל שוט, בלי לשנות אף מילה.',
-         ph:'ילד בן 12, רזה, שיער מתולתל כהה קצר, צלקת קטנה מעל הגבה השמאלית, גופיית כדורסל אדומה מספר 7',
+         ph:'ילד בן 12, רזה, שיער מתולתל כהה קצר, צלקת קטנה מעל הגבה השמאלית, גופייה אדומה מספר 7',
          opts:[['ילד בן 12','a 12-year-old boy'],['רזה','lean build'],['שיער מתולתל כהה','short dark curly hair'],
                ['צלקת מעל הגבה','a small scar above his left eyebrow'],['גופייה אדומה מספר 7','a red jersey with the number 7']]},
         {k:'action', l:'מה משתנה — הפעולה', s:'רק זה משתנה בין שוט לשוט.',
@@ -709,9 +902,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
         {k:'lens', l:'עדשה ופריים', s:'', ph:'',
          opts:[['35 מ״מ','35mm'],['50 מ״מ','50mm'],['85 מ״מ פורטרט','85mm portrait lens'],
                ['בינוני','medium shot'],['קלוז אפ','close-up'],['עומק שדה רדוד','shallow depth of field']]},
-        {k:'mood', l:'אווירה — קבוע', s:'שמור זהה לכל הסדרה כדי שהעולם יהיה אחיד.', ph:'',
-         opts:[['קולנועי','cinematic'],['גרעין פילם חם','warm film grain'],
-               ['צבע מעומעם','desaturated'],['נוסטלגי','nostalgic'],['ניגודיות גבוהה','high contrast']]}
+        {k:'style', l:'סגנון גרפי — קבוע', s:'חייב להישאר זהה בכל השוטים, אחרת העולם מתפרק.', ph:'', opts:STYLE}
       ]
     }
   };
@@ -720,8 +911,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       outEl=document.getElementById('output'),
       hintEl=document.getElementById('hint'),
       tabs=[].slice.call(document.querySelectorAll('.tabs button')),
-      mode='char',
-      state={};   /* state[mode][key] = {sel:[english...], he:'', en:''} */
+      mode='char', state={};
 
   function slot(){ return {sel:[], he:'', en:''}; }
 
@@ -732,7 +922,6 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     cfg.fields.forEach(function(f){
       state[mode][f.k]=state[mode][f.k]||slot();
       var st=state[mode][f.k];
-
       var wrap=document.createElement('div'); wrap.className='f';
       var lab=document.createElement('label');
       lab.innerHTML=f.l+(f.s?'<small>'+f.s+'</small>':'');
@@ -759,11 +948,9 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
       var fw=document.createElement('div'); fw.className='freewrap';
       var inp=document.createElement('input');
       inp.type='text'; inp.placeholder=f.ph?('או בעברית: '+f.ph):'או תכתוב בעברית…';
-      inp.value=st.he;
-      fw.appendChild(inp);
+      inp.value=st.he; fw.appendChild(inp);
       var tr=document.createElement('button');
-      tr.type='button'; tr.className='tr'; tr.textContent='תרגם';
-      fw.appendChild(tr);
+      tr.type='button'; tr.className='tr'; tr.textContent='תרגם'; fw.appendChild(tr);
       wrap.appendChild(fw);
 
       var eng=document.createElement('div'); eng.className='eng';
@@ -775,7 +962,6 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
         if(!inp.value){ st.en=''; eng.classList.remove('on'); render(); }
       });
       tr.addEventListener('click',function(){ translateField(st, inp, eng, tr); });
-
       fieldsEl.appendChild(wrap);
     });
     hintEl.innerHTML=cfg.hint;
@@ -832,8 +1018,7 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   });
 
   document.getElementById('translateAll').addEventListener('click',function(){
-    var btn=this;
-    var inputs=[].slice.call(fieldsEl.querySelectorAll('.freewrap .tr'));
+    var btn=this, inputs=[].slice.call(fieldsEl.querySelectorAll('.freewrap .tr'));
     btn.disabled=true; btn.textContent='מתרגם…';
     inputs.forEach(function(b,i){ setTimeout(function(){ b.click(); }, i*450); });
     setTimeout(function(){ btn.disabled=false; btn.textContent='תרגם הכל לאנגלית'; }, inputs.length*450+1200);
@@ -853,7 +1038,6 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
   });
 
   document.getElementById('clear').addEventListener('click',function(){ state[mode]={}; build(); });
-
   document.getElementById('preset').addEventListener('click',function(){
     var s={};
     MODES[mode].fields.forEach(function(f){
@@ -863,7 +1047,6 @@ footer{padding:clamp(44px,6vw,72px) 0 clamp(56px,8vw,92px);border-top:1px solid 
     });
     state[mode]=s; build();
   });
-
   build();
 
   /* DRILL */
