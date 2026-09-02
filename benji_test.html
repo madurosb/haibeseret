@@ -426,19 +426,19 @@ section{padding-block:clamp(72px,11vh,150px)}
 }
 
 /* ---------- capabilities band ---------- */
-.cut{display:none;position:relative;height:clamp(66px,15vw,104px);
+.cut{display:none;position:relative;height:clamp(92px,21vw,140px);
   background:#0A101C;overflow:hidden;line-height:0}
 .cut svg{width:100%;height:100%;display:block}
 .cutmark{position:absolute;width:14px;height:14px;opacity:.75}
 .cutmark::before,.cutmark::after{content:"";position:absolute;background:#EDEDEA}
 .cutmark::before{width:100%;height:1px;top:50%}
 .cutmark::after{height:100%;width:1px;left:50%}
-.cutmark.l{left:calc(var(--pad) - 6px);bottom:8px}
-.cutmark.r{right:calc(var(--pad) - 6px);top:8px}
-.cutlab{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-3.7deg);
+.cutmark.l{left:calc(var(--pad) - 6px);bottom:12px}
+.cutmark.r{right:calc(var(--pad) - 6px);top:12px}
+.cutlab{position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) rotate(var(--cutang,-12deg));
   font-family:var(--f-mono);font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;
-  color:#0A101C;background:#EDEDEA;padding:4px 10px;line-height:1;
-  box-shadow:0 0 0 3px rgba(237,237,234,.12)}
+  color:#0A101C;background:#EDEDEA;padding:5px 11px;line-height:1}
 @media(max-width:880px){.cut{display:block}}
 .capband{background:#0C1322;color:#EDEDEA;--line:rgba(237,237,234,.17);
   padding-block:clamp(54px,7vh,96px);margin-block:clamp(46px,7vh,100px)}
@@ -615,6 +615,22 @@ section{padding-block:clamp(72px,11vh,150px)}
   color:var(--mg);margin-top:7px;display:none}
 .field.bad .err{display:block}
 .field.bad input,.field.bad textarea{border-color:var(--mg)}
+.fhead{display:none;justify-content:space-between;gap:14px;padding-bottom:16px;
+  margin-bottom:22px;border-bottom:1px solid var(--line);opacity:.6}
+.flinks{display:none}
+@media(max-width:760px){
+  .fhead{display:flex}
+  #cform{border:1px solid var(--line);border-radius:3px;
+    padding:20px clamp(16px,4.5vw,22px) 24px;background:rgba(237,237,234,.028)}
+  #cform .field{margin-bottom:20px}
+  #cform .field input,#cform .field textarea{padding:16px 0 12px}
+  #cform .btn{width:100%;justify-content:center;margin-top:4px}
+  #contact .clist{display:none}
+  #contact .contact>div>p{margin-bottom:4px}
+  .flinks{display:block;margin:24px 0 0}
+  .flinks li{border-top:1px solid var(--line);padding:15px 0}
+  .fbot .femail{display:none}
+}
 .formstate{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;
   margin-top:18px;min-height:1.2em}
 .formstate.ok{color:var(--cy)}.formstate.no{color:var(--mg)}
@@ -771,14 +787,12 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 <div class="cut" aria-hidden="true">
   <svg viewBox="0 0 1000 64" preserveAspectRatio="none">
     <polygon points="0,64 1000,0 1000,64" fill="#0C1322"/>
+    <line x1="0" y1="64" x2="1000" y2="0" stroke="#EDEDEA" stroke-width="40"
+      opacity=".05" vector-effect="non-scaling-stroke"/>
     <line x1="0" y1="64" x2="1000" y2="0" stroke="#EDEDEA" stroke-width="22"
-      opacity=".07" vector-effect="non-scaling-stroke"/>
-    <line x1="0" y1="64" x2="1000" y2="0" stroke="#EDEDEA" stroke-width="9"
-      opacity=".2" vector-effect="non-scaling-stroke"/>
-    <line x1="0" y1="64" x2="1000" y2="0" stroke="#EDEDEA" stroke-width="3.2"
-      vector-effect="non-scaling-stroke"/>
-    <line x1="0" y1="64" x2="1000" y2="0" stroke="#E0218A" stroke-width="1.3"
-      stroke-dasharray="8 7" vector-effect="non-scaling-stroke"/>
+      stroke-dasharray="46 16" vector-effect="non-scaling-stroke"/>
+    <line x1="0" y1="64" x2="1000" y2="0" stroke="#E0218A" stroke-width="1.6"
+      stroke-dasharray="9 7" vector-effect="non-scaling-stroke"/>
   </svg>
   <span class="cutmark l"></span><span class="cutmark r"></span>
   <span class="cutlab">cut here</span>
@@ -875,6 +889,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
       <p class="alt">Or email <a href="mailto:benjo.kljuno.pro@gmail.com">benjo.kljuno.pro@gmail.com</a></p>
     </div>
     <form id="cform" novalidate>
+      <div class="fhead mono"><span>Send a message</span><span>Reply within 24h</span></div>
       <div class="field">
         <input type="text" id="f-name" name="name" placeholder=" " autocomplete="name">
         <label for="f-name">Name</label>
@@ -909,13 +924,17 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <p class="bigline">Press-ready is a decision, not a file format.</p>
     <img class="fmark" data-a="logo-new" alt="Benjamin Kljuno">
   </div>
+  <ul class="clist flinks">
+    <li><a href="mailto:benjo.kljuno.pro@gmail.com"><span class="k">Email</span><span>benjo.kljuno.pro@gmail.com</span></a></li>
+    <li><a href="https://www.linkedin.com/in/kljunobenjamin" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span>/in/kljunobenjamin ↗</span></a></li>
+  </ul>
   <div class="colourbar" aria-hidden="true">
     <i style="background:var(--cy)"></i><i style="background:var(--mg)"></i>
     <i style="background:var(--yl)"></i><i style="background:var(--kk)"></i>
   </div>
   <div class="fbot mono">
     <span>© <span id="yr"></span> Benjamin Kljuno</span>
-    <span><a href="mailto:benjo.kljuno.pro@gmail.com" style="text-decoration:none">benjo.kljuno.pro@gmail.com</a></span>
+    <span class="femail"><a href="mailto:benjo.kljuno.pro@gmail.com" style="text-decoration:none">benjo.kljuno.pro@gmail.com</a></span>
   </div>
 </footer>
 
@@ -1146,7 +1165,7 @@ PROCESS.forEach(([n,label,desc],i)=>{
   const t=document.createElement("button");
   t.type="button"; t.setAttribute("aria-label","Go to part "+n+": "+label);
   t.innerHTML='<i class="seg"></i><span class="lab">'+n+'</span>';
-  t.addEventListener("click",()=>goSlide(i));
+  t.addEventListener("click",()=>{procAutoDefer();goSlide(i);});
   wtRail.appendChild(t);
 });
 const rail=$$("#wtRail button");
@@ -1218,10 +1237,25 @@ const wtCue=$("#wtCue");
 wtPlate.addEventListener("scroll",()=>{ if(wtCue) wtCue.classList.add("gone"); },{passive:true,once:true});
 
 [["#showPrev",-1],["#wtPrevM",-1],["#showNext",1],["#wtNextM",1]].forEach(([sel,d])=>{
-  const el=$(sel); if(el) el.addEventListener("click",()=>goSlide(showCur+d,d));
+  const el=$(sel); if(el) el.addEventListener("click",()=>{procAutoDefer();goSlide(showCur+d,d);});
 });
-new IntersectionObserver(es=>es.forEach(e=>{procInView=e.isIntersecting;}),
-  {threshold:.3}).observe($("#procShow"));
+let procTimer=null, procResume=null;
+function procAutoStop(){ clearTimeout(procTimer); procTimer=null; }
+function procAutoPlay(){
+  procAutoStop();
+  if(!railMode()||reduce||!procInView) return;
+  procTimer=setTimeout(()=>{ goSlide(showCur+1,1); procAutoPlay(); },5200);
+}
+function procAutoDefer(){          // a swipe pauses it; it picks up again once you stop
+  procAutoStop(); clearTimeout(procResume);
+  procResume=setTimeout(procAutoPlay,7000);
+}
+wtPlate.addEventListener("touchstart",procAutoDefer,{passive:true});
+wtPlate.addEventListener("pointerdown",procAutoDefer,{passive:true});
+new IntersectionObserver(es=>es.forEach(e=>{
+  procInView=e.isIntersecting;
+  if(procInView) procAutoPlay(); else procAutoStop();
+}),{threshold:.3}).observe($("#procShow"));
 addEventListener("keydown",e=>{
   if(sv.classList.contains("open")||lb.classList.contains("open")) return;
   if(capInView||!procInView) return;
@@ -1300,15 +1334,17 @@ function capScrollTo(i){
     behavior:reduce?"auto":"smooth"});
 }
 function playCap(v){
-  const go=()=>{
-    try{ if(v.readyState>=1) v.currentTime=0; }catch(e){}
-    const pr=v.play();
-    if(pr&&pr.catch) pr.catch(()=>{});
-  };
-  if(v.readyState>=2){ go(); return; }
-  // the source is already in the document — just wait for it, never call load()
-  v.addEventListener("canplay",go,{once:true});
-  v.addEventListener("loadeddata",go,{once:true});
+  // play() is what actually triggers resource loading — changing .preload after the
+  // fact is ignored by some browsers, and load() resets the element (that was the loop)
+  try{ if(v.readyState>=1) v.currentTime=0; }catch(e){}
+  const pr=v.play();
+  if(pr&&pr.catch) pr.catch(()=>{});
+  if(v.readyState<1){
+    v.addEventListener("loadedmetadata",()=>{
+      try{ v.currentTime=0; }catch(e){}
+      if(v.paused) v.play().catch(()=>{});
+    },{once:true});
+  }
 }
 function selectCap(i,manual,fromScroll){
   if(i<0||i>=CHAPTERS.length) return;
@@ -1329,10 +1365,10 @@ function selectCap(i,manual,fromScroll){
   playCap(v);
   // if playback never gets going (blocked or unsupported), keep the sequence moving anyway
   stallTimer=setTimeout(()=>{
-    if(i!==capCur||v.currentTime>0||v.readyState>=3) return;
+    if(i!==capCur||v.currentTime>0||v.readyState>=3||!v.paused) return;
     capProg.style.transition="right 3s linear"; capProg.style.right="0%";
     fbTimer=setTimeout(()=>advanceFrom(i),3000);
-  },2600);
+  },3800);
 }
 
 (function(){
@@ -1501,7 +1537,7 @@ function paint(){
   lastY=y;
 }
 addEventListener("scroll",()=>requestAnimationFrame(paint),{passive:true});
-addEventListener("resize",()=>{sizeLede();paint();
+addEventListener("resize",()=>{sizeLede();sizeCut();paint();
   if(sv.classList.contains("open")) drawMarks(PROJECTS[cur].faces[curFace]);});
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(sizeLede);
 
@@ -1539,6 +1575,12 @@ form.addEventListener("submit",async e=>{
 /* ================= PREFLIGHT SEQUENCE ================= */
 $("#yr").textContent=new Date().getFullYear();
 $("#pfMark").src=src("mark-light");
+function sizeCut(){
+  const c=$(".cut"); if(!c) return;
+  const r=c.getBoundingClientRect();
+  if(!r.width||!r.height) return;
+  c.style.setProperty("--cutang",(-Math.atan2(r.height,r.width)*180/Math.PI).toFixed(2)+"deg");
+}
 function sizeLede(){
   const h2=$(".hero h2"), lede=$(".hero .lede");
   if(!h2||!lede) return;
@@ -1550,7 +1592,7 @@ function sizeLede(){
 }
 function finishPreflight(){
   $("#preflight").classList.add("done");
-  watch(); sizeLede(); paint();
+  watch(); sizeLede(); sizeCut(); paint();
   setTimeout(()=>$("#preflight").remove(),700);
 }
 (function preflight(){
