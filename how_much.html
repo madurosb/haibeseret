@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WEDDING DAMAGE — כמה נותנים?</title>
+<meta name="description" content="אלגוריתם מתקדם שלא היה צריך להתקיים, שקובע כמה כסף לשים במעטפה.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   0. TOKENS
+   ========================================================= */
+:root{
+  --bg:#F3EEE4;
+  --surface:#FBF8F2;
+  --ink:#0A0A0A;
+  --muted:#6F6A62;
+  --line:rgba(10,10,10,.12);
+  --line-strong:rgba(10,10,10,.3);
+  --gold:#B8965A;
+  --gold-soft:#E7D9BC;
+  --night:#141311;
+  --night-2:#1E1C19;
+  --night-ink:#F3EEE4;
+  --night-muted:rgba(243,238,228,.55);
+  --danger:#8B2B1F;
+
+  --serif:"Frank Ruhl Libre","David Libre","Times New Roman",serif;
+  --sans:"Assistant","Heebo","Segoe UI",system-ui,sans-serif;
+
+  --radius:20px;
+  --radius-sm:12px;
+  --pill:999px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --dur:380ms;
+  --col:860px;
+  --shadow-sheet:0 -20px 60px rgba(10,10,10,.18);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100dvh;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::after{ /* grain */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+input{background:none;border:0;outline:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.latin{font-family:var(--serif);letter-spacing:.02em;direction:ltr;unicode-bidi:isolate}
+
+/* =========================================================
+   1. SCREENS
+   ========================================================= */
+[data-screen]{display:none;min-height:100dvh}
+[data-screen].is-active{display:flex;flex-direction:column}
+.col{width:100%;max-width:var(--col);margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
+
+/* -------- header (shared) -------- */
+.top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-block:18px;border-bottom:1px solid var(--line);
+}
+.brand{
+  font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.14em;
+  line-height:1;direction:ltr;text-align:left;
+  display:grid;gap:2px;user-select:none;
+}
+.brand span:last-child{color:var(--gold)}
+.progress{font-family:var(--serif);font-size:14px;letter-spacing:.08em;color:var(--muted);direction:ltr;font-variant-numeric:tabular-nums}
+.progress b{color:var(--ink);font-weight:500}
+.bar{height:1px;background:var(--line);position:relative;overflow:hidden}
+.bar i{position:absolute;inset-inline-end:0;top:0;bottom:0;background:var(--ink);transition:width 500ms var(--ease)}
+
+/* =========================================================
+   2. INTRO
+   ========================================================= */
+#intro .col{flex:1;display:flex;flex-direction:column}
+.intro-hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(40px,10vh,120px)}
+.intro-kicker{font-family:var(--serif);font-size:13px;letter-spacing:.22em;color:var(--gold);direction:ltr;text-align:right}
+.intro-title{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(52px,12vw,140px);line-height:.95;letter-spacing:-.02em;margin-top:18px;
+}
+.intro-title em{font-style:normal;font-weight:300}
+.intro-sub{margin-top:28px;font-size:clamp(17px,2.2vw,22px);color:var(--muted);max-width:34ch;line-height:1.5}
+.intro-actions{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.intro-foot{padding-block:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* =========================================================
+   3. BUTTONS
+   ========================================================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 26px;border-radius:var(--pill);
+  font-weight:600;font-size:16px;line-height:1;
+  transition:transform 200ms var(--ease),background 200ms,color 200ms,border-color 200ms,opacity 200ms;
+  border:1px solid transparent;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--ink);color:var(--night-ink)}
+.btn-primary:hover{background:#000}
+.btn-primary:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.btn-ghost{border-color:var(--line-strong);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-text{color:var(--muted);padding:12px 8px}
+.btn-text:hover{color:var(--ink)}
+.btn-gold{background:var(--gold);color:var(--night);font-family:var(--serif);letter-spacing:.1em;font-size:15px;font-weight:700;direction:ltr}
+.btn-gold:hover{background:#c6a56a}
+.btn-lg{padding:20px 34px;font-size:18px}
+.btn-night{background:var(--night-ink);color:var(--night)}
+.btn-night:hover{background:#fff}
+.btn-outline-night{border-color:rgba(243,238,228,.35);color:var(--night-ink)}
+.btn-outline-night:hover{border-color:var(--night-ink)}
+
+/* =========================================================
+   4. WIZARD
+   ========================================================= */
+#wizard .col{flex:1;display:flex;flex-direction:column}
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(28px,6vh,72px);position:relative}
+.q{transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.q.is-out{opacity:0;transform:translateY(-10px)}
+.q.is-in{opacity:0;transform:translateY(10px)}
+.q-title{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(34px,8vw,80px);line-height:1.02;letter-spacing:-.015em;
+  text-wrap:balance;
+}
+.q-sub{margin-top:14px;font-size:clamp(15px,1.8vw,19px);color:var(--muted);max-width:44ch}
+.q-body{margin-top:clamp(26px,5vh,48px)}
+.q-help{margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* text input */
+.field{position:relative;border-bottom:2px solid var(--ink)}
+.field input{
+  width:100%;padding:14px 0 12px;
+  font-family:var(--serif);font-size:clamp(30px,6vw,56px);line-height:1.1;font-weight:400;
+}
+.field input::placeholder{color:rgba(10,10,10,.22)}
+
+/* option grid */
+.opts{display:grid;gap:10px;grid-template-columns:1fr}
+.opts[data-cols="2"]{grid-template-columns:repeat(2,1fr)}
+@media(min-width:720px){
+  .opts[data-cols="2"]{grid-template-columns:repeat(2,1fr)}
+  .opts[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+  .opts[data-cols="list"]{grid-template-columns:repeat(2,1fr)}
+}
+.opt{
+  position:relative;text-align:right;
+  padding:18px 20px;border-radius:var(--radius-sm);
+  border:1px solid var(--line-strong);background:transparent;
+  display:flex;align-items:center;gap:14px;
+  transition:border-color 200ms,background 200ms,transform 250ms var(--ease);
+  min-height:60px;
+}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed="true"]{background:var(--ink);color:var(--night-ink);border-color:var(--ink)}
+.opt[aria-pressed="true"] .opt-hint{color:var(--night-muted)}
+.opt.is-pop{animation:pop 320ms var(--ease)}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(.975)}100%{transform:scale(1)}}
+.opt-emoji{font-size:24px;line-height:1;flex:none;filter:grayscale(.15)}
+.opt-label{font-weight:600;font-size:17px;line-height:1.25}
+.opt-hint{display:block;font-size:13px;color:var(--muted);margin-top:3px;font-weight:400}
+
+/* big cards (side / wedding) */
+.opts.big .opt{padding:26px 22px;min-height:120px;align-items:flex-start;flex-direction:column;gap:14px;border-radius:var(--radius)}
+.opts.big .opt-emoji{font-size:34px}
+.opts.big .opt-label{font-family:var(--serif);font-weight:500;font-size:clamp(22px,3vw,30px)}
+.opts.big .opt[aria-pressed="true"]::after{
+  content:"";position:absolute;inset:8px;border:1px solid var(--gold);border-radius:calc(var(--radius) - 8px);pointer-events:none;opacity:.7
+}
+
+/* slider */
+.slider{padding-top:10px}
+.slider-value{
+  font-family:var(--serif);font-size:clamp(28px,5vw,44px);line-height:1.15;font-weight:500;
+  min-height:1.3em;margin-bottom:22px;
+}
+.slider-value small{display:block;font-family:var(--sans);font-size:14px;color:var(--muted);font-weight:400;margin-top:4px}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;direction:rtl;cursor:pointer;
+}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line-strong)}
+input[type=range]::-moz-range-track{height:2px;background:var(--line-strong)}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:28px;height:28px;margin-top:-13px;border-radius:50%;
+  background:var(--ink);border:6px solid var(--bg);box-shadow:0 0 0 1px var(--ink);
+}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:6px solid var(--bg);box-shadow:0 0 0 1px var(--ink)}
+input[type=range]:focus-visible{outline:none}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px var(--gold)}
+.slider-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:4px}
+
+/* stars */
+.stars{display:grid;gap:10px}
+.star-row{display:flex;gap:3px;font-size:15px;color:var(--gold);flex:none;letter-spacing:-.5px}
+.opt[aria-pressed="true"] .star-row{color:var(--gold-soft)}
+
+/* previous gift */
+.gift{display:grid;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:12px 18px;border-radius:var(--pill);border:1px solid var(--line-strong);
+  font-family:var(--serif);font-size:18px;direction:ltr;font-variant-numeric:tabular-nums;
+  transition:background 200ms,color 200ms,border-color 200ms;
+}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--night-ink);border-color:var(--ink)}
+.chip:hover{border-color:var(--ink)}
+.chip.txt{font-family:var(--sans);font-size:15px;direction:rtl}
+.gift-custom{display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--ink);max-width:260px;margin-top:6px}
+.gift-custom span{font-family:var(--serif);font-size:24px}
+.gift-custom input{font-family:var(--serif);font-size:28px;width:100%;padding:8px 0;direction:ltr;text-align:right}
+.gift-custom input::placeholder{color:rgba(10,10,10,.22)}
+
+/* wizard footer */
+.wfoot{
+  position:sticky;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);
+  padding-block:16px calc(16px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.wfoot-left{display:flex;align-items:center;gap:4px}
+.wnote{font-size:13px;color:var(--muted);text-align:center;flex:1;opacity:.85;display:none}
+@media(min-width:720px){.wnote{display:block}}
+
+/* =========================================================
+   5. CALCULATING
+   ========================================================= */
+#calc{background:var(--night);color:var(--night-ink)}
+#calc .col{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.calc-kicker{font-family:var(--serif);letter-spacing:.24em;font-size:13px;color:var(--gold);direction:ltr}
+.calc-status{
+  font-family:var(--serif);font-size:clamp(30px,6vw,64px);font-weight:400;line-height:1.1;margin-top:22px;
+  min-height:2.2em;transition:opacity 250ms var(--ease),transform 250ms var(--ease);
+}
+.calc-status.is-swap{opacity:0;transform:translateY(6px)}
+.calc-line{width:100%;height:1px;background:rgba(243,238,228,.15);margin-top:40px;overflow:hidden}
+.calc-line i{display:block;height:100%;width:0;background:var(--gold);transition:width 1600ms linear}
+
+/* =========================================================
+   6. RESULT
+   ========================================================= */
+#result{background:var(--bg)}
+#result .top{border-bottom-color:var(--line)}
+.verdict{
+  background:var(--night);color:var(--night-ink);
+  border-radius:var(--radius);
+  padding:clamp(28px,5vw,48px) clamp(22px,4vw,44px) clamp(30px,5vw,48px);
+  margin-top:24px;position:relative;overflow:hidden;
+  transition:background 600ms var(--ease);
+}
+.verdict[data-mood="extreme"]{background:#1A0E0B}
+.verdict[data-mood="low"]{background:#1C1B18}
+.v-kicker{font-family:var(--serif);letter-spacing:.24em;font-size:13px;color:var(--gold);direction:ltr;text-align:left}
+.v-amount{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(72px,16vw,190px);line-height:.95;letter-spacing:-.03em;
+  margin-top:14px;direction:ltr;text-align:left;font-variant-numeric:tabular-nums;
+  display:flex;align-items:baseline;gap:.05em;
+}
+.v-amount .cur{font-size:.42em;font-weight:300;opacity:.7;position:relative;top:-.35em}
+.verdict[data-mood="extreme"] .v-amount{letter-spacing:-.045em;font-weight:700}
+.v-meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;padding-top:20px;border-top:1px solid rgba(243,238,228,.14)}
+.v-meta .k{display:block;font-size:12px;color:var(--night-muted);letter-spacing:.04em}
+.v-meta .v{font-family:var(--serif);font-size:20px;font-variant-numeric:tabular-nums}
+.badge{
+  display:inline-block;font-family:var(--serif);font-size:12px;letter-spacing:.16em;
+  border:1px solid var(--gold);color:var(--gold);padding:8px 14px;border-radius:var(--pill);direction:ltr;
+}
+.verdict[data-mood="extreme"] .badge{background:var(--gold);color:var(--night)}
+.v-warn{margin-top:18px;font-size:14px;color:var(--gold);display:none}
+.verdict[data-mood="extreme"] .v-warn{display:block}
+
+.msg{
+  margin-top:28px;font-family:var(--serif);
+  font-size:clamp(22px,3.4vw,34px);line-height:1.3;font-weight:400;white-space:pre-line;
+  max-width:24ch;
+}
+.msg b{font-weight:700}
+.fine{margin-top:18px;font-size:14px;color:var(--muted);max-width:52ch}
+.actions{margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.actions .grow{flex:1 1 100%}
+@media(min-width:720px){.actions .grow{flex:0 0 auto}}
+.result-foot{margin-top:44px;padding-block:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media(min-width:960px){
+  #result .col{max-width:1100px}
+  .result-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+  .msg{margin-top:0;padding-top:40px}
+}
+
+/* =========================================================
+   7. EXPAND SHEET
+   ========================================================= */
+.scrim{position:fixed;inset:0;background:rgba(10,10,10,.35);opacity:0;pointer-events:none;transition:opacity 300ms;z-index:50}
+.scrim.is-open{opacity:1;pointer-events:auto}
+.sheet{
+  position:fixed;z-index:60;background:var(--surface);
+  inset-inline:0;bottom:0;max-height:88dvh;border-radius:var(--radius) var(--radius) 0 0;
+  box-shadow:var(--shadow-sheet);
+  transform:translateY(102%);transition:transform 420ms var(--ease);
+  display:flex;flex-direction:column;
+}
+.sheet.is-open{transform:translateY(0)}
+@media(min-width:960px){
+  .sheet{inset-inline:auto;inset-inline-start:0;top:0;bottom:0;width:520px;max-height:none;border-radius:0 var(--radius) var(--radius) 0;transform:translateX(-102%)}
+  .sheet.is-open{transform:translateX(0)}
+}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line);flex:none}
+.sheet-title{font-family:var(--serif);letter-spacing:.2em;font-size:13px;direction:ltr}
+.sheet-close{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;font-size:18px}
+.sheet-body{overflow:auto;padding:6px 22px 22px;flex:1;overscroll-behavior:contain}
+.sheet-foot{padding:14px 22px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex:none;background:var(--surface)}
+.live{font-family:var(--serif);font-size:26px;direction:ltr;font-variant-numeric:tabular-nums}
+.live small{font-family:var(--sans);font-size:12px;color:var(--muted);display:block;direction:rtl;text-align:right}
+
+.row{padding:16px 0;border-bottom:1px solid var(--line)}
+.row-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.row-label{font-size:12px;letter-spacing:.06em;color:var(--muted)}
+.row-value{font-weight:600;font-size:16px;text-align:left;font-variant-numeric:tabular-nums}
+.row-edit{margin-top:12px}
+.row-edit .opts{gap:6px}
+.row-edit .opt{padding:10px 12px;min-height:0;border-radius:8px;font-size:14px}
+.row-edit .opt-label{font-size:14px;font-weight:500}
+.row-edit .opt-emoji{font-size:16px}
+.row-edit .opt-hint{display:none}
+.row-edit input[type=text]{width:100%;border-bottom:1px solid var(--ink);padding:8px 0;font-size:18px;font-family:var(--serif)}
+.row-edit input[type=range]{height:34px}
+.row-edit .chip{padding:8px 12px;font-size:15px}
+.row-edit .gift-custom input{font-size:20px}
+
+/* breakdown */
+.why{margin-top:26px}
+.why-title{font-family:var(--serif);font-size:22px;font-weight:500}
+.why-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.bd{margin-top:14px;display:grid;gap:9px}
+.bd-row{display:grid;grid-template-columns:110px 1fr 64px;gap:10px;align-items:center;font-size:13px}
+.bd-name{color:var(--muted)}
+.bd-track{height:6px;background:var(--gold-soft);border-radius:3px;position:relative;overflow:hidden}
+.bd-track i{position:absolute;inset-block:0;inset-inline-start:0;background:var(--ink);border-radius:3px;transition:width 500ms var(--ease)}
+.bd-track.neg i{background:var(--danger)}
+.bd-val{text-align:left;font-variant-numeric:tabular-nums;font-family:var(--serif);font-size:15px;direction:ltr}
+.bd-total{display:flex;justify-content:space-between;padding-top:10px;margin-top:6px;border-top:1px solid var(--ink);font-weight:600}
+.bd-total span:last-child{font-family:var(--serif);direction:ltr;font-size:18px}
+
+/* =========================================================
+   8. TOASTS / MODAL / RESTORE
+   ========================================================= */
+.toast{
+  position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));inset-inline:0;margin-inline:auto;width:max-content;max-width:calc(100% - 40px);
+  background:var(--ink);color:var(--night-ink);padding:12px 18px;border-radius:var(--pill);font-size:14px;
+  opacity:0;transform:translateY(8px);transition:opacity 250ms var(--ease),transform 250ms var(--ease);z-index:100;pointer-events:none;text-align:center;
+}
+.toast.is-on{opacity:1;transform:translateY(0)}
+.modal{position:fixed;inset:0;display:grid;place-items:center;padding:20px;z-index:80;background:rgba(10,10,10,.45);opacity:0;pointer-events:none;transition:opacity 250ms}
+.modal.is-open{opacity:1;pointer-events:auto}
+.modal-card{background:var(--surface);border-radius:var(--radius);padding:30px 26px;max-width:420px;width:100%;transform:translateY(10px);transition:transform 300ms var(--ease)}
+.modal.is-open .modal-card{transform:none}
+.modal-card h2{font-family:var(--serif);font-size:30px;font-weight:500}
+.modal-card p{margin-top:12px;color:var(--muted);white-space:pre-line}
+.modal-actions{margin-top:24px;display:flex;gap:10px;justify-content:flex-start}
+.restore{
+  display:none;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-top:18px;padding:14px 18px;border:1px solid var(--gold);border-radius:var(--radius-sm);background:rgba(184,150,90,.08);font-size:14px;
+}
+.restore.is-on{display:flex}
+.restore-actions{display:flex;gap:4px}
+
+/* =========================================================
+   9. REDUCED MOTION
+   ========================================================= */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0ms!important;animation-duration:0ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ INTRO ============================ -->
+<section id="intro" data-screen="intro" class="is-active" aria-label="פתיחה">
+  <div class="col">
+    <header class="top">
+      <button class="brand js-logo" type="button" aria-label="Wedding Damage"><span>WEDDING</span><span>DAMAGE</span></button>
+      <span class="progress">est. כמה נותנים?</span>
+    </header>
+    <div class="restore" id="restore" role="status">
+      <span>יש לך חישוב באמצע. להמשיך מאיפה שעצרת?</span>
+      <span class="restore-actions">
+        <button class="btn btn-text" type="button" id="restore-no">להתחיל מחדש</button>
+        <button class="btn btn-ghost" type="button" id="restore-yes">להמשיך</button>
+      </span>
+    </div>
+    <div class="intro-hero">
+      <div class="intro-kicker">SOCIAL FINANCE · EST. FOREVER</div>
+      <h1 class="intro-title">כמה<br>נותנים<em>?</em></h1>
+      <p class="intro-sub">אלגוריתם מתקדם שלא היה צריך להתקיים, אבל מסתבר שאף אחד לא יודע כמה לשים במעטפה של בן דוד.</p>
+      <div class="intro-actions">
+        <button class="btn btn-primary btn-lg" type="button" id="start">בואו נחשב את הנזק</button>
+        <span class="q-help">בערך דקה. פחות מזמן ההמתנה לחניה באולם.</span>
+      </div>
+    </div>
+    <footer class="intro-foot">
+      <span>11 פרמטרים חברתיים, כלכליים ורגשיים. לצערנו.</span>
+      <span>הכול נשאר במכשיר שלך. גם הבושה.</span>
+    </footer>
+  </div>
+</section>
+
+<!-- ============================ WIZARD ============================ -->
+<section id="wizard" data-screen="wizard" aria-label="שאלון">
+  <div class="col">
+    <header class="top">
+      <button class="brand js-logo" type="button" aria-label="Wedding Damage"><span>WEDDING</span><span>DAMAGE</span></button>
+      <span class="progress" aria-live="polite"><b id="p-cur">01</b> / <span id="p-tot">13</span></span>
+    </header>
+    <div class="bar" aria-hidden="true"><i id="p-bar" style="width:0"></i></div>
+    <div class="stage">
+      <div class="q" id="q"></div>
+    </div>
+    <footer class="wfoot">
+      <div class="wfoot-left">
+        <button class="btn btn-text" type="button" id="back">→ חזרה</button>
+        <button class="btn btn-text" type="button" id="skip" hidden>דלג</button>
+      </div>
+      <span class="wnote" id="wnote"></span>
+      <button class="btn btn-primary" type="button" id="next">המשך ←</button>
+    </footer>
+  </div>
+</section>
+
+<!-- ============================ CALCULATING ============================ -->
+<section id="calc" data-screen="calc" aria-label="מחשבים" aria-live="polite">
+  <div class="col">
+    <div class="calc-kicker">ANALYZING</div>
+    <div class="calc-status" id="calc-status">מחשבים את רמת החוצפה…</div>
+    <div class="calc-line"><i id="calc-line"></i></div>
+  </div>
+</section>
+
+<!-- ============================ RESULT ============================ -->
+<section id="result" data-screen="result" aria-label="תוצאה">
+  <div class="col">
+    <header class="top">
+      <button class="brand js-logo" type="button" aria-label="Wedding Damage"><span>WEDDING</span><span>DAMAGE</span></button>
+      <span class="progress">11 / 11 · DONE</span>
+    </header>
+
+    <div class="result-grid">
+      <div>
+        <div class="verdict" id="verdict" data-mood="mid">
+          <div class="v-kicker">THE VERDICT</div>
+          <div class="v-amount" aria-live="polite"><span class="cur">₪</span><span id="amount">0</span></div>
+          <div class="v-meta">
+            <div><span class="k">טווח מומלץ</span><span class="v" id="range">—</span></div>
+            <div><span class="k">רמת ביטחון</span><span class="v" id="conf">—</span></div>
+            <div><span class="badge" id="badge">—</span></div>
+          </div>
+          <div class="v-warn" id="warn">⚠ הסכום הזה עבר את הסף שבו המערכת ממליצה להתייעץ עם מישהו.</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-gold btn-lg grow" type="button" id="expand">＋ EXPAND</button>
+          <button class="btn btn-ghost" type="button" id="copy">העתק</button>
+          <button class="btn btn-ghost" type="button" id="share">SHARE THE DAMAGE</button>
+          <button class="btn btn-text" type="button" id="reset">להתחיל מחדש</button>
+        </div>
+      </div>
+      <div>
+        <p class="msg" id="msg"></p>
+        <p class="fine">זה הסכום שהאלגוריתם ממליץ עליו לאחר שקלול של 11 פרמטרים חברתיים, כלכליים ורגשיים. <button class="btn-text" type="button" id="why-btn" style="text-decoration:underline;padding:0">אני רוצה לראות למה לעזאזל</button></p>
+      </div>
+    </div>
+
+    <footer class="result-foot">
+      <span id="roast"></span>
+      <span>WEDDING DAMAGE — לא אחראים למצב העו״ש שלך.</span>
+    </footer>
+  </div>
+</section>
+
+<!-- ============================ EXPAND SHEET ============================ -->
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-hidden="true">
+  <div class="sheet-head">
+    <span class="sheet-title" id="sheet-title">ADVANCED · הגדרות מתקדמות</span>
+    <button class="sheet-close" type="button" id="sheet-close" aria-label="סגור">×</button>
+  </div>
+  <div class="sheet-body">
+    <div id="rows"></div>
+    <div class="why" id="why">
+      <div class="why-title">למה?</div>
+      <div class="why-sub">מה תרם לסכום. בלי אקסל, מבטיחים.</div>
+      <div class="bd" id="bd"></div>
+      <div class="bd-total"><span>סה״כ</span><span id="bd-total">₪0</span></div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <div class="live" id="live">₪0<small>מתעדכן חי</small></div>
+    <button class="btn btn-primary" type="button" id="recalc">RECALCULATE</button>
+  </div>
+</aside>
+
+<!-- ============================ RESET MODAL ============================ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-card">
+    <h2 id="modal-title">בטוח?</h2>
+    <p>כל העבודה שעשינו כאן עומדת להיעלם.
+
+כמו המשכורת שלך אחרי שתי חתונות.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" type="button" id="modal-yes">כן, תמחק</button>
+      <button class="btn btn-ghost" type="button" id="modal-no">רגע, לא</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* =========================================================
+   1. CONSTANTS
+   ========================================================= */
+const STORAGE_KEY = 'wedding-damage:v1';
+const BASE = 100;
+const LADDER = [300,350,400,450,500,550,600,650,700,750,800,900,1000,1200,1500,2000,2500,3000];
+
+const W = {
+  relationship:{ family:260, close_friend:200, army_friend:150, work_friend:140, school_friend:120, friend_sibling:90, acquaintance:80, barely_know:40, social_obligation:30 },
+  weddingLevel:{ luxury:200, upscale:140, standard:100, family:70, basic:30, unknown:60 },
+  location:{ tlv:60, sharon:50, center:40, jerusalem:30, haifa:20, north:10, south:10, far:0 },
+  transportCost:{ walk:0, low:10, mid:20, high:30, extreme:40, hotel:50 },
+  foodQuality:{ 1:0, 2:10, 3:20, 4:35, 5:50 },
+  plusOne:{ alone:1, partner:1.8, friend:1.75, stranger:1.65, team:2.4 },
+  financialState:{ fine:1, ok:.97, meh:.9, calculator:.82, gone:.75 },
+};
+
+const CLOSENESS_LABELS = {1:'מי זה?',2:'ראיתי אותו פעמיים',3:'אנחנו מכירים',4:'מסתדרים',5:'חבר',6:'חבר טוב',7:'די משפחה',8:'אני יודע עליו דברים',9:'אני מופיע בתמונות',10:'אני כבר חלק מהמשפחה, תתקדמו'};
+const GENEROSITY_LABELS = {0:'בהצלחה בחיים.',1:'שיהיה.',2:'בסדר, בסדר.',3:'אני לא נגד.',4:'סבבה.',5:'אני בעדכם.',6:'מגיע להם.',7:'הם אנשים טובים.',8:'אני מתרגש בשבילם.',9:'תעשו לי בכיינות.',10:'אני מוכן למכור כליה.'};
+
+const CATEGORIES = [
+  {max:349,  name:'MINIMAL DAMAGE',                conf:'מביך להציע פחות', mood:'low'},
+  {max:499,  name:'RESPECTABLE',                   conf:'בדיוק באזור',      mood:'mid'},
+  {max:699,  name:'GOOD FRIEND',                   conf:'אתה בסדר',         mood:'mid'},
+  {max:999,  name:'YOU CARE TOO MUCH',             conf:'אחלה מפרגן',       mood:'high'},
+  {max:1499, name:'ABSOLUTE MADMAN',               conf:'פה כבר מתחיל הכאב', mood:'high'},
+  {max:Infinity, name:'ARE YOU RELATED TO THE BRIDE?', conf:'תתייעץ עם מישהו', mood:'extreme'},
+];
+
+const PROGRESS_NOTES = ['אנחנו מתקרבים לנזק.','אל תדאג. גם לנו אין מושג למה חתונה עולה ככה.','בינתיים המנה עולה.','אין תשובות נכונות. יש רק מעטפות.','עוד קצת ואתה בפנים.','המערכת רושמת הכול. בלי שיפוט. כמעט.'];
+const CALC_STATUSES = ['מחשבים את רמת החוצפה…','בודקים את הקשר…','בודקים כמה עלתה המנה…','מוציאים נתונים מהאקסל…','מתייעצים עם המעטפה…','פותחים מחשבון.'];
+
+/* =========================================================
+   2. STATE
+   ========================================================= */
+const defaultState = () => ({
+  personSide:null, partnerName:'', userName:'', relationship:null, closeness:5,
+  weddingLevel:null, location:null, transportCost:null, plusOne:null, foodQuality:null,
+  previousGift:null, generosity:5, financialState:null,
+});
+let state = defaultState();
+const meta = { step:0, screen:'intro', savedScreen:null, edits:0, logoClicks:0, lowStreak:0, msgSeed:Math.random(), warnedScore:false, sheetOpen:false };
+let lastResult = null;
+
+/* =========================================================
+   3. QUESTIONS (config → render)
+   ========================================================= */
+const Q = [
+  { id:'personSide', type:'cards', big:true, cols:2,
+    title:'מי זה?', subtitle:'כי לפני שנבקש ממך כסף, כדאי להבין למי אתה בכלל מכיר.',
+    options:[ {v:'bride',e:'👰',l:'הכלה',h:'אני בצד שלה. אל תשאל שאלות.'}, {v:'groom',e:'🤵',l:'החתן',h:'באנו לעשות נזק.'} ] },
+  { id:'partnerName', type:'text', title:'איך קוראים לאדם שבגללו הגעת לחתונה?', placeholder:'לדוגמה: דנה', help:'אנחנו צריכים שם כדי לקחת את החישוב באופן אישי.' },
+  { id:'userName', type:'text', title:'ומי אתה?', placeholder:'השם שלך', help:'כדי שנוכל להאשים אותך אישית בהחלטה הסופית.' },
+  { id:'relationship', type:'cards', cols:'list', title:s=>`מה הקשר שלך ל${s.partnerName||'…'}?`,
+    options:[ {v:'family',l:'משפחה'},{v:'close_friend',l:'חבר/ה קרוב/ה'},{v:'work_friend',l:'חבר/ה מהעבודה'},{v:'army_friend',l:'חבר/ה מהצבא'},{v:'school_friend',l:'חבר/ה מהלימודים'},{v:'acquaintance',l:'מכר/ה'},{v:'friend_sibling',l:'אח/ות של חבר'},{v:'barely_know',l:'אני אפילו לא בטוח למה הוזמנתי'},{v:'social_obligation',l:'אני כאן כי לא היה לי נעים להגיד לא'} ] },
+  { id:'closeness', type:'slider', min:1, max:10, labels:CLOSENESS_LABELS, title:'עד כמה אתם קרובים?', ends:['אני מכיר אותו','אם הוא לא מזמין אותי אני נעלב'] },
+  { id:'weddingLevel', type:'cards', big:true, cols:2, title:'איזה סוג של אירוע זה?',
+    options:[ {v:'luxury',e:'💸',l:'חתונה של אנשים עם תקציב'},{v:'upscale',e:'🥂',l:'די יוקרתי'},{v:'standard',e:'🍽️',l:'אולם רגיל'},{v:'family',e:'🪩',l:'אירוע משפחתי'},{v:'basic',e:'🧱',l:'גן אירועים שנראה כמו דוד של דוד'},{v:'unknown',e:'🫠',l:'אין לי מושג, אני רק רוצה את הקינוחים'} ] },
+  { id:'location', type:'cards', cols:'list', title:'איפה החתונה?', subtitle:'כן, זה משנה. לא הרבה. אבל כן.',
+    options:[ {v:'tlv',l:'תל אביב'},{v:'jerusalem',l:'ירושלים'},{v:'haifa',l:'חיפה'},{v:'sharon',l:'השרון'},{v:'center',l:'מרכז'},{v:'north',l:'צפון'},{v:'south',l:'דרום'},{v:'far',l:'מקום שהדרך אליו הייתה ארוכה מדי'} ] },
+  { id:'transportCost', type:'cards', cols:2, skip:true, title:'כמה עלה לך להגיע?', subtitle:'לידיעתך: הוצאות נסיעה הן לא תירוץ לגיטימי לפשיטת רגל רגשית.',
+    options:[ {v:'walk',e:'🚶',l:'0 ₪',h:'בא ברגל כמו מלך'},{v:'low',e:'🚗',l:'20–50 ₪'},{v:'mid',e:'🚕',l:'50–100 ₪'},{v:'high',e:'🚖',l:'100–200 ₪'},{v:'extreme',e:'💀',l:'200+ ₪'},{v:'hotel',e:'🛏️',l:'נאלצתי לקחת לילה במלון'} ] },
+  { id:'plusOne', type:'cards', cols:'list', title:'הגעת לבד או שהבאת עוד בן אדם לאירוע?', subtitle:'כל פה שאוכל נספר. ככה זה עובד.',
+    options:[ {v:'alone',l:'לבד'},{v:'partner',l:'עם בן/בת זוג'},{v:'friend',l:'עם חבר/ה'},{v:'stranger',l:'עם מישהו שאני בקושי מכיר'},{v:'team',l:'הבאתי צוות'} ] },
+  { id:'foodQuality', type:'stars', skip:true, title:'מה רמת האוכל?',
+    options:[ {v:1,l:'בוא נגיד שנאכל.'},{v:2,l:'סבבה'},{v:3,l:'טעים'},{v:4,l:'וואלה השקיעו'},{v:5,l:'אני שוקל להגיע שוב רק בשביל האוכל'} ] },
+  { id:'previousGift', type:'gift', skip:true, title:'וכמה הם נתנו לך?', subtitle:'הפרמטר החברתי החשוב ביותר. אנחנו לא שופטים. אנחנו רק זוכרים.' },
+  { id:'generosity', type:'slider', min:0, max:10, labels:GENEROSITY_LABELS, title:'כמה בא לך לפרגן להם?', ends:['בהצלחה בחיים','כליה'] },
+  { id:'financialState', type:'cards', cols:'list', title:'איך מצב חשבון הבנק?', subtitle:'שאלה טכנית. בלי שיפוט. המערכת בעצמה במינוס.',
+    options:[ {v:'fine',e:'🤑',l:'אני בסדר'},{v:'ok',e:'🙂',l:'נסתדר'},{v:'meh',e:'😐',l:'לא משהו'},{v:'calculator',e:'💀',l:'אני נכנס לאפליקציה של הבנק דרך מחשבון'},{v:'gone',e:'🪦',l:'הכסף הזה כבר לא קיים'} ] },
+];
+const PARAM_COUNT = 11; // everything except the two names
+
+/* =========================================================
+   4. CALCULATION ENGINE
+   ========================================================= */
+function calculateWeddingGift(s){
+  const items = [];
+  const add = (key, label, val) => { items.push({key,label,val:Math.round(val)}); return val; };
+
+  let raw = BASE;
+  add('base','בסיס',BASE);
+  raw += add('relationship','קשר', W.relationship[s.relationship] ?? 0);
+  raw += add('closeness','קרבה', (Number(s.closeness) - 5) * 20);
+  raw += add('weddingLevel','רמת האירוע', W.weddingLevel[s.weddingLevel] ?? 0);
+  raw += add('location','מיקום', W.location[s.location] ?? 0);
+  raw += add('transportCost','הגעה', W.transportCost[s.transportCost] ?? 0);
+  raw += add('foodQuality','אוכל', W.foodQuality[s.foodQuality] ?? 0);
+  raw += add('generosity','פרגון', (Number(s.generosity) - 5) * 15);
+  add('personSide','צד', 0);
+
+  const gf = W.plusOne[s.plusOne] ?? 1;
+  const afterGuests = raw * gf;
+  add('plusOne','אורחים', afterGuests - raw);
+  raw = afterGuests;
+
+  const prev = typeof s.previousGift === 'number' ? s.previousGift : null;
+  if (prev !== null){
+    let r = raw * .6 + prev * .4;
+    r = Math.max(r, prev * .9);
+    add('previousGift','הדדיות', r - raw);
+    raw = r;
+  } else add('previousGift','הדדיות',0);
+
+  const af = W.financialState[s.financialState] ?? 1;
+  add('financialState','מצב בנק', raw * af - raw);
+  raw = raw * af;
+
+  const recommended = normalize(raw);
+  add('round','עיגול חברתי', recommended - raw);
+
+  const idx = LADDER.indexOf(recommended);
+  const lower = LADDER[Math.max(0, idx - 1)];
+  const upper = LADDER[Math.min(LADDER.length - 1, idx + 1)];
+  const cat = CATEGORIES.find(c => recommended <= c.max);
+
+  return { recommendedAmount:recommended, lowerRange:lower, upperRange:upper, score:Math.round(raw),
+           category:cat.name, confidence:cat.conf, mood:cat.mood, breakdown:items,
+           explanation:`שקלול של ${PARAM_COUNT} פרמטרים. לצערנו.`, roast:pickRoast(recommended, s) };
+}
+function normalize(raw){
+  if (raw <= LADDER[0]) return LADDER[0];
+  return LADDER.reduce((best,v) => Math.abs(v - raw) < Math.abs(best - raw) ? v : best, LADDER[0]);
+}
+
+/* =========================================================
+   5. HUMOR ENGINE
+   ========================================================= */
+const JOKES = {
+  low:['אתה לא חייב לתת יותר. אתה גם לא חייב להיות פראייר.','זה לא כסף. זה מס חברות חברתי.','בסכום הזה מותר לך קינוח אחד. בלי לחזור למזנון.'],
+  medium:['זה כבר סכום שמצדיק לפחות 3 קינוחים.','החתונה נגמרת. האשראי נשאר.','המערכת ביקשה להבהיר שהיא לא אחראית למצב העו״ש שלך.'],
+  high:['בהצלחה עם חשבון הבנק.','בסכום הזה מותר לך לרקוד ליד הזוג בלי לבקש רשות.','תזכור לצלם את הצ׳ק. לא בשביל הזיכרון, בשביל התביעה.'],
+  expensiveWedding:['אם יש בר פתוח, זו השקעה. תשתה בהתאם.','המנה עלתה יותר מהמתנה שלך. אבל אל תגיד להם.'],
+  closeFriend:['אתה לא נותן כסף. אתה נותן חיוך ל־10 שנים של הודעות "יאללה ניפגש".','הוא יזכור. הם תמיד זוכרים.'],
+};
+function pickRoast(amount, s){
+  const pool = [];
+  if (amount < 500) pool.push(...JOKES.low);
+  else if (amount < 900) pool.push(...JOKES.medium);
+  else pool.push(...JOKES.high);
+  if (s.weddingLevel === 'luxury' || s.weddingLevel === 'upscale') pool.push(...JOKES.expensiveWedding);
+  if (s.relationship === 'close_friend' || Number(s.closeness) >= 8) pool.push(...JOKES.closeFriend);
+  return pool[Math.floor(meta.msgSeed * pool.length)];
+}
+const TEMPLATES = [
+  (p,u,g,a,rel) => `${p}, מזל טוב ❤️\n\nאחרי ניתוח מעמיק של רמת הקרבה, מחיר המנה, מצב המשק${rel} — המערכת קבעה:\n\n₪${a}.\n\n${u}, תהיה גבר.\n${p}, ${g.f?'אל תעשי':'אל תעשה'} צילום מסך.`,
+  (p,u,g,a) => `${p},\n\nהאלגוריתם דן.\nהאלגוריתם שקל.\nהאלגוריתם פתח את העו״ש.\n\n₪${a}.\n\nמזל טוב 🎉\n${u}, עכשיו תסביר לבנק.`,
+  (p,u,g,a) => `${p}, אנחנו מצטערים.\n${u} הולך לשלם לך ₪${a}.\n\nזה לא היה קל. ${g.f?'את שווה':'אתה שווה'} את זה. כנראה.`,
+  (p,u,g,a) => `שלום ${p}.\n\n${u} ניגש למערכת, ענה על שאלות אינטימיות על העו״ש שלו, וקיבל תשובה.\n\n₪${a}.\n\n${g.f?'תתייחסי':'תתייחס'} לזה בכבוד. הוא בטח לא.`,
+];
+function buildMessage(r){
+  const p = state.partnerName.trim() || 'יקירי';
+  const u = state.userName.trim() || 'אורח אלמוני';
+  const g = { f: state.personSide === 'bride' };
+  const rel = typeof state.previousGift === 'number' ? ` והעובדה שנתת ל${u} ₪${fmtNum(state.previousGift)} בחתונה שלו` : '';
+  const t = TEMPLATES[Math.floor(meta.msgSeed * TEMPLATES.length)];
+  return t(p,u,g,fmtNum(r.recommendedAmount),rel);
+}
+
+/* =========================================================
+   6. FORMATTERS
+   ========================================================= */
+const fmtNum = n => Number(n).toLocaleString('en-US');
+const fmtNIS = n => '₪' + fmtNum(n);
+const optLabel = (qid, v) => { const q = Q.find(x => x.id === qid); const o = q?.options?.find(o => String(o.v) === String(v)); return o ? o.l : '—'; };
+function displayValue(qid){
+  const v = state[qid];
+  switch(qid){
+    case 'partnerName': case 'userName': return v || '—';
+    case 'closeness': return `${v} / 10 · ${CLOSENESS_LABELS[v]}`;
+    case 'generosity': return `${v} / 10 · ${GENEROSITY_LABELS[v]}`;
+    case 'foodQuality': return v ? '★'.repeat(v) + ' ' + optLabel(qid,v) : 'דילגת';
+    case 'previousGift': return v === 'none' ? 'לא הייתה לי חתונה' : v === 'forgot' ? 'אני לא זוכר' : typeof v === 'number' ? fmtNIS(v) : 'דילגת';
+    default: return v == null ? 'דילגת' : optLabel(qid, v);
+  }
+}
+const ROW_LABELS = { personSide:'הצד', partnerName:'מי מתחתן/ת', userName:'מי משלם', relationship:'קשר', closeness:'קרבה', weddingLevel:'רמת האירוע', location:'מיקום', transportCost:'עלות הגעה', plusOne:'אורחים', foodQuality:'אוכל', previousGift:'כמה נתנו לך', generosity:'פרגון', financialState:'מצב הבנק' };
+
+/* =========================================================
+   7. STORAGE
+   ========================================================= */
+const Store = {
+  save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({state, step:meta.step, screen:meta.screen, seed:meta.msgSeed})); }catch(e){} },
+  load(){ try{ const j = localStorage.getItem(STORAGE_KEY); return j ? JSON.parse(j) : null; }catch(e){ return null; } },
+  clear(){ try{ localStorage.removeItem(STORAGE_KEY); }catch(e){} },
+};
+
+/* =========================================================
+   8. DOM HELPERS / ANIMATION
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const el = (tag, cls, html) => { const n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function countUp(node, from, to, dur){
+  if (reduced){ node.textContent = fmtNum(to); return; }
+  const t0 = performance.now();
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const frame = now => {
+    const t = Math.min(1, (now - t0) / dur);
+    node.textContent = fmtNum(Math.round(from + (to - from) * ease(t)));
+    if (t < 1) requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+let toastT;
+function toast(text, ms = 2600){
+  const t = $('toast'); t.textContent = text; t.classList.add('is-on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('is-on'), ms);
+}
+function showScreen(name){
+  document.querySelectorAll('[data-screen]').forEach(s => s.classList.toggle('is-active', s.dataset.screen === name));
+  meta.screen = name; window.scrollTo({top:0});
+  if (name !== 'intro') Store.save();
+}
+
+/* =========================================================
+   9. WIZARD
+   ========================================================= */
+let transitioning = false;
+function renderQuestion(dir = 1){
+  const q = Q[meta.step], root = $('q');
+  const draw = () => {
+    root.innerHTML = '';
+    const title = typeof q.title === 'function' ? q.title(state) : q.title;
+    root.append(el('h2','q-title',esc(title)));
+    if (q.subtitle) root.append(el('p','q-sub',esc(q.subtitle)));
+    const body = el('div','q-body'); body.append(buildInput(q, v => { setValue(q.id, v); updateNext(); }, false)); root.append(body);
+    if (q.help) root.append(el('p','q-help',esc(q.help)));
+    $('p-cur').textContent = String(meta.step + 1).padStart(2,'0');
+    $('p-tot').textContent = String(Q.length).padStart(2,'0');
+    $('p-bar').style.width = ((meta.step + 1) / Q.length * 100) + '%';
+    $('back').textContent = meta.step === 0 ? '→ פתיחה' : '→ חזרה';
+    $('skip').hidden = !q.skip;
+    $('next').textContent = meta.step === Q.length - 1 ? 'SHOW ME THE DAMAGE' : 'המשך ←';
+    $('next').classList.toggle('btn-gold', meta.step === Q.length - 1);
+    $('wnote').textContent = PROGRESS_NOTES[meta.step % PROGRESS_NOTES.length];
+    updateNext();
+    const inp = root.querySelector('input[type=text]');
+    if (inp && matchMedia('(min-width:720px)').matches) inp.focus();
+  };
+  if (reduced || !root.children.length){ draw(); return; }
+  transitioning = true;
+  root.classList.add('is-out');
+  setTimeout(() => {
+    draw(); root.classList.remove('is-out'); root.classList.add('is-in');
+    requestAnimationFrame(() => requestAnimationFrame(() => { root.classList.remove('is-in'); transitioning = false; }));
+  }, 300);
+}
+function setValue(id, v){ state[id] = v; Store.save(); checkEasterEggs(id, v); }
+function isAnswered(q){
+  const v = state[q.id];
+  if (q.type === 'text') return v.trim().length > 0;
+  if (q.type === 'slider') return true;
+  return v != null;
+}
+function updateNext(){ $('next').disabled = !isAnswered(Q[meta.step]); }
+function next(){
+  if (transitioning) return;
+  if (!isAnswered(Q[meta.step]) && !Q[meta.step].skip) return;
+  if (meta.step < Q.length - 1){ meta.step++; Store.save(); renderQuestion(1); }
+  else runCalculation();
+}
+function back(){
+  if (transitioning) return;
+  if (meta.step === 0){ showScreen('intro'); return; }
+  meta.step--; Store.save(); renderQuestion(-1);
+}
+function skip(){ if (Q[meta.step].skip){ setValue(Q[meta.step].id, null); next(); } }
+
+/* -------- input builders (shared by wizard + expand) -------- */
+function buildInput(q, onChange, compact){
+  const cur = state[q.id];
+  switch(q.type){
+    case 'text': {
+      const w = el('div','field');
+      const i = el('input'); i.type = 'text'; i.placeholder = q.placeholder; i.value = cur; i.maxLength = 30; i.setAttribute('aria-label', typeof q.title === 'function' ? q.title(state) : q.title);
+      i.addEventListener('input', () => onChange(i.value));
+      w.append(i); return w;
+    }
+    case 'cards': {
+      const g = el('div','opts' + (q.big && !compact ? ' big' : '')); g.dataset.cols = q.cols; g.setAttribute('role','group');
+      q.options.forEach(o => {
+        const b = el('button','opt'); b.type = 'button'; b.setAttribute('aria-pressed', String(cur === o.v));
+        b.innerHTML = (o.e ? `<span class="opt-emoji" aria-hidden="true">${o.e}</span>` : '') + `<span class="opt-label">${esc(o.l)}${o.h ? `<span class="opt-hint">${esc(o.h)}</span>` : ''}</span>`;
+        b.addEventListener('click', () => {
+          g.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed','false'));
+          b.setAttribute('aria-pressed','true'); b.classList.remove('is-pop'); void b.offsetWidth; b.classList.add('is-pop');
+          onChange(o.v);
+          if (!compact && meta.step < Q.length - 1) setTimeout(next, 260);
+        });
+        g.append(b);
+      });
+      return g;
+    }
+    case 'stars': {
+      const g = el('div','opts stars'); g.dataset.cols = 'list';
+      q.options.forEach(o => {
+        const b = el('button','opt'); b.type = 'button'; b.setAttribute('aria-pressed', String(cur === o.v));
+        b.innerHTML = `<span class="star-row" aria-hidden="true">${'★'.repeat(o.v)}</span><span class="opt-label">${esc(o.l)}</span>`;
+        b.setAttribute('aria-label', `${o.v} כוכבים — ${o.l}`);
+        b.addEventListener('click', () => { g.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true'); onChange(o.v); if (!compact) setTimeout(next, 260); });
+        g.append(b);
+      });
+      return g;
+    }
+    case 'slider': {
+      const w = el('div','slider');
+      const val = el('div','slider-value'); val.setAttribute('aria-live','polite');
+      const r = el('input'); r.type = 'range'; r.min = q.min; r.max = q.max; r.value = cur; r.setAttribute('aria-label', q.title);
+      const paint = () => { val.innerHTML = `${esc(q.labels[r.value])}<small>${r.value} / ${q.max}</small>`; };
+      r.addEventListener('input', () => { paint(); onChange(Number(r.value)); });
+      paint();
+      const ends = el('div','slider-ends',`<span>${esc(q.ends[0])}</span><span>${esc(q.ends[1])}</span>`);
+      w.append(val, r, ends); return w;
+    }
+    case 'gift': {
+      const w = el('div','gift');
+      const chips = el('div','chips');
+      const presets = [250,300,400,500,600,750,1000];
+      const all = [ {v:'none',l:'לא הייתה לי חתונה',txt:true}, {v:'forgot',l:'אני לא זוכר',txt:true}, ...presets.map(p => ({v:p,l:'₪'+p})) ];
+      const custom = el('div','gift-custom'); const ci = el('input'); ci.type = 'text'; ci.inputMode = 'numeric'; ci.placeholder = 'סכום אחר'; ci.setAttribute('aria-label','סכום אחר');
+      const sync = () => chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(String(state[q.id]) === c.dataset.v)));
+      all.forEach(o => {
+        const c = el('button','chip' + (o.txt ? ' txt' : ''), esc(o.l)); c.type = 'button'; c.dataset.v = String(o.v); c.setAttribute('aria-pressed', String(String(cur) === String(o.v)));
+        c.addEventListener('click', () => { ci.value = ''; onChange(o.v); sync(); });
+        chips.append(c);
+      });
+      if (typeof cur === 'number' && !presets.includes(cur)) ci.value = cur;
+      ci.addEventListener('input', () => { const n = parseInt(ci.value.replace(/\D/g,''),10); onChange(Number.isFinite(n) && n > 0 ? Math.min(n, 100000) : null); sync(); });
+      custom.append(el('span',null,'₪'), ci);
+      w.append(chips, custom); return w;
+    }
+  }
+}
+
+/* =========================================================
+   10. CALCULATING MOMENT + RESULT
+   ========================================================= */
+function runCalculation(){
+  meta.msgSeed = Math.random();
+  showScreen('calc');
+  const st = $('calc-status'), line = $('calc-line');
+  line.style.width = '0'; requestAnimationFrame(() => line.style.width = '100%');
+  let i = 0; st.textContent = CALC_STATUSES[0];
+  const iv = setInterval(() => {
+    i++; if (i >= CALC_STATUSES.length){ clearInterval(iv); return; }
+    st.classList.add('is-swap');
+    setTimeout(() => { st.textContent = CALC_STATUSES[i]; st.classList.remove('is-swap'); }, 220);
+  }, 320);
+  setTimeout(() => { clearInterval(iv); renderResult(true); }, reduced ? 200 : 1900);
+}
+function renderResult(dramatic){
+  const r = calculateWeddingGift(state);
+  const from = lastResult ? lastResult.recommendedAmount : 0;
+  lastResult = r;
+  showScreen('result');
+  $('verdict').dataset.mood = r.mood;
+  countUp($('amount'), dramatic ? 0 : from, r.recommendedAmount, dramatic ? 900 : 500);
+  paintResultMeta(r);
+  $('msg').innerHTML = esc(buildMessage(r)).replace(/(₪[\d,]+)/g,'<b>$1</b>');
+  $('roast').textContent = r.roast;
+}
+function paintResultMeta(r){
+  $('range').textContent = `${fmtNIS(r.lowerRange)} – ${fmtNIS(r.upperRange)}`;
+  $('conf').textContent = r.confidence;
+  $('badge').textContent = r.category;
+  $('live').innerHTML = `${fmtNIS(r.recommendedAmount)}<small>מתעדכן חי</small>`;
+  paintBreakdown(r);
+}
+function paintBreakdown(r){
+  const bd = $('bd'); bd.innerHTML = '';
+  const items = r.breakdown.filter(i => i.key !== 'base' && i.key !== 'personSide');
+  const max = Math.max(1, ...items.map(i => Math.abs(i.val)));
+  items.forEach(i => {
+    const row = el('div','bd-row');
+    row.innerHTML = `<span class="bd-name">${esc(i.label)}</span><span class="bd-track${i.val < 0 ? ' neg' : ''}"><i style="width:0"></i></span><span class="bd-val">${i.val < 0 ? '−' : '+'}₪${fmtNum(Math.abs(i.val))}</span>`;
+    bd.append(row);
+    requestAnimationFrame(() => row.querySelector('i').style.width = (Math.abs(i.val) / max * 100) + '%');
+  });
+  $('bd-total').textContent = fmtNIS(r.recommendedAmount);
+}
+
+/* =========================================================
+   11. EXPAND / EDIT
+   ========================================================= */
+function openSheet(scrollToWhy){
+  if (meta.sheetOpen) return;
+  meta.sheetOpen = true;
+  buildRows();
+  $('sheet').classList.add('is-open'); $('sheet').setAttribute('aria-hidden','false'); $('scrim').classList.add('is-open');
+  $('sheet-close').focus();
+  if (scrollToWhy) setTimeout(() => $('why').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'start'}), 450);
+}
+function closeSheet(){
+  meta.sheetOpen = false;
+  $('sheet').classList.remove('is-open'); $('sheet').setAttribute('aria-hidden','true'); $('scrim').classList.remove('is-open');
+  $('expand').focus();
+}
+function buildRows(){
+  const rows = $('rows'); rows.innerHTML = '';
+  Q.forEach(q => {
+    const row = el('div','row');
+    const head = el('div','row-head'); const label = el('span','row-label',esc(ROW_LABELS[q.id])); const val = el('span','row-value',esc(displayValue(q.id)));
+    head.append(label, val);
+    const edit = el('div','row-edit');
+    const compactQ = q.type === 'cards' ? {...q, big:false, cols:'list'} : q;
+    edit.append(buildInput(compactQ, v => {
+      setValue(q.id, v); meta.edits++;
+      val.textContent = displayValue(q.id);
+      liveRecalc();
+      if (meta.edits === 5) toast('אחי, אתה מתמקח עם אלגוריתם.');
+    }, true));
+    row.append(head, edit); rows.append(row);
+  });
+}
+function liveRecalc(){
+  const r = calculateWeddingGift(state);
+  const from = lastResult ? lastResult.recommendedAmount : 0;
+  lastResult = r;
+  $('verdict').dataset.mood = r.mood;
+  countUp($('amount'), from, r.recommendedAmount, 500);
+  paintResultMeta(r);
+  $('msg').innerHTML = esc(buildMessage(r)).replace(/(₪[\d,]+)/g,'<b>$1</b>');
+  $('roast').textContent = r.roast;
+}
+
+/* =========================================================
+   12. SHARE / COPY / RESET / EASTER EGGS
+   ========================================================= */
+function resultText(){
+  const p = state.partnerName.trim() || 'מישהו';
+  const a = fmtNIS(lastResult.recommendedAmount);
+  return `Wedding Damage Calculator אומר שאני צריך לתת ${a} בחתונה של ${p}.\n\nאחרי ${PARAM_COUNT} חישובים מדעיים ביותר. אני שונא את האפליקציה הזאת.`;
+}
+async function copyText(text){
+  try{ await navigator.clipboard.writeText(text); return true; }
+  catch(e){
+    const ta = el('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.append(ta); ta.select();
+    let ok = false; try{ ok = document.execCommand('copy'); }catch(_){} ta.remove(); return ok;
+  }
+}
+async function share(){
+  const text = resultText();
+  if (navigator.share){ try{ await navigator.share({title:'WEDDING DAMAGE', text}); return; }catch(e){ if (e.name === 'AbortError') return; } }
+  toast((await copyText(text)) ? 'הועתק. עכשיו לך תשלח את זה בקבוצה.' : 'לא הצלחנו להעתיק. תצלם מסך כמו כולם.');
+}
+async function copyResult(){
+  const ok = await copyText($('msg').textContent + '\n\n' + `טווח: ${$('range').textContent}`);
+  $('copy').textContent = ok ? 'הועתק.' : 'לא הצלחנו';
+  setTimeout(() => $('copy').textContent = 'העתק', 1800);
+}
+function reset(){
+  state = defaultState(); meta.step = 0; meta.edits = 0; meta.lowStreak = 0; meta.warnedScore = false; lastResult = null;
+  Store.clear(); closeModal(); if (meta.sheetOpen) closeSheet();
+  $('restore').classList.remove('is-on'); showScreen('intro');
+}
+function openModal(){ $('modal').classList.add('is-open'); $('modal-no').focus(); }
+function closeModal(){ $('modal').classList.remove('is-open'); }
+function checkEasterEggs(id, v){
+  const isLowest = (id === 'relationship' && (v === 'social_obligation' || v === 'barely_know')) || (id === 'generosity' && v <= 1) || (id === 'financialState' && v === 'gone') || (id === 'foodQuality' && v === 1);
+  if (id === 'relationship' || id === 'generosity' || id === 'financialState' || id === 'foodQuality'){
+    meta.lowStreak = isLowest ? meta.lowStreak + 1 : 0;
+    if (meta.lowStreak === 3){ toast('אנחנו רואים פה דפוס.'); meta.lowStreak = 0; }
+  }
+  if (id === 'previousGift' && typeof v === 'number' && v >= 1500 && !meta.warnedScore){ meta.warnedScore = true; toast('אה. אז אנחנו סופרים.'); }
+}
+function logoClick(){
+  meta.logoClicks++;
+  if (meta.logoClicks === 5) toast('תפסיק ללחוץ. זה לא מוריד את הסכום.');
+  if (meta.logoClicks === 12){ toast('ברצינות. תפסיק.'); meta.logoClicks = 0; }
+}
+
+/* =========================================================
+   13. EVENTS + INIT
+   ========================================================= */
+function bind(){
+  $('start').addEventListener('click', () => { $('restore').classList.remove('is-on'); meta.step = 0; showScreen('wizard'); renderQuestion(); });
+  $('next').addEventListener('click', next);
+  $('back').addEventListener('click', back);
+  $('skip').addEventListener('click', skip);
+  $('expand').addEventListener('click', () => openSheet(false));
+  $('why-btn').addEventListener('click', () => openSheet(true));
+  $('sheet-close').addEventListener('click', closeSheet);
+  $('scrim').addEventListener('click', closeSheet);
+  $('recalc').addEventListener('click', () => { closeSheet(); renderResult(true); });
+  $('copy').addEventListener('click', copyResult);
+  $('share').addEventListener('click', share);
+  $('reset').addEventListener('click', openModal);
+  $('modal-yes').addEventListener('click', reset);
+  $('modal-no').addEventListener('click', closeModal);
+  $('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+  document.querySelectorAll('.js-logo').forEach(b => b.addEventListener('click', logoClick));
+  $('restore-yes').addEventListener('click', () => { $('restore').classList.remove('is-on'); if (meta.savedScreen === 'result'){ lastResult = null; renderResult(true); } else { showScreen('wizard'); renderQuestion(); } });
+  $('restore-no').addEventListener('click', reset);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape'){ if ($('modal').classList.contains('is-open')) closeModal(); else if (meta.sheetOpen) closeSheet(); return; }
+    if (meta.screen !== 'wizard') return;
+    const tag = document.activeElement?.tagName;
+    if (e.key === 'Enter' && tag !== 'BUTTON' && !e.isComposing){ e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' && tag !== 'INPUT' && !e.altKey){ next(); }
+    if (e.key === 'ArrowRight' && tag !== 'INPUT' && !e.altKey){ back(); }
+  });
+}
+function init(){
+  bind();
+  const saved = Store.load();
+  if (saved && saved.state){
+    state = {...defaultState(), ...saved.state};
+    meta.step = Math.min(saved.step || 0, Q.length - 1);
+    meta.msgSeed = typeof saved.seed === 'number' ? saved.seed : Math.random();
+    meta.savedScreen = saved.screen;
+    const started = saved.screen === 'result' || saved.step > 0 || state.personSide != null;
+    if (started){
+      $('restore').querySelector('span').textContent = saved.screen === 'result' ? 'יש לך תוצאה שמורה. לחזור אליה?' : 'יש לך חישוב באמצע. להמשיך מאיפה שעצרת?';
+      $('restore').classList.add('is-on');
+    }
+  }
+  showScreen('intro');
+}
+init();
+})();
+</script>
+</body>
+</html>
