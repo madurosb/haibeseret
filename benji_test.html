@@ -1377,7 +1377,7 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
   v.muted=true; v.defaultMuted=true; v.setAttribute("muted","");
   v.playsInline=true; v.setAttribute("playsinline","");
   v.setAttribute("disableremoteplayback","");
-  v.preload = "auto";
+  v.preload = i===0 ? "auto" : "metadata";
   v.poster=V["poster"+(i+1)];
   v.src=mediaURL(V["cap"+(i+1)]);
   v.addEventListener("timeupdate",()=>{
@@ -1401,6 +1401,13 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
     setTimeout(()=>{ if(i===capCur && v.paused && !v.ended) v.play().catch(()=>{}); },400);
   });
   v.addEventListener("error",()=>{ if(i===capCur) advanceFrom(i); });
+  v.addEventListener("pause",()=>{
+    if(i!==capCur||v.ended||document.hidden||!capInView||reduce) return;
+    if(v.duration && v.currentTime>=v.duration-0.06) return;   // that is a real ending
+    setTimeout(()=>{
+      if(i===capCur && v.paused && !v.ended && capInView) v.play().catch(()=>{});
+    },120);
+  });
   capPlate.appendChild(v);
   vids.push(v);
 });
@@ -1421,26 +1428,19 @@ function advanceFrom(i){
   advTimer=setTimeout(()=>{ if(capInView) selectCap(next,false); },60);
 }
 const capRail=()=>matchMedia("(max-width:940px)").matches;
+let capGlideUntil=0;
 function capScrollTo(i){
   if(!capRail()) return;
   const v=vids[i];
+  capGlideUntil=Date.now()+900;      // ignore scroll-sync while we drive the rail
   capPlate.scrollTo({left:v.offsetLeft-(capPlate.clientWidth-v.clientWidth)/2,
     behavior:reduce?"auto":"smooth"});
-}
-function warmNext(i){
-  if(reduce) return;
-  const k=(i+1)%vids.length, v=vids[k];
-  if(!v||v.readyState>=3) return;
-  const pr=v.play();
-  if(pr&&pr.then) pr.then(()=>{
-    if(k!==capCur){ v.pause(); try{ v.currentTime=0; }catch(e){} }
-  }).catch(()=>{});
 }
 let capFails=0;
 function playCap(v){
   // play() is what actually triggers resource loading — changing .preload after the
   // fact is ignored by some browsers, and load() resets the element (that was the loop)
-  try{ if(v.readyState>=1) v.currentTime=0; }catch(e){}
+  try{ if(v.readyState>=1 && v.currentTime>0.05) v.currentTime=0; }catch(e){}
   const pr=v.play();
   if(pr&&pr.then) pr.then(()=>{capFails=0;}).catch(()=>{ capFails++; });
   if(v.readyState<1){
@@ -1467,7 +1467,6 @@ function selectCap(i,manual,fromScroll){
   requestAnimationFrame(()=>{capProg.style.transition="right .1s linear";});
   if(reduce) return;
   playCap(v);
-  setTimeout(()=>warmNext(i),700);
   // if playback never gets going (blocked or unsupported), keep the sequence moving anyway
   stallTimer=setTimeout(()=>{
     if(i!==capCur||v.currentTime>0||v.readyState>=3||!v.paused) return;
@@ -1498,7 +1497,7 @@ function selectCap(i,manual,fromScroll){
   let capTick=false;
   capPlate.addEventListener("scroll",()=>{
     if(cue) cue.classList.add("gone");
-    if(capTick||!capRail()) return;
+    if(capTick||!capRail()||Date.now()<capGlideUntil) return;
     capTick=true;
     requestAnimationFrame(()=>{
       capTick=false;
@@ -1533,7 +1532,7 @@ setInterval(()=>{
     const pr=v.play();
     if(pr&&pr.then) pr.then(()=>{capFails=0;}).catch(()=>{capFails++;});
   }
-},1000);
+},600);
 document.addEventListener("visibilitychange",()=>{
   if(document.hidden||reduce||!capInView||capCur<0) return;
   const v=vids[capCur]; if(v&&v.paused) v.play().catch(()=>{});
