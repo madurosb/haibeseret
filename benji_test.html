@@ -1400,7 +1400,7 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
     if(i!==capCur||v.ended) return;
     setTimeout(()=>{ if(i===capCur && v.paused && !v.ended) v.play().catch(()=>{}); },400);
   });
-  v.addEventListener("error",()=>{ if(i===capCur) advanceFrom(i); });
+  v.addEventListener("error",()=>{ if(i===capCur) holdPoster(i); });
   v.addEventListener("pause",()=>{
     if(i!==capCur||v.ended||document.hidden||!capInView||reduce) return;
     if(v.duration && v.currentTime>=v.duration-0.06) return;   // that is a real ending
@@ -1421,11 +1421,19 @@ CHAPTERS.forEach(([n],i)=>{
 });
 const capItems=$$("#capStages .capitem"), capSegs=$$("#capProgWrap .capseg");
 
-function advanceFrom(i){
+function advanceFrom(i,delay){
   if(i!==capCur) return;
   clearTimeout(advTimer);
   const next=(i+1)%CHAPTERS.length;
-  advTimer=setTimeout(()=>{ if(capInView) selectCap(next,false); },60);
+  advTimer=setTimeout(()=>{ if(capInView) selectCap(next,false); },
+    delay===undefined?60:delay);
+}
+function holdPoster(i){          // playback unavailable: show the still, then move on
+  if(i!==capCur) return;
+  clearTimeout(stallTimer); clearTimeout(fbTimer);
+  capProg.style.transition="right 3.4s linear";
+  capProg.style.right="0%";
+  advanceFrom(i,3500);
 }
 const capRail=()=>matchMedia("(max-width:940px)").matches;
 let capGlideUntil=0;
@@ -1466,6 +1474,7 @@ function selectCap(i,manual,fromScroll){
   capProg.style.transition="none"; capProg.style.right="100%";
   requestAnimationFrame(()=>{capProg.style.transition="right .1s linear";});
   if(reduce) return;
+  if(v.error){ holdPoster(i); return; }
   playCap(v);
   // if playback never gets going (blocked or unsupported), keep the sequence moving anyway
   stallTimer=setTimeout(()=>{
@@ -1527,8 +1536,9 @@ setInterval(()=>{
   const v=vids[capCur];
   if(!v) return;
   if(v.ended || (v.duration && v.currentTime >= v.duration-0.06)){ advanceFrom(capCur); return; }
+  if(v.error) return;                                 // the error path already scheduled the hand-over
   if(v.paused && !document.hidden){
-    if(capFails>=3){ advanceFrom(capCur); return; }   // playback refused — keep the reel moving
+    if(capFails>=3){ holdPoster(capCur); return; }     // playback refused — keep the reel moving
     const pr=v.play();
     if(pr&&pr.then) pr.then(()=>{capFails=0;}).catch(()=>{capFails++;});
   }
@@ -1703,6 +1713,43 @@ form.addEventListener("submit",async e=>{
   }catch(_){ state.className="formstate no"; state.textContent="Network error. Email benjo.kljuno.pro@gmail.com instead."; }
   btn.disabled=false;
 });
+
+
+/* ================= /#check — one-link diagnostic, no devtools needed ================= */
+if(location.hash==="#check"){
+  const box=document.createElement("div");
+  box.id="checkBox";
+  box.style.cssText="position:fixed;left:12px;bottom:12px;z-index:400;max-width:min(94vw,520px);"+
+    "background:#0A101C;color:#EDEDEA;border:1px solid rgba(237,237,234,.3);border-radius:4px;"+
+    "padding:16px 18px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.55;"+
+    "box-shadow:0 20px 60px rgba(0,0,0,.6)";
+  document.body.appendChild(box);
+  const t=document.createElement("video");
+  const h264=t.canPlayType('video/mp4; codecs="avc1.42E01E"')||"";
+  const webm=t.canPlayType('video/webm; codecs="vp9"')||"";
+  function render(){
+    const st=vids.map(v=>({r:v.readyState,n:v.networkState,e:v.error?v.error.code:0}));
+    let verdict, colour="#00A3D9";
+    if(!h264){ verdict="NO H.264 DECODER — this is why the films do not play."; colour="#E0218A"; }
+    else if(st.some(x=>x.e===4)){ verdict="MEDIA SOURCE REJECTED (error 4)."; colour="#E0218A"; }
+    else if(st.some(x=>x.e===3)){ verdict="DECODE ERROR (error 3) — usually the graphics driver."; colour="#E0218A"; }
+    else if(st.some(x=>x.e===2)){ verdict="NETWORK ERROR (error 2)."; colour="#E0218A"; }
+    else if(st.every(x=>x.r===0&&x.n===3)){ verdict="MEDIA BLOCKED BEFORE LOADING — usually a browser extension."; colour="#E0218A"; }
+    else if(st.some(x=>x.r>=2)){ verdict="VIDEO SUPPORT LOOKS FINE."; colour="#7BD389"; }
+    else { verdict="STILL LOADING…"; colour="#FFD400"; }
+    box.innerHTML =
+      '<div style="color:'+colour+';font-weight:700;letter-spacing:.06em;margin-bottom:10px">'+verdict+'</div>'+
+      '<div>H.264 &nbsp;: '+(h264||'"" (not supported)')+'</div>'+
+      '<div>WebM/VP9: '+(webm||'"" (not supported)')+'</div>'+
+      '<div style="margin-top:8px">clips (ready / network / error):</div>'+
+      st.map((x,i)=>'<div>&nbsp;&nbsp;0'+(i+1)+' &nbsp; '+x.r+' / '+x.n+' / '+x.e+'</div>').join("")+
+      '<div style="margin-top:8px;opacity:.55;word-break:break-all">'+navigator.userAgent+'</div>'+
+      '<div style="margin-top:10px;opacity:.6">Screenshot this panel and send it.</div>';
+  }
+  render();
+  setTimeout(render,2500);
+  setTimeout(render,6000);
+}
 
 /* ================= PREFLIGHT SEQUENCE ================= */
 $("#yr").textContent=new Date().getFullYear();
