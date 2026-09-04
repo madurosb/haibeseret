@@ -338,9 +338,13 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   transition:opacity .55s cubic-bezier(.3,0,.2,1),transform .7s cubic-bezier(.22,.7,.25,1),visibility .55s}
 .wt-plate figure.on{opacity:1;visibility:visible;transform:none}
 .wt-plate figure.was{opacity:0;visibility:visible;transform:translateX(var(--leave,-26px)) scale(.99)}
-.sheet-m{display:none}
 .wt-plate img{width:100%;height:100%;object-fit:contain;object-position:left center;
-  filter:drop-shadow(0 26px 60px rgba(0,0,0,.6));opacity:0;transition:opacity .55s}
+  opacity:0;transition:opacity .55s;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 4%,#000 96%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 4%,#000 96%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect}
 .wt-plate img.in{opacity:1}
 .wt-swipe{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:4;
   width:42px;height:42px;place-items:center;border-radius:50%;
@@ -449,16 +453,7 @@ section{padding-block:clamp(52px,7.5vh,104px)}
     opacity:1!important;visibility:visible!important;transform:none!important;
     transition:none;padding:0}
   .wt-plate figure.was{opacity:1!important}
-  .sheet-d{display:none}
-  .sheet-m{display:block}
-  .wt-plate img{object-position:center center;filter:none;animation:none}
-  /* soft-edged rectangle: the panel dissolves into the section instead of sitting on it */
-  .sheet-m{
-    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%),
-      linear-gradient(to bottom,transparent 0,#000 5%,#000 95%,transparent 100%);
-    mask-image:linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%),
-      linear-gradient(to bottom,transparent 0,#000 5%,#000 95%,transparent 100%);
-    -webkit-mask-composite:source-in;mask-composite:intersect}
+  .wt-plate img{object-position:center center;animation:none}
   .wt-inner{grid-template-columns:1fr;grid-template-rows:auto auto auto;
     padding-block:clamp(18px,2.6vh,28px) clamp(14px,2vh,20px);row-gap:10px}
   .wt-plate{grid-column:1;grid-row:1;height:auto;padding-inline:0;align-items:stretch}
@@ -524,6 +519,11 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   background:var(--mg);transition:width .6s cubic-bezier(.2,.7,.3,1)}
 .capitem.on::after{width:100%}
 
+.capplay{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:6;
+  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:var(--mg);border-radius:3px;padding:14px 20px;
+  box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.capview{position:relative}
 .capframe{position:relative;width:100%;max-width:min(63vh,780px);margin-inline:auto;aspect-ratio:1/1}
 .capplate{position:absolute;inset:0}
 .capplate video,.capplate img.poster{position:absolute;inset:0;width:100%;height:100%;
@@ -877,6 +877,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <div class="capgrid rv">
       <div class="capstages" id="capStages"></div>
       <div class="capview">
+        <button class="capplay" id="capPlay" hidden>▶ Play the films</button>
         <div class="capframe">
           <div class="capplate" id="capPlate"></div>
           <span class="capvig" aria-hidden="true"></span>
@@ -1227,12 +1228,11 @@ let showCur=0, procInView=false;
 
 PROCESS.forEach(([n,label,desc],i)=>{
   const b=document.createElement("img");
-  b.dataset.a="case-"+(i+1); b.alt=""; b.setAttribute("aria-hidden","true");
+  b.dataset.a="proc-"+(i+1); b.alt=""; b.setAttribute("aria-hidden","true");
   wtBg.appendChild(b); bgs.push(b);
 
   const fig=document.createElement("figure");
-  fig.innerHTML='<img class="sheet-d" data-a="case-'+(i+1)+'" alt="Pre-press process, part '+n+': '+label+'">'+
-    '<img class="sheet-m" data-a="proc-'+(i+1)+'" alt="Pre-press process, part '+n+': '+label+'">'+
+  fig.innerHTML='<img class="sheet-m" data-a="proc-'+(i+1)+'" alt="Pre-press process, part '+n+': '+label+'">'+
     '<span class="wt-tapb">⤢ Tap to enlarge</span>'+
     '<figcaption class="wt-scap"><span class="wt-sstep">Step '+n+' of 0'+PROCESS.length+'</span>'+
     '<h4>'+label+'</h4><p>'+desc+'</p></figcaption>';
@@ -1444,13 +1444,14 @@ function capScrollTo(i){
   capPlate.scrollTo({left:v.offsetLeft-(capPlate.clientWidth-v.clientWidth)/2,
     behavior:reduce?"auto":"smooth"});
 }
-let capFails=0;
+let capFails=0, capLastErr="";
 function playCap(v){
   // play() is what actually triggers resource loading — changing .preload after the
   // fact is ignored by some browsers, and load() resets the element (that was the loop)
   try{ if(v.readyState>=1 && v.currentTime>0.05) v.currentTime=0; }catch(e){}
   const pr=v.play();
-  if(pr&&pr.then) pr.then(()=>{capFails=0;}).catch(()=>{ capFails++; });
+  if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";})
+    .catch(err=>{ capFails++; capLastErr=(err&&err.name?err.name:"?")+": "+(err&&err.message?err.message:""); });
   if(v.readyState<1){
     v.addEventListener("loadedmetadata",()=>{
       try{ v.currentTime=0; }catch(e){}
@@ -1519,6 +1520,18 @@ function selectCap(i,manual,fromScroll){
   },{passive:true});
 })();
 
+(function(){
+  const pb=$("#capPlay");
+  if(!pb) return;
+  pb.addEventListener("click",()=>{
+    capFails=0; capLastErr=""; pb.hidden=true;
+    const v=vids[capCur]; if(v) v.play().catch(err=>{
+      capFails=3; capLastErr=(err&&err.name||"?")+": "+(err&&err.message||"");
+      pb.hidden=false;
+    });
+  });
+})();
+
 new IntersectionObserver(es=>es.forEach(e=>{
   capInView=e.isIntersecting;
   if(capInView&&!capStarted){ capStarted=true; selectCap(0,false); }
@@ -1538,9 +1551,11 @@ setInterval(()=>{
   if(v.ended || (v.duration && v.currentTime >= v.duration-0.06)){ advanceFrom(capCur); return; }
   if(v.error) return;                                 // the error path already scheduled the hand-over
   if(v.paused && !document.hidden){
+    if(capFails>=2){ const pb=$("#capPlay"); if(pb) pb.hidden=false; }
     if(capFails>=3){ holdPoster(capCur); return; }     // playback refused — keep the reel moving
     const pr=v.play();
-    if(pr&&pr.then) pr.then(()=>{capFails=0;}).catch(()=>{capFails++;});
+    if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";})
+      .catch(err=>{ capFails++; capLastErr=(err&&err.name?err.name:"?")+": "+(err&&err.message?err.message:""); });
   }
 },600);
 document.addEventListener("visibilitychange",()=>{
@@ -1720,7 +1735,7 @@ function showCheck(){
   if(document.getElementById("checkBox")) return;
   const box=document.createElement("div");
   box.id="checkBox";
-  box.style.cssText="position:fixed;left:12px;bottom:12px;z-index:400;max-width:min(94vw,520px);"+
+  box.style.cssText="position:fixed;left:12px;bottom:12px;z-index:400;max-width:min(94vw,560px);"+
     "background:#0A101C;color:#EDEDEA;border:1px solid rgba(237,237,234,.3);border-radius:4px;"+
     "padding:16px 18px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.55;"+
     "box-shadow:0 20px 60px rgba(0,0,0,.6)";
@@ -1728,28 +1743,48 @@ function showCheck(){
   const t=document.createElement("video");
   const h264=t.canPlayType('video/mp4; codecs="avc1.42E01E"')||"";
   const webm=t.canPlayType('video/webm; codecs="vp9"')||"";
+  const rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const t0=Date.now();
+  let clicked=false, clickResult="";
   function render(){
-    const st=vids.map(v=>({r:v.readyState,n:v.networkState,e:v.error?v.error.code:0}));
-    let verdict, colour="#00A3D9";
-    if(!h264){ verdict="NO H.264 DECODER — this is why the films do not play."; colour="#E0218A"; }
-    else if(st.some(x=>x.e===4)){ verdict="MEDIA SOURCE REJECTED (error 4)."; colour="#E0218A"; }
-    else if(st.some(x=>x.e===3)){ verdict="DECODE ERROR (error 3) — usually the graphics driver."; colour="#E0218A"; }
-    else if(st.some(x=>x.e===2)){ verdict="NETWORK ERROR (error 2)."; colour="#E0218A"; }
-    else if(st.every(x=>x.r===0&&x.n===3)){ verdict="MEDIA BLOCKED BEFORE LOADING — usually a browser extension."; colour="#E0218A"; }
-    else if(st.some(x=>x.r>=2)){ verdict="VIDEO SUPPORT LOOKS FINE."; colour="#7BD389"; }
-    else { verdict="STILL LOADING…"; colour="#FFD400"; }
+    const age=(Date.now()-t0)/1000;
+    const st=vids.map(v=>({r:v.readyState,n:v.networkState,e:v.error?v.error.code:0,
+      p:v.paused?1:0,t:+v.currentTime.toFixed(2)}));
+    const cur=st[capCur]||st[0];
+    let verdict, colour="#FFD400";
+    if(!h264 && !webm){ verdict="NO VIDEO CODEC AT ALL."; colour="#E0218A"; }
+    else if(st.some(x=>x.e)){ verdict="MEDIA ERROR code "+st.find(x=>x.e).e+"."; colour="#E0218A"; }
+    else if(rm){ verdict="REDUCED MOTION IS ON IN WINDOWS — films are disabled on purpose."; colour="#E0218A"; }
+    else if(age<3){ verdict="MEASURING…"; }
+    else if(st.every(x=>x.r===0)){ verdict="MEDIA NEVER LOADED."; colour="#E0218A"; }
+    else if(capFails>0){ verdict="PLAYBACK REFUSED BY THE BROWSER."; colour="#E0218A"; }
+    else if(cur.p){ verdict="LOADED BUT PAUSED."; colour="#E0218A"; }
+    else if(cur.t>0.3){ verdict="PLAYING NORMALLY."; colour="#7BD389"; }
+    else { verdict="LOADED, PLAY CALLED, BUT NO FRAMES ADVANCE."; colour="#E0218A"; }
     box.innerHTML =
-      '<div style="color:'+colour+';font-weight:700;letter-spacing:.06em;margin-bottom:10px">'+verdict+'</div>'+
-      '<div>H.264 &nbsp;: '+(h264||'"" (not supported)')+'</div>'+
-      '<div>WebM/VP9: '+(webm||'"" (not supported)')+'</div>'+
-      '<div style="margin-top:8px">clips (ready / network / error):</div>'+
-      st.map((x,i)=>'<div>&nbsp;&nbsp;0'+(i+1)+' &nbsp; '+x.r+' / '+x.n+' / '+x.e+'</div>').join("")+
-      '<div style="margin-top:8px;opacity:.55;word-break:break-all">'+navigator.userAgent+'</div>'+
-      '<div style="margin-top:10px;opacity:.6">Screenshot this panel and send it.</div>';
+      '<div style="color:'+colour+';font-weight:700;letter-spacing:.05em;margin-bottom:10px">'+verdict+'</div>'+
+      '<div>H.264 : '+(h264||'"" none')+' &nbsp;|&nbsp; WebM: '+(webm||'"" none')+'</div>'+
+      '<div>reduced-motion: '+(rm?"ON":"off")+' &nbsp;|&nbsp; play refusals: '+capFails+'</div>'+
+      (capLastErr?'<div style="color:#E0218A">reason: '+capLastErr+'</div>':'')+
+      (clickResult?'<div style="color:#7BD389">click test: '+clickResult+'</div>':'')+
+      '<div style="margin-top:8px">clip: ready / net / err / paused / time</div>'+
+      st.map((x,i)=>'<div>&nbsp;&nbsp;0'+(i+1)+(i===capCur?" *":"  ")+' &nbsp;'+x.r+' / '+x.n+' / '+x.e+' / '+x.p+' / '+x.t+'</div>').join("")+
+      '<div style="margin-top:10px"><button id="chkPlay" style="font:inherit;color:#fff;'+
+        'background:#E0218A;border:0;border-radius:3px;padding:9px 14px;cursor:pointer">'+
+        '&#9654; CLICK TO TEST PLAY</button></div>'+
+      '<div style="margin-top:8px;opacity:.5;word-break:break-all">'+navigator.userAgent+'</div>'+
+      '<div style="margin-top:8px;opacity:.6">Wait 8 seconds, press the pink button, then screenshot.</div>';
+    const pb=document.getElementById("chkPlay");
+    if(pb) pb.onclick=()=>{
+      clicked=true;
+      const v=vids[capCur];
+      v.play().then(()=>{ clickResult="play() resolved"; setTimeout(()=>{
+        clickResult="play() resolved, time="+v.currentTime.toFixed(2); render(); },1200); })
+       .catch(err=>{ clickResult="REJECTED "+(err&&err.name||"?")+": "+(err&&err.message||""); render(); });
+    };
   }
   render();
-  setTimeout(render,2500);
-  setTimeout(render,6000);
+  [1500,4000,8000,13000].forEach(ms=>setTimeout(render,ms));
 }
 if(location.hash==="#check") showCheck();
 addEventListener("hashchange",()=>{ if(location.hash==="#check") showCheck(); });
