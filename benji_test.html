@@ -519,10 +519,14 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   background:var(--mg);transition:width .6s cubic-bezier(.2,.7,.3,1)}
 .capitem.on::after{width:100%}
 
-.capplay{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:6;
-  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-  color:#fff;background:var(--mg);border-radius:3px;padding:14px 20px;
-  box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.capplay{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:6;
+  display:flex;align-items:center;gap:11px;
+  font-family:var(--f-mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  color:#fff;background:var(--mg);border-radius:999px;padding:15px 24px 15px 19px;
+  box-shadow:0 18px 46px rgba(0,0,0,.55);transition:transform .22s,box-shadow .22s}
+.capplay:hover{transform:translate(-50%,-50%) scale(1.04);box-shadow:0 22px 56px rgba(0,0,0,.65)}
+.capplay::before{content:"";width:0;height:0;flex:none;
+  border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
 .capview{position:relative}
 .capframe{position:relative;width:100%;max-width:min(63vh,780px);margin-inline:auto;aspect-ratio:1/1}
 .capplate{position:absolute;inset:0}
@@ -877,7 +881,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <div class="capgrid rv">
       <div class="capstages" id="capStages"></div>
       <div class="capview">
-        <button class="capplay" id="capPlay" hidden>▶ Play the films</button>
+        <button class="capplay" id="capPlay" hidden>Play the films</button>
         <div class="capframe">
           <div class="capplate" id="capPlate"></div>
           <span class="capvig" aria-hidden="true"></span>
@@ -1444,14 +1448,26 @@ function capScrollTo(i){
   capPlate.scrollTo({left:v.offsetLeft-(capPlate.clientWidth-v.clientWidth)/2,
     behavior:reduce?"auto":"smooth"});
 }
-let capFails=0, capLastErr="";
+let capFails=0, capLastErr="", capBlocked=false;
+function showPlayBtn(v){ const pb=$("#capPlay"); if(pb) pb.hidden=!v; }
+/* Chrome grants the page sticky activation after ANY click, so the very first
+   interaction anywhere is enough to start the reel — most people never see the button */
+["pointerdown","keydown"].forEach(ev=>addEventListener(ev,()=>{
+  if(!capBlocked||capCur<0||reduce) return;
+  const v=vids[capCur];
+  if(v&&v.paused&&!v.ended) playCap(v);
+},{passive:true}));
 function playCap(v){
   // play() is what actually triggers resource loading — changing .preload after the
   // fact is ignored by some browsers, and load() resets the element (that was the loop)
   try{ if(v.readyState>=1 && v.currentTime>0.05) v.currentTime=0; }catch(e){}
   const pr=v.play();
-  if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";})
-    .catch(err=>{ capFails++; capLastErr=(err&&err.name?err.name:"?")+": "+(err&&err.message?err.message:""); });
+  if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";capBlocked=false;showPlayBtn(false);})
+    .catch(err=>{
+      capFails++;
+      capLastErr=(err&&err.name?err.name:"?")+": "+(err&&err.message?err.message:"");
+      if(err&&err.name==="NotAllowedError"){ capBlocked=true; showPlayBtn(true); }
+    });
   if(v.readyState<1){
     v.addEventListener("loadedmetadata",()=>{
       try{ v.currentTime=0; }catch(e){}
@@ -1524,10 +1540,11 @@ function selectCap(i,manual,fromScroll){
   const pb=$("#capPlay");
   if(!pb) return;
   pb.addEventListener("click",()=>{
-    capFails=0; capLastErr=""; pb.hidden=true;
-    const v=vids[capCur]; if(v) v.play().catch(err=>{
-      capFails=3; capLastErr=(err&&err.name||"?")+": "+(err&&err.message||"");
-      pb.hidden=false;
+    capFails=0; capLastErr=""; capBlocked=false; pb.hidden=true;
+    const v=vids[capCur];
+    if(v) v.play().catch(err=>{
+      capLastErr=(err&&err.name||"?")+": "+(err&&err.message||"");
+      capBlocked=true; pb.hidden=false;
     });
   });
 })();
@@ -1551,11 +1568,14 @@ setInterval(()=>{
   if(v.ended || (v.duration && v.currentTime >= v.duration-0.06)){ advanceFrom(capCur); return; }
   if(v.error) return;                                 // the error path already scheduled the hand-over
   if(v.paused && !document.hidden){
-    if(capFails>=2){ const pb=$("#capPlay"); if(pb) pb.hidden=false; }
     if(capFails>=3){ holdPoster(capCur); return; }     // playback refused — keep the reel moving
     const pr=v.play();
-    if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";})
-      .catch(err=>{ capFails++; capLastErr=(err&&err.name?err.name:"?")+": "+(err&&err.message?err.message:""); });
+    if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";capBlocked=false;showPlayBtn(false);})
+      .catch(err=>{
+        capFails++;
+        capLastErr=(err&&err.name?err.name:"?")+": "+(err&&err.message?err.message:"");
+        if(err&&err.name==="NotAllowedError"){ capBlocked=true; showPlayBtn(true); }
+      });
   }
 },600);
 document.addEventListener("visibilitychange",()=>{
