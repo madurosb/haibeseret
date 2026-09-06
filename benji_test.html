@@ -519,22 +519,15 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   background:var(--mg);transition:width .6s cubic-bezier(.2,.7,.3,1)}
 .capitem.on::after{width:100%}
 
-.capplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;
-  width:76px;height:76px;border-radius:50%;display:grid;place-items:center;
-  background:rgba(10,16,28,.5);border:1px solid rgba(237,237,234,.55);
-  transition:background-color .25s,border-color .25s,transform .25s}
-.capplay::before{content:"";width:0;height:0;margin-left:6px;
-  border-left:19px solid #EDEDEA;border-top:12px solid transparent;border-bottom:12px solid transparent;
-  transition:border-left-color .25s}
-.capplay::after{content:"";position:absolute;inset:-1px;border-radius:50%;pointer-events:none;
-  border:1px solid rgba(224,33,138,.65);animation:capRing 2.6s cubic-bezier(.2,.6,.3,1) infinite}
-@keyframes capRing{0%{transform:scale(1);opacity:.85}70%{opacity:0}100%{transform:scale(1.5);opacity:0}}
-.capplay:hover{background:var(--mg);border-color:var(--mg);transform:translate(-50%,-50%) scale(1.06)}
-.capplay:hover::before{border-left-color:#fff}
-@media(prefers-reduced-motion:reduce){.capplay::after{animation:none}}
-.capnote{display:none;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(237,237,234,.55);margin:0 0 12px}
-.capnote.on{display:block}
+.capplay{display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:#EDEDEA;border:1px solid var(--mg);border-radius:999px;padding:7px 13px 7px 10px;
+  transition:background-color .22s,color .22s}
+.capplay i{width:0;height:0;flex:none;
+  border-left:8px solid var(--mg);border-top:5px solid transparent;border-bottom:5px solid transparent;
+  transition:border-left-color .22s}
+.capplay:hover{background:var(--mg);color:#fff}
+.capplay:hover i{border-left-color:#fff}
 .capview{position:relative}
 .capframe{position:relative;width:100%;max-width:min(63vh,780px);margin-inline:auto;aspect-ratio:1/1}
 .capplate{position:absolute;inset:0}
@@ -567,6 +560,11 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   box-shadow:0 2px 0 rgba(237,237,234,.14);transition:.25s}
 .caphint .kbd:hover .key{border-color:var(--mg)}
 @media(pointer:coarse){.caphint .kbd{display:none}}
+@media(max-width:940px){
+  .caphint{display:flex!important;margin-top:12px}
+  .caphint .hmain{display:none}
+  .caphint:not(:has(.capplay:not([hidden]))){display:none!important}
+}
 @media(max-width:940px){
   .capframe,.capfoot{max-width:min(56vh,560px)}
   /* swipe rail: the next film peeks in, dimmed by the vignette — that is the affordance */
@@ -889,16 +887,15 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <div class="capgrid rv">
       <div class="capstages" id="capStages"></div>
       <div class="capview">
-        <button class="capplay" id="capPlay" hidden aria-label="Play the films"></button>
         <div class="capframe">
           <div class="capplate" id="capPlate"></div>
           <span class="capvig" aria-hidden="true"></span>
         </div>
         <div class="capfoot">
           <div class="capcue" id="capCue"><i></i><span>Swipe to change stage</span></div>
-          <span class="capnote" id="capNote">Autoplay is off in this browser — press play</span>
           <div class="capprog" id="capProgWrap"><i id="capProg"></i></div>
           <div class="caphint">
+            <button class="capplay" id="capPlay" hidden><i></i>Play the films</button>
             <span class="hmain">Click any stage to play it</span>
             <span class="kbd">or use the <b class="key">←</b> <b class="key">→</b> arrow keys on your keyboard</span>
           </div>
@@ -1458,10 +1455,7 @@ function capScrollTo(i){
     behavior:reduce?"auto":"smooth"});
 }
 let capFails=0, capLastErr="", capBlocked=false;
-function showPlayBtn(v){
-  const pb=$("#capPlay"); if(pb) pb.hidden=!v;
-  const nt=$("#capNote"); if(nt) nt.classList.toggle("on",!!v);
-}
+function showPlayBtn(v){ const pb=$("#capPlay"); if(pb) pb.hidden=!v; }
 /* Chrome grants the page sticky activation after ANY click, so the very first
    interaction anywhere is enough to start the reel — most people never see the button */
 ["pointerdown","keydown"].forEach(ev=>addEventListener(ev,()=>{
