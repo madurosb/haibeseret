@@ -519,14 +519,22 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   background:var(--mg);transition:width .6s cubic-bezier(.2,.7,.3,1)}
 .capitem.on::after{width:100%}
 
-.capplay{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:6;
-  display:flex;align-items:center;gap:11px;
-  font-family:var(--f-mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
-  color:#fff;background:var(--mg);border-radius:999px;padding:15px 24px 15px 19px;
-  box-shadow:0 18px 46px rgba(0,0,0,.55);transition:transform .22s,box-shadow .22s}
-.capplay:hover{transform:translate(-50%,-50%) scale(1.04);box-shadow:0 22px 56px rgba(0,0,0,.65)}
-.capplay::before{content:"";width:0;height:0;flex:none;
-  border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
+.capplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;
+  width:76px;height:76px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(10,16,28,.5);border:1px solid rgba(237,237,234,.55);
+  transition:background-color .25s,border-color .25s,transform .25s}
+.capplay::before{content:"";width:0;height:0;margin-left:6px;
+  border-left:19px solid #EDEDEA;border-top:12px solid transparent;border-bottom:12px solid transparent;
+  transition:border-left-color .25s}
+.capplay::after{content:"";position:absolute;inset:-1px;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(224,33,138,.65);animation:capRing 2.6s cubic-bezier(.2,.6,.3,1) infinite}
+@keyframes capRing{0%{transform:scale(1);opacity:.85}70%{opacity:0}100%{transform:scale(1.5);opacity:0}}
+.capplay:hover{background:var(--mg);border-color:var(--mg);transform:translate(-50%,-50%) scale(1.06)}
+.capplay:hover::before{border-left-color:#fff}
+@media(prefers-reduced-motion:reduce){.capplay::after{animation:none}}
+.capnote{display:none;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(237,237,234,.55);margin:0 0 12px}
+.capnote.on{display:block}
 .capview{position:relative}
 .capframe{position:relative;width:100%;max-width:min(63vh,780px);margin-inline:auto;aspect-ratio:1/1}
 .capplate{position:absolute;inset:0}
@@ -881,13 +889,14 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <div class="capgrid rv">
       <div class="capstages" id="capStages"></div>
       <div class="capview">
-        <button class="capplay" id="capPlay" hidden>Play the films</button>
+        <button class="capplay" id="capPlay" hidden aria-label="Play the films"></button>
         <div class="capframe">
           <div class="capplate" id="capPlate"></div>
           <span class="capvig" aria-hidden="true"></span>
         </div>
         <div class="capfoot">
           <div class="capcue" id="capCue"><i></i><span>Swipe to change stage</span></div>
+          <span class="capnote" id="capNote">Autoplay is off in this browser — press play</span>
           <div class="capprog" id="capProgWrap"><i id="capProg"></i></div>
           <div class="caphint">
             <span class="hmain">Click any stage to play it</span>
@@ -1449,7 +1458,10 @@ function capScrollTo(i){
     behavior:reduce?"auto":"smooth"});
 }
 let capFails=0, capLastErr="", capBlocked=false;
-function showPlayBtn(v){ const pb=$("#capPlay"); if(pb) pb.hidden=!v; }
+function showPlayBtn(v){
+  const pb=$("#capPlay"); if(pb) pb.hidden=!v;
+  const nt=$("#capNote"); if(nt) nt.classList.toggle("on",!!v);
+}
 /* Chrome grants the page sticky activation after ANY click, so the very first
    interaction anywhere is enough to start the reel — most people never see the button */
 ["pointerdown","keydown"].forEach(ev=>addEventListener(ev,()=>{
@@ -1540,11 +1552,11 @@ function selectCap(i,manual,fromScroll){
   const pb=$("#capPlay");
   if(!pb) return;
   pb.addEventListener("click",()=>{
-    capFails=0; capLastErr=""; capBlocked=false; pb.hidden=true;
+    capFails=0; capLastErr=""; capBlocked=false; showPlayBtn(false);
     const v=vids[capCur];
     if(v) v.play().catch(err=>{
       capLastErr=(err&&err.name||"?")+": "+(err&&err.message||"");
-      capBlocked=true; pb.hidden=false;
+      capBlocked=true; showPlayBtn(true);
     });
   });
 })();
