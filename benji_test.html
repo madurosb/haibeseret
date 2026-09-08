@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Benjamin Kljuno — Technical Graphic Designer</title>
+<title>Benjamin Kljuno - Technical Graphic Designer</title>
 <meta name="description" content="Technical graphic designer specialising in pre-press workflow, file correction and digital label manufacturing for HP Indigo presses.">
-<meta property="og:title" content="Benjamin Kljuno — Technical Graphic Designer">
+<meta property="og:title" content="Benjamin Kljuno - Technical Graphic Designer">
 <meta property="og:description" content="Pre-press workflow, file correction and digital label manufacturing.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23E0218A' stroke-width='2'/%3E%3Cpath d='M16 1v30M1 16h30' stroke='%23E0218A' stroke-width='2'/%3E%3C/svg%3E">
@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Timmana&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Suez+One&family=Assistant:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   BENJAMIN KLJUNO — PORTFOLIO
+   BENJAMIN KLJUNO - PORTFOLIO
    Palette derives from the press room: ink black, N9 neutral
    proofing grey (the surround used to judge colour), and the
    four process inks. Magenta is the die-line colour, so it is
@@ -159,9 +159,20 @@ a.navlinks-x{}
 /* ================= HEBREW / RTL ================= */
 html[dir="rtl"]{--f-display:var(--f-display-he);--f-body:var(--f-body-he)}
 html[dir="rtl"] .mono,html[dir="rtl"] .key{font-family:var(--f-mono)}
-/* Suez One sits lower and heavier than Timmana — give it room */
+/* Suez One sits lower and heavier than Timmana - give it room */
 html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,
 html[dir="rtl"] h4,html[dir="rtl"] .bigline{line-height:1.24;letter-spacing:0}
+html[dir="rtl"] .ctitle,html[dir="rtl"] .cdesc,html[dir="rtl"] .cdesc p{text-align:right}
+/* IBM Plex Mono has no Hebrew glyphs, so the nav was silently falling back to a
+   generic system font at mismatched metrics — switch it to the Hebrew body face
+   and size it up, since mono's tight letter-spacing doesn't suit that fallback */
+html[dir="rtl"] .navlinks a{font-family:var(--f-body-he);font-size:1.05rem;
+  letter-spacing:0;font-weight:500}
+html[dir="rtl"] .brandmark b{font-family:var(--f-mono)}
+html[dir="rtl"] .field label{left:auto;right:0;transform-origin:right top}
+html[dir="rtl"] .field input:focus+label,html[dir="rtl"] .field textarea:focus+label,
+html[dir="rtl"] .field input:not(:placeholder-shown)+label,
+html[dir="rtl"] .field textarea:not(:placeholder-shown)+label{transform:translateY(-15px) scale(.82)}
 html[dir="rtl"] header.nav{direction:ltr}
 html[dir="rtl"] .navlinks,html[dir="rtl"] .brandmark{direction:rtl}
 html[dir="rtl"] .brandmark b{letter-spacing:.18em}
@@ -426,7 +437,7 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);grid-template-rows:1fr auto;
   column-gap:clamp(26px,4.5vw,76px);row-gap:clamp(16px,2.4vh,30px);align-items:center}
 
-/* the sheet itself — whole, undistorted, dominant */
+/* the sheet itself - whole, undistorted, dominant */
 .wt-plate{position:relative;grid-column:1;grid-row:1;height:100%;cursor:zoom-in}
 .wt-plate figure{position:absolute;inset:0;margin:0;opacity:0;visibility:hidden;
   transform:translateX(var(--enter,26px)) scale(1.015);
@@ -662,7 +673,7 @@ section{padding-block:clamp(52px,7.5vh,104px)}
 }
 @media(max-width:940px){
   .capframe,.capfoot{max-width:min(56vh,560px)}
-  /* swipe rail: the next film peeks in, dimmed by the vignette — that is the affordance */
+  /* swipe rail: the next film peeks in, dimmed by the vignette - that is the affordance */
   .capplate{display:flex;gap:10px;padding-inline:8%;
     overflow-x:auto;overflow-y:hidden;
     scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
@@ -673,7 +684,7 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   .capplate video.on{opacity:1}
   .capgrid{grid-template-areas:"v" "s";gap:clamp(14px,2.5vh,22px)}
   .capview{grid-area:v}.capstages{grid-area:s}
-  /* only the stage that is playing is shown — it swaps in place, right under the film */
+  /* only the stage that is playing is shown - it swaps in place, right under the film */
   .capitem{display:none;border-top:0;padding:0}
   .capitem:last-child{border-bottom:0}
   .capitem.on{display:grid;animation:capSwap .55s cubic-bezier(.22,.7,.25,1) both}
@@ -775,13 +786,16 @@ section{padding-block:clamp(52px,7.5vh,104px)}
   color:var(--mg);margin-top:7px;display:none}
 .field.bad .err{display:block}
 .field.bad input,.field.bad textarea{border-color:var(--mg)}
-.fhead{display:none;justify-content:space-between;gap:14px;padding-bottom:16px;
-  margin-bottom:22px;border-bottom:1px solid var(--line);opacity:.6}
+.fhead{display:flex;justify-content:space-between;gap:14px;padding-bottom:16px;
+  margin-bottom:26px;border-bottom:1px solid var(--line);opacity:.62}
 .flinks{display:none}
+#cform{border:1px solid var(--line);border-radius:3px;
+  padding:clamp(22px,3vw,32px) clamp(20px,3vw,30px) clamp(26px,3.4vw,34px);
+  background:rgba(237,237,234,.028)}
+#cform .field{margin-bottom:24px}
+#cform .field input,#cform .field textarea{padding:15px 0 11px}
 @media(max-width:760px){
-  .fhead{display:flex}
-  #cform{border:1px solid var(--line);border-radius:3px;
-    padding:20px clamp(16px,4.5vw,22px) 24px;background:rgba(237,237,234,.028)}
+  #cform{padding:20px clamp(16px,4.5vw,22px) 24px}
   #cform .field{margin-bottom:20px}
   #cform .field input,#cform .field textarea{padding:16px 0 12px}
   #cform .btn{width:100%;justify-content:center;margin-top:4px}
@@ -932,10 +946,10 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 <section class="wrap" id="work">
   <div class="shead rv">
     <h3>Selected label work</h3>
-    <span class="idx">01 — Work · <span id="workCount"></span> projects</span>
+    <span class="idx">01 - Work · <span id="workCount"></span> projects</span>
   </div>
   <p class="rv muted seclede">
-    Production artwork prepared for print. Each project opens the real press sheet — click
+    Production artwork prepared for print. Each project opens the real press sheet - click
     <b style="color:var(--mg)">Show marks</b> to see the trim and bleed geometry the file was built to.
   </p>
   <div class="grid" id="workGrid"></div>
@@ -946,10 +960,10 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 <section class="wrap" id="process">
   <div class="shead rv">
     <h3>From client file to final print</h3>
-    <span class="idx">02 — Process · 7 parts</span>
+    <span class="idx">02 - Process · 7 parts</span>
   </div>
   <p class="rv muted seclede">
-    A walk-through of how a job actually moves through pre-press — what gets checked, what gets
+    A walk-through of how a job actually moves through pre-press - what gets checked, what gets
     corrected, and what happens when the screen and the press disagree.
   </p>
 </section>
@@ -1000,7 +1014,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
   <div class="wrap">
     <div class="shead rv">
       <h3>What I do</h3>
-      <span class="idx">03 — Capabilities · 4 stages</span>
+      <span class="idx">03 - Capabilities · 4 stages</span>
     </div>
     <div class="capgrid rv">
       <div class="capstages" id="capStages"></div>
@@ -1027,7 +1041,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 <section class="wrap" id="about">
   <div class="shead rv">
     <h3>About</h3>
-    <span class="idx">04 — Benjamin Kljuno</span>
+    <span class="idx">04 - Benjamin Kljuno</span>
   </div>
   <div class="about rv">
     <figure class="portrait">
@@ -1037,7 +1051,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <p class="big">Technical graphic designer specialising in pre-press workflow, file correction, and digital label manufacturing. I bridge the gap between creative visual design and print-floor execution.</p>
     <div>
       <p>My name is Benjamin Kljuno. I work across graphic machine engineering and graphic design. My strength is in printing-machine engineering knowledge combined with hands-on experience in graphic design.</p>
-      <p>Knowledge in both worlds allows for a deep understanding of the customer's needs — in maintenance, in troubleshooting, and in defining machine capabilities. I'm experienced in offset printing, flexo printing, and digital printing.</p>
+      <p>Knowledge in both worlds allows for a deep understanding of the customer's needs - in maintenance, in troubleshooting, and in defining machine capabilities. I'm experienced in offset printing, flexo printing, and digital printing.</p>
       <p>Experienced in auditing artwork, resolving colour separation issues, and preparing complex print files specifically for HP Indigo digital presses.</p>
     </div>
   </div>
@@ -1054,10 +1068,10 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 <section class="wrap" id="cv">
   <div class="shead rv">
     <h3>My resume / CV</h3>
-    <span class="idx">05 — One page, print-ready</span>
+    <span class="idx">05 - One page, print-ready</span>
   </div>
   <div class="cvpanel rv">
-    <p class="lead">Graphic machine engineering on one side, graphic design on the other — and the print floor in between.</p>
+    <p class="lead">Graphic machine engineering on one side, graphic design on the other - and the print floor in between.</p>
     <div class="acts">
       <button class="btn" data-lb="cv-1">Read the CV ↗</button>
       <a class="btn" id="cvDownload" href="#" download="Benjamin-Kljuno-Resume.pdf">Download PDF</a>
@@ -1071,7 +1085,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
 <section class="wrap" id="contact" style="padding-bottom:clamp(40px,6vh,80px)">
   <div class="shead rv">
     <h3>Send a file, or a job</h3>
-    <span class="idx">06 — Contact</span>
+    <span class="idx">06 - Contact</span>
   </div>
   <div class="contact rv">
     <div>
@@ -1084,7 +1098,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <div class="docket" id="cdocket" hidden>
       <div class="dh mono"><span>Enquiry</span><span>Reply within 24h</span></div>
       <h4>Tell me what it's printing on.</h4>
-      <p>Send the artwork, the substrate and the press it's going on — I'll come back with what the file needs before it gets there.</p>
+      <p>Send the artwork, the substrate and the press it's going on - I'll come back with what the file needs before it gets there.</p>
       <a class="btn" id="cdocketBtn" href="#" target="_blank" rel="noopener">Open the enquiry form ↗</a>
       <p class="alt">Or email <a href="mailto:benjo.kljuno.pro@gmail.com">benjo.kljuno.pro@gmail.com</a></p>
     </div>
@@ -1192,22 +1206,22 @@ const PROJECTS = [
       {label:"Front", key:"ccg-front", media:[363.637,363.639], trim:[33,33,330.64,330.64], bleed:[24.5,24.5,339.14,339.14]},
       {label:"Back",  key:"ccg-back",  media:[363.637,363.639], trim:[33,33,330.64,330.64], bleed:[24.5,24.5,339.14,339.14]}
     ],
-    specs:[["Client","FloraLife — Smithers-Oasis"],["Format","Die-cut bottle label"],["Colour","Full-colour front · single-colour back"],["Press","HP Indigo digital"]],
+    specs:[["Client","FloraLife - Smithers-Oasis"],["Format","Die-cut bottle label"],["Colour","Full-colour front · single-colour back"],["Press","HP Indigo digital"]],
     notes:[
       "A two-part label: a photographic front panel carrying the product shot and brand block, and a text-dense back panel with directions for use, hazard copy, net contents and the EAN barcode.",
       "Both faces are built to the same die and the same 3 mm bleed, so front and back register to one another on the finished bottle."
     ]
   },
   {
-    brand:"FloraLife", title:"Crystal Clear — 5 lb",
+    brand:"FloraLife", title:"Crystal Clear - 5 lb",
     sub:"2.26 kg · front + back",
     faces:[
       {label:"Front", key:"cc226-front", media:[442.205,357.165], trim:[8.5,8.5,433.70,348.66], bleed:[0,0,442.205,357.165]},
       {label:"Back",  key:"cc226-back",  media:[442.205,357.165], trim:[8.5,8.5,433.70,348.66], bleed:[0,0,442.205,357.165]}
     ],
-    specs:[["Client","FloraLife — Smithers-Oasis"],["Format","Pail / tub wrap label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
+    specs:[["Client","FloraLife - Smithers-Oasis"],["Format","Pail / tub wrap label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
     notes:[
-      "Front carries a soft watercolour rose image against white — a job where tonal transitions and the edge of the image are the whole design, so image quality and colour behaviour matter more than anything else on the sheet.",
+      "Front carries a soft watercolour rose image against white - a job where tonal transitions and the edge of the image are the whole design, so image quality and colour behaviour matter more than anything else on the sheet.",
       "The back is a trilingual instruction panel (EN / FR / ES) built from line icons, dosage figures, handling symbols and a barcode: fine black line art that has to hold at size."
     ]
   },
@@ -1217,10 +1231,10 @@ const PROJECTS = [
     faces:[
       {label:"Label", key:"ff300", media:[632.929,377.811], trim:[33,33,599.93,344.81], bleed:[24.5,24.5,608.43,353.31]}
     ],
-    specs:[["Client","FloraLife — Smithers-Oasis"],["Format","Bag / sack label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
+    specs:[["Client","FloraLife - Smithers-Oasis"],["Format","Bag / sack label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
     notes:[
       "One sheet holding two very different jobs side by side: a bold flat-colour brand block on black, and a four-step instruction grid with icons, dosage table and barcode.",
-      "Flat spot-like reds and greens sit next to reversed white type — the kind of build where rich black limits and overprint settings decide whether the edges stay clean on press."
+      "Flat spot-like reds and greens sit next to reversed white type - the kind of build where rich black limits and overprint settings decide whether the edges stay clean on press."
     ]
   },
   {
@@ -1232,23 +1246,23 @@ const PROJECTS = [
     specs:[["Client","Chrysal"],["Format","Wrap-around jar label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
     notes:[
       "A long, narrow wrap where the artwork has to run continuously around the container and meet itself at the seam.",
-      "Heavy file — layered artwork with large placed imagery — which makes clean output and RIP behaviour part of the job, not an afterthought."
+      "Heavy file - layered artwork with large placed imagery - which makes clean output and RIP behaviour part of the job, not an afterthought."
     ]
   },
   {
-    brand:"Chrysal", title:"Recyclable Paper Sachet — 1 L",
+    brand:"Chrysal", title:"Recyclable Paper Sachet - 1 L",
     sub:"100 ct · 100 × 100 mm",
     faces:[
       {label:"Label", key:"sachet-1l", media:[349.465,349.465], trim:[33,33,316.46,316.46], bleed:[24.5,24.5,324.97,324.97]}
     ],
     specs:[["Client","Chrysal"],["Format","Carton / bag label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
     notes:[
-      "Illustrated kraft-paper design with hand-drawn white lettering knocked out of a textured background — artwork where a white knockout on a busy texture is the detail that has to survive the press.",
+      "Illustrated kraft-paper design with hand-drawn white lettering knocked out of a textured background - artwork where a white knockout on a busy texture is the detail that has to survive the press.",
       "Product photography of the sachet itself sits inside the illustration, so two different image types share one colour build."
     ]
   },
   {
-    brand:"Chrysal", title:"Recyclable Paper Sachet — 0.5 L",
+    brand:"Chrysal", title:"Recyclable Paper Sachet - 0.5 L",
     sub:"200 ct · 100 × 100 mm",
     faces:[
       {label:"Label", key:"sachet-500", media:[349.465,349.465], trim:[33,33,316.46,316.46], bleed:[24.5,24.5,324.97,324.97]}
@@ -1256,18 +1270,18 @@ const PROJECTS = [
     specs:[["Client","Chrysal"],["Format","Carton / bag label"],["Colour","CMYK"],["Press","HP Indigo digital"]],
     notes:[
       "Sister item to the 1 L sachet: same illustrated system, different count and volume, with the pack shot re-scaled and the copy line reset.",
-      "Variant work like this is where a disciplined layer structure pays off — one corrected master, then controlled changes."
+      "Variant work like this is where a disciplined layer structure pays off - one corrected master, then controlled changes."
     ]
   }
 ];
 
 const PROCESS = [
-  ["01","The role","Working across pre-press and digital print production — artwork inspection, file optimisation, press troubleshooting."],
+  ["01","The role","Working across pre-press and digital print production - artwork inspection, file optimisation, press troubleshooting."],
   ["02","Before it goes to press","Every incoming file is examined, diagnosed and prepared. Catching problems early saves time, material and cost."],
   ["03","Design files → press-ready","Bleed and die-line, colour separation, overprint and trapping, white ink, image and vector quality."],
-  ["04","When screen ≠ print","RGB against CMYK, foil detail too fine to survive, effects that vanish on press — and what to do about each."],
+  ["04","When screen ≠ print","RGB against CMYK, foil detail too fine to survive, effects that vanish on press - and what to do about each."],
   ["05","From problem to solution","Explaining the issue to the client, weighing the options, and sometimes changing the material instead of the design."],
-  ["06","Knowledge sharing","Training the team to recognise the cause, not just apply the fix — fewer errors, less waste, smoother production."],
+  ["06","Knowledge sharing","Training the team to recognise the cause, not just apply the fix - fewer errors, less waste, smoother production."],
   ["07","The complete journey","The seven steps from file received to finished product delivered, and what gets verified at each one."]
 ];
 
@@ -1275,10 +1289,63 @@ const PROCESS = [
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 let lang="en";
+/* ================= LANGUAGE ================= */
+/* storage can throw outright (file://, private mode, blocked cookies) - never let it
+   take the rest of the script down with it */
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+const LANG_ON = true;   // language switch + chooser are now live for every visitor
+lang = lsGet("bk_lang") || "en";
+/* ================= COPY (EN ⇄ HE) ================= */
+const T_PAIRS = {"work": "עבודות", "process": "תהליך", "about": "אודות", "resume": "קורות חיים", "contact": "צור קשר", "What I do": "מה אני עושה?", "Pre-press & digital label production": "קדם־דפוס והפקת תוויות בדפוס דיגיטלי", "Technical graphic designer for work that has to": "מעצב גרפי טכני לעבודות שחייבות", "print right": "לצאת מושלמות", "the first time.": "כבר בהדפסה הראשונה.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for HP Indigo digital presses.": "אני יושב בין קובץ העיצוב למכונת הדפוס - בודק קבצים גרפיים, פותר הפרדות צבע, בונה קו חיתוך ובליד, ומכין עבודות מורכבות ל‑HP Indigo.", "Selected label work": "עבודות נבחרות", "01 - Work · 6 projects": "01 - עבודות · 6 פרויקטים", "Production artwork prepared for print. Each project opens the real press sheet - click Show marks to see the trim and bleed geometry the file was built to.": "אמנות מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי - לחיצה על Show marks מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Open sheet ↗": "פתח גיליון ↗", "Show marks": "הצג סימנים", "Front": "קדמי", "Back": "אחורי", "Label": "תווית", "Close ×": "סגור ×", "Client": "לקוח", "Format": "פורמט", "Colour": "צבע", "Press": "מכונת דפוס", "Trim size": "מידת חיתוך סופית", "Bleed": "בליד", "32 fl oz / 0.95 L · front + back": "32 fl oz / 0.95 ל׳ · קדמי + אחורי", "Die-cut bottle label": "תווית בקבוק בחיתוך צורני", "Full-colour front · single-colour back": "צבע מלא בחזית · צבע אחד בגב", "A two-part label: a photographic front panel carrying the product shot and brand block, and a text-dense back panel with directions for use, hazard copy, net contents and the EAN barcode.": "תווית דו-חלקית: פאנל קדמי צילומי שנושא את תמונת המוצר ובלוק המותג, ופאנל אחורי צפוף בטקסט עם הוראות שימוש, אזהרות בטיחות, תכולה נטו וברקוד EAN.", "Both faces are built to the same die and the same 3 mm bleed, so front and back register to one another on the finished bottle.": "שני הצדדים נבנו לפי אותה סכין חיתוך ולאותו בליד של 3 מ״מ, כך שהקדמי והאחורי נמצאים ברגיסטר מלא על הבקבוק המוגמר.", "2.26 kg · front + back": "2.26 ק״ג · קדמי + אחורי", "Pail / tub wrap label": "תווית עטיפה לדלי", "Front carries a soft watercolour rose image against white - a job where tonal transitions and the edge of the image are the whole design, so image quality and colour behaviour matter more than anything else on the sheet.": "בצד הקדמי איור ורד רך בסגנון אקוורל על רקע לבן - עבודה שבה מעברי הגוונים וקצה התמונה הם כל העיצוב, ולכן איכות התמונה והתנהגות הצבע חשובות יותר מכל דבר אחר בגיליון.", "The back is a trilingual instruction panel (EN / FR / ES) built from line icons, dosage figures, handling symbols and a barcode: fine black line art that has to hold at size.": "בצד האחורי פאנל הוראות בשלוש שפות (אנגלית / צרפתית / ספרדית) הבנוי מאייקוני קו, טבלת מינון, סמלי טיפול וברקוד: קווי שחור עדינים שחייבים להישאר חדים וברורים בגודל הסופי.", "10 lb / 4.53 kg": "10 lb / 4.53 ק״ג", "Bag / sack label": "תווית לשק", "One sheet holding two very different jobs side by side: a bold flat-colour brand block on black, and a four-step instruction grid with icons, dosage table and barcode.": "גיליון אחד הכולל שתי עבודות שונות לגמרי זו לצד זו: בלוק מותג בצבע שטוח ועז על רקע שחור, וגריד הוראות בארבעה שלבים עם אייקונים, טבלת מינון וברקוד.", "Flat spot-like reds and greens sit next to reversed white type - the kind of build where rich black limits and overprint settings decide whether the edges stay clean on press.": "אדומים וירוקים שטוחים בסגנון צבעי ספוט יושבים לצד טקסט לבן מנוגד - בנייה שבה מגבלות הריץ׳ בלק והגדרות האוברפרינט הן שקובעות אם הקצוות יישארו נקיים במכונה.", "Wrap-around jar label": "תווית עטיפה לצנצנת", "A long, narrow wrap where the artwork has to run continuously around the container and meet itself at the seam.": "עטיפה ארוכה וצרה שבה הגרפיקה חייבת להימשך ברצף סביב המכל ולהיפגש עם עצמה בתפר.", "Heavy file - layered artwork with large placed imagery - which makes clean output and RIP behaviour part of the job, not an afterthought.": "קובץ כבד - גרפיקה רב־שכבתית עם תמונות גדולות מוטמעות - מה שהופך פלט נקי והתנהגות ה-RIP לחלק מהעבודה עצמה, לא למחשבה שנייה.", "100 ct · 100 × 100 mm": "100 יח׳ · 100 × 100 מ״מ", "Carton / bag label": "תווית לקרטון / שקית", "Illustrated kraft-paper design with hand-drawn white lettering knocked out of a textured background - artwork where a white knockout on a busy texture is the detail that has to survive the press.": "עיצוב מאויר על נייר קראפט עם כיתוב לבן בכתב יד שנחתך מתוך רקע מרקמי - גרפיקה שבה הנוקאאוט הלבן על מרקם עמוס הוא הפרט שחייב לשרוד את המכונה.", "Product photography of the sachet itself sits inside the illustration, so two different image types share one colour build.": "צילום מוצר של השקית עצמה משולב בתוך האיור, כך ששני סוגי תמונה שונים חולקים בנייה צבעונית אחת.", "200 ct · 100 × 100 mm": "200 יח׳ · 100 × 100 מ״מ", "From client file to final print": "מקובץ הלקוח ועד להדפסה הסופית", "02 - Process · 7 parts": "02 - תהליך · 7 חלקים", "A walk-through of how a job actually moves through pre-press - what gets checked, what gets corrected, and what happens when the screen and the press disagree.": "סקירה של הדרך שבה עבודה עוברת בפועל בהכנה לדפוס - מה נבדק, מה מתוקן, ומה קורה כשהמסך והמכונה לא מסכימים.", "Step {n} of 07": "שלב {n} מתוך 07", "Open full sheet ↗": "פתח גיליון מלא ↗", "Swipe between stages": "החליקו בין השלבים", "Tap to enlarge": "הקישו להגדלה", "Use the ← → arrow keys on your keyboard": "השתמשו במקשי החיצים ← → במקלדת", "✂ tear here · 03 next": "✂ קרעו כאן · 03 הבא", "The role": "התפקיד", "Working across pre-press and digital print production - artwork inspection, file optimisation, press troubleshooting.": "עבודה לרוחב ההכנה לדפוס וההפקה הדיגיטלית - בדיקת קבצים גרפיים, אופטימיזציה של קבצים ופתרון תקלות במכונה.", "Before it goes to press": "לפני שזה נכנס למכונה", "Every incoming file is examined, diagnosed and prepared. Catching problems early saves time, material and cost.": "כל קובץ נכנס נבדק, מאובחן ומוכן. איתור מוקדם של בעיות חוסך זמן, חומר וכסף.", "Design files → press-ready": "מקובץ עיצוב לקובץ מוכן לדפוס", "Bleed and die-line, colour separation, overprint and trapping, white ink, image and vector quality.": "בליד וקו חיתוך (דייליין), הפרדות צבע, אוברפרינט וטראפינג, לבן טכני, ואיכות תמונה ווקטור.", "When screen ≠ print": "כשהמסך ≠ הדפוס", "RGB against CMYK, foil detail too fine to survive, effects that vanish on press - and what to do about each.": "RGB מול CMYK, פרטי הטבעה עדינים מכדי לשרוד, אפקטים שנעלמים במכונה - ומה עושים עם כל אחד מהם.", "From problem to solution": "מבעיה לפתרון", "Explaining the issue to the client, weighing the options, and sometimes changing the material instead of the design.": "להסביר את הבעיה ללקוח, לשקול את האפשרויות, ולפעמים לשנות את החומר במקום את העיצוב.", "Knowledge sharing": "העברת ידע", "Training the team to recognise the cause, not just apply the fix - fewer errors, less waste, smoother production.": "ללמד את הצוות לזהות את הסיבה, לא רק להחיל את התיקון - פחות טעויות, פחות בזבוז, ייצור חלק יותר.", "The complete journey": "המסע השלם", "The seven steps from file received to finished product delivered, and what gets verified at each one.": "שבעת השלבים מקבלת הקובץ ועד אספקת המוצר המוגמר, ומה נבדק בכל אחד מהם.", "03 - Capabilities · 4 stages": "03 - יכולות · 4 תחומים", "Click any stage to play it": "לחצו על תחום כדי להפעיל אותו", "or use the ← → arrow keys on your keyboard": "או השתמשו במקשי החיצים ← → במקלדת", "Swipe to change stage": "החליקו כדי להחליף תחום", "Play the films": "הפעל את הסרטונים", "Design & layout": "עיצוב ולייאאוט", "Custom label graphics, branding, typography, and packaging visual identity.": "גרפיקת תוויות בהתאמה אישית, מיתוג, טיפוגרפיה וזהות חזותית לאריזה.", "Pre-press & preflight": "הכנה לדפוס ופריפלייט", "File auditing, trapping, bleed setup, colour separation, additional separations, die-lines, and artwork correction.": "בדיקת קבצים, טראפינג, הגדרת בליד, הפרדות צבע, הפרדות נוספות, דיילנים ותיקון קבצים גרפיים.", "Specialised hardware": "ציוד ייעודי", "File prep, colour calibration, and output optimisation for HP Indigo digital presses.": "הכנת קבצים, כיול צבע ואופטימיזציה של פלט למכונות HP Indigo.", "Print production": "הפקת דפוס", "Label stock material handling, finishing requirements, and print-floor troubleshooting.": "עבודה עם חומרי גלם לתוויות, דרישות גימור ופתרון תקלות ברצפת הייצור.", "About": "קצת עליי", "04 - Benjamin Kljuno": "04 - בנימין קליונו", "Technical graphic designer specialising in pre-press workflow, file correction, and digital label manufacturing. I bridge the gap between creative visual design and print-floor execution.": "מעצב גרפי טכני המתמחה בתהליכי הכנה לדפוס, תיקון קבצים וייצור תוויות בדפוס דיגיטלי. אני מגשר בין העיצוב היצירתי לבין הביצוע ברצפת הייצור.", "My name is Benjamin Kljuno. I work across graphic machine engineering and graphic design. My strength is in printing-machine engineering knowledge combined with hands-on experience in graphic design.": "שמי בנימין קליונו. אני עובד בשני העולמות - הנדסת מכונות דפוס ועיצוב גרפי. החוזק שלי הוא בהיכרות ההנדסית עם מכונות הדפוס לצד ניסיון מעשי בעיצוב גרפי.", "Knowledge in both worlds allows for a deep understanding of the customer's needs - in maintenance, in troubleshooting, and in defining machine capabilities. I'm experienced in offset printing, flexo printing, and digital printing.": "הידע בשני העולמות מאפשר הבנה עמוקה של צורכי הלקוח - בתחזוקה, באיתור תקלות ובהגדרת יכולות המכונה. יש לי ניסיון בדפוס אופסט, בדפוס פלקסו ובדפוס דיגיטלי.", "Experienced in auditing artwork, resolving colour separation issues, and preparing complex print files specifically for HP Indigo digital presses.": "מנוסה בבדיקת קבצים גרפיים, בפתרון בעיות הפרדות צבע ובהכנת קבצי דפוס מורכבים במיוחד למכונות HP Indigo.", "Role": "תפקיד", "Pre-press & graphic production": "הכנה לדפוס והפקה גרפית", "Experience": "ותק", "Since 2022": "משנת 2022", "HP Indigo digital": "HP Indigo דפוס דיגיטלי", "Also": "בנוסף", "Offset · Flexo · Digital press": "אופסט · פלקסו · דפוס דיגיטלי", "Based": "מיקום", "Israel": "ישראל", "My resume / CV": "קורות החיים שלי", "05 - One page, print-ready": "05 - עמוד אחד, מוכן לדפוס", "Graphic machine engineering on one side, graphic design on the other - and the print floor in between.": "הנדסת מכונות דפוס מצד אחד, עיצוב גרפי מצד שני - ורצפת הייצור ביניהם.", "Read the CV ↗": "קראו את קורות החיים ↗", "Download PDF": "הורדת PDF", "A4 · one page · updated 2026": "A4 · עמוד אחד · עודכן 2026", "Send a file, or a job": "שלחו קובץ, או עבודה", "06 - Contact": "06 - צור קשר", "Open to full-time roles and freelance pre-press work. If you have artwork that needs to be made press-ready, tell me what it's printing on and I'll tell you what it needs.": "פנוי למשרות מלאות ולעבודות הכנה לדפוס כפרילנס. אם יש לכם קובץ גרפי שצריך להכין לדפוס - ספרו לי על מה הוא מודפס, ואני אגיד לכם מה הוא צריך.", "Email": "אימייל", "LinkedIn": "לינקדאין", "Send a message": "שליחת הודעה", "Reply within 24h": "מענה תוך 24 שעות", "Name": "שם", "Company or subject": "חברה או נושא", "Message": "הודעה", "Send message": "שליחה", "Required": "שדה חובה", "Enter a valid email": "הזינו כתובת אימייל תקינה", "Press-ready is a decision, not a file format.": "מוכנות לדפוס היא החלטה, לא פורמט קובץ.", "Preflight check": "בדיקת פריפלייט", "Skip": "דלג", "01 - Work ·": "01 - עבודות ·", "projects": "פרויקטים", "Click to enlarge": "לחצו להגדלה", "Tap the sheet to enlarge": "הקישו על הגיליון להגדלה", "Use the": "השתמשו במקשי", "arrow keys on your keyboard": "החיצים במקלדת", "or use the": "או השתמשו במקשי", "Open the enquiry form ↗": "פתחו את טופס הפנייה ↗", "Or email": "או שלחו מייל", "Enquiry": "פנייה", "Tell me what it's printing on.": "ספרו לי על מה זה מודפס.", "Send the artwork, the substrate and the press it's going on - I'll come back with what the file needs before it gets there.": "שלחו את הקובץ, את החומר ואת המכונה שעליה זה יודפס - ואחזור אליכם עם מה שהקובץ צריך לפני שהוא מגיע לשם.", "digital presses.": "הדיגיטליות.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for": "אני מגשר בין קובץ העיצוב למכונת הדפוס: בודק קבצים גרפיים, פותר בעיות הפרדת צבע, בונה בליד וקווי חיתוך, ומכין עבודות מורכבות למכונות", "Production artwork prepared for print. Each project opens the real press sheet - click": "גרפיקה מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי - לחיצה על", "to see the trim and bleed geometry the file was built to.": "מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Source file": "קובץ מקור", "⤢ Tap to enlarge": "⤢ הקישו להגדלה", "Work": "עבודות", "Process": "תהליך", "Resume": "קורות חיים", "Contact": "צור קשר", "Close ✕": "סגור ✕"};
+const T_EN2HE = T_PAIRS;
+const T_HE2EN = (()=>{ const o={}; for(const k in T_PAIRS){ if(!(T_PAIRS[k] in o)) o[T_PAIRS[k]]=k; } return o; })();
+function translateTree(root,to){
+  const map = to==="he" ? T_EN2HE : T_HE2EN;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    const p=n.parentElement;
+    if(!p) return NodeFilter.FILTER_REJECT;
+    const t=p.tagName;
+    if(t==="SCRIPT"||t==="STYLE"||p.closest("#langPick")) return NodeFilter.FILTER_REJECT;
+    return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+  }});
+  const nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n=>{
+    // HTML source wraps long copy across lines - collapse that before matching,
+    // and skip nodes that were already replaced (they no longer match either map)
+    const raw=n.nodeValue;
+    const norm=raw.replace(/\s+/g," ").trim();
+    if(map[norm] === undefined) return;
+    // preserve the ORIGINAL leading/trailing whitespace: it's often the only space
+    // between this fragment and an adjacent inline <span>/<strong>, so swapping the
+    // whole nodeValue for the trimmed translation was gluing neighbouring words together
+    const lead=raw.match(/^\s*/)[0], trail=raw.match(/\s*$/)[0];
+    n.nodeValue = lead+map[norm]+trail;
+  });
+  root.querySelectorAll("[placeholder]").forEach(el=>{
+    const v=el.getAttribute("placeholder");
+    if(map[v]) el.setAttribute("placeholder",map[v]);
+  });
+}
+/* the two composite counters are generated, so they get their own template */
+function stepLabel(n){
+  return lang==="he" ? ("שלב "+n+" מתוך 0"+PROCESS.length)
+                     : ("Step "+n+" of 0"+PROCESS.length);
+}
+/* PROCESS/CHAPTERS only carry English text; every dynamic re-render (auto-advance,
+   swipe, keyboard) must re-derive the current language from the live dictionary
+   instead of trusting whatever was last written to the DOM */
+function stepData(i){
+  const [n,en,desc]=PROCESS[i];
+  if(lang==="he") return [n, T_EN2HE[en]||en, T_EN2HE[desc]||desc];
+  return [n,en,desc];
+}
+
+
 const mm=pt=>Math.round(pt/72*25.4*10)/10;
 const src=k=>A[k];
 
-/* lazy image assignment — keeps first paint fast even with inlined assets */
+/* lazy image assignment - keeps first paint fast even with inlined assets */
 const io=new IntersectionObserver((es)=>{
   es.forEach(e=>{ if(!e.isIntersecting) return;
     const img=e.target; img.src=src(img.dataset.a); img.onload=()=>img.classList.add("in");
@@ -1355,13 +1422,14 @@ const wtPlate=$("#wtPlate"), wtBg=$("#wtBg"), wtRail=$("#wtRail"), wtCopy=$("#wt
 const slides=[], bgs=[];
 let showCur=0, procInView=false;
 
-PROCESS.forEach(([n,label,desc],i)=>{
+PROCESS.forEach(([n,enLabel],i)=>{
+  const [,label,desc]=stepData(i);
   const b=document.createElement("img");
   b.dataset.a="proc-"+(i+1); b.alt=""; b.setAttribute("aria-hidden","true");
   wtBg.appendChild(b); bgs.push(b);
 
   const fig=document.createElement("figure");
-  fig.innerHTML='<img class="sheet-m" data-a="proc-'+(i+1)+'" alt="Pre-press process, part '+n+': '+label+'">'+
+  fig.innerHTML='<img class="sheet-m" data-a="proc-'+(i+1)+'" alt="Pre-press process, part '+n+': '+enLabel+'">'+
     '<span class="wt-tapb">⤢ Tap to enlarge</span>'+
     '<figcaption class="wt-scap"><span class="wt-sstep">'+stepLabel(n)+'</span>'+
     '<h4>'+label+'</h4><p>'+desc+'</p></figcaption>';
@@ -1384,7 +1452,7 @@ wtPlate.addEventListener("click",e=>{
 const railMode=()=>matchMedia("(max-width:880px)").matches;
 function setMeta(i){
   showCur=i;
-  const [n,label,desc]=PROCESS[i];
+  const [n,label,desc]=stepData(i);
   $("#wtStep").textContent=stepLabel(n);
   $("#wtTitle").textContent=label;
   $("#wtDesc").textContent=desc;
@@ -1524,7 +1592,7 @@ CHAPTERS.forEach(([n,title,desc],i)=>{
     if(i!==capCur||!v.duration) return;
     if(v.currentTime >= v.duration - 0.06) advanceFrom(i);
   });
-  /* only a genuine stall is worth nudging — `suspend` is normal and must not trigger a reload */
+  /* only a genuine stall is worth nudging - `suspend` is normal and must not trigger a reload */
   v.addEventListener("waiting",()=>{
     if(i!==capCur||v.ended) return;
     setTimeout(()=>{ if(i===capCur && v.paused && !v.ended) v.play().catch(()=>{}); },400);
@@ -1576,14 +1644,14 @@ function capScrollTo(i){
 let capFails=0, capLastErr="", capBlocked=false;
 function showPlayBtn(v){ const pb=$("#capPlay"); if(pb) pb.hidden=!v; }
 /* Chrome grants the page sticky activation after ANY click, so the very first
-   interaction anywhere is enough to start the reel — most people never see the button */
+   interaction anywhere is enough to start the reel - most people never see the button */
 ["pointerdown","keydown"].forEach(ev=>addEventListener(ev,()=>{
   if(!capBlocked||capCur<0||reduce) return;
   const v=vids[capCur];
   if(v&&v.paused&&!v.ended) playCap(v);
 },{passive:true}));
 function playCap(v){
-  // play() is what actually triggers resource loading — changing .preload after the
+  // play() is what actually triggers resource loading - changing .preload after the
   // fact is ignored by some browsers, and load() resets the element (that was the loop)
   try{ if(v.readyState>=1 && v.currentTime>0.05) v.currentTime=0; }catch(e){}
   const pr=v.play();
@@ -1693,7 +1761,7 @@ setInterval(()=>{
   if(v.ended || (v.duration && v.currentTime >= v.duration-0.06)){ advanceFrom(capCur); return; }
   if(v.error) return;                                 // the error path already scheduled the hand-over
   if(v.paused && !document.hidden){
-    if(capFails>=3){ holdPoster(capCur); return; }     // playback refused — keep the reel moving
+    if(capFails>=3){ holdPoster(capCur); return; }     // playback refused - keep the reel moving
     const pr=v.play();
     if(pr&&pr.then) pr.then(()=>{capFails=0;capLastErr="";capBlocked=false;showPlayBtn(false);})
       .catch(err=>{
@@ -1724,7 +1792,7 @@ function drawMarks(f){
   const y=v=>sh-v;                       // flip PDF coords
   svSvg.setAttribute("viewBox",`0 0 ${sw} ${sh}`);
   svStage.style.setProperty("--ar", sw/sh);
-  // one viewBox unit is this many CSS px on screen — size type in real pixels
+  // one viewBox unit is this many CSS px on screen - size type in real pixels
   const disp = svStage.clientWidth || 700;
   const u = sw / disp;                   // units per css px
   const fs = Math.max(12.5, Math.min(17, disp*0.042)) * u;
@@ -1737,7 +1805,8 @@ function drawMarks(f){
     return `<rect x="${x-pad*0.5}" y="${baseY-fs*1.03}" width="${w}" height="${h}"
         fill="#fff" rx="${lw*1.5}"/>
       <text x="${x+pad*0.2}" y="${baseY}" fill="${col}" font-family="monospace"
-        font-weight="700" font-size="${fs}" letter-spacing="${fs*0.02}">${txt}</text>`;
+        font-weight="700" font-size="${fs}" letter-spacing="${fs*0.02}"
+        direction="ltr" unicode-bidi="bidi-override" text-anchor="start">${txt}</text>`;
   };
   const trimBase = Math.max(fs*1.15, y(ty1) - pad*0.8);
   const bleedBase = Math.min(sh - pad*0.4, y(by0) + fs*1.3);
@@ -1752,7 +1821,7 @@ function drawMarks(f){
 
 function renderSheet(){
   const p=PROJECTS[cur], f=p.faces[curFace];
-  svImg.src=src(f.key); svImg.alt=p.brand+" "+p.title+" — "+f.label;
+  svImg.src=src(f.key); svImg.alt=p.brand+" "+p.title+" - "+f.label;
   drawMarks(f);
   svStage.classList.toggle("is-marks",showMarks);
   $("#svBrand").textContent=p.brand;
@@ -1765,7 +1834,6 @@ function renderSheet(){
     ["Source file","Press PDF, Adobe Illustrator"]];
   $("#svSpecs").innerHTML=rows.map(([k,v])=>`<li><span>${k}</span><span>${v}</span></li>`).join("");
   $("#svCount").textContent=String(cur+1).padStart(2,"0")+" / "+String(PROJECTS.length).padStart(2,"0");
-  if(lang==="he") translateTree(sv,"he");
 
   const t=$("#svToggles"); t.innerHTML="";
   if(p.faces.length>1) p.faces.forEach((ff,i)=>{
@@ -1778,6 +1846,7 @@ function renderSheet(){
   m.setAttribute("aria-pressed",String(showMarks));
   m.onclick=()=>{showMarks=!showMarks;renderSheet();};
   t.appendChild(m);
+  translateTree(sv,lang);   // runs after every rebuild, in whichever language is active
 }
 function openSheet(i){ cur=i; curFace=0; showMarks=false; renderSheet();
   requestAnimationFrame(()=>{ if(sv.classList.contains("open")) drawMarks(PROJECTS[cur].faces[curFace]); });
@@ -1863,20 +1932,20 @@ form.addEventListener("submit",async e=>{
     const el=$("#"+id), wrap=el.closest(".field");
     const good=!!test(el.value); wrap.classList.toggle("bad",!good); if(!good) ok=false;
   });
-  if(!ok){ state.className="formstate no"; state.textContent="Preflight failed — check the marked fields"; return; }
+  if(!ok){ state.className="formstate no"; state.textContent="Preflight failed - check the marked fields"; return; }
   const btn=$("#cbtn"); btn.disabled=true;
   state.className="formstate"; state.textContent="Sending…";
   try{
     const r=await fetch("https://formspree.io/f/"+CONTACT.formspreeId,{
       method:"POST", headers:{Accept:"application/json"}, body:new FormData(form)});
-    if(r.ok){ form.reset(); state.className="formstate ok"; state.textContent="Sent — I'll reply shortly."; }
+    if(r.ok){ form.reset(); state.className="formstate ok"; state.textContent="Sent - I'll reply shortly."; }
     else{ state.className="formstate no"; state.textContent="Didn't send. Email benjo.kljuno.pro@gmail.com instead."; }
   }catch(_){ state.className="formstate no"; state.textContent="Network error. Email benjo.kljuno.pro@gmail.com instead."; }
   btn.disabled=false;
 });
 
 
-/* ================= /#check — one-link diagnostic, no devtools needed ================= */
+/* ================= /#check - one-link diagnostic, no devtools needed ================= */
 function showCheck(){
   if(document.getElementById("checkBox")) return;
   const box=document.createElement("div");
@@ -1900,7 +1969,7 @@ function showCheck(){
     let verdict, colour="#FFD400";
     if(!h264 && !webm){ verdict="NO VIDEO CODEC AT ALL."; colour="#E0218A"; }
     else if(st.some(x=>x.e)){ verdict="MEDIA ERROR code "+st.find(x=>x.e).e+"."; colour="#E0218A"; }
-    else if(rm){ verdict="REDUCED MOTION IS ON IN WINDOWS — films are disabled on purpose."; colour="#E0218A"; }
+    else if(rm){ verdict="REDUCED MOTION IS ON IN WINDOWS - films are disabled on purpose."; colour="#E0218A"; }
     else if(age<3){ verdict="MEASURING…"; }
     else if(st.every(x=>x.r===0)){ verdict="MEDIA NEVER LOADED."; colour="#E0218A"; }
     else if(capFails>0){ verdict="PLAYBACK REFUSED BY THE BROWSER."; colour="#E0218A"; }
@@ -1939,43 +2008,6 @@ addEventListener("hashchange",()=>{ if(location.hash==="#check") showCheck(); })
 $("#yr").textContent=new Date().getFullYear();
 
 
-/* ================= LANGUAGE ================= */
-/* storage can throw outright (file://, private mode, blocked cookies) — never let it
-   take the rest of the script down with it */
-function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-const LANG_ON = location.hash==="#lang" || lsGet("bk_lang_unlocked")==="1";
-lang = lsGet("bk_lang") || "en";
-/* ================= COPY (EN ⇄ HE) ================= */
-const T_PAIRS = {"work": "עבודות", "process": "תהליך", "about": "אודות", "resume": "קורות חיים", "contact": "צור קשר", "What I do": "מה אני עושה", "Pre-press & digital label production": "קדם־דפוס והפקת תוויות בדפוס דיגיטלי", "Technical graphic designer for work that has to": "מעצב גרפי טכני לעבודות שחייבות", "print right": "להידפס נכון", "the first time.": "כבר בהדפסה הראשונה.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for HP Indigo digital presses.": "אני יושב בין קובץ העיצוב למכונת הדפוס — בודק קבצים גרפיים, פותר הפרדות צבע, בונה קו חיתוך ובליד, ומכין עבודות מורכבות ל‑HP Indigo.", "Selected label work": "עבודות תוויות נבחרות", "01 — Work · 6 projects": "01 — עבודות · 6 פרויקטים", "Production artwork prepared for print. Each project opens the real press sheet — click Show marks to see the trim and bleed geometry the file was built to.": "אמנות מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי — לחיצה על Show marks מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Open sheet ↗": "פתח גיליון ↗", "Show marks": "הצג סימנים", "Front": "קדמי", "Back": "אחורי", "Label": "תווית", "Close ×": "סגור ×", "Client": "לקוח", "Format": "פורמט", "Colour": "צבע", "Press": "מכונת דפוס", "Trim size": "מידת חיתוך סופית", "Bleed": "בליד", "32 fl oz / 0.95 L · front + back": "32 fl oz / 0.95 ל׳ · קדמי + אחורי", "Die-cut bottle label": "תווית בקבוק בחיתוך צורני", "Full-colour front · single-colour back": "צבע מלא בחזית · צבע אחד בגב", "A two-part label: a photographic front panel carrying the product shot and brand block, and a text-dense back panel with directions for use, hazard copy, net contents and the EAN barcode.": "תווית דו-חלקית: פאנל קדמי צילומי שנושא את תמונת המוצר ובלוק המותג, ופאנל אחורי צפוף בטקסט עם הוראות שימוש, אזהרות בטיחות, תכולה נטו וברקוד EAN.", "Both faces are built to the same die and the same 3 mm bleed, so front and back register to one another on the finished bottle.": "שני הצדדים נבנו לפי אותה סכין חיתוך ולאותו בליד של 3 מ״מ, כך שהקדמי והאחורי נמצאים ברגיסטר מלא על הבקבוק המוגמר.", "2.26 kg · front + back": "2.26 ק״ג · קדמי + אחורי", "Pail / tub wrap label": "תווית עטיפה לדלי", "Front carries a soft watercolour rose image against white — a job where tonal transitions and the edge of the image are the whole design, so image quality and colour behaviour matter more than anything else on the sheet.": "בצד הקדמי איור ורד רך בסגנון אקוורל על רקע לבן — עבודה שבה מעברי הגוונים וקצה התמונה הם כל העיצוב, ולכן איכות התמונה והתנהגות הצבע חשובות יותר מכל דבר אחר בגיליון.", "The back is a trilingual instruction panel (EN / FR / ES) built from line icons, dosage figures, handling symbols and a barcode: fine black line art that has to hold at size.": "בצד האחורי פאנל הוראות בשלוש שפות (אנגלית / צרפתית / ספרדית) הבנוי מאייקוני קו, טבלת מינון, סמלי טיפול וברקוד: קווי שחור עדינים שחייבים להישאר חדים וברורים בגודל הסופי.", "10 lb / 4.53 kg": "10 lb / 4.53 ק״ג", "Bag / sack label": "תווית לשק", "One sheet holding two very different jobs side by side: a bold flat-colour brand block on black, and a four-step instruction grid with icons, dosage table and barcode.": "גיליון אחד הכולל שתי עבודות שונות לגמרי זו לצד זו: בלוק מותג בצבע שטוח ועז על רקע שחור, וגריד הוראות בארבעה שלבים עם אייקונים, טבלת מינון וברקוד.", "Flat spot-like reds and greens sit next to reversed white type — the kind of build where rich black limits and overprint settings decide whether the edges stay clean on press.": "אדומים וירוקים שטוחים בסגנון צבעי ספוט יושבים לצד טקסט לבן מנוגד — בנייה שבה מגבלות הריץ׳ בלק והגדרות האוברפרינט הן שקובעות אם הקצוות יישארו נקיים במכונה.", "Wrap-around jar label": "תווית עטיפה לצנצנת", "A long, narrow wrap where the artwork has to run continuously around the container and meet itself at the seam.": "עטיפה ארוכה וצרה שבה הגרפיקה חייבת להימשך ברצף סביב המכל ולהיפגש עם עצמה בתפר.", "Heavy file — layered artwork with large placed imagery — which makes clean output and RIP behaviour part of the job, not an afterthought.": "קובץ כבד — גרפיקה רב־שכבתית עם תמונות גדולות מוטמעות — מה שהופך פלט נקי והתנהגות ה-RIP לחלק מהעבודה עצמה, לא למחשבה שנייה.", "100 ct · 100 × 100 mm": "100 יח׳ · 100 × 100 מ״מ", "Carton / bag label": "תווית לקרטון / שקית", "Illustrated kraft-paper design with hand-drawn white lettering knocked out of a textured background — artwork where a white knockout on a busy texture is the detail that has to survive the press.": "עיצוב מאויר על נייר קראפט עם כיתוב לבן בכתב יד שנחתך מתוך רקע מרקמי — גרפיקה שבה הנוקאאוט הלבן על מרקם עמוס הוא הפרט שחייב לשרוד את המכונה.", "Product photography of the sachet itself sits inside the illustration, so two different image types share one colour build.": "צילום מוצר של השקית עצמה משולב בתוך האיור, כך ששני סוגי תמונה שונים חולקים בנייה צבעונית אחת.", "200 ct · 100 × 100 mm": "200 יח׳ · 100 × 100 מ״מ", "From client file to final print": "מקובץ הלקוח ועד להדפסה הסופית", "02 — Process · 7 parts": "02 — תהליך · 7 חלקים", "A walk-through of how a job actually moves through pre-press — what gets checked, what gets corrected, and what happens when the screen and the press disagree.": "סקירה של הדרך שבה עבודה עוברת בפועל בהכנה לדפוס — מה נבדק, מה מתוקן, ומה קורה כשהמסך והמכונה לא מסכימים.", "Step {n} of 07": "שלב {n} מתוך 07", "Open full sheet ↗": "פתח גיליון מלא ↗", "Swipe between stages": "החליקו בין השלבים", "Tap to enlarge": "הקישו להגדלה", "Use the ← → arrow keys on your keyboard": "השתמשו במקשי החיצים ← → במקלדת", "✂ tear here · 03 next": "✂ קרעו כאן · 03 הבא", "The role": "התפקיד", "Working across pre-press and digital print production — artwork inspection, file optimisation, press troubleshooting.": "עבודה לרוחב ההכנה לדפוס וההפקה הדיגיטלית — בדיקת קבצים גרפיים, אופטימיזציה של קבצים ופתרון תקלות במכונה.", "Before it goes to press": "לפני שזה נכנס למכונה", "Every incoming file is examined, diagnosed and prepared. Catching problems early saves time, material and cost.": "כל קובץ נכנס נבדק, מאובחן ומוכן. איתור מוקדם של בעיות חוסך זמן, חומר וכסף.", "Design files → press-ready": "מקובץ עיצוב לקובץ מוכן לדפוס", "Bleed and die-line, colour separation, overprint and trapping, white ink, image and vector quality.": "בליד וקו חיתוך (דייליין), הפרדות צבע, אוברפרינט וטראפינג, לבן טכני, ואיכות תמונה ווקטור.", "When screen ≠ print": "כשהמסך ≠ הדפוס", "RGB against CMYK, foil detail too fine to survive, effects that vanish on press — and what to do about each.": "RGB מול CMYK, פרטי הטבעה עדינים מכדי לשרוד, אפקטים שנעלמים במכונה — ומה עושים עם כל אחד מהם.", "From problem to solution": "מבעיה לפתרון", "Explaining the issue to the client, weighing the options, and sometimes changing the material instead of the design.": "להסביר את הבעיה ללקוח, לשקול את האפשרויות, ולפעמים לשנות את החומר במקום את העיצוב.", "Knowledge sharing": "העברת ידע", "Training the team to recognise the cause, not just apply the fix — fewer errors, less waste, smoother production.": "ללמד את הצוות לזהות את הסיבה, לא רק להחיל את התיקון — פחות טעויות, פחות בזבוז, ייצור חלק יותר.", "The complete journey": "המסע השלם", "The seven steps from file received to finished product delivered, and what gets verified at each one.": "שבעת השלבים מקבלת הקובץ ועד אספקת המוצר המוגמר, ומה נבדק בכל אחד מהם.", "03 — Capabilities · 4 stages": "03 — יכולות · 4 תחומים", "Click any stage to play it": "לחצו על תחום כדי להפעיל אותו", "or use the ← → arrow keys on your keyboard": "או השתמשו במקשי החיצים ← → במקלדת", "Swipe to change stage": "החליקו כדי להחליף תחום", "Play the films": "הפעל את הסרטונים", "Design & layout": "עיצוב ולייאאוט", "Custom label graphics, branding, typography, and packaging visual identity.": "גרפיקת תוויות בהתאמה אישית, מיתוג, טיפוגרפיה וזהות חזותית לאריזה.", "Pre-press & preflight": "הכנה לדפוס ופריפלייט", "File auditing, trapping, bleed setup, colour separation, additional separations, die-lines, and artwork correction.": "בדיקת קבצים, טראפינג, הגדרת בליד, הפרדות צבע, הפרדות נוספות, דיילנים ותיקון קבצים גרפיים.", "Specialised hardware": "ציוד ייעודי", "File prep, colour calibration, and output optimisation for HP Indigo digital presses.": "הכנת קבצים, כיול צבע ואופטימיזציה של פלט למכונות HP Indigo.", "Print production": "הפקת דפוס", "Label stock material handling, finishing requirements, and print-floor troubleshooting.": "עבודה עם חומרי גלם לתוויות, דרישות גימור ופתרון תקלות ברצפת הייצור.", "About": "אודות", "04 — Benjamin Kljuno": "04 — בנימין קליונו", "Technical graphic designer specialising in pre-press workflow, file correction, and digital label manufacturing. I bridge the gap between creative visual design and print-floor execution.": "מעצב גרפי טכני המתמחה בתהליכי הכנה לדפוס, תיקון קבצים וייצור תוויות בדפוס דיגיטלי. אני מגשר בין העיצוב היצירתי לבין הביצוע ברצפת הייצור.", "My name is Benjamin Kljuno. I work across graphic machine engineering and graphic design. My strength is in printing-machine engineering knowledge combined with hands-on experience in graphic design.": "שמי בנימין קליונו. אני עובד בשני העולמות — הנדסת מכונות דפוס ועיצוב גרפי. החוזק שלי הוא בהיכרות ההנדסית עם מכונות הדפוס לצד ניסיון מעשי בעיצוב גרפי.", "Knowledge in both worlds allows for a deep understanding of the customer's needs — in maintenance, in troubleshooting, and in defining machine capabilities. I'm experienced in offset printing, flexo printing, and digital printing.": "הידע בשני העולמות מאפשר הבנה עמוקה של צורכי הלקוח — בתחזוקה, באיתור תקלות ובהגדרת יכולות המכונה. יש לי ניסיון בדפוס אופסט, בדפוס פלקסו ובדפוס דיגיטלי.", "Experienced in auditing artwork, resolving colour separation issues, and preparing complex print files specifically for HP Indigo digital presses.": "מנוסה בבדיקת קבצים גרפיים, בפתרון בעיות הפרדות צבע ובהכנת קבצי דפוס מורכבים במיוחד למכונות HP Indigo.", "Role": "תפקיד", "Pre-press & graphic production": "הכנה לדפוס והפקה גרפית", "Experience": "ותק", "Since 2022": "משנת 2022", "HP Indigo digital": "HP Indigo דפוס דיגיטלי", "Also": "בנוסף", "Offset · Flexo · Digital press": "אופסט · פלקסו · דפוס דיגיטלי", "Based": "מיקום", "Israel": "ישראל", "My resume / CV": "קורות החיים שלי", "05 — One page, print-ready": "05 — עמוד אחד, מוכן לדפוס", "Graphic machine engineering on one side, graphic design on the other — and the print floor in between.": "הנדסת מכונות דפוס מצד אחד, עיצוב גרפי מצד שני — ורצפת הייצור ביניהם.", "Read the CV ↗": "קראו את קורות החיים ↗", "Download PDF": "הורדת PDF", "A4 · one page · updated 2026": "A4 · עמוד אחד · עודכן 2026", "Send a file, or a job": "שלחו קובץ, או עבודה", "06 — Contact": "06 — צור קשר", "Open to full-time roles and freelance pre-press work. If you have artwork that needs to be made press-ready, tell me what it's printing on and I'll tell you what it needs.": "פנוי למשרות מלאות ולעבודות הכנה לדפוס כפרילנס. אם יש לכם קובץ גרפי שצריך להכין לדפוס — ספרו לי על מה הוא מודפס, ואני אגיד לכם מה הוא צריך.", "Email": "אימייל", "LinkedIn": "לינקדאין", "Send a message": "שליחת הודעה", "Reply within 24h": "מענה תוך 24 שעות", "Name": "שם", "Company or subject": "חברה או נושא", "Message": "הודעה", "Send message": "שליחה", "Required": "שדה חובה", "Enter a valid email": "הזינו כתובת אימייל תקינה", "Press-ready is a decision, not a file format.": "מוכן לדפוס זו החלטה, לא סוג קובץ.", "Preflight check": "בדיקת פריפלייט", "Skip": "דלג", "01 — Work ·": "01 — עבודות ·", "projects": "פרויקטים", "Click to enlarge": "לחצו להגדלה", "Tap the sheet to enlarge": "הקישו על הגיליון להגדלה", "Use the": "השתמשו במקשי", "arrow keys on your keyboard": "החיצים במקלדת", "or use the": "או השתמשו במקשי", "Open the enquiry form ↗": "פתחו את טופס הפנייה ↗", "Or email": "או שלחו מייל", "Enquiry": "פנייה", "Tell me what it's printing on.": "ספרו לי על מה זה מודפס.", "Send the artwork, the substrate and the press it's going on — I'll come back with what the file needs before it gets there.": "שלחו את הקובץ, את החומר ואת המכונה שעליה זה יודפס — ואחזור אליכם עם מה שהקובץ צריך לפני שהוא מגיע לשם.", "digital presses.": "הדיגיטליות.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for": "אני יושב בין קובץ העיצוב למכונת הדפוס — בודק קבצים גרפיים, פותר הפרדות צבע, בונה קו חיתוך ובליד, ומכין עבודות מורכבות למכונות", "Production artwork prepared for print. Each project opens the real press sheet — click": "גרפיקה מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי — לחיצה על", "to see the trim and bleed geometry the file was built to.": "מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Source file": "קובץ מקור", "⤢ Tap to enlarge": "⤢ הקישו להגדלה"};
-const T_EN2HE = T_PAIRS;
-const T_HE2EN = (()=>{ const o={}; for(const k in T_PAIRS){ if(!(T_PAIRS[k] in o)) o[T_PAIRS[k]]=k; } return o; })();
-function translateTree(root,to){
-  const map = to==="he" ? T_EN2HE : T_HE2EN;
-  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
-    const p=n.parentElement;
-    if(!p) return NodeFilter.FILTER_REJECT;
-    const t=p.tagName;
-    if(t==="SCRIPT"||t==="STYLE"||p.closest("#langPick")) return NodeFilter.FILTER_REJECT;
-    return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-  }});
-  const nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
-  nodes.forEach(n=>{
-    const t=n.nodeValue.trim();
-    if(map[t]) n.nodeValue=n.nodeValue.replace(t,map[t]);
-  });
-  root.querySelectorAll("[placeholder]").forEach(el=>{
-    const v=el.getAttribute("placeholder");
-    if(map[v]) el.setAttribute("placeholder",map[v]);
-  });
-}
-/* the two composite counters are generated, so they get their own template */
-function stepLabel(n){
-  return lang==="he" ? ("שלב "+n+" מתוך 0"+PROCESS.length)
-                     : ("Step "+n+" of 0"+PROCESS.length);
-}
-
-
 function applyLang(l,save){
   const prev=lang;
   lang = (l==="he") ? "he" : "en";
@@ -1984,6 +2016,11 @@ function applyLang(l,save){
   $$("#langSw button").forEach(b=>b.classList.toggle("on",b.dataset.lang===lang));
   if(save!==false) lsSet("bk_lang",lang);
   if(typeof setMeta==="function" && typeof showCur==="number") setMeta(showCur);
+  // stepLabel() builds a concrete string ("Step 02 of 07") that can never appear as a
+  // literal key in the dictionary, so the mobile per-slide captions need a direct refresh
+  document.querySelectorAll(".wt-sstep").forEach((el,i)=>{
+    if(PROCESS[i]) el.textContent=stepLabel(PROCESS[i][0]);
+  });
   if(lang!==prev) translateTree(document.body,lang);
   sizeLede(); paint();
 }
@@ -1991,11 +2028,13 @@ function unlockLang(){
   lsSet("bk_lang_unlocked","1");
   const sw=$("#langSw"); if(sw) sw.hidden=false;
   applyLang(lang,false);
+  translateTree(document.body,lang);   // covers a returning HE visitor: prev===lang, so
+                                        // applyLang's own guard would otherwise skip it
 }
 $$("#langSw button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
-if(LANG_ON) unlockLang();
+unlockLang();
 addEventListener("hashchange",()=>{
-  if(location.hash==="#lang"){ unlockLang(); maybeAskLang(); }
+  if(location.hash==="#lang") openLangPick();   // manual re-open, e.g. to switch again
 });
 
 function maybeAskLang(){
