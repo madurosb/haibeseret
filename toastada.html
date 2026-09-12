@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>טוסטדה – מטבח המשפחה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E2029;
+    --ink-2:#153140;
+    --panel:#0A1922;
+    --bone:#F5EFE2;
+    --marigold:#F7B32B;
+    --pink:#E8447E;
+    --lime:#A3D14C;
+    --muted:#7E9AA6;
+    --line:rgba(245,239,226,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(232,68,126,.18), transparent 42%),
+      radial-gradient(circle at 88% 0%, rgba(247,179,43,.16), transparent 40%);
+    color:var(--bone);
+    font-family:'Heebo',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:18px 16px 90px}
+
+  /* ---------- hero ---------- */
+  .sign{
+    position:relative;
+    border:3px solid var(--marigold);
+    border-radius:26px;
+    padding:22px 18px 20px;
+    text-align:center;
+    background:rgba(10,25,34,.6);
+    box-shadow:0 0 0 6px rgba(247,179,43,.08), 0 18px 40px -20px #000;
+  }
+  .sign h1{
+    font-family:'Secular One',sans-serif;
+    font-size:clamp(40px,13vw,64px);
+    line-height:.92;
+    margin:6px 0 4px;
+    color:var(--marigold);
+    text-shadow:3px 3px 0 var(--pink);
+    letter-spacing:-1px;
+  }
+  .sign .tag{color:var(--bone);opacity:.82;font-size:14.5px;margin:0}
+  .sign .hours{
+    display:inline-block;margin-top:12px;padding:4px 14px;border-radius:999px;
+    background:var(--pink);color:#fff;font-weight:700;font-size:12.5px;
+  }
+  .egg{width:64px;height:48px;display:block;margin:0 auto}
+
+  /* ---------- tabs ---------- */
+  .tabs{display:flex;gap:8px;margin:18px 0 14px}
+  .tab{
+    flex:1;padding:12px 8px;border-radius:14px;border:2px solid var(--line);
+    background:transparent;color:var(--bone);font-family:'Heebo';font-weight:700;
+    font-size:15px;cursor:pointer;transition:transform .12s ease, background .12s ease;
+  }
+  .tab:hover{background:rgba(245,239,226,.06)}
+  .tab[aria-selected="true"]{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+  .tab .count{
+    display:inline-block;min-width:22px;padding:0 6px;margin-inline-start:6px;border-radius:999px;
+    background:var(--pink);color:#fff;font-size:12px;line-height:20px;
+  }
+  .tab[aria-selected="true"] .count{background:var(--ink);color:var(--marigold)}
+
+  /* ---------- menu blocks ---------- */
+  .block{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:12px;
+  }
+  .block > h2{
+    font-family:'Secular One',sans-serif;
+    font-size:21px;margin:0 0 3px;color:var(--bone);font-weight:400;
+  }
+  .block > .hint{margin:0 0 12px;color:var(--muted);font-size:13.5px}
+
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{
+    border:2px solid var(--line);background:transparent;color:var(--bone);
+    padding:10px 15px;border-radius:13px;font-family:'Heebo';font-weight:500;font-size:15.5px;
+    cursor:pointer;transition:background .12s ease,border-color .12s ease,color .12s ease;
+  }
+  .opt:hover{border-color:var(--muted)}
+  .opt[aria-pressed="true"],.opt.on{
+    background:var(--marigold);border-color:var(--marigold);color:var(--ink);font-weight:700;
+  }
+  .opt.on.pinky{background:var(--pink);border-color:var(--pink);color:#fff}
+  .opt.on.limey{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+  .opt .em{margin-inline-end:6px}
+
+  .freetext{
+    width:100%;margin-top:10px;padding:11px 13px;border-radius:12px;
+    border:2px solid var(--line);background:rgba(245,239,226,.05);color:var(--bone);
+    font-family:'Heebo';font-size:15.5px;
+  }
+  .freetext::placeholder{color:var(--muted)}
+  .freetext:focus,.opt:focus-visible,.tab:focus-visible,button:focus-visible{
+    outline:3px solid var(--lime);outline-offset:2px;
+  }
+  .hidden{display:none !important}
+
+  /* ---------- who ---------- */
+  .who{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}
+  .who .opt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 6px;line-height:1.2}
+  .who .opt .face{font-size:26px}
+  .who .opt .role{font-size:12px;color:var(--muted)}
+  .who .opt.on .role{color:rgba(14,32,41,.7)}
+
+  /* ---------- send ---------- */
+  .send{
+    width:100%;padding:17px;border:none;border-radius:16px;
+    background:var(--pink);color:#fff;font-family:'Secular One',sans-serif;font-size:22px;
+    cursor:pointer;box-shadow:0 8px 0 #a82a58;transition:transform .08s ease,box-shadow .08s ease;
+  }
+  .send:active{transform:translateY(5px);box-shadow:0 3px 0 #a82a58}
+  .send:disabled{background:#3b5563;box-shadow:0 8px 0 #223541;cursor:not-allowed}
+  .err{color:var(--pink);font-weight:700;font-size:14px;margin:10px 2px 0;min-height:20px}
+
+  /* ---------- receipts ---------- */
+  .summary{
+    background:var(--marigold);color:var(--ink);border-radius:18px;padding:14px 16px;margin-bottom:14px;
+  }
+  .summary h2{font-family:'Secular One',sans-serif;font-weight:400;font-size:20px;margin:0 0 8px}
+  .summary ul{margin:0;padding-inline-start:18px;font-size:15px;font-weight:500}
+  .summary li{margin-bottom:2px}
+
+  .ticket{
+    background:var(--bone);color:#1b1b1b;border-radius:4px;padding:16px 16px 14px;
+    margin-bottom:14px;position:relative;
+    box-shadow:0 10px 24px -16px #000;
+  }
+  .ticket::before,.ticket::after{
+    content:"";position:absolute;left:0;right:0;height:8px;
+    background:repeating-linear-gradient(-45deg,var(--bone) 0 7px,transparent 7px 14px);
+  }
+  .ticket::before{top:-7px}
+  .ticket::after{bottom:-7px;transform:scaleY(-1)}
+  .ticket .top{display:flex;align-items:center;gap:8px;border-bottom:2px dashed #bdb3a0;padding-bottom:8px;margin-bottom:10px}
+  .ticket .face{font-size:28px}
+  .ticket .name{font-family:'Secular One',sans-serif;font-size:20px;flex:1}
+  .ticket .time{font-size:12px;color:#7a7266}
+  .row{display:flex;gap:8px;font-size:15px;padding:3px 0}
+  .row .k{color:#7a7266;min-width:76px;flex-shrink:0}
+  .row .v{font-weight:700}
+  .quip{margin:10px 0 0;font-size:13.5px;color:#7a7266;border-top:1px dashed #d3c9b6;padding-top:8px}
+  .kill{
+    position:absolute;top:10px;left:12px;background:none;border:none;color:#b4a794;
+    font-size:20px;cursor:pointer;padding:2px 6px;border-radius:8px;
+  }
+  .kill:hover{color:var(--pink)}
+
+  .empty{text-align:center;padding:40px 18px;color:var(--muted)}
+  .empty .big{font-size:46px;display:block;margin-bottom:8px}
+  .clearall{
+    width:100%;margin-top:6px;padding:12px;border-radius:13px;background:transparent;
+    border:2px solid var(--line);color:var(--muted);font-family:'Heebo';font-weight:700;cursor:pointer;
+  }
+  .clearall:hover{color:var(--pink);border-color:var(--pink)}
+
+  /* ---------- toast confirmation ---------- */
+  .flash{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(10,25,34,.86);z-index:50;padding:20px;
+  }
+  .stamp{
+    text-align:center;border:5px solid var(--lime);border-radius:20px;padding:26px 30px;
+    transform:rotate(-6deg) scale(.6);opacity:0;animation:pop .45s ease-out forwards;
+    background:rgba(10,25,34,.9);
+  }
+  .stamp .t{font-family:'Secular One',sans-serif;font-size:34px;color:var(--lime);line-height:1.1}
+  .stamp .s{font-size:15px;color:var(--bone);margin-top:6px}
+  @keyframes pop{to{transform:rotate(-6deg) scale(1);opacity:1}}
+  @media (prefers-reduced-motion:reduce){
+    .stamp{animation:none;opacity:1;transform:rotate(-6deg)}
+    *{transition:none !important}
+  }
+  .note{color:var(--muted);font-size:12.5px;text-align:center;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="sign">
+    <svg class="egg" viewBox="0 0 120 90" aria-hidden="true">
+      <path d="M20 45c-8-14 2-30 18-31 8-1 10-9 22-9s16 7 24 9c15 3 22 14 18 26 3 10-3 18-12 20-6 9-16 12-25 9-9 4-20 2-26-6-10-1-17-9-19-18z" fill="#F5EFE2"/>
+      <ellipse cx="58" cy="44" rx="19" ry="17" fill="#F7B32B"/>
+      <ellipse cx="52" cy="38" rx="6" ry="5" fill="#FFD777"/>
+    </svg>
+    <h1>טוסטָדָה</h1>
+    <p class="tag">בית טוסט משפחתי · לחם, בשמל, ביצה, ואפס סבלנות</p>
+    <span class="hours">המטבח פתוח עד שהשף נשבר</span>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" id="tab-order" role="tab" aria-selected="true" aria-controls="view-order">📝 הזמנה חדשה</button>
+    <button class="tab" id="tab-list" role="tab" aria-selected="false" aria-controls="view-list">🧾 הזמנות<span class="count" id="count">0</span></button>
+  </div>
+
+  <!-- ============ ORDER FORM ============ -->
+  <section id="view-order" role="tabpanel" aria-labelledby="tab-order">
+
+    <div class="block">
+      <h2>1. לחם</h2>
+      <p class="hint">הבסיס. אין לחם, אין טוסט, אין ויכוח.</p>
+      <div class="opts" data-single="bread">
+        <button class="opt" data-v="חלה"><span class="em">🍞</span>חלה</button>
+        <button class="opt" data-v="באגט"><span class="em">🥖</span>באגט</button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>2. תוספות</h2>
+      <p class="hint">אפשר לבחור כמה שבא לך. גם כלום זו בחירה.</p>
+      <div class="opts" data-multi="toppings">
+        <button class="opt limey" data-v="זיתים">🫒 זיתים</button>
+        <button class="opt limey" data-v="תירס">🌽 תירס</button>
+        <button class="opt limey" data-v="פטריות">🍄 פטריות</button>
+        <button class="opt limey" data-v="בצל">🧅 בצל</button>
+        <button class="opt limey" data-v="אבוקדו">🥑 אבוקדו</button>
+        <button class="opt limey" data-v="__other" data-reveal="topping-other">✏️ אחר</button>
+      </div>
+      <input class="freetext hidden" id="topping-other" placeholder="מה עוד לזרוק על זה?" maxlength="60">
+    </div>
+
+    <div class="block">
+      <h2>3. ביצת עין</h2>
+      <p class="hint">החלק שמחליט אם זו ארוחה או חטיף.</p>
+      <div class="opts" data-single="egg">
+        <button class="opt" data-v="עם ביצה">🍳 עם ביצה</button>
+        <button class="opt" data-v="בלי ביצה">🚫 בלי ביצה</button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>4. גבינה</h2>
+      <p class="hint">נמסה מעל הבשמל. כן, זה שילוב חוקי.</p>
+      <div class="opts" data-single="cheese">
+        <button class="opt" data-v="עיזים">🐐 עיזים</button>
+        <button class="opt" data-v="צהובה">🧀 צהובה</button>
+        <button class="opt" data-v="מוצרלה">🍕 מוצרלה</button>
+        <button class="opt" data-v="__other" data-reveal="cheese-other">✏️ אחרת</button>
+      </div>
+      <input class="freetext hidden" id="cheese-other" placeholder="איזו גבינה?" maxlength="40">
+    </div>
+
+    <div class="block">
+      <h2>5. צ׳יפס בצד</h2>
+      <p class="hint">התנור ממילא דולק.</p>
+      <div class="opts" data-single="fries">
+        <button class="opt pinky" data-v="צ׳יפס בטטה">🍠 בטטה</button>
+        <button class="opt pinky" data-v="צ׳יפס רגיל">🍟 רגיל</button>
+        <button class="opt pinky" data-v="בלי צ׳יפס">🥗 בלי, תודה</button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>6. מי מזמין?</h2>
+      <p class="hint">בלי שם ההזמנה נשלחת ישר לפח.</p>
+      <div class="opts who" data-single="who">
+        <button class="opt" data-v="פאפא"><span class="face">🧔</span>פאפא<span class="role">הבוס</span></button>
+        <button class="opt" data-v="מאמא"><span class="face">👩</span>מאמא<span class="role">הבוסית</span></button>
+        <button class="opt" data-v="צ׳אקוס"><span class="face">😎</span>צ׳אקוס<span class="role">מסובך</span></button>
+        <button class="opt" data-v="דייגו"><span class="face">🤠</span>דייגו<span class="role">רעב תמיד</span></button>
+        <button class="opt" data-v="קרלוס"><span class="face">🥸</span>קרלוס<span class="role">מבקר אוכל</span></button>
+      </div>
+      <input class="freetext" id="note" placeholder="הערה לשף (לא מחייב אותו לכלום)" maxlength="90">
+    </div>
+
+    <p class="err" id="err"></p>
+    <button class="send" id="send">שולח את ההזמנה למטבח</button>
+    <p class="note">ההזמנות משותפות — כל מי שפותח את הדף רואה את כולן.</p>
+  </section>
+
+  <!-- ============ ORDERS ============ -->
+  <section id="view-list" role="tabpanel" aria-labelledby="tab-list" class="hidden">
+    <div id="orders"></div>
+  </section>
+
+</div>
+
+<script>
+const FACES = {'פאפא':'🧔','מאמא':'👩','צ׳אקוס':'😎','דייגו':'🤠','קרלוס':'🥸'};
+const QUIPS = [
+  'השף קרא, נאנח, והמשיך.',
+  'הוזמן בביטחון רב.',
+  'המלצר ביקש למסור שזה לא מסעדה.',
+  'אושר ללא עוררין.',
+  'זה נשמע יותר טוב ממה שזה ייראה.',
+  'התקציב המשפחתי לא נפגע.',
+  'עוד טוסט אחד וזהו, נשבע.'
+];
+const PREFIX = 'toastada:order:';
+let orders = [];
+const sel = {bread:null, toppings:new Set(), egg:null, cheese:null, fries:null, who:null};
+
+/* ---------- tabs ---------- */
+const tabOrder = document.getElementById('tab-order');
+const tabList  = document.getElementById('tab-list');
+function show(which){
+  const isOrder = which === 'order';
+  tabOrder.setAttribute('aria-selected', isOrder);
+  tabList.setAttribute('aria-selected', !isOrder);
+  document.getElementById('view-order').classList.toggle('hidden', !isOrder);
+  document.getElementById('view-list').classList.toggle('hidden', isOrder);
+  window.scrollTo({top:0});
+  if(!isOrder) loadOrders();
+}
+tabOrder.onclick = () => show('order');
+tabList.onclick  = () => show('list');
+
+/* ---------- selection ---------- */
+document.querySelectorAll('[data-single]').forEach(group => {
+  const key = group.dataset.single;
+  group.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => {
+      group.querySelectorAll('.opt').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      sel[key] = btn.dataset.v;
+      const field = document.getElementById('cheese-other');
+      if(key === 'cheese' && field) field.classList.toggle('hidden', btn.dataset.v !== '__other');
+      document.getElementById('err').textContent = '';
+    };
+  });
+});
+document.querySelectorAll('[data-multi]').forEach(group => {
+  group.querySelectorAll('.opt').forEach(btn => {
+    btn.onclick = () => {
+      const v = btn.dataset.v;
+      btn.classList.toggle('on');
+      const on = btn.classList.contains('on');
+      on ? sel.toppings.add(v) : sel.toppings.delete(v);
+      if(v === '__other') document.getElementById('topping-other').classList.toggle('hidden', !on);
+    };
+  });
+});
+
+/* ---------- storage ---------- */
+async function loadOrders(){
+  const box = document.getElementById('orders');
+  box.innerHTML = '<p class="empty">מרים את הפנקס…</p>';
+  try{
+    const res = await window.storage.list(PREFIX, true);
+    const keys = (res && res.keys ? res.keys : []).map(k => typeof k === 'string' ? k : k.key);
+    const fetched = await Promise.all(keys.map(async k => {
+      try{ const r = await window.storage.get(k, true); return {key:k, ...JSON.parse(r.value)}; }
+      catch(e){ return null; }
+    }));
+    orders = fetched.filter(Boolean).sort((a,b) => a.ts - b.ts);
+  }catch(e){
+    box.innerHTML = '<div class="empty"><span class="big">📵</span>לא הצלחתי לטעון את ההזמנות. רענן את הדף ונסה שוב.</div>';
+    return;
+  }
+  renderOrders();
+}
+
+function renderOrders(){
+  document.getElementById('count').textContent = orders.length;
+  const box = document.getElementById('orders');
+  if(!orders.length){
+    box.innerHTML = '<div class="empty"><span class="big">🍽️</span>עדיין לא הזמין אף אחד.<br>מישהו צריך לעשות את הצעד הראשון.</div>';
+    return;
+  }
+  const count = f => orders.reduce((m,o) => { const k = f(o); if(k) m[k] = (m[k]||0)+1; return m; }, {});
+  const line = obj => Object.entries(obj).map(([k,v]) => `${k} ×${v}`).join(' · ');
+  const eggs = orders.filter(o => o.egg === 'עם ביצה').length;
+
+  let html = `<div class="summary">
+    <h2>רשימת השף</h2>
+    <ul>
+      <li>לחם: ${line(count(o => o.bread))}</li>
+      <li>ביצים לטגן: ${eggs}</li>
+      <li>גבינות: ${line(count(o => o.cheese))}</li>
+      <li>צ׳יפס: ${line(count(o => o.fries))}</li>
+      <li>סה״כ מנות: ${orders.length}</li>
+    </ul>
+  </div>`;
+
+  html += orders.map(o => {
+    const t = new Date(o.ts).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+    const tops = o.toppings.length ? o.toppings.join(', ') : 'נקי, בלי כלום';
+    return `<article class="ticket">
+      <button class="kill" data-key="${esc(o.key)}" title="מחיקת ההזמנה">✕</button>
+      <div class="top">
+        <span class="face">${FACES[o.who] || '🙂'}</span>
+        <span class="name">${esc(o.who)}</span>
+        <span class="time">${t}</span>
+      </div>
+      <div class="row"><span class="k">לחם</span><span class="v">${esc(o.bread)}</span></div>
+      <div class="row"><span class="k">תוספות</span><span class="v">${esc(tops)}</span></div>
+      <div class="row"><span class="k">ביצת עין</span><span class="v">${esc(o.egg)}</span></div>
+      <div class="row"><span class="k">גבינה</span><span class="v">${esc(o.cheese)}</span></div>
+      <div class="row"><span class="k">צ׳יפס</span><span class="v">${esc(o.fries)}</span></div>
+      ${o.note ? `<div class="row"><span class="k">הערה</span><span class="v">${esc(o.note)}</span></div>` : ''}
+      <p class="quip">${esc(o.quip)}</p>
+    </article>`;
+  }).join('');
+
+  html += `<button class="clearall" id="clearall">לנקות את כל ההזמנות (הארוחה נגמרה)</button>`;
+  box.innerHTML = html;
+
+  box.querySelectorAll('.kill').forEach(b => b.onclick = () => removeOrder(b.dataset.key));
+  document.getElementById('clearall').onclick = clearAll;
+}
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function removeOrder(key){
+  try{ await window.storage.delete(key, true); }catch(e){}
+  orders = orders.filter(o => o.key !== key);
+  renderOrders();
+}
+async function clearAll(){
+  if(!confirm('למחוק את כל ההזמנות?')) return;
+  for(const o of orders){ try{ await window.storage.delete(o.key, true); }catch(e){} }
+  orders = [];
+  renderOrders();
+}
+
+/* ---------- submit ---------- */
+document.getElementById('send').onclick = async () => {
+  const err = document.getElementById('err');
+  const missing = [];
+  if(!sel.who)    missing.push('מי מזמין');
+  if(!sel.bread)  missing.push('לחם');
+  if(!sel.egg)    missing.push('ביצת עין');
+  if(!sel.cheese) missing.push('גבינה');
+  if(!sel.fries)  missing.push('צ׳יפס');
+  if(missing.length){
+    err.textContent = 'חסר: ' + missing.join(', ');
+    return;
+  }
+  let cheese = sel.cheese;
+  if(cheese === '__other'){
+    cheese = document.getElementById('cheese-other').value.trim();
+    if(!cheese){ err.textContent = 'כתבת "אחרת" אבל לא כתבת מה.'; return; }
+  }
+  const toppings = [...sel.toppings].filter(t => t !== '__other');
+  if(sel.toppings.has('__other')){
+    const extra = document.getElementById('topping-other').value.trim();
+    if(extra) toppings.push(extra);
+  }
+
+  const order = {
+    who: sel.who, bread: sel.bread, toppings, egg: sel.egg, cheese,
+    fries: sel.fries, note: document.getElementById('note').value.trim(),
+    quip: QUIPS[Math.floor(Math.random()*QUIPS.length)], ts: Date.now()
+  };
+  const key = PREFIX + order.ts + '-' + Math.random().toString(36).slice(2,7);
+  const btn = document.getElementById('send');
+  btn.disabled = true; btn.textContent = 'רגע, מדברים עם המטבח…';
+  try{
+    await window.storage.set(key, JSON.stringify(order), true);
+  }catch(e){
+    err.textContent = 'ההזמנה לא נשמרה. בדוק חיבור ונסה שוב.';
+    btn.disabled = false; btn.textContent = 'שולח את ההזמנה למטבח';
+    return;
+  }
+  btn.disabled = false; btn.textContent = 'שולח את ההזמנה למטבח';
+  flash(order.who);
+  resetForm();
+  await loadOrders();
+};
+
+function flash(who){
+  const el = document.createElement('div');
+  el.className = 'flash';
+  el.innerHTML = `<div class="stamp"><div class="t">ההזמנה במטבח</div><div class="s">${esc(who)}, זה בדרך. פחות או יותר.</div></div>`;
+  document.body.appendChild(el);
+  el.onclick = () => el.remove();
+  setTimeout(() => el.remove(), 1700);
+}
+
+function resetForm(){
+  document.querySelectorAll('.opt').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.freetext').forEach(i => i.value = '');
+  document.getElementById('cheese-other').classList.add('hidden');
+  document.getElementById('topping-other').classList.add('hidden');
+  sel.bread = sel.egg = sel.cheese = sel.fries = sel.who = null;
+  sel.toppings.clear();
+  document.getElementById('err').textContent = '';
+}
+
+loadOrders();
+</script>
+</body>
+</html>
