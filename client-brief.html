@@ -3,483 +3,445 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>חי בסרט — שיחת תכנון</title>
+<title>חי בסרט — ניהול לקוחות</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#e2a94c;--bg:#080808;--panel:#101010;--border:#1e1e1e;--text:#f4f3ef;--muted:#6b6b68;--success:#2d7a2d}
-body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px 16px}
-.wrap{max-width:680px;margin:0 auto}
-
-/* HEADER */
-.header{text-align:center;padding:32px 0 28px}
-.header .logo{font-size:13px;letter-spacing:.15em;color:var(--gold);font-family:monospace;margin-bottom:12px}
-.header h1{font-size:24px;font-weight:600;margin-bottom:6px}
-.header p{font-size:14px;color:var(--muted)}
-
-/* PROGRESS */
-.steps{display:flex;gap:0;margin-bottom:32px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.step{flex:1;padding:12px 8px;text-align:center;font-size:12px;color:var(--muted);border-left:1px solid var(--border);cursor:pointer;transition:all .2s;line-height:1.4}
+:root{--gold:#e2a94c;--bg:#080808;--panel:#101010;--border:#1e1e1e;--text:#f4f3ef;--muted:#6b6b68;--green:#2d7a2d}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.page{display:none;padding:20px 16px;max-width:700px;margin:0 auto}
+.page.active{display:block}
+.topnav{background:#0a0a0a;border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;flex-wrap:wrap}
+.topnav .logo{font-size:13px;color:var(--gold);font-family:monospace;letter-spacing:.1em}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-btn{padding:6px 11px;border-radius:6px;font-size:12px;cursor:pointer;border:1px solid var(--border);background:none;color:var(--muted);transition:all .2s;font-family:system-ui}
+.nav-btn.active{background:var(--gold);color:#1c1305;border-color:var(--gold);font-weight:600}
+.save-ind{margin-right:auto;font-size:12px;color:var(--green);opacity:0;transition:opacity .5s}
+.save-ind.show{opacity:1}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px}
+.ct{font-size:12px;letter-spacing:.1em;color:var(--gold);font-family:monospace;margin-bottom:14px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;margin-top:12px}
+label:first-of-type{margin-top:0}
+input,textarea,select{width:100%;background:#0a0a0a;border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:system-ui;font-size:14px;padding:10px 13px;direction:rtl;transition:border-color .2s;resize:none}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
+input::placeholder,textarea::placeholder{color:#333}
+select option{background:#111}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.row2{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
+.chip{padding:6px 13px;border:1px solid var(--border);border-radius:99px;font-size:13px;cursor:pointer;background:#0a0a0a;color:var(--muted);transition:all .2s;user-select:none}
+.chip.sel{border-color:var(--gold);background:rgba(226,169,76,.12);color:var(--gold)}
+.si{background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:11px;margin-bottom:8px}
+.si label{color:var(--gold);font-size:12px;margin-bottom:4px;margin-top:0}
+.si textarea{border:none;background:none;padding:4px 0;font-size:13px}
+.si textarea:focus{outline:none}
+.cki{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.cki:last-child{border-bottom:none}
+.cki input[type=checkbox]{width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:var(--gold);cursor:pointer}
+.cki .ct2{font-size:13px;line-height:1.5;flex:1}
+.cki .ct2 small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.cki.done .ct2{text-decoration:line-through;color:var(--muted)}
+.ckg-title{font-size:11px;letter-spacing:.1em;color:var(--gold);font-family:monospace;margin:14px 0 6px}
+.consent-box{background:rgba(226,169,76,.06);border:1px solid rgba(226,169,76,.3);border-radius:10px;padding:14px;margin-bottom:14px}
+.consent-box label{color:var(--text);margin-top:0;font-size:14px;display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+.consent-box input[type=checkbox]{width:20px;height:20px;flex-shrink:0;accent-color:var(--gold)}
+.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:8px}
+.btn{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);transition:all .2s;font-family:system-ui}
+.btn-back{background:none;color:var(--muted)}
+.btn-nxt{background:var(--gold);color:#1c1305;border-color:var(--gold)}
+.btn-sv{background:none;border:1px solid var(--gold);color:var(--gold)}
+.btn:hover{opacity:.85}
+.steps{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.step{flex:1;padding:10px 4px;text-align:center;font-size:11px;color:var(--muted);border-left:1px solid var(--border);cursor:pointer;transition:all .2s;line-height:1.3}
 .step:last-child{border-left:none}
+.step .sn{display:block;font-size:14px;margin-bottom:2px}
 .step.active{background:var(--gold);color:#1c1305;font-weight:600}
 .step.done{background:#1a2a1a;color:#5b9b5b}
-.step-num{display:block;font-size:16px;margin-bottom:2px}
-
-/* SECTIONS */
-.section{display:none}
-.section.active{display:block}
-
-/* CARDS */
-.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-.card-title{font-size:13px;letter-spacing:.1em;color:var(--gold);font-family:monospace;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.card-title span{font-size:18px}
-
-/* FORM ELEMENTS */
-label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;margin-top:14px}
-label:first-of-type{margin-top:0}
-input,textarea,select{width:100%;background:#0a0a0a;border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:system-ui,sans-serif;font-size:14px;padding:11px 14px;direction:rtl;transition:border-color .2s;resize:none}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
-input::placeholder,textarea::placeholder{color:#3a3a38}
-select option{background:#111}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:480px){.row{grid-template-columns:1fr}}
-
-/* TONE CHIPS */
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.chip{padding:7px 14px;border:1px solid var(--border);border-radius:99px;font-size:13px;cursor:pointer;background:#0a0a0a;color:var(--muted);transition:all .2s;user-select:none}
-.chip.selected{border-color:var(--gold);background:rgba(226,169,76,.12);color:var(--gold)}
-
-/* STORY BOXES */
-.story-item{background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px}
-.story-item label{color:var(--gold);font-size:12px;margin-bottom:4px;margin-top:0}
-.story-item textarea{border:none;background:none;padding:4px 0;font-size:14px;line-height:1.6}
-.story-item textarea:focus{outline:none}
-
-/* BUTTONS */
-.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px}
-.btn{padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid var(--border);transition:all .2s;font-family:system-ui,sans-serif}
-.btn-back{background:none;color:var(--muted)}
-.btn-next{background:var(--gold);color:#1c1305;border-color:var(--gold);margin-right:auto}
-.btn-generate{background:var(--gold);color:#1c1305;border-color:var(--gold);padding:14px 32px;font-size:15px;width:100%;margin-top:8px}
-.btn:hover{opacity:.85}
-
-/* SUMMARY */
-#summary{display:none}
-.summary-hero{text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px}
-.summary-hero .project-name{font-size:28px;font-weight:600;margin-bottom:6px}
-.summary-hero .project-sub{font-size:15px;color:var(--muted)}
-.summary-hero .package-badge{display:inline-block;background:rgba(226,169,76,.15);border:1px solid var(--gold);color:var(--gold);padding:6px 18px;border-radius:99px;font-size:13px;margin-top:12px;font-family:monospace;letter-spacing:.06em}
-.s-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px}
-.s-card h3{font-size:12px;letter-spacing:.12em;color:var(--gold);font-family:monospace;margin-bottom:14px}
-.s-row{display:flex;gap:12px;margin-bottom:8px;font-size:14px;line-height:1.5}
-.s-label{color:var(--muted);flex-shrink:0;width:120px;font-size:13px}
-.s-val{color:var(--text);flex:1}
-.tone-tags{display:flex;flex-wrap:wrap;gap:6px}
-.tone-tag{background:rgba(226,169,76,.1);border:1px solid rgba(226,169,76,.3);color:var(--gold);padding:4px 12px;border-radius:99px;font-size:12px}
-.story-block{background:#0a0a0a;border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:14px;line-height:1.65;color:#d0cec9}
-.story-block .story-q{font-size:12px;color:var(--muted);margin-bottom:4px}
-.divider{height:1px;background:var(--border);margin:20px 0}
-.print-btn{display:flex;gap:12px;margin-top:24px;padding-bottom:32px}
-.print-btn button{flex:1;padding:13px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:system-ui,sans-serif;border:1px solid var(--border);background:none;color:var(--muted);transition:all .2s}
-.print-btn button.primary{background:var(--gold);color:#1c1305;border-color:var(--gold)}
-.print-btn button:hover{opacity:.85}
-.back-link{text-align:center;margin-top:12px}
-.back-link a{color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline}
-
+.cc{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.cc:hover{border-color:var(--gold)}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.cc-name{font-size:15px;font-weight:600}
+.cc-pkg{font-size:11px;background:rgba(226,169,76,.12);color:var(--gold);border:1px solid rgba(226,169,76,.3);padding:3px 10px;border-radius:99px;font-family:monospace}
+.cc-det{font-size:13px;color:var(--muted)}
+.cc-st{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.sdot{font-size:11px;padding:2px 9px;border-radius:99px;background:#1a1a1a;color:var(--muted);border:1px solid var(--border)}
+.sdot.ok{background:#1a2a1a;color:#5b9b5b;border-color:#2d5a2d}
+.btn-nc{width:100%;padding:14px;border-radius:10px;border:1px dashed var(--border);background:none;color:var(--muted);font-size:14px;cursor:pointer;font-family:system-ui;transition:all .2s;margin-top:6px}
+.btn-nc:hover{border-color:var(--gold);color:var(--gold)}
+.ph{padding:28px 0;text-align:center;color:var(--muted);font-size:14px}
+.ph .big{font-size:32px;margin-bottom:8px}
+.sh{text-align:center;padding:24px 0 20px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.sh h2{font-size:22px;font-weight:600;margin-bottom:4px}
+.sh p{font-size:14px;color:var(--muted);margin-bottom:10px}
+.pkg-b{display:inline-block;background:rgba(226,169,76,.12);border:1px solid var(--gold);color:var(--gold);padding:5px 16px;border-radius:99px;font-size:12px;font-family:monospace}
+.sr{display:flex;gap:10px;margin-bottom:7px;font-size:13px;line-height:1.5}
+.sl{color:var(--muted);flex-shrink:0;width:110px;font-size:12px}
+.sb{background:#0a0a0a;border-radius:8px;padding:10px 13px;margin-bottom:7px}
+.sb .sq{font-size:11px;color:var(--muted);margin-bottom:3px}
+.sb p{font-size:13px;line-height:1.6;color:#d0cec9}
+.ttag{display:inline-block;background:rgba(226,169,76,.1);border:1px solid rgba(226,169,76,.3);color:var(--gold);padding:3px 10px;border-radius:99px;font-size:12px;margin:2px}
+.div{height:1px;background:var(--border);margin:12px 0}
 @media print{
-  body{background:#fff;color:#000;padding:0}
-  .print-btn,.back-link,.header,.steps{display:none}
-  #summary{display:block!important}
-  #form-area{display:none}
-  .s-card{border-color:#ddd;background:#f9f9f9}
-  .s-label{color:#666}
-  .summary-hero .project-name{color:#000}
-  .package-badge{border-color:#caa;background:#fff8ee;color:#a06020}
-  .tone-tag{background:#fff8ee;border-color:#caa;color:#a06020}
-  .story-block{background:#f5f5f5;color:#222}
+  .topnav,.btn-row,.btn-nc,.nav-links,.no-print{display:none!important}
+  body,html{background:#fff!important;color:#000!important}
+  .page{display:block!important;padding:0}
+  .card,.consent-box{border:1px solid #ddd!important;background:#f9f9f9!important}
+  .sl{color:#666!important}
+  .sb{background:#f5f5f5!important}
+  .sb p,.sr .sv{color:#111!important}
+  .pkg-b,.ttag{background:#fff8ee!important;border-color:#caa!important;color:#a06020!important}
+  .sh h2,.ct,.ckg-title,.sh p{color:#000!important}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<div class="header" id="main-header">
+<div class="topnav">
   <div class="logo">🎬 חי בסרט</div>
-  <h1>שיחת תכנון עם לקוח</h1>
-  <p>מלא במהלך השיחה — בסיום יווצר דף סיכום מלא</p>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('clients')">לקוחות</button>
+    <button class="nav-btn" id="nb-brief" onclick="showPage('brief')" style="display:none">✏️ שיחה</button>
+    <button class="nav-btn" id="nb-summary" onclick="showPage('summary')" style="display:none">📋 סיכום</button>
+    <button class="nav-btn" id="nb-checklist" onclick="showPage('checklist')" style="display:none">✅ מעקב</button>
+  </div>
+  <span class="save-ind" id="si">✓ נשמר</span>
 </div>
 
-<div class="steps" id="step-nav">
-  <div class="step active" onclick="goTo(0)"><span class="step-num">1</span>לקוח</div>
-  <div class="step" onclick="goTo(1)"><span class="step-num">2</span>הגיבור</div>
-  <div class="step" onclick="goTo(2)"><span class="step-num">3</span>סיפורים</div>
-  <div class="step" onclick="goTo(3)"><span class="step-num">4</span>לוגיסטיקה</div>
-  <div class="step" onclick="goTo(4)"><span class="step-num">5</span>סיכום</div>
+<!-- CLIENTS -->
+<div class="page active" id="page-clients">
+  <div style="padding:24px 0 16px"><div style="font-size:22px;font-weight:600;margin-bottom:4px">לקוחות</div><div style="font-size:14px;color:var(--muted)">לחץ לפתיחה</div></div>
+  <div id="cl"></div>
+  <button class="btn-nc" onclick="newClient()">+ שיחת תכנון חדשה</button>
 </div>
 
-<div id="form-area">
+<!-- BRIEF -->
+<div class="page" id="page-brief">
+  <div class="steps" id="snav">
+    <div class="step active" onclick="goStep(0)"><span class="sn">1</span>לקוח</div>
+    <div class="step" onclick="goStep(1)"><span class="sn">2</span>גיבור</div>
+    <div class="step" onclick="goStep(2)"><span class="sn">3</span>סיפורים</div>
+    <div class="step" onclick="goStep(3)"><span class="sn">4</span>הסרט</div>
+    <div class="step" onclick="goStep(4)"><span class="sn">5</span>לוגיסטיקה</div>
+  </div>
 
-<!-- STEP 1: CLIENT -->
-<div class="section active" id="sec-0">
-  <div class="card">
-    <div class="card-title"><span>👤</span> פרטי הלקוח</div>
-    <label>שם הלקוח</label>
-    <input id="client-name" type="text" placeholder="שם מלא">
-    <label>טלפון / וואטסאפ</label>
-    <input id="client-phone" type="text" placeholder="05X-XXXXXXX">
-    <label>אימייל</label>
-    <input id="client-email" type="text" placeholder="email@example.com">
-    <label>חבילה שנבחרה</label>
-    <select id="package">
-      <option value="">בחר חבילה</option>
-      <option value="Trailer — ₪690">Trailer — ₪690</option>
-      <option value="Short — ₪1,490">Short — ₪1,490</option>
-      <option value="Feature — ₪3,900">Feature — ₪3,900 ⭐</option>
-      <option value="Director's Cut — מ-₪8,000">Director's Cut — מ-₪8,000</option>
-    </select>
-  </div>
-  <div class="card">
-    <div class="card-title"><span>🎉</span> פרטי האירוע</div>
-    <label>סוג האירוע</label>
-    <select id="event-type">
-      <option value="">בחר סוג</option>
-      <option>יום הולדת</option>
-      <option>חתונה</option>
-      <option>בר מצווה</option>
-      <option>בת מצווה</option>
-      <option>יום נישואין</option>
-      <option>חגיגת 60/70/80</option>
-      <option>סרט אישי (ללא אירוע)</option>
-      <option>אחר</option>
-    </select>
-    <label>תאריך האירוע</label>
-    <input id="event-date" type="text" placeholder="לדוגמה: 15 בספטמבר 2025">
-    <label>האם הסרט יוקרן באירוע?</label>
-    <select id="screening">
-      <option value="">בחר</option>
-      <option>כן — יוקרן באירוע</option>
-      <option>לא — מתנה אישית</option>
-      <option>שניהם</option>
-      <option>עדיין לא בטוח</option>
-    </select>
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-next" onclick="goTo(1)">הבא — הגיבור ←</button>
-  </div>
-</div>
-
-<!-- STEP 2: HERO -->
-<div class="section" id="sec-1">
-  <div class="card">
-    <div class="card-title"><span>⭐</span> מי הגיבור/ת?</div>
-    <div class="row">
-      <div>
-        <label>שם הגיבור/ת</label>
-        <input id="hero-name" type="text" placeholder="שם מלא">
-      </div>
-      <div>
-        <label>גיל</label>
-        <input id="hero-age" type="text" placeholder="לדוגמה: 70">
+  <div class="bs active" id="bs0">
+    <div class="card"><div class="ct">👤 פרטי לקוח</div>
+      <label>שם</label><input id="fc-cname" placeholder="שם מלא">
+      <label>טלפון</label><input id="fc-cphone" placeholder="05X-XXXXXXX">
+      <label>אימייל</label><input id="fc-cemail" placeholder="email@example.com">
+      <label>חבילה</label>
+      <select id="fc-pkg"><option value="">בחר</option><option>Trailer — ₪690</option><option>Short — ₪1,490</option><option>Feature — ₪3,900</option><option>Director's Cut — מ-₪8,000</option></select>
+    </div>
+    <div class="card"><div class="ct">🎉 האירוע</div>
+      <label>סוג</label>
+      <select id="fc-etype"><option value="">בחר</option><option>יום הולדת</option><option>חגיגת 60/70/80</option><option>חתונה</option><option>בר מצווה</option><option>בת מצווה</option><option>יום נישואין</option><option>סרט אישי (ללא אירוע)</option><option>אחר</option></select>
+      <div class="row2">
+        <div><label>תאריך</label><input id="fc-edate" placeholder="15.9.25"></div>
+        <div><label>הקרנה?</label><select id="fc-screen"><option value="">בחר</option><option>כן — יוקרן</option><option>לא — מתנה</option><option>שניהם</option><option>עדיין לא בטוח</option></select></div>
       </div>
     </div>
-    <label>מה הקשר שלו/שלה לאירוע?</label>
-    <input id="hero-relation" type="text" placeholder="לדוגמה: אבא של הלקוח, חוגג 70">
-    <label>תאר/תארי אותו/אותה במשפט אחד</label>
-    <textarea id="hero-desc" rows="2" placeholder="לדוגמה: אבא טיפוסי שאומר 'ביסלי' כשהוא בוכה, אוהב שחמט ומכניות ישנות"></textarea>
-    <label>מאיפה הוא/היא? (עיר, ארץ מוצא)</label>
-    <input id="hero-origin" type="text" placeholder="לדוגמה: ירושלים, עלה מרוסיה ב-1991">
-    <label>מה הוא/היא עושה / עשה בחיים? (עבודה, תחביבים מרכזיים)</label>
-    <textarea id="hero-job" rows="2" placeholder="לדוגמה: היה שוטר 30 שנה, עכשיו מגדל עגבניות בגינה ושותה קפה בגינה כל בוקר"></textarea>
+    <div class="consent-box"><label><input type="checkbox" id="fc-consent"><div>הלקוח הסכים לפרסום הסרט — מקבל <strong style="color:var(--gold)">10% הנחה</strong></div></label></div>
+    <div class="btn-row no-print"><button class="btn btn-sv" onclick="autosave()">💾 שמור</button><button class="btn btn-nxt" onclick="goStep(1)">הבא ←</button></div>
   </div>
-  <div class="card">
-    <div class="card-title"><span>🎭</span> טון הסרט</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:8px">בחר אחד או יותר:</p>
-    <div class="chips" id="tone-chips">
-      <div class="chip" onclick="toggleChip(this)">😂 מצחיק</div>
-      <div class="chip" onclick="toggleChip(this)">😢 מרגש</div>
-      <div class="chip" onclick="toggleChip(this)">🥰 חם ואוהב</div>
-      <div class="chip" onclick="toggleChip(this)">🎬 קולנועי</div>
-      <div class="chip" onclick="toggleChip(this)">📖 נוסטלגי</div>
-      <div class="chip" onclick="toggleChip(this)">💪 מעורר השראה</div>
-      <div class="chip" onclick="toggleChip(this)">🎉 חגיגי</div>
+
+  <div class="bs" id="bs1">
+    <div class="card"><div class="ct">⭐ הגיבור/ת</div>
+      <div class="row2"><div><label>שם</label><input id="fc-hname" placeholder="שם מלא"></div><div><label>גיל</label><input id="fc-hage" placeholder="70"></div></div>
+      <label>קשר לאירוע</label><input id="fc-hrel" placeholder="אבא של הלקוח, חוגג 70">
+      <label>מוצא / עיר</label><input id="fc-horig" placeholder="ירושלים, עלה מרוסיה ב-1991">
+      <label>תיאור</label><textarea id="fc-hdesc" rows="2" placeholder="אבא טיפוסי שאומר ביסלי כשהוא בוכה"></textarea>
+      <label>עבודה / תחביבים</label><textarea id="fc-hjob" rows="2" placeholder="היה שוטר 30 שנה, מגדל עגבניות בגינה"></textarea>
     </div>
+    <div class="card"><div class="ct">🎭 טון</div>
+      <div class="chips" id="cc-tone">
+        <div class="chip" onclick="tc(this)">😂 מצחיק</div><div class="chip" onclick="tc(this)">😢 מרגש</div>
+        <div class="chip" onclick="tc(this)">🥰 חם ואוהב</div><div class="chip" onclick="tc(this)">🎬 קולנועי</div>
+        <div class="chip" onclick="tc(this)">📖 נוסטלגי</div><div class="chip" onclick="tc(this)">💪 מעורר השראה</div>
+        <div class="chip" onclick="tc(this)">🎉 חגיגי</div>
+      </div>
+    </div>
+    <div class="btn-row no-print"><button class="btn btn-back" onclick="goStep(0)">→ חזור</button><button class="btn btn-sv" onclick="autosave()">💾 שמור</button><button class="btn btn-nxt" onclick="goStep(2)">הבא ←</button></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-back" onclick="goTo(0)">← חזור</button>
-    <button class="btn btn-next" onclick="goTo(2)">הבא — סיפורים ←</button>
+
+  <div class="bs" id="bs2">
+    <div class="card"><div class="ct">📖 סיפורים</div>
+      <div class="si"><label>🌟 הסיפור הכי מפורסם</label><textarea id="fc-s1" rows="3" placeholder="שאל: תספר סיפור אחד שכולם מכירים"></textarea></div>
+      <div class="si"><label>😂 הבדיחה הפנימית</label><textarea id="fc-s2" rows="3" placeholder="הציטוט, ההרגל, מה שגורם לכולם לצחוק"></textarea></div>
+      <div class="si"><label>😢 הרגע הכי מרגש</label><textarea id="fc-s3" rows="3" placeholder="בכי, גאווה, התרגשות עמוקה"></textarea></div>
+      <div class="si"><label>🗺️ סיפור שלא צולם</label><textarea id="fc-s4" rows="3" placeholder="ילדות, צבא, הגעה לארץ, פגישה ראשונה"></textarea></div>
+      <div class="si"><label>💌 מה יחוש/תחוש הגיבור/ת?</label><textarea id="fc-s5" rows="3" placeholder="שיבין כמה אוהבים אותו / שיצחק עד שיבכה"></textarea></div>
+    </div>
+    <div class="card"><div class="ct">🖼️ חומרים</div>
+      <div class="row2">
+        <div><label>כמות</label><select id="fc-acnt"><option value="">בחר</option><option>מעט (1-10)</option><option>בינוני (10-30)</option><option>הרבה (30+)</option><option>יש גם וידאו</option></select></div>
+        <div><label>איכות</label><select id="fc-aqlt"><option value="">בחר</option><option>ישנות / נמוכה</option><option>סבירה</option><option>טובה / דיגיטלית</option><option>מעורב</option></select></div>
+      </div>
+      <label>הערות</label><textarea id="fc-anotes" rows="2" placeholder="תמונות צבא סרוקות, חתונה 1982..."></textarea>
+    </div>
+    <div class="btn-row no-print"><button class="btn btn-back" onclick="goStep(1)">→ חזור</button><button class="btn btn-sv" onclick="autosave()">💾 שמור</button><button class="btn btn-nxt" onclick="goStep(3)">הבא ←</button></div>
+  </div>
+
+  <div class="bs" id="bs3">
+    <div class="card"><div class="ct">🎬 תכנון הסרט</div>
+      <label>נקודת פתיחה</label>
+      <select id="fc-open"><option value="">בחר</option><option>מהלידה / ילדות מוקדמת</option><option>ילדות ובי"ס</option><option>נעורים / צבא</option><option>מפגש עם בן/בת הזוג</option><option>הקמת המשפחה</option><option>רגע ספציפי</option></select>
+      <label>אירועים מרכזיים לכלול (לפי סדר)</label>
+      <textarea id="fc-events" rows="5" placeholder="• ילדות בחיפה, אבא היה דייג&#10;• צבא — מג'ניסט, יש סיפור מצחיק&#10;• פגישה עם אמא&#10;• החתונה — ריקוד עם הסבתא&#10;• הילדה הראשונה נולדה"></textarea>
+      <label>סצנות AI לייצר</label>
+      <textarea id="fc-scenes" rows="4" placeholder="• ילד קטן על חוף הים בחיפה שנות ה-60&#10;• חתן צעיר בחתונה&#10;• אבא מחזיק תינוק לראשונה"></textarea>
+      <label>סגנון ויזואלי</label>
+      <div class="chips" id="cc-style">
+        <div class="chip" onclick="tc(this)">🎞️ ישן / וינטאג'</div><div class="chip" onclick="tc(this)">🎬 קולנועי מודרני</div>
+        <div class="chip" onclick="tc(this)">📺 דוקומנטרי</div><div class="chip" onclick="tc(this)">🌅 חם ואוהב</div>
+        <div class="chip" onclick="tc(this)">⬛ שחור-לבן</div>
+      </div>
+      <label>מוזיקה</label><input id="fc-music" placeholder="אורקסטרלית / שיר ספציפי / ישראלית קלאסית">
+      <label>אורך</label>
+      <select id="fc-length"><option value="">בחר</option><option>עד 90 שניות</option><option>2-3 דקות</option><option>3-4 דקות</option><option>כמה שנדרש</option></select>
+    </div>
+    <div class="btn-row no-print"><button class="btn btn-back" onclick="goStep(2)">→ חזור</button><button class="btn btn-sv" onclick="autosave()">💾 שמור</button><button class="btn btn-nxt" onclick="goStep(4)">הבא ←</button></div>
+  </div>
+
+  <div class="bs" id="bs4">
+    <div class="card"><div class="ct">📅 לוגיסטיקה</div>
+      <label>דדליין</label><input id="fc-dead" placeholder="3 שבועות לפני האירוע">
+      <label>דחיפות</label>
+      <select id="fc-urg"><option>לא — זמן רגיל</option><option>כן — 48 שעות (+₪650)</option><option>כן — תוך שבוע</option></select>
+      <label>תוספות</label>
+      <div class="chips" id="cc-addon">
+        <div class="chip" onclick="tc(this)">טיזר אנכי (+₪420)</div>
+        <div class="chip" onclick="tc(this)">4K (+₪350)</div>
+        <div class="chip" onclick="tc(this)">סבב תיקונים נוסף (+₪150)</div>
+      </div>
+    </div>
+    <div class="card"><div class="ct">💬 הערות</div>
+      <label>דברים חשובים</label><textarea id="fc-notes" rows="4" placeholder="כל מה שעלה בשיחה..."></textarea>
+      <label>שאלות פתוחות</label><textarea id="fc-qs" rows="3" placeholder="מה צריך לברר עם הלקוח..."></textarea>
+    </div>
+    <div class="btn-row no-print">
+      <button class="btn btn-back" onclick="goStep(3)">→ חזור</button>
+      <button class="btn btn-sv" onclick="autosave()">💾 שמור</button>
+      <button class="btn btn-nxt" onclick="genSum()">✨ צור סיכום</button>
+    </div>
   </div>
 </div>
 
-<!-- STEP 3: STORIES -->
-<div class="section" id="sec-2">
-  <div class="card">
-    <div class="card-title"><span>📖</span> סיפורים ורגעים</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:16px">מלא כמה שיותר — אפילו כמה מילות מפתח</p>
-
-    <div class="story-item">
-      <label>🌟 הסיפור הכי מפורסם עליו/עליה במשפחה</label>
-      <textarea id="story-1" rows="3" placeholder="זה לב הסרט — תשאל 'תספר לי סיפור אחד שכולם מכירים'"></textarea>
-    </div>
-    <div class="story-item">
-      <label>😂 הבדיחה הפנימית / הדבר שגורם לכולם לצחוק</label>
-      <textarea id="story-2" rows="3" placeholder="הציטוט שלו, ההרגל המצחיק, מה שהוא/היא תמיד אומר/ת..."></textarea>
-    </div>
-    <div class="story-item">
-      <label>😢 הרגע הכי מרגש שהלקוח זוכר</label>
-      <textarea id="story-3" rows="3" placeholder="רגע שגרם לבכי / גאווה / התרגשות עמוקה"></textarea>
-    </div>
-    <div class="story-item">
-      <label>🗺️ סיפור מהעבר שלא צולם (ולדעת הלקוח 'היה שווה לצלם')</label>
-      <textarea id="story-4" rows="3" placeholder="ילדות, צבא, הגעה לארץ, פגישה ראשונה עם בן/בת זוג..."></textarea>
-    </div>
-    <div class="story-item">
-      <label>💌 מה הלקוח רוצה שהגיבור/ת ירגיש/תרגיש כשיראה/תראה את הסרט?</label>
-      <textarea id="story-5" rows="3" placeholder="'שיבין כמה אנחנו אוהבים אותו' / 'שיצחק עד שיבכה' / ..."></textarea>
-    </div>
+<!-- SUMMARY -->
+<div class="page" id="page-summary">
+  <div class="sh">
+    <div style="font-size:12px;color:var(--gold);font-family:monospace;letter-spacing:.1em;margin-bottom:6px">🎬 חי בסרט — תיק לקוח</div>
+    <h2 id="s-title">—</h2><p id="s-sub">—</p><div class="pkg-b" id="s-pkg">—</div>
   </div>
-  <div class="card">
-    <div class="card-title"><span>🖼️</span> חומרים</div>
-    <label>כמה תמונות / סרטונים יש?</label>
-    <select id="assets-count">
-      <option value="">בחר</option>
-      <option>מעט מאוד (1-10 תמונות)</option>
-      <option>בינוני (10-30 תמונות)</option>
-      <option>הרבה (30+ תמונות)</option>
-      <option>יש גם וידאו ישן</option>
-    </select>
-    <label>איכות התמונות</label>
-    <select id="assets-quality">
-      <option value="">בחר</option>
-      <option>ישנות מסרוקות / נמוכה</option>
-      <option>סבירה</option>
-      <option>טובה / דיגיטלית</option>
-      <option>מעורב</option>
-    </select>
-    <label>הערות על החומרים</label>
-    <textarea id="assets-notes" rows="2" placeholder="לדוגמה: יש תמונות מהצבא שנסרקו, וגם כמה מהחתונה שלהם ב-1982"></textarea>
+  <div class="card"><div class="ct">👤 לקוח</div>
+    <div class="sr"><div class="sl">שם</div><div id="s-cname">—</div></div>
+    <div class="sr"><div class="sl">טלפון</div><div id="s-cphone">—</div></div>
+    <div class="sr"><div class="sl">אימייל</div><div id="s-cemail">—</div></div>
+    <div class="div"></div>
+    <div class="sr"><div class="sl">אירוע</div><div id="s-etype">—</div></div>
+    <div class="sr"><div class="sl">תאריך</div><div id="s-edate">—</div></div>
+    <div class="sr"><div class="sl">הקרנה</div><div id="s-screen">—</div></div>
+    <div class="sr"><div class="sl">הסכמה לפרסום</div><div id="s-consent">—</div></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-back" onclick="goTo(1)">← חזור</button>
-    <button class="btn btn-next" onclick="goTo(3)">הבא — לוגיסטיקה ←</button>
+  <div class="card"><div class="ct">⭐ גיבור/ת</div>
+    <div class="sr"><div class="sl">שם</div><div id="s-hname">—</div></div>
+    <div class="sr"><div class="sl">גיל</div><div id="s-hage">—</div></div>
+    <div class="sr"><div class="sl">קשר</div><div id="s-hrel">—</div></div>
+    <div class="sr"><div class="sl">מוצא</div><div id="s-horig">—</div></div>
+    <div class="sr"><div class="sl">תיאור</div><div id="s-hdesc">—</div></div>
+    <div class="sr"><div class="sl">עבודה/תחביב</div><div id="s-hjob">—</div></div>
+    <div class="sr"><div class="sl">טון</div><div id="s-tone">—</div></div>
+  </div>
+  <div class="card"><div class="ct">📖 סיפורים</div><div id="s-stories"></div></div>
+  <div class="card"><div class="ct">🎬 תכנון הסרט</div>
+    <div class="sr"><div class="sl">פתיחה</div><div id="s-open">—</div></div>
+    <div class="sr"><div class="sl">אירועים</div><div id="s-events" style="white-space:pre-line;flex:1">—</div></div>
+    <div class="sr"><div class="sl">סצנות AI</div><div id="s-scenes" style="white-space:pre-line;flex:1">—</div></div>
+    <div class="sr"><div class="sl">סגנון</div><div id="s-style">—</div></div>
+    <div class="sr"><div class="sl">מוזיקה</div><div id="s-music">—</div></div>
+    <div class="sr"><div class="sl">אורך</div><div id="s-length">—</div></div>
+  </div>
+  <div class="card"><div class="ct">🖼️ חומרים</div>
+    <div class="sr"><div class="sl">כמות</div><div id="s-acnt">—</div></div>
+    <div class="sr"><div class="sl">איכות</div><div id="s-aqlt">—</div></div>
+    <div class="sr"><div class="sl">הערות</div><div id="s-anotes">—</div></div>
+  </div>
+  <div class="card"><div class="ct">📅 לוגיסטיקה</div>
+    <div class="sr"><div class="sl">דדליין</div><div id="s-dead">—</div></div>
+    <div class="sr"><div class="sl">דחיפות</div><div id="s-urg">—</div></div>
+    <div class="sr"><div class="sl">תוספות</div><div id="s-addon">—</div></div>
+  </div>
+  <div class="card"><div class="ct">💬 הערות</div><div id="s-notes"></div></div>
+  <div class="btn-row no-print">
+    <button class="btn btn-back" onclick="showPage('brief')">← עריכה</button>
+    <button class="btn btn-sv" onclick="window.print()">🖨️ הדפסה</button>
+    <button class="btn btn-nxt" onclick="showPage('checklist')">מעקב ←</button>
   </div>
 </div>
 
-<!-- STEP 4: LOGISTICS -->
-<div class="section" id="sec-3">
+<!-- CHECKLIST -->
+<div class="page" id="page-checklist">
+  <div style="padding:20px 0 14px"><div style="font-size:18px;font-weight:600;margin-bottom:4px" id="ck-ttl">מעקב פרויקט</div><div style="font-size:13px;color:var(--muted)">סמן כל שלב כשמסיים</div></div>
   <div class="card">
-    <div class="card-title"><span>📅</span> לוח זמנים ותקציב</div>
-    <label>דדליין לקבלת הסרט</label>
-    <input id="deadline" type="text" placeholder="לדוגמה: 3 שבועות לפני האירוע">
-    <label>האם נדרשת מסירה דחופה?</label>
-    <select id="urgent">
-      <option value="לא">לא</option>
-      <option value="כן — תוך 48 שעות (+₪650)">כן — תוך 48 שעות (+₪650)</option>
-      <option value="כן — תוך שבוע">כן — תוך שבוע</option>
-    </select>
-    <label>תוספות מעוניינים?</label>
-    <div class="chips" id="addon-chips">
-      <div class="chip" onclick="toggleChip(this)">טיזר אנכי לרשתות (+₪420)</div>
-      <div class="chip" onclick="toggleChip(this)">שדרוג 4K (+₪350)</div>
-      <div class="chip" onclick="toggleChip(this)">סבב תיקונים נוסף (+₪150)</div>
-    </div>
+    <div class="ckg-title">📞 אחרי השיחה</div>
+    <div class="cki" id="ck0"><input type="checkbox" onchange="sc('ck0',this.checked)"><div class="ct2">שלח ללקוח אישור בווצאפ<small>שם, חבילה, מחיר, לוח זמנים</small></div></div>
+    <div class="cki" id="ck1"><input type="checkbox" onchange="sc('ck1',this.checked)"><div class="ct2">קבל מקדמה 30-50%<small>₪1,170–1,950 עבור Feature</small></div></div>
+    <div class="cki" id="ck2"><input type="checkbox" onchange="sc('ck2',this.checked)"><div class="ct2">קבל חומרים — תמונות וסרטונים<small>Drive / WeTransfer / אחר</small></div></div>
+    <div class="ckg-title">🎬 הפקה</div>
+    <div class="cki" id="ck3"><input type="checkbox" onchange="sc('ck3',this.checked)"><div class="ct2">מיון וארגון החומרים<small>תיקיות לפי שנים / נושאים</small></div></div>
+    <div class="cki" id="ck4"><input type="checkbox" onchange="sc('ck4',this.checked)"><div class="ct2">כתיבת תסריט / מבנה הסרט<small>רצף סצנות, נרטיב, מה נכנס</small></div></div>
+    <div class="cki" id="ck5"><input type="checkbox" onchange="sc('ck5',this.checked)"><div class="ct2">יצירת סצנות AI<small>Kling / Runway / Veo לפי הרשימה</small></div></div>
+    <div class="cki" id="ck6"><input type="checkbox" onchange="sc('ck6',this.checked)"><div class="ct2">קריינות<small>יצירה / הקלטה / AI voice</small></div></div>
+    <div class="cki" id="ck7"><input type="checkbox" onchange="sc('ck7',this.checked)"><div class="ct2">עריכה ראשונה<small>גרסה גסה — רצף, קצב, מוזיקה</small></div></div>
+    <div class="cki" id="ck8"><input type="checkbox" onchange="sc('ck8',this.checked)"><div class="ct2">פוסט-פרודקשן<small>צבע, סאונד, כתוביות, אפקטים</small></div></div>
+    <div class="ckg-title">📤 מסירה</div>
+    <div class="cki" id="ck9"><input type="checkbox" onchange="sc('ck9',this.checked)"><div class="ct2">שלח גרסה ראשונה לאישור<small>לינק Vimeo — ציין מספר סבבי תיקונים</small></div></div>
+    <div class="cki" id="ck10"><input type="checkbox" onchange="sc('ck10',this.checked)"><div class="ct2">ביצוע תיקונים<small>לפי מה שהוסכם בחבילה</small></div></div>
+    <div class="cki" id="ck11"><input type="checkbox" onchange="sc('ck11',this.checked)"><div class="ct2">קבל תשלום מלא לפני מסירה סופית</div></div>
+    <div class="cki" id="ck12"><input type="checkbox" onchange="sc('ck12',this.checked)"><div class="ct2">מסירת קובץ סופי<small>MP4 + גרסה לרשתות</small></div></div>
+    <div class="ckg-title">⭐ אחרי</div>
+    <div class="cki" id="ck13"><input type="checkbox" onchange="sc('ck13',this.checked)"><div class="ct2">בקש ביקורת / ציטוט<small>אחרי שהלקוח ראה — הזהב השיווקי</small></div></div>
+    <div class="cki" id="ck14"><input type="checkbox" onchange="sc('ck14',this.checked)"><div class="ct2">פרסם (אם הסכים) — עם קרדיט וhashtags</div></div>
   </div>
-  <div class="card">
-    <div class="card-title"><span>💬</span> הערות נוספות</div>
-    <label>דברים שהלקוח ציין שחשוב לו במיוחד</label>
-    <textarea id="notes" rows="4" placeholder="כל מה שעלה בשיחה ולא מצאת לו מקום למעלה..."></textarea>
-    <label>שאלות פתוחות שנשארו</label>
-    <textarea id="questions" rows="3" placeholder="דברים שצריך לברר / לקבל חזרה מהלקוח"></textarea>
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-back" onclick="goTo(2)">← חזור</button>
-    <button class="btn btn-next" onclick="goTo(4)">הבא — סיכום ←</button>
+  <div class="btn-row no-print">
+    <button class="btn btn-back" onclick="showPage('summary')">← סיכום</button>
+    <button class="btn btn-nxt" onclick="showPage('clients')">לקוחות ←</button>
   </div>
 </div>
-
-<!-- STEP 5: REVIEW -->
-<div class="section" id="sec-4">
-  <div class="card" style="text-align:center;padding:28px">
-    <div style="font-size:36px;margin-bottom:12px">🎬</div>
-    <div style="font-size:18px;font-weight:600;margin-bottom:8px">הכל מוכן!</div>
-    <div style="font-size:14px;color:var(--muted);margin-bottom:20px">לחץ כדי לייצר את דף הסיכום המלא</div>
-    <button class="btn btn-generate" onclick="generate()">✨ צור דף סיכום</button>
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-back" onclick="goTo(3)">← חזור לעריכה</button>
-  </div>
-</div>
-
-</div><!-- /form-area -->
-
-<!-- SUMMARY PAGE -->
-<div id="summary">
-  <div class="summary-hero">
-    <div class="logo" style="font-size:13px;letter-spacing:.15em;color:var(--gold);font-family:monospace;margin-bottom:8px">🎬 חי בסרט — תיק לקוח</div>
-    <div class="project-name" id="sum-title">—</div>
-    <div class="project-sub" id="sum-sub">—</div>
-    <div class="package-badge" id="sum-package">—</div>
-  </div>
-
-  <div class="s-card">
-    <h3>פרטי לקוח</h3>
-    <div class="s-row"><div class="s-label">שם</div><div class="s-val" id="sum-cname">—</div></div>
-    <div class="s-row"><div class="s-label">טלפון</div><div class="s-val" id="sum-cphone">—</div></div>
-    <div class="s-row"><div class="s-label">אימייל</div><div class="s-val" id="sum-cemail">—</div></div>
-    <div class="divider"></div>
-    <div class="s-row"><div class="s-label">אירוע</div><div class="s-val" id="sum-event">—</div></div>
-    <div class="s-row"><div class="s-label">תאריך</div><div class="s-val" id="sum-date">—</div></div>
-    <div class="s-row"><div class="s-label">הקרנה</div><div class="s-val" id="sum-screen">—</div></div>
-  </div>
-
-  <div class="s-card">
-    <h3>הגיבור/ת</h3>
-    <div class="s-row"><div class="s-label">שם</div><div class="s-val" id="sum-hname">—</div></div>
-    <div class="s-row"><div class="s-label">גיל</div><div class="s-val" id="sum-hage">—</div></div>
-    <div class="s-row"><div class="s-label">קשר ללקוח</div><div class="s-val" id="sum-hrel">—</div></div>
-    <div class="s-row"><div class="s-label">מוצא</div><div class="s-val" id="sum-horig">—</div></div>
-    <div class="s-row"><div class="s-label">תיאור</div><div class="s-val" id="sum-hdesc">—</div></div>
-    <div class="s-row"><div class="s-label">עבודה/תחביבים</div><div class="s-val" id="sum-hjob">—</div></div>
-    <div class="s-row"><div class="s-label">טון הסרט</div><div class="s-val" id="sum-tone">—</div></div>
-  </div>
-
-  <div class="s-card">
-    <h3>סיפורים ורגעים</h3>
-    <div id="sum-stories"></div>
-  </div>
-
-  <div class="s-card">
-    <h3>חומרים</h3>
-    <div class="s-row"><div class="s-label">כמות</div><div class="s-val" id="sum-acnt">—</div></div>
-    <div class="s-row"><div class="s-label">איכות</div><div class="s-val" id="sum-aqlt">—</div></div>
-    <div class="s-row"><div class="s-label">הערות</div><div class="s-val" id="sum-anotes">—</div></div>
-  </div>
-
-  <div class="s-card">
-    <h3>לוגיסטיקה</h3>
-    <div class="s-row"><div class="s-label">דדליין</div><div class="s-val" id="sum-dead">—</div></div>
-    <div class="s-row"><div class="s-label">דחיפות</div><div class="s-val" id="sum-urg">—</div></div>
-    <div class="s-row"><div class="s-label">תוספות</div><div class="s-val" id="sum-add">—</div></div>
-  </div>
-
-  <div class="s-card" id="notes-card">
-    <h3>הערות ושאלות פתוחות</h3>
-    <div id="sum-notes"></div>
-  </div>
-
-  <div class="print-btn">
-    <button onclick="window.print()">🖨️ הדפסה / PDF</button>
-    <button class="primary" onclick="backToForm()">✏️ עריכה</button>
-  </div>
-  <div class="back-link"><a onclick="newBrief()">+ שיחת תכנון חדשה</a></div>
-</div>
-
-</div><!-- /wrap -->
 
 <script>
-let cur=0;
-const total=5;
+const DB='hbs_v3';
+let clients=[],curId=null;
 
-function goTo(n){
-  document.querySelectorAll('.section').forEach((s,i)=>{
-    s.classList.toggle('active',i===n);
+function ld(){try{return JSON.parse(localStorage.getItem(DB)||'[]')}catch(e){return[]}}
+function sd(){try{localStorage.setItem(DB,JSON.stringify(clients))}catch(e){}}
+
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  ['brief','summary','checklist'].forEach(n=>{
+    const b=document.getElementById('nb-'+n);
+    if(b){b.style.display=curId?'block':'none';b.classList.toggle('active',n===name)}
   });
-  document.querySelectorAll('.step').forEach((s,i)=>{
-    s.classList.remove('active','done');
-    if(i===n) s.classList.add('active');
-    else if(i<n) s.classList.add('done');
-  });
-  cur=n;
+  document.querySelector('.nav-btn').classList.toggle('active',name==='clients');
+  if(name==='clients') renderClients();
   window.scrollTo(0,0);
 }
 
-function toggleChip(el){el.classList.toggle('selected')}
-
-function getChips(id){
-  return Array.from(document.querySelectorAll('#'+id+' .chip.selected')).map(c=>c.textContent.trim()).join(' | ') || '—';
+function renderClients(){
+  const el=document.getElementById('cl');
+  if(!clients.length){el.innerHTML='<div class="ph"><div class="big">🎬</div>עדיין אין לקוחות</div>';return}
+  el.innerHTML=clients.map(c=>{
+    const done=Object.values(c.checks||{}).filter(Boolean).length;
+    return`<div class="cc" onclick="openClient('${c.id}')">
+      <div class="cc-top"><div class="cc-name">${c.cname||'לקוח ללא שם'}</div><div class="cc-pkg">${(c.pkg||'—').split('—')[0].trim()}</div></div>
+      <div class="cc-det">${c.etype||''} ${c.hname?'· '+c.hname:''} ${c.edate?'· '+c.edate:''}</div>
+      <div class="cc-st">
+        <div class="sdot ${done>=5?'ok':''}">שלבים: ${done}/15</div>
+        ${c.consent?'<div class="sdot ok">✓ הסכים לפרסום</div>':''}
+      </div></div>`
+  }).join('');
 }
 
-function val(id){return document.getElementById(id)?.value?.trim()||'—'}
-
-function storyBlock(label,text){
-  if(!text||text==='—') return '';
-  return `<div class="story-block"><div class="story-q">${label}</div>${text}</div>`;
+function newClient(){
+  const id='c'+Date.now();
+  const c={id,cname:'',cphone:'',cemail:'',pkg:'',etype:'',edate:'',screen:'',consent:false,
+    hname:'',hage:'',hrel:'',horig:'',hdesc:'',hjob:'',tone:[],
+    s1:'',s2:'',s3:'',s4:'',s5:'',acnt:'',aqlt:'',anotes:'',
+    open:'',events:'',scenes:'',style:[],music:'',length:'',
+    dead:'',urg:'',addon:[],notes:'',qs:'',checks:{}};
+  clients.unshift(c);sd();curId=id;
+  clearF();loadF(c);showNavBtns();showPage('brief');goStep(0);
 }
 
-function generate(){
-  const hname=val('hero-name'), cname=val('client-name');
-  const etype=val('event-type'), pkg=val('package');
-
-  // Hero section
-  document.getElementById('sum-title').textContent=(hname!=='—'?hname:'הגיבור/ת')+' — '+etype;
-  document.getElementById('sum-sub').textContent='לקוח: '+cname;
-  document.getElementById('sum-package').textContent=pkg;
-  document.getElementById('sum-cname').textContent=cname;
-  document.getElementById('sum-cphone').textContent=val('client-phone');
-  document.getElementById('sum-cemail').textContent=val('client-email');
-  document.getElementById('sum-event').textContent=etype;
-  document.getElementById('sum-date').textContent=val('event-date');
-  document.getElementById('sum-screen').textContent=val('screening');
-  document.getElementById('sum-hname').textContent=hname;
-  document.getElementById('sum-hage').textContent=val('hero-age');
-  document.getElementById('sum-hrel').textContent=val('hero-relation');
-  document.getElementById('sum-horig').textContent=val('hero-origin');
-  document.getElementById('sum-hdesc').textContent=val('hero-desc');
-  document.getElementById('sum-hjob').textContent=val('hero-job');
-
-  const tones=getChips('tone-chips');
-  document.getElementById('sum-tone').innerHTML=tones==='—'?'—':
-    tones.split(' | ').map(t=>`<span class="tone-tag">${t}</span>`).join(' ');
-
-  // Stories
-  const stories=[
-    ['🌟 הסיפור המפורסם',val('story-1')],
-    ['😂 הבדיחה הפנימית',val('story-2')],
-    ['😢 הרגע המרגש',val('story-3')],
-    ['🗺️ סיפור שלא צולם',val('story-4')],
-    ['💌 מה שהגיבור/ת יחוש/תחוש',val('story-5')],
-  ];
-  document.getElementById('sum-stories').innerHTML=
-    stories.map(([l,t])=>storyBlock(l,t)).join('')||'<div style="color:var(--muted);font-size:14px">לא הוזנו סיפורים</div>';
-
-  document.getElementById('sum-acnt').textContent=val('assets-count');
-  document.getElementById('sum-aqlt').textContent=val('assets-quality');
-  document.getElementById('sum-anotes').textContent=val('assets-notes');
-  document.getElementById('sum-dead').textContent=val('deadline');
-  document.getElementById('sum-urg').textContent=val('urgent');
-  document.getElementById('sum-add').textContent=getChips('addon-chips');
-
-  const notes=val('notes'), qs=val('questions');
-  document.getElementById('sum-notes').innerHTML=
-    (notes!=='—'?`<div class="story-block"><div class="story-q">הערות</div>${notes}</div>`:'')
-    +(qs!=='—'?`<div class="story-block"><div class="story-q">שאלות פתוחות</div>${qs}</div>`:'')
-    ||'<div style="color:var(--muted);font-size:14px">אין הערות נוספות</div>';
-
-  document.getElementById('form-area').style.display='none';
-  document.getElementById('summary').style.display='block';
-  document.getElementById('main-header').style.display='none';
-  document.getElementById('step-nav').style.display='none';
-  window.scrollTo(0,0);
+function openClient(id){
+  curId=id;const c=clients.find(x=>x.id===id);
+  if(!c)return;clearF();loadF(c);showNavBtns();showPage('brief');goStep(0);
 }
 
-function backToForm(){
-  document.getElementById('form-area').style.display='block';
-  document.getElementById('summary').style.display='none';
-  document.getElementById('main-header').style.display='block';
-  document.getElementById('step-nav').style.display='flex';
-  goTo(4);
+function showNavBtns(){['brief','summary','checklist'].forEach(n=>{const b=document.getElementById('nb-'+n);if(b)b.style.display='block'})}
+
+const FLD=['cname','cphone','cemail','pkg','etype','edate','screen','hname','hage','hrel','horig','hdesc','hjob','s1','s2','s3','s4','s5','acnt','aqlt','anotes','open','events','scenes','music','length','dead','urg','notes','qs'];
+
+function clearF(){
+  FLD.forEach(f=>{const e=document.getElementById('fc-'+f);if(e)e.value=''});
+  document.getElementById('fc-consent').checked=false;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
 }
 
-function newBrief(){
-  if(confirm('לפתוח שיחת תכנון חדשה? הנתונים הנוכחיים ימחקו.')){
-    document.querySelectorAll('input,textarea').forEach(el=>el.value='');
-    document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
-    document.querySelectorAll('.chip').forEach(el=>el.classList.remove('selected'));
-    document.getElementById('form-area').style.display='block';
-    document.getElementById('summary').style.display='none';
-    document.getElementById('main-header').style.display='block';
-    document.getElementById('step-nav').style.display='flex';
-    goTo(0);
+function loadF(c){
+  FLD.forEach(f=>{const e=document.getElementById('fc-'+f);if(e)e.value=c[f]||''});
+  document.getElementById('fc-consent').checked=!!c.consent;
+  lChips('cc-tone',c.tone||[]);lChips('cc-style',c.style||[]);lChips('cc-addon',c.addon||[]);
+  for(let i=0;i<=14;i++){
+    const e=document.querySelector('#ck'+i+' input');
+    if(e){e.checked=!!(c.checks||{})['ck'+i];document.getElementById('ck'+i).classList.toggle('done',!!e.checked)}
   }
+  if(c.cname)document.getElementById('ck-ttl').textContent='מעקב — '+c.cname;
 }
+
+function lChips(gid,vals){
+  document.querySelectorAll('#'+gid+' .chip').forEach(ch=>ch.classList.toggle('sel',vals.includes(ch.textContent.trim())));
+}
+
+function tc(el){el.classList.toggle('sel');autosave()}
+
+function gc(gid){return Array.from(document.querySelectorAll('#'+gid+' .chip.sel')).map(c=>c.textContent.trim())}
+
+function autosave(){
+  if(!curId)return;
+  const c=clients.find(x=>x.id===curId);if(!c)return;
+  FLD.forEach(f=>{const e=document.getElementById('fc-'+f);if(e)c[f]=e.value.trim()});
+  c.consent=document.getElementById('fc-consent').checked;
+  c.tone=gc('cc-tone');c.style=gc('cc-style');c.addon=gc('cc-addon');
+  sd();flash();
+}
+
+function sc(key,val){
+  const c=clients.find(x=>x.id===curId);if(!c)return;
+  if(!c.checks)c.checks={};c.checks[key]=val;
+  document.getElementById(key).classList.toggle('done',val);
+  sd();flash();
+}
+
+function flash(){const e=document.getElementById('si');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000)}
+
+function goStep(n){
+  document.querySelectorAll('.bs').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.step').forEach((s,i)=>{s.classList.remove('active','done');if(i===n)s.classList.add('active');else if(i<n)s.classList.add('done')});
+  autosave();window.scrollTo(0,0);
+}
+
+function v(id){return(document.getElementById(id)?.value||'').trim()||'—'}
+
+function genSum(){
+  autosave();
+  const hname=v('fc-hname'),cname=v('fc-cname'),etype=v('fc-etype'),pkg=v('fc-pkg');
+  document.getElementById('s-title').textContent=(hname!=='—'?hname:'הגיבור/ת')+' — '+etype;
+  document.getElementById('s-sub').textContent='לקוח: '+cname;
+  document.getElementById('s-pkg').textContent=pkg;
+  ['cname','cphone','cemail','etype','edate','screen','hname','hage','hrel','horig','hdesc','hjob','open','music','length','acnt','aqlt','anotes','dead','urg'].forEach(f=>{
+    const e=document.getElementById('s-'+f);if(e)e.textContent=v('fc-'+f);
+  });
+  document.getElementById('s-events').textContent=v('fc-events');
+  document.getElementById('s-scenes').textContent=v('fc-scenes');
+  document.getElementById('s-consent').textContent=document.getElementById('fc-consent').checked?'✓ כן — זכאי ל-10% הנחה':'לא';
+  const tone=gc('cc-tone');
+  document.getElementById('s-tone').innerHTML=tone.length?tone.map(t=>`<span class="ttag">${t}</span>`).join(' '):'—';
+  const style=gc('cc-style');
+  document.getElementById('s-style').innerHTML=style.length?style.map(t=>`<span class="ttag">${t}</span>`).join(' '):'—';
+  const addon=gc('cc-addon');
+  document.getElementById('s-addon').textContent=addon.length?addon.join(' | '):'—';
+  const stories=[['🌟 הסיפור המפורסם','fc-s1'],['😂 הבדיחה הפנימית','fc-s2'],['😢 הרגע המרגש','fc-s3'],['🗺️ סיפור שלא צולם','fc-s4'],['💌 מה יחוש/תחוש','fc-s5']];
+  document.getElementById('s-stories').innerHTML=stories.map(([l,id])=>{const t=v(id);return t==='—'?'':`<div class="sb"><div class="sq">${l}</div><p>${t}</p></div>`}).join('')||'<div style="color:var(--muted);font-size:13px">לא הוזנו סיפורים</div>';
+  const notes=v('fc-notes'),qs=v('fc-qs');
+  document.getElementById('s-notes').innerHTML=(notes!=='—'?`<div class="sb"><div class="sq">הערות</div><p>${notes}</p></div>`:'')+(qs!=='—'?`<div class="sb"><div class="sq">שאלות פתוחות</div><p>${qs}</p></div>`:'');
+  const c=clients.find(x=>x.id===curId);
+  if(c&&c.cname)document.getElementById('ck-ttl').textContent='מעקב — '+c.cname;
+  showPage('summary');
+}
+
+document.addEventListener('input',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)&&e.target.id!='fc-consent')autosave()});
+document.addEventListener('change',e=>{if(e.target.id==='fc-consent')autosave()});
+
+clients=ld();showPage('clients');
 </script>
 </body>
 </html>
