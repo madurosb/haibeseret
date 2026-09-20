@@ -29,17 +29,22 @@
 *{box-sizing:border-box; margin:0; padding:0;}
 .hidden{ display:none !important; }
 html,body{height:100%;}
-body{ background:var(--void); color:var(--text); font-family:var(--font-body); overflow:hidden; position:relative; -webkit-font-smoothing:antialiased; user-select:none; }
+body{ background:var(--void); color:var(--text); font-family:var(--font-body); overflow-x:hidden; overflow-y:auto; position:relative; -webkit-font-smoothing:antialiased; user-select:none; }
+#boot-loading{ position:fixed; inset:0; z-index:9999; background:#050506; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
+#boot-loading.hide{ display:none; }
+.boot-spinner{ width:34px; height:34px; border:3px solid rgba(201,162,78,.22); border-top-color:var(--gold); border-radius:50%; animation:bootspin .8s linear infinite; }
+@keyframes bootspin{ to{ transform:rotate(360deg); } }
+.boot-loading-text{ font-family:var(--font-body); letter-spacing:.2em; font-size:11px; color:var(--text-dim); text-transform:uppercase; }
 @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;} }
 
-#studio-photo-bg{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 32%; opacity:0; transition:opacity 1.6s ease; filter:brightness(.4) saturate(.82); }
+#studio-photo-bg{ position:fixed; inset:0; z-index:0; background-size:cover; background-position:center 32%; opacity:0; transition:opacity 1.6s ease; filter:brightness(.62) saturate(1); }
 #studio-photo-bg.show{ opacity:1; }
 #studio-bg{ position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
     radial-gradient(ellipse 55% 38% at 50% -8%, rgba(201,162,78,0.14), transparent 60%),
     radial-gradient(ellipse 45% 32% at 12% 105%, rgba(255,255,255,0.035), transparent 60%),
     radial-gradient(ellipse 45% 32% at 88% 105%, rgba(255,255,255,0.035), transparent 60%),
-    linear-gradient(180deg, rgba(8,8,10,0.86) 0%, rgba(6,6,7,0.9) 55%, rgba(4,4,5,0.95) 100%);
+    linear-gradient(180deg, rgba(8,8,10,0.6) 0%, rgba(6,6,7,0.68) 55%, rgba(4,4,5,0.78) 100%);
 }
 #studio-bg::before{ content:''; position:absolute; inset:0; background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 3px); opacity:.5; }
 .spotlight{ position:absolute; top:-20%; width:36vw; height:140%; background:linear-gradient(180deg, rgba(255,240,205,0.13), transparent 70%); filter:blur(6px); transform-origin:top center; animation:sweep 15s ease-in-out infinite; mix-blend-mode:screen; }
@@ -47,7 +52,7 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 @keyframes sweep{ 0%,100%{ left:-10%; transform:rotate(-13deg) scaleY(1);} 50%{ left:66%; transform:rotate(9deg) scaleY(1.05);} }
 
 #app{ position:relative; z-index:1; height:100vh; width:100vw; }
-.screen{ position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .5s ease; }
+.screen{ position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .5s ease; overflow-y:auto; }
 .screen.active{ display:flex; opacity:1; pointer-events:auto; }
 
 /* ============================================================
@@ -209,7 +214,7 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .banker-bubble.variant-dramatic::after{ border-color:#c0453f; }
 .case-spotlight-sm{ --case-w:58px; --case-h:43px; }
 .case-hero{ --case-w:44px; --case-h:33px; }
-.case-lid{ position:absolute; inset:0; border-radius:6px; background:linear-gradient(155deg,#6c6f7c 0%,#3a3c46 42%,#212129 100%); border:1px solid #121216; transform-origin:top center; transition:transform .48s cubic-bezier(.6,0,.2,1), opacity .3s ease .28s; }
+.case-lid{ position:absolute; inset:0; border-radius:6px; background:transparent; border-top:2px solid rgba(232,200,116,.4); transform-origin:top center; transition:transform .48s cubic-bezier(.6,0,.2,1), opacity .3s ease .28s; pointer-events:none; }
 .case-lid.open{ transform:rotateX(-115deg) translateY(-6px); opacity:0; }
 
 .case-slot{ background:none; border:none; cursor:pointer; padding:7px 3px; display:flex; flex-direction:column; align-items:center; gap:4px; opacity:0; animation:materialize .5s ease forwards; }
@@ -291,9 +296,7 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 /* ============================================================
    OVERLAYS — shared
    ============================================================ */
-.overlay{ position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; }
-#overlay-banker{ align-items:flex-start; }
-#overlay-banker .immersive-scene{ margin-top:min(6vh, 60px); padding-bottom:240px; }
+.overlay{ position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; overflow-y:auto; }
 .overlay.active{ display:flex; animation:overlayFade .35s ease; }
 @keyframes overlayFade{ from{ opacity:0;} to{ opacity:1;} }
 .overlay:not(.overlay-immersive){ background:rgba(4,4,6,0.82); backdrop-filter:blur(6px); }
@@ -367,11 +370,10 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .banker-subline{ font-family:var(--font-display); font-weight:800; letter-spacing:.03em; font-size:16px; text-transform:uppercase; color:var(--text); min-height:20px; }
 .banker-context{ font-size:11.5px; color:var(--text-dim); margin:8px 0 18px; min-height:15px; }
 .decision-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-#banker-decision-row{ position:absolute; left:0; right:0; bottom:1%; display:flex; justify-content:space-between; align-items:flex-end; padding:0 4vw; pointer-events:none; opacity:0; transition:opacity .6s ease; z-index:2; }
+#banker-decision-row{ display:flex; justify-content:center; gap:32px; margin-top:22px; opacity:0; transition:opacity .6s ease; }
 #banker-decision-row.show{ opacity:1; }
-#banker-decision-row .btn-photo{ pointer-events:auto; }
-#banker-decision-row .btn-photo-img{ width:min(230px, 26vw); }
-@media (max-width:700px){ #banker-decision-row .btn-photo-img{ width:min(150px, 30vw); } }
+#banker-decision-row .btn-photo-img{ width:min(170px, 24vw); }
+@media (max-width:700px){ #banker-decision-row{ gap:20px; } #banker-decision-row .btn-photo-img{ width:min(130px, 28vw); } }
 
 /* ============================================================
    FINAL TWO
@@ -441,6 +443,8 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
 </style>
 </head>
 <body>
+
+<div id="boot-loading"><div class="boot-spinner"></div><div class="boot-loading-text">Loading</div></div>
 
 <div id="studio-photo-bg"></div>
 <div id="studio-bg"><div class="spotlight"></div><div class="spotlight s2"></div></div>
@@ -1236,7 +1240,7 @@ function computeBankerOffer(vals, round, isFinalTwo){
    FLICKER / LOCK / FX
    ============================================================ */
 function flickerDelays(n){ var delays=[]; for(var i=0;i<n;i++){ var p=i/Math.max(1,n-1); var eased=p*p*p; delays.push(28+eased*185); } return delays; }
-async function flickerAndLock(el, ticks, finalText, pool){
+async function flickerOnly(el, ticks, pool){
   var delays=flickerDelays(ticks);
   var usePool=pool||AMOUNTS;
   for(var i=0;i<delays.length;i++){
@@ -1244,6 +1248,9 @@ async function flickerAndLock(el, ticks, finalText, pool){
     SFX.tick(i/(delays.length-1));
     await sleep(delays[i]);
   }
+}
+async function flickerAndLock(el, ticks, finalText, pool){
+  await flickerOnly(el, ticks, pool);
   el.textContent=finalText;
 }
 async function countUpOffer(el, finalValue){
@@ -1321,16 +1328,17 @@ async function openCaseSequence(id){
   caseCss.classList.toggle('hidden', useVideo);
   caseVideo.classList.toggle('hidden', !useVideo);
 
-  await sleep(220); // brief silence — the case just sits there a beat before anything happens
+  await sleep(220); // brief silence — the case just sits there closed, a beat before anything happens
+
+  // suspense phase: numbers flicker on a still-closed case — this never shows the true value
+  await flickerOnly(amtEl, cfg.ticks);
+  if(rTier==='high'){ await sleep(200); } // a heavier held beat before high-tier reveals
+  if(rTier==='jackpot'){ await sleep(420); } // major event — the screen holds a moment longer
+
+  // the payoff: the case pops open and the true number appears at the same instant
   SFX.caseThunk();
-  await sleep(140);
   if(useVideo){ await playInlineVideo(caseVideo, 'caseOpen'); } else { lid.classList.add('open'); }
-  await sleep(220);
-  if(rTier==='high'){ await sleep(260); } // noticeably heavier pre-beat, distinct from medium
-  if(rTier==='jackpot'){ await sleep(550); } // major event — the screen holds in the dark
-
-  await flickerAndLock(amtEl, cfg.ticks, fmtMoney(value));
-
+  amtEl.textContent=fmtMoney(value);
   amtEl.classList.add(rTier);
   amtEl.classList.add('locked-pulse');
   SFX.lockThunk();
@@ -1703,9 +1711,10 @@ async function revealFinalCase(id, label, caption, isPlayerCase){
   caseCss.classList.toggle('hidden', useVideo);
   caseVideo.classList.toggle('hidden', !useVideo);
   await sleep(320);
+  await flickerOnly(amtEl, isPlayerCase?26:16);
+  SFX.caseThunk();
   if(useVideo){ await playInlineVideo(caseVideo, 'finalCaseOpen'); } else { lid.classList.add('open'); }
-  await sleep(250);
-  await flickerAndLock(amtEl, isPlayerCase?26:16, fmtMoney(value));
+  amtEl.textContent=fmtMoney(value);
   amtEl.classList.add(rTier);
   SFX.lockThunk();
   triggerFlash(rTier);
@@ -1801,7 +1810,7 @@ function goToScreen(id){
     photoBg.style.backgroundPosition='center 38%';
   } else {
     photoBg.style.backgroundImage="url('"+BG_SRC+"')";
-    photoBg.style.filter='brightness(.4) saturate(.82)';
+    photoBg.style.filter='brightness(.62) saturate(1)';
     photoBg.style.backgroundPosition='center 32%';
   }
 }
@@ -2014,9 +2023,10 @@ $('admin-board-close').addEventListener('click', function(){
   document.documentElement.style.setProperty('--case-bg-image', "url('"+CASE_CLOSED_SRC+"')");
 
   var logoImg=$('start-logo');
-  logoImg.onload=function(){ logoImg.style.display='block'; $('start-logo-fallback').style.display='none'; };
-  logoImg.onerror=function(){ logoImg.style.display='none'; $('start-logo-fallback').style.display='block'; };
+  logoImg.onload=function(){ logoImg.style.display='block'; $('start-logo-fallback').style.display='none'; $('boot-loading').classList.add('hide'); };
+  logoImg.onerror=function(){ logoImg.style.display='none'; $('start-logo-fallback').style.display='block'; $('boot-loading').classList.add('hide'); };
   logoImg.src=LOGO_SRC;
+  setTimeout(function(){ $('boot-loading').classList.add('hide'); }, 4000); // safety net
 
   preflightAllVideos();
   wireVolumeControls();
