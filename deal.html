@@ -314,7 +314,8 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 
 #case-grid-wrap{ position:relative; width:100%; max-width:950px; margin:0 auto; aspect-ratio:1672/941; border-radius:6px; overflow:hidden; background-image:var(--platform-bg-image); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
 #case-grid{ position:absolute; inset:0; }
-#case-grid .case-slot{ position:absolute; transform:translateX(-50%) translateY(-92%); }
+#case-grid .case-slot{ position:absolute; animation:materializeGrid .5s ease forwards; }
+@keyframes materializeGrid{ from{ opacity:0; transform:translateX(-50%) translateY(-92%) translateY(10px) scale(.9);} to{ opacity:1; transform:translateX(-50%) translateY(-92%) scale(1);} }
 
 /* ============================================================
    OVERLAYS — shared
@@ -1859,10 +1860,11 @@ function goToScreen(id){
     photoBg.style.backgroundImage="url('"+MENU_BG_SRC+"')";
     photoBg.style.filter='brightness(.8) saturate(1.15)';
     photoBg.style.backgroundPosition='center 38%';
+    photoBg.classList.add('show');
   } else {
-    photoBg.style.backgroundImage="url('"+BG_SRC+"')";
-    photoBg.style.filter='brightness(.62) saturate(1)';
-    photoBg.style.backgroundPosition='center 32%';
+    // the game screen shows the platform photo crisply inside #case-grid-wrap itself now —
+    // showing it again as a blurred full-page backdrop just doubled the same image.
+    photoBg.classList.remove('show');
   }
 }
 
