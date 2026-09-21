@@ -29,7 +29,7 @@
 *{box-sizing:border-box; margin:0; padding:0;}
 .hidden{ display:none !important; }
 html,body{height:100%;}
-body{ background:var(--void); color:var(--text); font-family:var(--font-body); overflow-x:hidden; overflow-y:auto; position:relative; -webkit-font-smoothing:antialiased; user-select:none; }
+body{ background:var(--void); color:var(--text); font-family:var(--font-body); overflow:hidden; height:100vh; position:relative; -webkit-font-smoothing:antialiased; user-select:none; }
 #boot-loading{ position:fixed; inset:0; z-index:9999; background:#050506; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
 #boot-loading.hide{ display:none; }
 .boot-spinner{ width:34px; height:34px; border:3px solid rgba(201,162,78,.22); border-top-color:var(--gold); border-radius:50%; animation:bootspin .8s linear infinite; }
@@ -140,6 +140,13 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .hof-outcome{ font-size:10.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em; }
 .hof-amount{ font-family:var(--font-led); font-weight:700; font-size:16px; color:var(--gold-bright); min-width:90px; text-align:left; }
 .hof-empty{ margin-top:30px; color:var(--text-dim); font-size:13px; }
+.settings-row{ display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 4px; border-bottom:1px solid rgba(201,162,78,.15); }
+.settings-label{ font-family:var(--font-body); font-weight:700; font-size:13px; letter-spacing:.04em; color:var(--text); }
+.settings-danger-btn{ border-color:rgba(192,69,63,.5); color:#d98a85; font-size:11px; padding:9px 18px; }
+.settings-danger-btn:hover{ border-color:var(--red); color:#ffb3ae; }
+.settings-confirm{ display:flex; align-items:center; justify-content:flex-end; gap:12px; padding:10px 4px; font-size:12px; color:var(--text-dim); }
+.settings-confirm.hidden{ display:none; }
+.settings-credits{ margin-top:28px; text-align:center; font-size:11px; line-height:1.7; color:var(--text-dim); opacity:.65; }
 #screen-start .display-title{ font-size:min(15vw,116px); }
 #screen-start .title-or{ font-size:17px; letter-spacing:.6em; color:var(--metal-light); margin:2px 0; font-weight:600; }
 #screen-start .subtitle{ margin-top:16px; font-size:12.5px; letter-spacing:.42em; color:var(--text-dim); text-transform:uppercase; }
@@ -492,7 +499,8 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
     <div class="menu-stack">
       <button class="btn btn-gold menu-btn-primary" id="play-btn">Play</button>
       <button class="menu-btn-secondary" id="halloffame-btn">Hall of Fame</button>
-      <button class="ps-admin-link" id="start-admin-link" type="button">⚙ מנהל</button>
+      <button class="menu-btn-secondary" id="settings-btn">Settings</button>
+      <button class="menu-btn-secondary" id="start-admin-link" type="button">Admin</button>
       <div class="volume-control">
         <span class="vol-icon" id="vol-icon-start">🔊</span>
         <input type="range" id="volume-slider-start" min="0" max="100" value="70">
@@ -507,6 +515,35 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
       <div class="hof-list" id="hof-list"></div>
       <div class="hof-empty hidden" id="hof-empty">עוד אין משחקים שמורים — תתחילו לשחק!</div>
       <button class="btn btn-ghost" id="hof-back-btn" style="margin-top:22px;">חזרה</button>
+    </div>
+  </section>
+
+  <section id="screen-settings" class="screen">
+    <div class="hof-frame">
+      <div class="eyebrow" style="margin-bottom:6px;">Deal Or No Deal</div>
+      <div class="ps-title">הגדרות</div>
+
+      <div class="settings-row">
+        <span class="settings-label">עוצמת קול</span>
+        <div class="volume-control">
+          <span class="vol-icon" id="vol-icon-settings">🔊</span>
+          <input type="range" id="volume-slider-settings" min="0" max="100" value="70">
+        </div>
+      </div>
+
+      <div class="settings-row">
+        <span class="settings-label">היכל התהילה</span>
+        <button class="btn btn-ghost settings-danger-btn" id="settings-clear-hof-btn">נקה היסטוריה</button>
+      </div>
+      <div class="settings-confirm hidden" id="settings-clear-hof-confirm">
+        <span>למחוק את כל ההיסטוריה? אי אפשר לשחזר.</span>
+        <button class="btn btn-ghost settings-danger-btn" id="settings-clear-hof-yes">כן, מחק</button>
+        <button class="btn btn-ghost" id="settings-clear-hof-no">ביטול</button>
+      </div>
+
+      <div class="settings-credits">Deal Or No Deal — Michal's Birthday Edition 🎂<br>נבנה באהבה בשבילך, מיכל</div>
+
+      <button class="btn btn-ghost" id="settings-back-btn" style="margin-top:22px;">חזרה</button>
     </div>
   </section>
 
@@ -1851,7 +1888,7 @@ $('newgame-btn').addEventListener('click', function(){
 /* ============================================================
    BOOT
    ============================================================ */
-var MENU_SCREENS={'screen-start':1,'screen-playerselect':1,'screen-halloffame':1};
+var MENU_SCREENS={'screen-start':1,'screen-playerselect':1,'screen-halloffame':1,'screen-settings':1};
 function goToScreen(id){
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   $(id).classList.add('active');
@@ -1935,6 +1972,27 @@ $('hof-back-btn').addEventListener('click', function(){
 });
 $('start-admin-link').addEventListener('click', function(){
   $('ps-admin-link').click();
+});
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+$('settings-btn').addEventListener('click', function(){
+  $('settings-clear-hof-confirm').classList.add('hidden');
+  goToScreen('screen-settings');
+});
+$('settings-back-btn').addEventListener('click', function(){
+  goToScreen('screen-start');
+});
+$('settings-clear-hof-btn').addEventListener('click', function(){
+  $('settings-clear-hof-confirm').classList.remove('hidden');
+});
+$('settings-clear-hof-no').addEventListener('click', function(){
+  $('settings-clear-hof-confirm').classList.add('hidden');
+});
+$('settings-clear-hof-yes').addEventListener('click', function(){
+  saveHallOfFame([]);
+  $('settings-clear-hof-confirm').classList.add('hidden');
 });
 
 /* ============================================================
@@ -2091,8 +2149,8 @@ $('admin-board-close').addEventListener('click', function(){
    persisted in localStorage, applied via the master gain node.
    ============================================================ */
 function wireVolumeControls(){
-  var sliders=[$('volume-slider-start'), $('volume-slider-game')];
-  var icons=[$('vol-icon-start'), $('vol-icon-game')];
+  var sliders=[$('volume-slider-start'), $('volume-slider-game'), $('volume-slider-settings')];
+  var icons=[$('vol-icon-start'), $('vol-icon-game'), $('vol-icon-settings')];
   var initial=Math.round(masterVolume*100);
   sliders.forEach(function(s){ s.value=initial; });
   updateVolIcons(initial);
