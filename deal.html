@@ -310,13 +310,13 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .board-tier{ display:flex; flex-direction:column; }
 .board-tier-label{ font-size:8.7px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim); text-align:center; margin-bottom:6px; }
 .board-tier-cells{ display:flex; flex-wrap:wrap; gap:4px; align-content:flex-start; flex:1; }
-.cell{ font-family:var(--font-led); text-align:center; padding:3px 5px; border-radius:5px; flex:1 1 auto; min-width:42px; transition:all .4s ease;
+.cell{ font-family:var(--font-body); text-align:center; padding:5px 7px; border-radius:5px; flex:1 1 auto; min-width:64px; line-height:1.25; transition:all .4s ease;
   background:linear-gradient(180deg, rgba(255,255,255,0.055), rgba(0,0,0,0.28)); border:1px solid rgba(255,255,255,0.07);
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -3px 5px rgba(0,0,0,0.35); }
-[data-tier="low"] .cell{ font-size:9.5px; color:var(--text-dim); }
-[data-tier="mid"] .cell{ font-size:10.5px; color:var(--text); font-weight:600; }
-[data-tier="high"] .cell{ font-size:11.5px; color:var(--gold-bright); font-weight:700; border-color:rgba(201,162,78,0.22); }
-[data-tier="big"] .cell{ font-size:12.5px; color:var(--gold-bright); font-weight:800; text-shadow:0 0 7px rgba(201,162,78,0.4); border-color:rgba(201,162,78,0.32); background:linear-gradient(180deg, rgba(201,162,78,0.13), rgba(0,0,0,0.28)); }
+[data-tier="low"] .cell{ font-size:12px; color:var(--text-dim); }
+[data-tier="mid"] .cell{ font-size:13px; color:var(--text); font-weight:600; }
+[data-tier="high"] .cell{ font-size:14px; color:var(--gold-bright); font-weight:700; border-color:rgba(201,162,78,0.22); }
+[data-tier="big"] .cell{ font-size:15px; color:var(--gold-bright); font-weight:800; text-shadow:0 0 7px rgba(201,162,78,0.4); border-color:rgba(201,162,78,0.32); background:linear-gradient(180deg, rgba(201,162,78,0.13), rgba(0,0,0,0.28)); }
 .cell.eliminated{ opacity:.28; text-decoration:line-through; color:#4e4e55; text-shadow:none; transform:scale(.94); background:rgba(0,0,0,0.25); border-color:rgba(255,255,255,0.03); box-shadow:none; }
 .cell.stage-glow{ animation:cellGlow .42s ease forwards; z-index:1; position:relative; }
 @keyframes cellGlow{ to{ transform:scale(1.16); filter:brightness(1.5); box-shadow:0 0 18px currentColor, inset 0 0 10px rgba(255,255,255,0.35); } }
@@ -509,6 +509,7 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
     </div>
     <div class="menu-stack">
       <button class="btn btn-gold menu-btn-primary" id="play-btn">Play</button>
+      <button class="menu-btn-secondary" id="guestplay-btn">Guest Play</button>
       <button class="menu-btn-secondary" id="halloffame-btn">Hall of Fame</button>
       <button class="menu-btn-secondary" id="settings-btn">Settings</button>
       <button class="menu-btn-secondary" id="start-admin-link" type="button">Admin</button>
@@ -885,8 +886,15 @@ function prizeIndexOf(value){
   return -1;
 }
 function displayLabel(value){
-  var idx=prizeIndexOf(value);
-  return (idx>=0 && PRIZE_NAMES[idx]) ? PRIZE_NAMES[idx] : fmtMoney(value);
+  // The banker's computed offer is a continuous number that almost never lands exactly
+  // on one of the 26 case values, so this resolves to the nearest prize tier instead of
+  // requiring an exact match — for an actual case value that's still an exact match (diff 0).
+  var bestIdx=0, bestDiff=Infinity;
+  for(var i=0;i<AMOUNTS.length;i++){
+    var diff=Math.abs(AMOUNTS[i]-value);
+    if(diff<bestDiff){ bestDiff=diff; bestIdx=i; }
+  }
+  return PRIZE_NAMES[bestIdx] || fmtMoney(value);
 }
 
 // Fuzzy-matches whatever Chen types live against the real prize list, so typos,
@@ -1503,7 +1511,7 @@ async function countUpOffer(el, finalValue){
     SFX.tick(t);
     await sleep(120+t*90);
   }
-  el.textContent=fmtMoney(finalValue);
+  el.textContent=displayLabel(finalValue);
 }
 function triggerFlash(tier){ var el=$('flash-bloom'); el.className=tier; void el.offsetWidth; el.classList.add('go'); setTimeout(function(){ el.classList.remove('go'); },500); }
 function triggerShake(el){ if(!el) return; el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); setTimeout(function(){ el.classList.remove('shake'); },420); }
@@ -1775,7 +1783,7 @@ function applyCustomOffer(){
     return;
   }
   G.lastOffer=match.value;
-  $('banker-offer-amount').textContent=fmtMoney(match.value);
+  $('banker-offer-amount').textContent=displayLabel(match.value);
   if(match.score<0.55){
     $('custom-offer-feedback').textContent='זוהה (לא בטוח): '+match.name;
     $('custom-offer-feedback').className='custom-offer-feedback low-confidence';
@@ -1835,7 +1843,7 @@ function acceptDeal(amount, roundLabel){
   G.dealAccepted=true; G.dealAmount=amount; G.dealRoundLabel=roundLabel;
   var vals=remainingValues();
   G.remainingAtDecision=[Math.max.apply(null,vals), Math.min.apply(null,vals)];
-  $('dealaccepted-amount').textContent=fmtMoney(amount);
+  $('dealaccepted-amount').textContent=displayLabel(amount);
   $('dealaccepted-casevalue').textContent='$?';
   $('dealaccepted-verdict').textContent='';
   $('overlay-dealaccepted').classList.add('active');
@@ -1934,7 +1942,7 @@ async function simOpenCaseVisual(id, isPlayerReveal){
 async function simOfferVisual(ev){
   ensureAudio();
   $('whatifsim-caption').textContent = ev.finalTwo ? 'THE FINAL OFFER WOULD HAVE BEEN' : ('THE BANKER WOULD HAVE OFFERED \u2014 ROUND '+ev.round);
-  $('whatifsim-caption2').textContent = fmtMoney(ev.offer);
+  $('whatifsim-caption2').textContent = displayLabel(ev.offer);
   $('whatifsim-caption3').textContent = '';
   $('whatifsim-caption-wrap').classList.add('show');
   SFX.offerAnticipation();
@@ -1959,9 +1967,9 @@ async function runWhatIfSimulation(){
   finishWhatIf(plan);
 }
 function finishWhatIf(plan){
-  $('whatifresult-deal').textContent=fmtMoney(G.dealAmount);
+  $('whatifresult-deal').textContent=displayLabel(G.dealAmount);
   $('whatifresult-actual').textContent=displayLabel(G.caseValues[G.playerCase]);
-  $('whatifresult-simulated').textContent=fmtMoney(plan.outcome);
+  $('whatifresult-simulated').textContent=displayLabel(plan.outcome);
   $('overlay-whatifresult').classList.add('active');
 }
 $('whatifresult-continue-btn').addEventListener('click', function(){
@@ -2062,9 +2070,9 @@ function launchConfetti(){
    ============================================================ */
 function showStats(){
   var caseValue=G.caseValues[G.playerCase];
-  $('stats-winnings').textContent=fmtMoney(G.finalWinnings);
+  $('stats-winnings').textContent=displayLabel(G.finalWinnings);
   $('stats-casevalue').textContent=displayLabel(caseValue);
-  $('stats-finaloffer').textContent=fmtMoney(G.lastOffer);
+  $('stats-finaloffer').textContent=displayLabel(G.lastOffer);
   $('stats-dealstatus').textContent = G.endedViaDeal ? ('DEAL ('+G.dealRoundLabel+')') : 'NO DEAL';
   $('stats-highest').textContent=displayLabel(G.remainingAtDecision[0]);
   $('stats-lowest').textContent=displayLabel(G.remainingAtDecision[1]);
@@ -2092,8 +2100,7 @@ function showStats(){
 $('newgame-btn').addEventListener('click', function(){
   $('overlay-stats').classList.remove('active');
   $('confetti-wrap').innerHTML='';
-  renderPlayerSelect();
-  goToScreen('screen-playerselect');
+  goToScreen('screen-start');
 });
 
 /* ============================================================
@@ -2140,6 +2147,11 @@ async function startNewGame(){
 $('play-btn').addEventListener('click', function(){
   selectPlayer('מיכל');
 });
+$('guestplay-btn').addEventListener('click', function(){
+  ensureAudio(); SFX.select();
+  renderPlayerSelect();
+  goToScreen('screen-playerselect');
+});
 
 /* ============================================================
    HALL OF FAME — local session record, persisted in localStorage
@@ -2168,7 +2180,7 @@ function renderHallOfFame(){
       '<span class="hof-rank">'+(i+1)+'</span>'+
       '<span class="hof-name">'+entry.name+'</span>'+
       '<span class="hof-outcome">'+entry.outcome+'</span>'+
-      '<span class="hof-amount">'+fmtMoney(entry.amount)+'</span>';
+      '<span class="hof-amount">'+displayLabel(entry.amount)+'</span>';
     wrap.appendChild(row);
   });
 }
