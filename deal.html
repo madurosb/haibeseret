@@ -1730,6 +1730,25 @@ async function flickerOnly(el, ticks, pool){
     await sleep(delays[i]);
   }
 }
+// Same suspense flicker, but timed to a wall-clock duration rather than a fixed tick count — so it
+// can run continuously alongside something of unpredictable length (a video) and land exactly when
+// that thing ends, instead of settling early on a random value that then appears to "change".
+function flickerForDuration(el, durationMs, pool){
+  return new Promise(function(resolve){
+    var start=Date.now();
+    var usePool=pool||AMOUNTS;
+    function tick(){
+      var elapsed=Date.now()-start;
+      var t=Math.min(1, elapsed/durationMs);
+      if(elapsed>=durationMs){ resolve(); return; }
+      el.textContent=displayLabel(usePool[Math.floor(Math.random()*usePool.length)]);
+      SFX.tick(t);
+      var interval=70+130*t; // starts quick, eases toward a slower flicker as it nears the end
+      setTimeout(tick, interval);
+    }
+    tick();
+  });
+}
 async function flickerAndLock(el, ticks, finalText, pool){
   await flickerOnly(el, ticks, pool);
   el.textContent=finalText;
@@ -1819,9 +1838,10 @@ async function openCaseSequence(id){
     kidCaseVideoEl.src=VIDEO_SRC[kidKey];
     kidCaseVideoEl.currentTime=0;
     kidCaseVideoEl.classList.remove('hidden');
+    amtEl.textContent=displayLabel(AMOUNTS[Math.floor(Math.random()*AMOUNTS.length)]); // first flicker frame shows instantly, no static gap while duration resolves
     var kidPlayPromise=kidCaseVideoEl.play(); if(kidPlayPromise&&kidPlayPromise.catch) kidPlayPromise.catch(function(){});
     var vidDur=await waitForVideoDuration(kidCaseVideoEl, 4);
-    await sleep(Math.max(400, vidDur*1000 - 250)); // ride almost to the clip's natural end, then land the reveal right as she gets there
+    await flickerForDuration(amtEl, Math.max(400, vidDur*1000 - 250)); // keeps cycling prize names for as long as her clip runs, landing on the real one right as it ends
   } else {
     caseCss.classList.toggle('hidden', useVideo);
     caseVideo.classList.toggle('hidden', !useVideo);
