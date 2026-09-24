@@ -1809,32 +1809,34 @@ async function openCaseSequence(id){
   var useKidCaseVideo=!!kidKey;
   var useVideo=!useKidCaseVideo && !!videoAvailable.caseOpen;
   var caseCss=$('opening-case-css'), caseVideo=$('opening-video');
-  caseCss.classList.toggle('hidden', useVideo);
-  caseVideo.classList.toggle('hidden', !useVideo);
   kidCaseVideoEl.classList.add('hidden');
 
-  await sleep(220); // brief silence — the case just sits there closed, a beat before anything happens
-
-  // suspense phase: numbers flicker on a still-closed case — this never shows the true value
-  await flickerOnly(amtEl, cfg.ticks);
-  if(rTier==='high'){ await sleep(200); } // a heavier held beat before high-tier reveals
-  if(rTier==='jackpot'){ await sleep(420); } // major event — the screen holds a moment longer
-
-  // the payoff: the case pops open (or the kid's own clip plays) and the true number appears
-  SFX.caseThunk();
   if(useKidCaseVideo){
+    // her own clip IS the suspense now — no separate flicker on a closed case first; the whole
+    // draw plays out as her clip runs, and the reveal lands right as it finishes.
     caseCss.classList.add('hidden');
+    caseVideo.classList.add('hidden');
     kidCaseVideoEl.src=VIDEO_SRC[kidKey];
     kidCaseVideoEl.currentTime=0;
     kidCaseVideoEl.classList.remove('hidden');
     var kidPlayPromise=kidCaseVideoEl.play(); if(kidPlayPromise&&kidPlayPromise.catch) kidPlayPromise.catch(function(){});
-    // reveal the prize partway through her own reveal motion, not the instant the clip starts
     var vidDur=await waitForVideoDuration(kidCaseVideoEl, 4);
-    await sleep(Math.max(300, vidDur*600));
-  } else if(useVideo){
-    await playInlineVideo(caseVideo, 'caseOpen');
+    await sleep(Math.max(400, vidDur*1000 - 250)); // ride almost to the clip's natural end, then land the reveal right as she gets there
   } else {
-    lid.classList.add('open');
+    caseCss.classList.toggle('hidden', useVideo);
+    caseVideo.classList.toggle('hidden', !useVideo);
+    await sleep(220); // brief silence — the case just sits there closed, a beat before anything happens
+
+    // suspense phase: numbers flicker on a still-closed case — this never shows the true value
+    await flickerOnly(amtEl, cfg.ticks);
+    if(rTier==='high'){ await sleep(200); } // a heavier held beat before high-tier reveals
+    if(rTier==='jackpot'){ await sleep(420); } // major event — the screen holds a moment longer
+  }
+
+  // the payoff: the case pops open (or her clip reaches its reveal) and the true number appears
+  SFX.caseThunk();
+  if(!useKidCaseVideo){
+    if(useVideo){ await playInlineVideo(caseVideo, 'caseOpen'); } else { lid.classList.add('open'); }
   }
   amtEl.textContent=displayLabel(value);
   amtEl.classList.add(rTier);
@@ -1858,7 +1860,7 @@ async function openCaseSequence(id){
   playRevealSound(rTier);
 
   var holdMs=cfg.hold;
-  if(useKidCaseVideo){ holdMs=Math.max(holdMs, 1800); } // let her reaction breathe — the clip itself holds on its own last frame once it ends
+  if(useKidCaseVideo){ holdMs=Math.max(holdMs, 900); } // she's already mid-reaction when the clip ends and freezes — a shorter extra hold is enough
   await sleep(holdMs);
   ov.classList.remove('active');
   ov.classList.remove('jackpot-mode');
