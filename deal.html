@@ -171,6 +171,21 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .switch-choice-btn{ display:flex; flex-direction:column; align-items:center; gap:6px; padding:18px 34px; min-width:150px; }
 .switch-choice-label{ font-size:11px; letter-spacing:.18em; opacity:.75; }
 .switch-choice-num{ font-family:var(--font-display); font-size:26px; font-weight:800; }
+.fullscreen-toggle-btn{ position:fixed; top:16px; right:16px; z-index:30; width:52px; height:52px; border-radius:10px;
+  background:rgba(10,9,8,.85); border:1px solid rgba(201,162,78,.45); color:var(--gold-bright); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.5); transition:background .15s ease, border-color .15s ease; }
+.fullscreen-toggle-btn:hover{ background:rgba(201,162,78,.15); border-color:var(--gold-bright); }
+.ingame-menu-btn{ position:fixed; bottom:14px; left:14px; z-index:30; display:flex; align-items:center; gap:6px;
+  background:rgba(10,9,8,.75); border:1px solid rgba(201,162,78,.3); color:var(--text-dim); cursor:pointer;
+  padding:8px 13px; border-radius:8px; font-size:11px; font-family:var(--font-body); opacity:.7; transition:opacity .15s ease, background .15s ease; }
+.ingame-menu-btn:hover{ opacity:1; background:rgba(201,162,78,.12); }
+.ingame-menu-confirm{ position:fixed; bottom:14px; left:14px; z-index:31; background:linear-gradient(180deg, rgba(40,32,14,.97), rgba(15,12,6,.97));
+  border:1px solid rgba(201,162,78,.5); border-radius:10px; padding:16px; max-width:270px; box-shadow:0 10px 30px rgba(0,0,0,.6); }
+.ingame-menu-confirm.hidden{ display:none; }
+.ingame-menu-confirm-text{ font-size:13px; color:var(--text); margin-bottom:12px; line-height:1.5; }
+.ingame-menu-confirm-actions{ display:flex; gap:8px; }
+.ingame-menu-confirm-actions .btn{ padding:8px 14px; font-size:11px; flex:1; }
+@media (max-width:640px){ .fullscreen-toggle-btn{ width:42px; height:42px; top:10px; right:10px; } .ingame-menu-btn{ font-size:10px; padding:6px 10px; bottom:10px; left:10px; } .ingame-menu-confirm{ bottom:10px; left:10px; max-width:220px; padding:12px; } }
 .offer-history-panel{ position:fixed; top:50%; right:28px; transform:translateY(-50%); z-index:24; display:flex; flex-direction:column-reverse; gap:9px; max-width:310px; pointer-events:none; }
 .offer-history-row{ display:flex; align-items:center; gap:11px; padding:12px 18px; border-radius:7px;
   background:linear-gradient(180deg, rgba(40,32,14,.92), rgba(18,14,6,.92)); border:1px solid rgba(201,162,78,.4);
@@ -388,15 +403,17 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 /* ============================================================
    OVERLAYS — shared
    ============================================================ */
-.overlay{ position:fixed; inset:0; z-index:20; display:none; align-items:safe center; justify-content:center; padding:20px; overflow-y:auto; }
+.overlay{ position:fixed; inset:0; z-index:20; display:none; flex-direction:column; align-items:center; justify-content:safe center; padding:20px; overflow-y:auto; }
 .overlay.active{ display:flex; animation:overlayFade .35s ease; }
 @keyframes overlayFade{ from{ opacity:0;} to{ opacity:1;} }
 .overlay:not(.overlay-immersive){ background:rgba(4,4,6,0.82); backdrop-filter:blur(6px); }
 .overlay-immersive{ background:radial-gradient(ellipse at 50% 30%, rgba(14,12,9,0.99), rgba(2,2,3,0.998) 78%); backdrop-filter:blur(14px); }
 #overlay-beat{ background:var(--void); }
-.spotlight-cone{ position:absolute; top:-10%; left:50%; transform:translateX(-50%); width:70%; height:120%; background:radial-gradient(ellipse 50% 60% at 50% 0%, rgba(255,240,205,0.08), transparent 65%); pointer-events:none; }
+.spotlight-cone{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:70%; height:100%; background:radial-gradient(ellipse 50% 60% at 50% 0%, rgba(255,240,205,0.08), transparent 65%); pointer-events:none; }
 .immersive-scene{ position:relative; z-index:1; text-align:center; max-width:560px; width:100%; padding:16px; }
 #overlay-banker .immersive-scene{ max-width:680px; }
+.fit-wrap{ width:100%; display:flex; flex-direction:column; align-items:center; overflow:visible; }
+.fit-wrap .immersive-scene{ flex-shrink:0; }
 
 .overlay-card{ background:linear-gradient(180deg, var(--panel-2), var(--panel)); border:1px solid rgba(201,162,78,0.22); border-top:2px solid rgba(232,200,116,0.5); border-radius:4px; padding:34px 40px; text-align:center; max-width:520px; width:100%;
   box-shadow:0 28px 70px rgba(0,0,0,0.7); animation:cardIn .4s cubic-bezier(.2,.9,.25,1.1); }
@@ -631,6 +648,20 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
   </section>
 
   <section id="screen-game" class="screen">
+    <button class="fullscreen-toggle-btn" id="fullscreen-toggle-btn" type="button" title="מסך מלא">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+    </button>
+    <button class="ingame-menu-btn" id="ingame-menu-btn" type="button" title="משחק חדש / תפריט">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      <span>תפריט</span>
+    </button>
+    <div id="ingame-menu-confirm" class="ingame-menu-confirm hidden">
+      <div class="ingame-menu-confirm-text">לצאת מהמשחק הנוכחי ולחזור לתפריט?</div>
+      <div class="ingame-menu-confirm-actions">
+        <button class="btn btn-gold" id="ingame-menu-confirm-yes" type="button">כן, לתפריט</button>
+        <button class="btn btn-ghost" id="ingame-menu-confirm-no" type="button">המשך לשחק</button>
+      </div>
+    </div>
     <div id="stage-frame">
       <div class="onair-badge"><span class="onair-dot"></span>On Air</div>
       <div id="status-bar">
@@ -684,7 +715,7 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
 
 <div class="overlay overlay-immersive" id="overlay-opening">
   <div class="spotlight-cone"></div>
-  <div class="immersive-scene">
+  <div class="fit-wrap" id="opening-fit-wrap"><div class="immersive-scene">
     <div class="eyebrow" id="opening-num-label">CASE #—</div>
     <div class="case case-spotlight" id="opening-case-css" style="margin:12px auto 4px;">
       <span class="plate" id="opening-plate-num">—</span>
@@ -695,13 +726,13 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
     <div class="amount-reveal" id="opening-amount">$?</div>
     <div class="reaction-line" id="opening-reaction"></div>
     <div class="kid-reaction-cam hidden" id="kid-reaction-cam"><video id="kid-reaction-video" muted playsinline></video></div>
-  </div>
+  </div></div>
 </div>
 
 <div class="overlay overlay-immersive" id="overlay-banker">
   <div class="offer-history-panel" id="offer-history-panel"></div>
   <div class="spotlight-cone"></div>
-  <div class="immersive-scene">
+  <div class="fit-wrap" id="banker-fit-wrap"><div class="immersive-scene">
     <div class="banker-bubble-wrap" id="banker-bubble-wrap"><div class="banker-bubble" id="banker-bubble"></div></div>
     <div class="banker-video-wrap hidden" id="banker-video-wrap"><video class="banker-video" id="banker-video" muted playsinline></video><img class="banker-video hidden" id="banker-angry-img" alt=""></div>
     <div class="banker-presence" id="banker-presence-fallback"><span class="banker-phone" id="banker-phone"><span class="phone-ripple"></span><span class="phone-ripple r2"></span><span class="phone-dot"></span></span></div>
@@ -733,7 +764,7 @@ body.locked #case-grid{ pointer-events:none; opacity:.7; }
       </div>
       <div class="custom-offer-feedback" id="custom-offer-feedback"></div>
     </div>
-  </div>
+  </div></div>
 </div>
 
 <div class="overlay overlay-immersive" id="overlay-finaltwo">
@@ -1331,7 +1362,7 @@ async function loadAllAudioBuffers(){
     }catch(e){ /* that one sound just won't play; everything else still works */ }
   }
 }
-var SFX_GAIN={ lockThunk:3.2, select:2.1, ambientDrone:0.3 };
+var SFX_GAIN={ lockThunk:4.732, select:3.388, ambientDrone:0.3, menuMusic:0.35, caseThunk:0.891, celebrate:0.891, deal:0.891, noDeal:0.813, finalReveal:0.49, offerAnticipation:0.556, revealHigh:0.596, revealJackpot:0.596, revealLow:0.832, revealMedium:0.603, roundSweep:0.891, sting:0.813, bankerRing:1.047, bankerVoice1:1.758, bankerVoice2:2.065, bankerVoice3:2.163, bankerVoice4:1.758, bankerVoice5:2.018, bankerVoice7:1.82, bankerVoice8:1.799, bankerVoice9:1.531 };
 function playSfx(key, opts){
   if(!actx || !audioBuffers[key] || !sfxGain) return null;
   opts=opts||{};
@@ -2077,6 +2108,7 @@ async function bankerSequence(isFinalTwo){
   await sleep(750); // longer pause — let the offer sit before the decision appears
   presence.classList.add('recede'); // the presence recedes, isolating the decision
   $('banker-decision-row').classList.add('show');
+  fitWrappedContent($('overlay-banker'), $('banker-fit-wrap'), document.querySelector('#overlay-banker .immersive-scene'));
   // NOTE: the case grid deliberately stays locked here — the Deal/No Deal
   // buttons work independently of the `locked` flag, and the grid must not
   // become clickable again until rejectDeal() explicitly re-opens the next round.
@@ -2522,35 +2554,84 @@ function goToScreen(id){
 // available height. transform:scale() alone leaves the original (unscaled) space reserved in the
 // page's flow, so the negative margin below cancels that out, letting the container's real height
 // match what's actually shown.
-function fitStageToViewport(){
-  var container=$('screen-game');
-  var stage=$('stage-frame');
-  if(!container || !stage) return;
-  stage.style.transform='none';
-  stage.style.marginBottom='0px';
-  var naturalHeight=stage.offsetHeight;
-  var cs=getComputedStyle(container);
+function fitContentToContainer(containerEl, contentEl){
+  if(!containerEl || !contentEl) return;
+  contentEl.style.transform='none';
+  contentEl.style.marginBottom='0px';
+  var naturalHeight=contentEl.offsetHeight;
+  if(!naturalHeight) return;
+  var cs=getComputedStyle(containerEl);
   var vPad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
-  var availableHeight=container.clientHeight - vPad - 8;
+  var availableHeight=containerEl.clientHeight - vPad - 8;
   var scale=Math.min(1, availableHeight/naturalHeight);
   function apply(s){
     if(s<1){
-      stage.style.transformOrigin='top center';
-      stage.style.transform='scale('+s+')';
-      stage.style.marginBottom=(naturalHeight*s - naturalHeight)+'px';
+      contentEl.style.transformOrigin='top center';
+      contentEl.style.transform='scale('+s+')';
+      contentEl.style.marginBottom=(naturalHeight*s - naturalHeight)+'px';
     } else {
-      stage.style.transform='none';
-      stage.style.marginBottom='0px';
+      contentEl.style.transform='none';
+      contentEl.style.marginBottom='0px';
     }
   }
   apply(scale);
   // the transform math above is usually exact, but webfont/image settling can shift the real
   // layout slightly after the fact — this verifies the result and nudges the scale down a little
   // further if anything still overflows, rather than trusting the arithmetic blindly.
-  for(var i=0;i<3 && container.scrollHeight>container.clientHeight+1;i++){
-    scale=scale*(container.clientHeight/container.scrollHeight)*0.99;
+  for(var i=0;i<3 && containerEl.scrollHeight>containerEl.clientHeight+1;i++){
+    scale=scale*(containerEl.clientHeight/containerEl.scrollHeight)*0.99;
     apply(scale);
   }
+}
+// Same idea as fitContentToContainer, but for containers where a negative margin doesn't actually
+// shrink the reported scrollHeight (observed on the fixed-position, overflow:auto overlays) — an
+// explicit height set on a dedicated wrapper works everywhere, so the overlays use this instead.
+function fitWrappedContent(containerEl, wrapEl, contentEl){
+  if(!containerEl || !wrapEl || !contentEl) return;
+  wrapEl.style.height='auto';
+  contentEl.style.transform='none';
+  var naturalHeight=contentEl.offsetHeight;
+  if(!naturalHeight) return;
+  var cs=getComputedStyle(containerEl);
+  var vPad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
+  var availableHeight=containerEl.clientHeight - vPad - 8;
+  var scale=Math.min(1, availableHeight/naturalHeight);
+  function apply(s){
+    if(s<1){
+      contentEl.style.transformOrigin='top center';
+      contentEl.style.transform='scale('+s+')';
+      wrapEl.style.height=(naturalHeight*s)+'px';
+    } else {
+      contentEl.style.transform='none';
+      wrapEl.style.height='auto';
+    }
+  }
+  apply(scale);
+  for(var i=0;i<3 && containerEl.scrollHeight>containerEl.clientHeight+1;i++){
+    scale=scale*(containerEl.clientHeight/containerEl.scrollHeight)*0.99;
+    apply(scale);
+  }
+}
+function fitStageToViewport(){
+  fitContentToContainer($('screen-game'), $('stage-frame'));
+}
+// The banker and case-opening overlays change their own content height repeatedly through their
+// sequence (a decision row appearing, reaction text showing up, etc.), so a one-time fit on open
+// isn't enough — a ResizeObserver re-runs the fit automatically every time the real, unscaled
+// content size changes, regardless of which step of the sequence triggered it. transform:scale()
+// doesn't affect the box size ResizeObserver tracks, so this never ends up re-triggering itself.
+function watchAndFit(containerId, wrapSelector, contentSelector){
+  var container=$(containerId);
+  var wrap=container ? container.querySelector(wrapSelector) : null;
+  var content=wrap ? wrap.querySelector(contentSelector) : null;
+  if(!container || !wrap || !content || typeof ResizeObserver==='undefined') return;
+  var pending=false;
+  var ro=new ResizeObserver(function(){
+    if(pending) return;
+    pending=true;
+    requestAnimationFrame(function(){ pending=false; if(container.classList.contains('active')) fitWrappedContent(container, wrap, content); });
+  });
+  ro.observe(content);
 }
 window.addEventListener('resize', function(){
   if($('screen-game').classList.contains('active')) fitStageToViewport();
@@ -2816,7 +2897,58 @@ $('admin-board-close').addEventListener('click', function(){
 
   preflightAllVideos();
   wireVolumeControls();
+  watchAndFit('overlay-banker', '#banker-fit-wrap', '.immersive-scene');
+  watchAndFit('overlay-opening', '#opening-fit-wrap', '.immersive-scene');
 })();
+
+/* ============================================================
+   FULLSCREEN TOGGLE — standard Fullscreen API with vendor-prefixed
+   fallbacks for older Safari; icon and title swap based on actual state
+   so it stays correct even if the person exits via Esc or browser UI.
+   ============================================================ */
+function isFullscreenActive(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+function requestFullscreenCompat(el){
+  var fn=el.requestFullscreen || el.webkitRequestFullscreen;
+  if(fn) fn.call(el);
+}
+function exitFullscreenCompat(){
+  var fn=document.exitFullscreen || document.webkitExitFullscreen;
+  if(fn) fn.call(document);
+}
+function updateFullscreenBtn(){
+  var btn=$('fullscreen-toggle-btn');
+  if(!btn) return;
+  var active=isFullscreenActive();
+  btn.title=active ? 'צא ממסך מלא' : 'מסך מלא';
+  btn.innerHTML=active
+    ? '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v4a2 2 0 0 1-2 2H3m18 0h-4a2 2 0 0 1-2-2V3m0 18v-4a2 2 0 0 1 2-2h4M3 15h4a2 2 0 0 1 2 2v4"/></svg>'
+    : '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+}
+$('fullscreen-toggle-btn').addEventListener('click', function(){
+  ensureAudio();
+  if(isFullscreenActive()){ exitFullscreenCompat(); } else { requestFullscreenCompat(document.documentElement); }
+});
+document.addEventListener('fullscreenchange', updateFullscreenBtn);
+document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+
+/* ============================================================
+   IN-GAME MENU BUTTON — lets the person bail out to the start screen
+   mid-game without it being a one-tap accident; a small confirm panel
+   sits right where the button was, out of the way of the case grid.
+   ============================================================ */
+$('ingame-menu-btn').addEventListener('click', function(){
+  ensureAudio(); SFX.select();
+  $('ingame-menu-confirm').classList.remove('hidden');
+});
+$('ingame-menu-confirm-no').addEventListener('click', function(){
+  $('ingame-menu-confirm').classList.add('hidden');
+});
+$('ingame-menu-confirm-yes').addEventListener('click', function(){
+  $('ingame-menu-confirm').classList.add('hidden');
+  goToScreen('screen-start');
+});
 
 /* ============================================================
    VOLUME CONTROLS — two sliders (start menu + in-game), kept in sync,
