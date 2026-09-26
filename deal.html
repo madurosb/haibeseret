@@ -35,7 +35,7 @@
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 .hidden{ display:none !important; }
-html,body{height:100%;}
+html,body{height:100%; overflow:hidden;}
 body{ background:var(--void); color:var(--text); font-family:var(--font-body); overflow:hidden; height:100vh; height:100dvh; position:relative; -webkit-font-smoothing:antialiased; user-select:none; }
 #boot-loading{ position:fixed; inset:0; z-index:9999; background:#050506; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
 #boot-loading.hide{ display:none; }
@@ -341,7 +341,7 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 #screen-game{ justify-content:flex-start; padding:14px 14px 18px; overflow-y:auto; position:absolute; }
 .truss{ position:fixed; top:0; bottom:0; width:1px; background:linear-gradient(180deg, transparent, rgba(201,162,78,0.16) 18%, rgba(201,162,78,0.08) 55%, transparent); pointer-events:none; z-index:0; }
 .truss.l{ left:6%; } .truss.r{ right:6%; }
-#stage-frame{ position:relative; width:100%; max-width:1040px; margin:0 auto; padding:14px 24px 16px; border-radius:6px; z-index:1;
+#stage-frame{ position:relative; width:100%; max-width:1440px; margin:0 auto; padding:14px 24px 16px; border-radius:6px; z-index:1;
   background:linear-gradient(180deg, rgba(255,255,255,0.017) 0%, rgba(255,255,255,0.003) 38%, transparent 72%);
   border-top:1px solid rgba(201,162,78,0.3); border-left:1px solid rgba(201,162,78,0.07); border-right:1px solid rgba(201,162,78,0.07); border-bottom:none;
   box-shadow:0 30px 80px rgba(0,0,0,0.6); transition:filter .5s ease; }
@@ -368,7 +368,7 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .yc-status{ font-size:9px; letter-spacing:.12em; color:var(--text-dim); text-transform:uppercase; line-height:1.2; }
 
 #board-panel{ margin-bottom:8px; }
-.board-frame{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:14px 16px; border-radius:12px;
+.board-frame{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:10px 14px; border-radius:12px;
   background:linear-gradient(165deg, rgba(255,255,255,0.035), rgba(0,0,0,0.3) 55%);
   border:1px solid rgba(201,162,78,0.22); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 30px rgba(0,0,0,0.55), 0 10px 24px rgba(0,0,0,0.35); overflow:hidden; }
 .board-frame::before{ content:''; position:absolute; inset:0; background:linear-gradient(115deg, rgba(255,255,255,0.05) 0%, transparent 22%); pointer-events:none; }
@@ -395,7 +395,7 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .bs-label{ display:block; font-size:8.7px; letter-spacing:.18em; color:var(--text-dim); text-transform:uppercase; }
 .bs-val{ display:block; font-family:var(--font-led); font-size:13px; color:var(--gold-bright); margin-top:2px; }
 
-#case-grid-wrap{ position:relative; width:100%; max-width:880px; margin:0 auto; aspect-ratio:1672/941; border-radius:6px; overflow:hidden; background-image:var(--platform-bg-image); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
+#case-grid-wrap{ position:relative; width:100%; max-width:1240px; margin:0 auto; aspect-ratio:1672/941; border-radius:6px; overflow:hidden; background-image:var(--platform-bg-image); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
 #case-grid{ position:absolute; inset:0; }
 #case-grid .case-slot{ position:absolute; animation:materializeGrid .5s ease forwards; }
 @keyframes materializeGrid{ from{ opacity:0; transform:translateX(-50%) translateY(-92%) translateY(10px) scale(.9);} to{ opacity:1; transform:translateX(-50%) translateY(-92%) scale(1);} }
@@ -1362,7 +1362,7 @@ async function loadAllAudioBuffers(){
     }catch(e){ /* that one sound just won't play; everything else still works */ }
   }
 }
-var SFX_GAIN={ lockThunk:4.732, select:3.388, ambientDrone:0.3, menuMusic:0.35, caseThunk:0.891, celebrate:0.891, deal:0.891, noDeal:0.813, finalReveal:0.49, offerAnticipation:0.556, revealHigh:0.596, revealJackpot:0.596, revealLow:0.832, revealMedium:0.603, roundSweep:0.891, sting:0.813, bankerRing:1.047, bankerVoice1:1.758, bankerVoice2:2.065, bankerVoice3:2.163, bankerVoice4:1.758, bankerVoice5:2.018, bankerVoice7:1.82, bankerVoice8:1.799, bankerVoice9:1.531 };
+var SFX_GAIN={ lockThunk:4.732, select:3.388, ambientDrone:0.3, menuMusic:0.35, caseThunk:0.891, celebrate:0.891, deal:0.891, noDeal:0.5, finalReveal:0.49, offerAnticipation:0.556, revealHigh:0.596, revealJackpot:0.596, revealLow:0.832, revealMedium:0.603, roundSweep:0.891, sting:0.813, bankerRing:1.047, bankerVoice1:1.758, bankerVoice2:2.065, bankerVoice3:2.163, bankerVoice4:1.758, bankerVoice5:2.018, bankerVoice7:1.82, bankerVoice8:1.799, bankerVoice9:1.531 };
 function playSfx(key, opts){
   if(!actx || !audioBuffers[key] || !sfxGain) return null;
   opts=opts||{};
@@ -2559,13 +2559,18 @@ function fitContentToContainer(containerEl, contentEl){
   contentEl.style.transform='none';
   contentEl.style.marginBottom='0px';
   var naturalHeight=contentEl.offsetHeight;
+  var naturalWidth=contentEl.offsetWidth;
   if(!naturalHeight) return;
   var cs=getComputedStyle(containerEl);
   var vPad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
-  var availableHeight=containerEl.clientHeight - vPad - 8;
-  var scale=Math.min(1, availableHeight/naturalHeight);
+  var hPad=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+  var availableHeight=containerEl.clientHeight - vPad - 16;
+  var availableWidth=containerEl.clientWidth - hPad - 8;
+  // scale up to fill spare room on big screens too, not just shrink to avoid overflow — but never
+  // beyond what actually fits both dimensions, and capped so it can't get absurdly oversized.
+  var scale=Math.min(1.35, availableHeight/naturalHeight, availableWidth/naturalWidth);
   function apply(s){
-    if(s<1){
+    if(s!==1){
       contentEl.style.transformOrigin='top center';
       contentEl.style.transform='scale('+s+')';
       contentEl.style.marginBottom=(naturalHeight*s - naturalHeight)+'px';
@@ -2594,7 +2599,7 @@ function fitWrappedContent(containerEl, wrapEl, contentEl){
   if(!naturalHeight) return;
   var cs=getComputedStyle(containerEl);
   var vPad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
-  var availableHeight=containerEl.clientHeight - vPad - 8;
+  var availableHeight=containerEl.clientHeight - vPad - 16;
   var scale=Math.min(1, availableHeight/naturalHeight);
   function apply(s){
     if(s<1){
