@@ -2547,7 +2547,6 @@ function goToScreen(id){
     // showing it again as a blurred full-page backdrop just doubled the same image.
     photoBg.classList.remove('show');
   }
-  if(id==='screen-game'){ setTimeout(fitStageToViewport, 30); }
 }
 // Scales the whole game stage down (never up) so it fits entirely within the visible viewport with
 // no scrolling needed — matters most in landscape/fullscreen where browser chrome eats into the
@@ -2564,8 +2563,8 @@ function fitContentToContainer(containerEl, contentEl){
   var cs=getComputedStyle(containerEl);
   var vPad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
   var hPad=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
-  var availableHeight=containerEl.clientHeight - vPad - 16;
-  var availableWidth=containerEl.clientWidth - hPad - 8;
+  var availableHeight=containerEl.clientHeight - vPad - 6;
+  var availableWidth=containerEl.clientWidth - hPad - 4;
   // scale up to fill spare room on big screens too, not just shrink to avoid overflow — but never
   // beyond what actually fits both dimensions, and capped so it can't get absurdly oversized.
   var scale=Math.min(1.35, availableHeight/naturalHeight, availableWidth/naturalWidth);
@@ -2584,7 +2583,7 @@ function fitContentToContainer(containerEl, contentEl){
   // layout slightly after the fact — this verifies the result and nudges the scale down a little
   // further if anything still overflows, rather than trusting the arithmetic blindly.
   for(var i=0;i<3 && containerEl.scrollHeight>containerEl.clientHeight+1;i++){
-    scale=scale*(containerEl.clientHeight/containerEl.scrollHeight)*0.99;
+    scale=scale*(containerEl.clientHeight/containerEl.scrollHeight)*0.995;
     apply(scale);
   }
 }
@@ -2613,13 +2612,39 @@ function fitWrappedContent(containerEl, wrapEl, contentEl){
   }
   apply(scale);
   for(var i=0;i<3 && containerEl.scrollHeight>containerEl.clientHeight+1;i++){
-    scale=scale*(containerEl.clientHeight/containerEl.scrollHeight)*0.99;
+    scale=scale*(containerEl.clientHeight/containerEl.scrollHeight)*0.995;
     apply(scale);
   }
 }
 function fitStageToViewport(){
+  growStageWidth();
   sizeCaseGridToFit();
-  fitContentToContainer($('screen-game'), $('stage-frame'));
+  // sizeCaseGridToFit only accounts for the grid itself — if the board panel and other chrome
+  // alone are too tall for a genuinely cramped viewport, there's still nothing sized to close that
+  // gap. This only engages the whole-stage scale-down as a fallback when real overflow remains,
+  // instead of applying it unconditionally and undoing the grid's own careful sizing every time.
+  var container=$('screen-game');
+  if(container && container.scrollHeight>container.clientHeight+1){
+    fitContentToContainer(container, $('stage-frame'));
+  }
+}
+// Grows the stage frame's actual WIDTH (not a transform:scale, which would inevitably scale
+// height too and undo the grid's own height-based sizing below) when there's spare horizontal
+// room — this is what lets the board panel/whole stage widen out on big screens, independent of
+// the case grid's own height-driven size.
+function growStageWidth(){
+  var container=$('screen-game');
+  var stageFrame=$('stage-frame');
+  if(!container || !stageFrame) return;
+  stageFrame.style.width='';
+  var naturalWidth=stageFrame.offsetWidth;
+  var cs=getComputedStyle(container);
+  var hPad=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+  var availableWidth=container.clientWidth - hPad - 8;
+  var targetWidth=Math.min(naturalWidth*1.3, availableWidth);
+  if(targetWidth>naturalWidth+1){
+    stageFrame.style.width=targetWidth+'px';
+  }
 }
 // The case grid's own natural size is driven by its WIDTH (via aspect-ratio), which meant a tall
 // board panel above it forced the *whole* stage to scale down uniformly just to fit — shrinking
@@ -2647,7 +2672,7 @@ function sizeCaseGridToFit(){
   var stagePad=parseFloat(stageStyle.paddingTop)+parseFloat(stageStyle.paddingBottom);
   var containerStyle=getComputedStyle(container);
   var containerPad=parseFloat(containerStyle.paddingTop)+parseFloat(containerStyle.paddingBottom);
-  var totalAvailable=container.clientHeight - containerPad - stagePad - 24;
+  var totalAvailable=container.clientHeight - containerPad - stagePad - 10;
   var availableForGrid=totalAvailable - otherHeight;
   var availableWidth=stageFrame.clientWidth || container.clientWidth;
   if(availableForGrid>120){
@@ -2659,7 +2684,7 @@ function sizeCaseGridToFit(){
     for(var i=0;i<4;i++){
       var wrapBottom=caseGridWrap.getBoundingClientRect().bottom;
       var containerBottom=container.getBoundingClientRect().bottom;
-      if(wrapBottom<=containerBottom+1) break;
+      if(wrapBottom<=containerBottom+1){ break; }
       var overBy=wrapBottom-containerBottom;
       var currentWidth=caseGridWrap.getBoundingClientRect().width;
       var currentHeight=caseGridWrap.getBoundingClientRect().height;
@@ -2700,6 +2725,10 @@ async function startIntroAndFirstChoice(){
   renderBoardPanel();
   renderCaseGrid();
   updateStatusBar();
+  // custom fonts can still be settling into their final metrics at this point (especially on a
+  // fresh load, before the browser has them cached) — sizing against fallback-font measurements
+  // here would compute the wrong height the instant the real font swaps in and reflows text.
+  if(document.fonts && document.fonts.ready){ try{ await document.fonts.ready; }catch(e){} }
   fitStageToViewport(); // content is fully in place now — safe to measure and scale
   await sleep(950);
   await beat([{text:'CHOOSE YOUR CASE.',cls:'huge'}], {hold:1000});
@@ -2953,7 +2982,22 @@ $('admin-board-close').addEventListener('click', function(){
   wireVolumeControls();
   watchAndFit('overlay-banker', '#banker-fit-wrap', '.immersive-scene');
   watchAndFit('overlay-opening', '#opening-fit-wrap', '.immersive-scene');
+  watchGameScreenLayout();
 })();
+// Any unexpected size change in the board panel — a late font swap, or anything else — re-runs
+// the full stage fit automatically, rather than trusting the one measurement taken right after
+// the initial render.
+function watchGameScreenLayout(){
+  var boardPanel=$('board-panel');
+  if(!boardPanel || typeof ResizeObserver==='undefined') return;
+  var pending=false;
+  var ro=new ResizeObserver(function(){
+    if(pending) return;
+    pending=true;
+    requestAnimationFrame(function(){ pending=false; if($('screen-game').classList.contains('active')) fitStageToViewport(); });
+  });
+  ro.observe(boardPanel);
+}
 
 /* ============================================================
    FULLSCREEN TOGGLE — standard Fullscreen API with vendor-prefixed
