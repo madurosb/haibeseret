@@ -367,21 +367,21 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .yc-num{ font-family:var(--font-display); font-weight:800; font-size:15px; letter-spacing:.02em; color:var(--gold-bright); text-transform:uppercase; line-height:1.2; }
 .yc-status{ font-size:9px; letter-spacing:.12em; color:var(--text-dim); text-transform:uppercase; line-height:1.2; }
 
-#board-panel{ margin-bottom:8px; }
-.board-frame{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:10px 14px; border-radius:12px;
+#board-panel{ margin-bottom:6px; }
+.board-frame{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:8px 12px; border-radius:12px;
   background:linear-gradient(165deg, rgba(255,255,255,0.035), rgba(0,0,0,0.3) 55%);
   border:1px solid rgba(201,162,78,0.22); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 30px rgba(0,0,0,0.55), 0 10px 24px rgba(0,0,0,0.35); overflow:hidden; }
 .board-frame::before{ content:''; position:absolute; inset:0; background:linear-gradient(115deg, rgba(255,255,255,0.05) 0%, transparent 22%); pointer-events:none; }
 .board-tier{ display:flex; flex-direction:column; }
-.board-tier-label{ font-size:8.7px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim); text-align:center; margin-bottom:6px; }
-.board-tier-cells{ display:flex; flex-wrap:wrap; gap:4px; align-content:flex-start; flex:1; }
-.cell{ font-family:var(--font-body); text-align:center; padding:5px 7px; border-radius:5px; flex:1 1 auto; min-width:64px; line-height:1.25; transition:all .4s ease;
+.board-tier-label{ font-size:8px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-dim); text-align:center; margin-bottom:4px; }
+.board-tier-cells{ display:flex; flex-wrap:wrap; gap:3px; align-content:flex-start; flex:1; }
+.cell{ font-family:var(--font-body); text-align:center; padding:4px 6px; border-radius:5px; flex:1 1 auto; min-width:64px; line-height:1.2; transition:all .4s ease;
   background:linear-gradient(180deg, rgba(255,255,255,0.055), rgba(0,0,0,0.28)); border:1px solid rgba(255,255,255,0.07);
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -3px 5px rgba(0,0,0,0.35); }
-[data-tier="low"] .cell{ font-size:12px; color:var(--text-dim); }
-[data-tier="mid"] .cell{ font-size:13px; color:var(--text); font-weight:600; }
-[data-tier="high"] .cell{ font-size:14px; color:var(--gold-bright); font-weight:700; border-color:rgba(201,162,78,0.22); }
-[data-tier="big"] .cell{ font-size:15px; color:var(--gold-bright); font-weight:800; text-shadow:0 0 7px rgba(201,162,78,0.4); border-color:rgba(201,162,78,0.32); background:linear-gradient(180deg, rgba(201,162,78,0.13), rgba(0,0,0,0.28)); }
+[data-tier="low"] .cell{ font-size:11px; color:var(--text-dim); }
+[data-tier="mid"] .cell{ font-size:12px; color:var(--text); font-weight:600; }
+[data-tier="high"] .cell{ font-size:13px; color:var(--gold-bright); font-weight:700; border-color:rgba(201,162,78,0.22); }
+[data-tier="big"] .cell{ font-size:14px; color:var(--gold-bright); font-weight:800; text-shadow:0 0 7px rgba(201,162,78,0.4); border-color:rgba(201,162,78,0.32); background:linear-gradient(180deg, rgba(201,162,78,0.13), rgba(0,0,0,0.28)); }
 .cell.eliminated{ opacity:.28; text-decoration:line-through; color:#4e4e55; text-shadow:none; transform:scale(.94); background:rgba(0,0,0,0.25); border-color:rgba(255,255,255,0.03); box-shadow:none; }
 .cell.stage-glow{ animation:cellGlow .42s ease forwards; z-index:1; position:relative; }
 @keyframes cellGlow{ to{ transform:scale(1.16); filter:brightness(1.5); box-shadow:0 0 18px currentColor, inset 0 0 10px rgba(255,255,255,0.35); } }
@@ -395,7 +395,9 @@ body{ background:var(--void); color:var(--text); font-family:var(--font-body); o
 .bs-label{ display:block; font-size:8.7px; letter-spacing:.18em; color:var(--text-dim); text-transform:uppercase; }
 .bs-val{ display:block; font-family:var(--font-led); font-size:13px; color:var(--gold-bright); margin-top:2px; }
 
-#case-grid-wrap{ position:relative; width:100%; max-width:1240px; margin:0 auto; aspect-ratio:1672/941; border-radius:6px; overflow:hidden; background-image:var(--platform-bg-image); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
+#case-grid-wrap{ position:relative; width:100%; max-width:1240px; margin:0 auto; aspect-ratio:1672/941; border-radius:6px; overflow:hidden; background-image:var(--platform-bg-image); background-size:100% 100%; background-position:center; background-repeat:no-repeat;
+  opacity:0; transition:opacity .25s ease; }
+#case-grid-wrap.sized{ opacity:1; }
 #case-grid{ position:absolute; inset:0; }
 #case-grid .case-slot{ position:absolute; animation:materializeGrid .5s ease forwards; }
 @keyframes materializeGrid{ from{ opacity:0; transform:translateX(-50%) translateY(-92%) translateY(10px) scale(.9);} to{ opacity:1; transform:translateX(-50%) translateY(-92%) scale(1);} }
@@ -2637,12 +2639,17 @@ function growStageWidth(){
   var stageFrame=$('stage-frame');
   if(!container || !stageFrame) return;
   stageFrame.style.width='';
+  stageFrame.style.maxWidth='';
   var naturalWidth=stageFrame.offsetWidth;
   var cs=getComputedStyle(container);
   var hPad=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
   var availableWidth=container.clientWidth - hPad - 8;
-  var targetWidth=Math.min(naturalWidth*1.3, availableWidth);
+  // in fullscreen — especially casting to a TV — the point is to fill the whole screen, so there's
+  // no reason to hold back at a modest multiple of the "normal browser window" size; outside
+  // fullscreen the gentler 1.3x cap avoids the stage ballooning oddly on merely-wide browser windows.
+  var targetWidth=isFullscreenActive() ? availableWidth : Math.min(naturalWidth*1.3, availableWidth);
   if(targetWidth>naturalWidth+1){
+    stageFrame.style.maxWidth='none'; // the CSS max-width would otherwise silently cap the explicit width below, exactly like case-grid-wrap did before
     stageFrame.style.width=targetWidth+'px';
   }
 }
@@ -2730,6 +2737,7 @@ async function startIntroAndFirstChoice(){
   // here would compute the wrong height the instant the real font swaps in and reflows text.
   if(document.fonts && document.fonts.ready){ try{ await document.fonts.ready; }catch(e){} }
   fitStageToViewport(); // content is fully in place now — safe to measure and scale
+  $('case-grid-wrap').classList.add('sized'); // only reveal the platform once it's at its final size — otherwise the pre-JS default (much larger) CSS size gets painted first and visibly shrinks a moment later
   await sleep(950);
   await beat([{text:'CHOOSE YOUR CASE.',cls:'huge'}], {hold:1000});
   setLocked(false);
@@ -2982,23 +2990,10 @@ $('admin-board-close').addEventListener('click', function(){
   wireVolumeControls();
   watchAndFit('overlay-banker', '#banker-fit-wrap', '.immersive-scene');
   watchAndFit('overlay-opening', '#opening-fit-wrap', '.immersive-scene');
-  watchGameScreenLayout();
 })();
 // Any unexpected size change in the board panel — a late font swap, or anything else — re-runs
 // the full stage fit automatically, rather than trusting the one measurement taken right after
 // the initial render.
-function watchGameScreenLayout(){
-  var boardPanel=$('board-panel');
-  if(!boardPanel || typeof ResizeObserver==='undefined') return;
-  var pending=false;
-  var ro=new ResizeObserver(function(){
-    if(pending) return;
-    pending=true;
-    requestAnimationFrame(function(){ pending=false; if($('screen-game').classList.contains('active')) fitStageToViewport(); });
-  });
-  ro.observe(boardPanel);
-}
-
 /* ============================================================
    FULLSCREEN TOGGLE — standard Fullscreen API with vendor-prefixed
    fallbacks for older Safari; icon and title swap based on actual state
@@ -3028,8 +3023,14 @@ $('fullscreen-toggle-btn').addEventListener('click', function(){
   ensureAudio();
   if(isFullscreenActive()){ exitFullscreenCompat(); } else { requestFullscreenCompat(document.documentElement); }
 });
-document.addEventListener('fullscreenchange', updateFullscreenBtn);
-document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+document.addEventListener('fullscreenchange', function(){
+  updateFullscreenBtn();
+  if($('screen-game').classList.contains('active')) fitStageToViewport();
+});
+document.addEventListener('webkitfullscreenchange', function(){
+  updateFullscreenBtn();
+  if($('screen-game').classList.contains('active')) fitStageToViewport();
+});
 
 /* ============================================================
    IN-GAME MENU BUTTON — lets the person bail out to the start screen
