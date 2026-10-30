@@ -238,20 +238,44 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .reel__center span{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
 .reel__title{position:absolute;bottom:22px;inset-inline-start:24px;z-index:3;font-family:'Suez One',serif;font-size:clamp(1.6rem,4vw,2.4rem)}
 /* FILM 02 — first client film + feedback */
-.film2{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;border:1px solid var(--line)}
-.film2__poster{color:transparent;font-size:0;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .6s var(--ease),transform .8s var(--ease)}
-.film2:hover .film2__poster{filter:brightness(1.08);transform:scale(1.02)}
-.film2__btn{position:absolute;inset:0;z-index:2;width:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:10px;padding:0 clamp(18px,4vw,44px) clamp(18px,4vw,36px);background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 38%);border:0;color:var(--white);cursor:pointer;font:inherit}
+.film2{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;border:1px solid var(--line);-webkit-user-select:none;user-select:none}
+.film2__yt{position:absolute;inset:0;z-index:0;background:#000}
+.film2__yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.film2__block{position:absolute;inset:0;z-index:1}
+.film2__top{position:absolute;top:0;inset-inline:0;height:clamp(44px,13%,76px);z-index:2;background:linear-gradient(180deg,#000 35%,transparent);opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
+.film2.intro .film2__top{opacity:1}
+.film2__poster{color:transparent;font-size:0;position:absolute;inset:0;z-index:3;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:opacity .6s var(--ease),filter .6s var(--ease),transform .8s var(--ease)}
+.film2:not(.playing):hover .film2__poster{filter:brightness(1.08);transform:scale(1.02)}
+.film2.playing .film2__poster{opacity:0}
+.film2__hud{position:absolute;top:18px;inset-inline:20px;z-index:4;display:flex;direction:ltr;justify-content:space-between;font-family:var(--mono);font-size:.66rem;letter-spacing:.15em;opacity:.9;pointer-events:none}
+.film2__hud .rectag{display:inline-flex;align-items:center;gap:6px;color:var(--rec)}
+.film2__hud .rdot{width:7px;height:7px;border-radius:50%;background:var(--rec);animation:blink 1s steps(1) infinite}
+.film2.playing .film2__hud{display:none}
+.film2__btn{position:absolute;inset:0;z-index:5;width:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:10px;padding:0 clamp(18px,4vw,44px) clamp(18px,4vw,36px);background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 38%);border:0;color:var(--white);cursor:pointer;font:inherit}
+.film2.playing .film2__btn{display:none}
 .film2__play{width:clamp(56px,9vw,78px);height:clamp(56px,9vw,78px);border:1.5px solid var(--white);border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);transition:background .3s var(--ease),transform .3s var(--ease)}
 .film2__btn:hover .film2__play{background:var(--white);transform:scale(1.07)}
 .film2__play svg{width:24px;height:24px;fill:var(--white);margin-inline-start:3px;transition:fill .3s}
 .film2__btn:hover .film2__play svg{fill:var(--black)}
-.film2__btn span{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
-.film2__hud{position:absolute;top:18px;inset-inline:20px;z-index:3;display:flex;direction:ltr;justify-content:space-between;font-family:var(--mono);font-size:.66rem;letter-spacing:.15em;opacity:.9;pointer-events:none}
-.film2__hud .rectag{display:inline-flex;align-items:center;gap:6px;color:var(--rec)}
-.film2__hud .rdot{width:7px;height:7px;border-radius:50%;background:var(--rec);animation:blink 1s steps(1) infinite}
-.film2.playing .film2__hud{display:none}
-.film2 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:4;background:#000}
+.film2__btn span.lbl{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.film2.loading .film2__play{animation:f2pulse 1s ease-in-out infinite}
+@keyframes f2pulse{50%{opacity:.35}}
+.film2__ctl{position:absolute;inset-inline:0;bottom:0;z-index:6;display:flex;direction:ltr;align-items:center;gap:clamp(8px,1.6vw,16px);padding:clamp(22px,4vw,40px) clamp(12px,2.4vw,22px) clamp(10px,1.8vw,16px);background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.film2.playing.active .film2__ctl{opacity:1;pointer-events:auto;transform:none}
+.f2b{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.55);border:1px solid var(--line-strong);color:var(--white);font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;padding:9px 14px;cursor:pointer;transition:background .25s,color .25s}
+.f2b:hover{background:var(--white);color:var(--black)}
+.f2b svg{width:14px;height:14px;fill:currentColor;stroke:currentColor}
+.f2b--icon{padding:9px 10px}
+.f2b--icon svg{width:18px;height:18px;stroke-width:1.6}
+.f2b .i-on{display:none}.f2b.on .i-mute{display:none}.f2b.on .i-on{display:inline}
+.f2prog{flex:1;height:3px;background:rgba(244,243,239,.25);position:relative}
+.f2prog i{position:absolute;inset-block:0;left:0;width:0;background:var(--gold)}
+.f2time{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--white);min-width:7.5ch;text-align:center}
+.f2vol{-webkit-appearance:none;appearance:none;width:84px;height:3px;background:rgba(244,243,239,.35);outline:none;cursor:pointer}
+.f2vol::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--white);border:0}
+.f2vol::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--white);border:0}
+@media(hover:none){.f2vol{display:none}}
+@media(max-width:520px){.f2time{display:none}.f2b{padding:8px 11px}}
 .fb{margin-top:clamp(34px,6vw,56px)}
 .fb__main{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--base));padding:clamp(26px,5vw,52px);text-align:center}
 .fb__main blockquote{font-family:'Suez One',serif;font-size:clamp(1.2rem,3vw,1.75rem);line-height:1.6;color:var(--white);font-style:normal;max-width:30em;margin:0 auto;overflow-wrap:anywhere}
@@ -618,16 +642,29 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 <section class="block" id="work2">
   <div class="wrap">
     <div class="show__head rev">
-      <div><div class="slate">THE REEL — 004B</div><h2><em>אני חייב לצלצל</em> — סיפורו של ידיד</h2></div>
+      <div><div class="slate">THE REEL — 004B</div><h2><em>אני צריך צלצל</em> — סיפורו של ידיד</h2></div>
       <div class="bubble">"אבא שלי ממש התרגש"</div>
     </div>
     <div class="film2 rev d1" id="film2">
-      <img class="film2__poster" id="film2Poster" src="film2-poster.jpg" width="1600" height="900" alt="אני חייב לצלצל — סיפורו של ידיד. סרט של חי בסרט" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0aXC-xFX8Ro/maxresdefault.jpg'">
+      <div class="film2__yt"><div id="film2Player"></div></div>
+      <div class="film2__block" id="film2Block"></div>
+      <div class="film2__top"></div>
+      <img class="film2__poster" id="film2Poster" src="film2-poster.jpg" width="1600" height="900" alt="אני צריך צלצל — סיפורו של ידיד. סרט של חי בסרט" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0aXC-xFX8Ro/maxresdefault.jpg'">
       <div class="film2__hud"><span class="rectag"><b class="rdot"></b>FEATURE — CLIENT FILM</span></div>
-      <button class="film2__btn" id="film2Btn" aria-label="הפעלת הסרט: אני חייב לצלצל">
+      <button class="film2__btn" id="film2Btn" aria-label="הפעלת הסרט: אני צריך צלצל">
         <span class="film2__play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
-        <span>PLAY</span>
+        <span class="lbl">PLAY</span>
       </button>
+      <div class="film2__ctl" id="film2Ctl">
+        <button class="f2b" id="f2Stop" aria-label="עצירה"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></svg>STOP</button>
+        <div class="f2prog"><i id="f2Bar"></i></div>
+        <span class="f2time" id="f2Time">0:00 / 0:00</span>
+        <button class="f2b f2b--icon on" id="f2Mute" aria-label="השתקה / ביטול השתקה">
+          <svg class="i-mute" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6" stroke-linecap="round"/></svg>
+          <svg class="i-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a9 9 0 0 1 0 13" stroke-linecap="round"/></svg>
+        </button>
+        <input class="f2vol" id="f2Vol" type="range" min="0" max="100" value="100" aria-label="עוצמת קול">
+      </div>
     </div>
     <div class="fb">
       <div class="fb__main rev">
@@ -1118,19 +1155,97 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
   function setSound(on){ytSound.classList.toggle('on',on);var l=ytSound.querySelector('span');if(l)l.textContent=on?'השתקה':'קול';}
   ytSound.addEventListener('click',function(ev){ev.stopPropagation();if(!ytReady)return;try{if(ytPlayer.isMuted()){ytPlayer.unMute();ytPlayer.setVolume(100);setSound(true);}else{ytPlayer.mute();setSound(false);}}catch(err){}});
 
-  /* FILM 02 — click-to-play unlisted YouTube (with sound, full controls) */
+  /* FILM 02 — custom PLAY / STOP / volume over a chromeless YouTube player (unlisted) */
   (function(){
-    var box=document.getElementById('film2'),btn=document.getElementById('film2Btn');
-    if(!box||!btn)return;
-    btn.addEventListener('click',function(){
-      var f=document.createElement('iframe');
-      f.src='https://www.youtube-nocookie.com/embed/0aXC-xFX8Ro?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      f.title='אני חייב לצלצל — סיפורו של ידיד';
-      f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
-      f.allowFullscreen=true;
-      box.appendChild(f);box.classList.add('playing');
-      btn.style.display='none';
+    var VID='0aXC-xFX8Ro';
+    var box=document.getElementById('film2'),big=document.getElementById('film2Btn'),stopB=document.getElementById('f2Stop'),
+        muteB=document.getElementById('f2Mute'),vol=document.getElementById('f2Vol'),bar=document.getElementById('f2Bar'),
+        tim=document.getElementById('f2Time'),blk=document.getElementById('film2Block');
+    if(!box||!big)return;
+    var pl=null,ready=false,apiReady=false,want=false,tick=null,actT=null,introT=null,failT=null,created=false;
+    function fmt(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+('0'+(t%60)).slice(-2);}
+    function active(){box.classList.add('active');clearTimeout(actT);actT=setTimeout(function(){box.classList.remove('active');},2600);}
+    function setMuteUI(m){muteB.classList.toggle('on',!m);}
+    function intro(){box.classList.add('intro');clearTimeout(introT);introT=setTimeout(function(){box.classList.remove('intro');},4500);}
+    function resetUI(){
+      box.classList.remove('playing','loading','active','intro');
+      clearInterval(tick);clearTimeout(failT);bar.style.width='0';tim.textContent='0:00 / 0:00';
+    }
+    function create(){
+      if(created||!apiReady)return;created=true;
+      pl=new YT.Player('film2Player',{
+        videoId:VID,host:'https://www.youtube-nocookie.com',
+        playerVars:{controls:0,disablekb:1,fs:0,modestbranding:1,rel:0,iv_load_policy:3,playsinline:1,cc_load_policy:0,origin:location.origin},
+        events:{
+          onReady:function(){
+            ready=true;
+            if(want){try{pl.unMute();pl.setVolume(+vol.value||100);pl.playVideo();}catch(e){}}
+          },
+          onStateChange:function(e){
+            if(e.data===1){ /* playing */
+              clearTimeout(failT);
+              box.classList.remove('loading');
+              if(!box.classList.contains('playing')){box.classList.add('playing');intro();}
+              active();
+              clearInterval(tick);
+              tick=setInterval(function(){
+                try{var d=pl.getDuration()||0,c=pl.getCurrentTime()||0;bar.style.width=(d?c/d*100:0)+'%';tim.textContent=fmt(c)+' / '+fmt(d);}catch(err){}
+              },250);
+            }else if(e.data===0){ /* ended -> back to poster */
+              doStop(true);
+            }
+          },
+          onError:function(){resetUI();want=false;}
+        }
+      });
+    }
+    function startAPI(){apiReady=true;create();}
+    /* chain onto the existing YT API callback (used by the Walter reel) */
+    var prev=window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady=function(){try{if(prev)prev();}catch(e){}startAPI();};
+    if(window.YT&&YT.Player)startAPI();
+    /* create the player when the section is near the viewport so PLAY is instant */
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){create();io.disconnect();}});},{rootMargin:'900px 0px'});
+    io.observe(box);
+
+    function doPlay(){
+      want=true;box.classList.add('loading');
+      if(!created){create();}
+      if(ready){
+        try{pl.seekTo(0,true);pl.unMute();pl.setVolume(+vol.value||100);pl.playVideo();setMuteUI(false);}catch(e){}
+      }
+      clearTimeout(failT);
+      failT=setTimeout(function(){ /* blocked or too slow -> back to idle */
+        if(!box.classList.contains('playing')){box.classList.remove('loading');want=false;try{pl.stopVideo();}catch(e){}}
+      },9000);
+    }
+    function doStop(){
+      want=false;
+      try{pl.stopVideo();}catch(e){}
+      resetUI();
+    }
+    big.addEventListener('click',function(){doPlay();});
+    stopB.addEventListener('click',function(ev){ev.stopPropagation();doStop();});
+    function setVol(v){
+      try{
+        if(v<=0){pl.mute();setMuteUI(true);}
+        else{pl.unMute();pl.setVolume(v);setMuteUI(false);}
+      }catch(e){}
+    }
+    muteB.addEventListener('click',function(ev){
+      ev.stopPropagation();if(!ready)return;
+      try{
+        if(pl.isMuted()||muteB.classList.contains('on')===false){
+          var v=+vol.value||100;if(v<=0){v=100;vol.value=100;}
+          pl.unMute();pl.setVolume(v);setMuteUI(false);
+        }else{pl.mute();setMuteUI(true);}
+      }catch(e){}
+      active();
     });
+    vol.addEventListener('input',function(){setVol(+vol.value);active();});
+    ['mousemove','touchstart','pointerdown'].forEach(function(ev){box.addEventListener(ev,function(){if(box.classList.contains('playing'))active();},{passive:true});});
+    blk.addEventListener('click',function(){if(box.classList.contains('playing'))active();});
+    box.addEventListener('contextmenu',function(e){e.preventDefault();});
   })();
 
   /* privacy dialog */
@@ -1208,7 +1323,7 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
     {
       "@type": "VideoObject",
       "@id": "https://www.hai-beseret.com/#film2",
-      "name": "אני חייב לצלצל — סיפורו של ידיד",
+      "name": "אני צריך צלצל — סיפורו של ידיד",
       "description": "סרט ביוגרפי קולנועי קצר שנוצר ב\"חי בסרט\" — הלקוח הראשון של השירות (חבילת Feature).",
       "thumbnailUrl": "https://www.hai-beseret.com/film2-poster.jpg",
       "uploadDate": "2026-10-28",
