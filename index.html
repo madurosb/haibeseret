@@ -261,7 +261,13 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
 .film2.loading .film2__play{animation:f2pulse 1s ease-in-out infinite}
 @keyframes f2pulse{50%{opacity:.35}}
 .film2__ctl{position:absolute;inset-inline:0;bottom:0;z-index:6;display:flex;direction:ltr;align-items:center;gap:clamp(8px,1.6vw,16px);padding:clamp(22px,4vw,40px) clamp(12px,2.4vw,22px) clamp(10px,1.8vw,16px);background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
-.film2.playing.active .film2__ctl{opacity:1;pointer-events:auto;transform:none}
+.film2.playing.active .film2__ctl,.film2.playing.paused .film2__ctl{opacity:1;pointer-events:auto;transform:none}
+.film2__pause{position:absolute;inset:0;z-index:5;width:100%;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(22px) brightness(.7);backdrop-filter:blur(22px) brightness(.7);border:0;color:var(--white);cursor:pointer;font:inherit}
+.film2.playing.paused .film2__pause{display:flex}
+.film2__pause:hover .film2__play{background:var(--white);transform:scale(1.07)}
+.film2__pause:hover .film2__play svg{fill:var(--black)}
+.film2__pause span.lbl{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em}
+.f2b .i-play{display:none}.f2b.paused .i-play{display:inline}.f2b.paused .i-pause{display:none}
 .f2b{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.55);border:1px solid var(--line-strong);color:var(--white);font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;padding:9px 14px;cursor:pointer;transition:background .25s,color .25s}
 .f2b:hover{background:var(--white);color:var(--black)}
 .f2b svg{width:14px;height:14px;fill:currentColor;stroke:currentColor}
@@ -655,7 +661,16 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
         <span class="film2__play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
         <span class="lbl">PLAY</span>
       </button>
+      <button class="film2__pause" id="f2Overlay" aria-label="המשך צפייה">
+        <span class="film2__play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
+        <span class="lbl">PAUSED</span>
+      </button>
       <div class="film2__ctl" id="film2Ctl">
+        <button class="f2b" id="f2Pause" aria-label="השהיה / המשך">
+          <svg class="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+          <svg class="i-play" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>
+          <span class="f2lbl">PAUSE</span>
+        </button>
         <button class="f2b" id="f2Stop" aria-label="עצירה"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></svg>STOP</button>
         <div class="f2prog"><i id="f2Bar"></i></div>
         <span class="f2time" id="f2Time">0:00 / 0:00</span>
@@ -1160,15 +1175,16 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
     var VID='0aXC-xFX8Ro';
     var box=document.getElementById('film2'),big=document.getElementById('film2Btn'),stopB=document.getElementById('f2Stop'),
         muteB=document.getElementById('f2Mute'),vol=document.getElementById('f2Vol'),bar=document.getElementById('f2Bar'),
-        tim=document.getElementById('f2Time'),blk=document.getElementById('film2Block');
+        tim=document.getElementById('f2Time'),blk=document.getElementById('film2Block'),pauseB=document.getElementById('f2Pause'),ovl=document.getElementById('f2Overlay');
     if(!box||!big)return;
     var pl=null,ready=false,apiReady=false,want=false,tick=null,actT=null,introT=null,failT=null,created=false;
     function fmt(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+('0'+(t%60)).slice(-2);}
     function active(){box.classList.add('active');clearTimeout(actT);actT=setTimeout(function(){box.classList.remove('active');},2600);}
     function setMuteUI(m){muteB.classList.toggle('on',!m);}
     function intro(){box.classList.add('intro');clearTimeout(introT);introT=setTimeout(function(){box.classList.remove('intro');},4500);}
+    function setPauseUI(p){pauseB.classList.toggle('paused',p);var l=pauseB.querySelector('.f2lbl');if(l)l.textContent=p?'PLAY':'PAUSE';}
     function resetUI(){
-      box.classList.remove('playing','loading','active','intro');
+      box.classList.remove('playing','loading','active','intro','paused');setPauseUI(false);
       clearInterval(tick);clearTimeout(failT);bar.style.width='0';tim.textContent='0:00 / 0:00';
     }
     function create(){
@@ -1182,8 +1198,10 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
             if(want){try{pl.unMute();pl.setVolume(+vol.value||100);pl.playVideo();}catch(e){}}
           },
           onStateChange:function(e){
-            if(e.data===1){ /* playing */
-              clearTimeout(failT);
+            if(e.data===2){ /* paused */
+              if(box.classList.contains('playing')){box.classList.add('paused');setPauseUI(true);}
+            }else if(e.data===1){ /* playing */
+              clearTimeout(failT);box.classList.remove('paused');setPauseUI(false);
               box.classList.remove('loading');
               if(!box.classList.contains('playing')){box.classList.add('playing');intro();}
               active();
@@ -1226,6 +1244,12 @@ body.rolling .logo .rec{opacity:1;animation:blink 1.5s steps(1) infinite}
     }
     big.addEventListener('click',function(){doPlay();});
     stopB.addEventListener('click',function(ev){ev.stopPropagation();doStop();});
+    function togglePause(){
+      if(!ready||!box.classList.contains('playing'))return;
+      try{if(box.classList.contains('paused')){pl.playVideo();}else{pl.pauseVideo();}}catch(e){}
+    }
+    pauseB.addEventListener('click',function(ev){ev.stopPropagation();togglePause();active();});
+    ovl.addEventListener('click',function(){togglePause();});
     function setVol(v){
       try{
         if(v<=0){pl.mute();setMuteUI(true);}
