@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://www.hai-beseret.com/</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.hai-beseret.com/film2-poster.jpg</video:thumbnail_loc>
+      <video:title>אני חייב לצלצל — סיפורו של ידיד</video:title>
+      <video:description>סרט ביוגרפי קולנועי קצר שנוצר ב"חי בסרט" — הלקוח הראשון של השירות (חבילת Feature).</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/0aXC-xFX8Ro</video:player_loc>
+      <video:publication_date>2026-10-28</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 </urlset>
