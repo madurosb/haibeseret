@@ -6,7 +6,7 @@
 <title>Papus & Mamuska en Colombia</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="El viaje de Dora y Ricardo a la boda de Alexa & Leor en Medellín, Cali y el Eje Cafetero — febrero 2027.">
-<meta property="og:title" content="¡Papus & Mamuska se van a Colombia! 🇨🇴">
+<meta property="og:title" content="¡Papus & Mamuska se van a Colombia!">
 <meta property="og:description" content="Vuelos, hoteles, la boda, Cali con Fanny y cuánta guita llevar. Hecho con amor por Nir.">
 <meta property="og:image" content="https://www.hai-beseret.com/colombia-og.jpg">
 <meta name="theme-color" content="#FFCD00">
@@ -16,188 +16,291 @@
 <style>
 :root{
   --ink:#1b1530;
-  --paper:#FFF7E6;
+  --paper:#FFF8EA;
   --white:#ffffff;
   --amarillo:#FFCD00;
+  --amarillo-soft:#FFF1B0;
   --azul:#1F4FD8;
+  --azul-soft:#DCE6FF;
   --rojo:#E8253C;
+  --rojo-soft:#FFDCE1;
   --naranja:#FF7A1A;
+  --naranja-soft:#FFE3CC;
   --cian:#4ED3E3;
   --rosa:#FF5C8A;
   --verde:#14A44D;
+  --verde-soft:#D3F5DF;
   --cafe:#7A4A2A;
-  --muted:#5d5670;
-  --radius:18px;
+  --muted:#4f4862;
+  --radius:20px;
   --shadow:6px 6px 0 var(--ink);
   --shadow-sm:4px 4px 0 var(--ink);
+  --head:72px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--head) + 16px)}
 body{
   margin:0;color:var(--ink);background:var(--paper);
-  font-family:"Baloo 2",system-ui,sans-serif;font-size:17px;line-height:1.5;
-  background-image:radial-gradient(rgba(27,21,48,.07) 1.4px,transparent 1.6px);
-  background-size:16px 16px;
+  font-family:"Baloo 2",system-ui,sans-serif;font-size:19px;line-height:1.6;font-weight:500;
   overflow-x:hidden;
 }
+@media(max-width:600px){body{font-size:18px}}
 a{color:var(--azul);font-weight:700}
 h1,h2,h3,.bang{font-family:Bangers,"Baloo 2",sans-serif;letter-spacing:.04em;font-weight:400;margin:0}
-.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+p{margin:0 0 10px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+svg.ic{width:1em;height:1em;fill:currentColor;flex:none}
 
-/* ---------- flag stripe ---------- */
-.flag{height:14px;background:linear-gradient(var(--amarillo) 0 50%,var(--azul) 50% 75%,var(--rojo) 75%);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+/* ---------- flags (drawn in CSS so they show on every device) ---------- */
+.fl{display:inline-block;width:1.35em;height:.92em;border:2px solid var(--ink);border-radius:3px;vertical-align:-.1em;position:relative;overflow:hidden;flex:none}
+.fl.co{background:linear-gradient(#FFCD00 0 50%,#1F3E9C 50% 75%,#D4142B 75%)}
+.fl.es{background:linear-gradient(#C1121F 0 25%,#FFC400 25% 75%,#C1121F 75%)}
+.fl.il{background:linear-gradient(#fff 0 13%,#1F3E9C 13% 27%,#fff 27% 73%,#1F3E9C 73% 87%,#fff 87%)}
+.fl.il::after{content:"✡";position:absolute;inset:0;display:grid;place-items:center;color:#1F3E9C;font-size:.62em;line-height:1;font-weight:800}
 
-/* ---------- nav ---------- */
-nav{position:sticky;top:0;z-index:20;background:var(--amarillo);border-bottom:3px solid var(--ink)}
-nav .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 16px;scrollbar-width:none}
-nav .wrap::-webkit-scrollbar{display:none}
-nav a{flex:none;text-decoration:none;color:var(--ink);background:var(--white);border:2.5px solid var(--ink);border-radius:999px;padding:3px 13px;font-weight:800;font-size:15px;box-shadow:2px 2px 0 var(--ink);white-space:nowrap}
-nav a:active{transform:translate(2px,2px);box-shadow:none}
+.stripe{height:12px;background:linear-gradient(var(--amarillo) 0 50%,var(--azul) 50% 75%,var(--rojo) 75%);border-bottom:3px solid var(--ink)}
+
+/* ---------- sticky header + big menu ---------- */
+.top{position:sticky;top:0;z-index:50;background:var(--amarillo);border-bottom:3px solid var(--ink);box-shadow:0 4px 0 rgba(27,21,48,.12)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1240px;margin:0 auto;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:Bangers;font-size:26px;letter-spacing:.05em;white-space:nowrap}
+.menu-btn{display:none;font:inherit;font-weight:800;font-size:18px;background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:6px 16px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+.menu{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.menu a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink);background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:5px 13px;font-weight:800;font-size:17px;box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:transform .1s}
+.menu a:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.menu a.on{background:var(--azul);color:#fff}
+@media(max-width:1180px){
+  .menu-btn{display:inline-flex;align-items:center;gap:8px}
+  .menu{display:none;position:absolute;left:0;right:0;top:100%;background:var(--amarillo);border-bottom:3px solid var(--ink);padding:14px 16px 18px;display:none;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .top.open .menu{display:grid}
+  .menu a{font-size:19px;padding:12px 14px;justify-content:flex-start}
+}
 
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;border-bottom:3px solid var(--ink);
-  background:repeating-conic-gradient(from 0deg at 50% 38%,var(--naranja) 0 9deg,var(--amarillo) 9deg 18deg,var(--cian) 18deg 27deg,var(--amarillo) 27deg 36deg)}
-.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(255,247,230,.0) 0,rgba(255,247,230,.0) 30%,rgba(255,247,230,.35) 75%);pointer-events:none}
-.hero .wrap{position:relative;z-index:1;padding-top:34px;padding-bottom:42px;display:grid;gap:26px;grid-template-columns:1fr;align-items:center}
-@media(min-width:820px){.hero .wrap{grid-template-columns:1.05fr .95fr}}
-.dedica{display:inline-block;background:var(--rojo);color:#fff;border:3px solid var(--ink);box-shadow:var(--shadow-sm);padding:4px 14px;font-family:Bangers;font-size:22px;letter-spacing:.08em;transform:rotate(-2deg)}
-.hero h1{font-size:clamp(52px,12vw,104px);line-height:.9;margin:14px 0 10px;color:var(--white);
+  background:repeating-conic-gradient(from 0deg at 70% 45%,#FF9A4D 0 9deg,#FFD84D 9deg 18deg,#7FE0EA 18deg 27deg,#FFD84D 27deg 36deg)}
+.hero .wrap{position:relative;padding-top:40px;padding-bottom:48px;display:grid;gap:34px;grid-template-columns:1fr;align-items:center}
+@media(min-width:880px){.hero .wrap{grid-template-columns:1.15fr .85fr}}
+.dedica{display:inline-block;background:var(--rojo);color:#fff;border:3px solid var(--ink);box-shadow:var(--shadow-sm);padding:4px 16px;font-family:Bangers;font-size:24px;letter-spacing:.08em;transform:rotate(-2deg)}
+.hero h1{font-size:clamp(54px,11vw,100px);line-height:.92;margin:16px 0 18px;color:var(--white);
   -webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink)}
-.hero h1 .y{color:var(--amarillo)}
-.hero h1 .r{color:var(--rojo)}
-.hero h1 .b{color:var(--cian)}
-.hero .lead{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;font-size:18px;position:relative}
-.hero .lead b{color:var(--rojo)}
-.hero .lead .firma{display:block;margin-top:8px;font-family:Bangers;font-size:24px;color:var(--azul);letter-spacing:.06em}
-.pic{position:relative;justify-self:center;max-width:430px;width:100%}
-.pic img{display:block;width:100%;border:4px solid var(--ink);border-radius:14px;box-shadow:10px 10px 0 var(--ink);transform:rotate(1.5deg);background:#fff}
-.bubble{position:absolute;background:var(--white);border:3px solid var(--ink);border-radius:20px;padding:6px 12px;font-weight:800;font-size:15px;line-height:1.2;box-shadow:3px 3px 0 var(--ink);max-width:170px}
-.bubble::after{content:"";position:absolute;width:16px;height:16px;background:var(--white);border-right:3px solid var(--ink);border-bottom:3px solid var(--ink)}
-.bubble.l{left:-8px;top:46%;transform:rotate(-4deg)}
-.bubble.l::after{bottom:-10px;left:26px;transform:rotate(45deg)}
-.bubble.r{right:-8px;top:39%;transform:rotate(3deg)}
-.bubble.r::after{bottom:-10px;right:30px;transform:rotate(45deg)}
-@media(max-width:480px){.bubble{font-size:13px;max-width:140px}.bubble.l{left:-4px}.bubble.r{right:-4px}}
+.hero h1 .y{color:var(--amarillo)}.hero h1 .r{color:var(--rojo)}.hero h1 .b{color:var(--cian)}
+.lead{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;font-size:20px;line-height:1.6}
+.lead b{color:var(--rojo)}
+.lead .firma{display:block;margin-top:10px;font-family:Bangers;font-size:28px;color:var(--azul);letter-spacing:.05em}
+.count{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:flex-end}
+.count .lbl{width:100%;font-weight:800;font-size:18px}
+.count .c{background:var(--azul);color:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:var(--shadow-sm);padding:6px 10px;text-align:center;min-width:80px}
+.count .c b{display:block;font-family:Bangers;font-size:40px;line-height:1;letter-spacing:.04em}
+.count .c span{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
 
-.count{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.count .c{background:var(--azul);color:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:var(--shadow-sm);padding:6px 12px;text-align:center;min-width:76px}
-.count .c b{display:block;font-family:Bangers;font-size:36px;line-height:1;letter-spacing:.05em}
-.count .c span{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-.count .lbl{width:100%;font-weight:800;font-size:15px}
+.pic{justify-self:center;width:100%;max-width:380px}
+.pic img{display:block;width:100%;height:auto;border:4px solid var(--ink);border-radius:16px;box-shadow:10px 10px 0 var(--ink);background:#fff}
+.talk{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.say{position:relative;background:var(--white);border:3px solid var(--ink);border-radius:18px;padding:10px 12px;font-weight:800;font-size:16px;line-height:1.3;box-shadow:3px 3px 0 var(--ink)}
+.say small{display:block;font-weight:700;color:var(--muted);font-size:13px;margin-top:4px}
+.say::before{content:"";position:absolute;top:-11px;width:18px;height:18px;background:var(--white);border-left:3px solid var(--ink);border-top:3px solid var(--ink);transform:rotate(45deg)}
+.say.l::before{left:34px}.say.r::before{right:34px}
 
 /* ---------- sections ---------- */
-section{padding:46px 0 10px}
-.sh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
-.sh h2{font-size:clamp(34px,7vw,52px);line-height:1;background:var(--c,var(--azul));color:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);padding:6px 16px 2px;transform:rotate(-1.2deg);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill}
-.sh .emoji{font-size:40px;line-height:1}
-.sub{font-size:18px;color:var(--muted);font-weight:600;margin:12px 0 20px;max-width:720px}
+section{padding:64px 0 8px}
+.sh{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.sh h2{font-size:clamp(40px,7vw,58px);line-height:1;background:var(--c,var(--azul));color:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);padding:8px 20px 4px;transform:rotate(-1deg);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill}
+.sh .emoji{font-size:44px;line-height:1}
+.sub{font-size:20px;color:var(--muted);font-weight:600;margin:0 0 26px;max-width:760px}
+h3.part{font-size:34px;margin:40px 0 16px;display:flex;align-items:center;gap:10px}
 
-.card{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;position:relative}
-.grid{display:grid;gap:20px}
-@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
-.card h3{font-size:28px;line-height:1.05;margin-bottom:6px}
-.card p{margin:6px 0}
-.tag{display:inline-block;font-size:13px;font-weight:800;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;margin:2px 4px 2px 0;background:var(--paper)}
-.tag.g{background:#C9F3D6}.tag.y{background:#FFF0A8}.tag.r{background:#FFD0D6}.tag.b{background:#CFE0FF}
-.sticker{position:absolute;top:-16px;right:12px;background:var(--rosa);color:#fff;font-family:Bangers;font-size:19px;letter-spacing:.06em;padding:3px 12px;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transform:rotate(4deg)}
-.sticker.v{background:var(--verde)}.sticker.y{background:var(--amarillo);color:var(--ink)}.sticker.a{background:var(--azul)}
-.note{background:#FFF0A8;border:3px dashed var(--ink);border-radius:14px;padding:12px 16px;font-weight:600;margin:20px 0}
+.card{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column}
+.card h3{font-size:30px;line-height:1.1;margin:0 0 8px}
+.card > .btn:last-child,.card > .btns:last-child{margin-top:auto}
+.grid{display:grid;gap:24px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:760px) and (max-width:1000px){.g3{grid-template-columns:1fr 1fr}}
+
+.labels{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.label{display:inline-flex;align-items:center;gap:6px;font-family:Bangers;font-size:19px;letter-spacing:.06em;line-height:1;padding:7px 12px 5px;border:2.5px solid var(--ink);border-radius:10px;background:var(--amarillo)}
+.label.g{background:var(--verde);color:#fff}.label.r{background:var(--rosa);color:#fff}.label.b{background:var(--azul);color:#fff}.label.o{background:var(--naranja);color:#fff}.label.w{background:var(--white)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 14px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:800;border:2px solid var(--ink);border-radius:999px;padding:2px 12px;background:var(--paper)}
+.chip.g{background:var(--verde-soft)}.chip.y{background:var(--amarillo-soft)}.chip.b{background:var(--azul-soft)}.chip.r{background:var(--rojo-soft)}
+
+ul.feats{list-style:none;padding:0;margin:4px 0 16px}
+ul.feats li{position:relative;padding:5px 0 5px 32px;line-height:1.45}
+ul.feats li::before{content:"✓";position:absolute;left:0;top:7px;width:22px;height:22px;border-radius:50%;background:var(--verde);color:#fff;font-size:14px;font-weight:800;display:grid;place-items:center;border:2px solid var(--ink)}
+ul.feats li.x::before{content:"!";background:var(--naranja)}
+ul.feats li.i::before{content:"i";background:var(--azul)}
+
+.note{display:flex;gap:14px;background:var(--amarillo-soft);border:3px solid var(--ink);border-radius:16px;padding:16px 20px;font-weight:600;margin:28px 0 0;line-height:1.55}
+.note .ni{font-size:30px;line-height:1.2}
 .note b{color:var(--rojo)}
-.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:var(--azul);color:#fff;border:3px solid var(--ink);border-radius:12px;padding:6px 14px;font-weight:800;box-shadow:3px 3px 0 var(--ink);margin:8px 8px 0 0;font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;background:var(--azul);color:#fff;border:3px solid var(--ink);border-radius:14px;padding:9px 18px;font-weight:800;box-shadow:3px 3px 0 var(--ink);font-size:18px;align-self:flex-start}
 .btn.y{background:var(--amarillo);color:var(--ink)}.btn.g{background:var(--verde)}.btn.r{background:var(--rojo)}
 .btn:active{transform:translate(3px,3px);box-shadow:none}
-
-/* ---------- route ---------- */
-.route{display:flex;gap:0;overflow-x:auto;padding:10px 4px 22px;scrollbar-width:thin}
-.stop{flex:none;width:132px;text-align:center;position:relative}
-.stop:not(:last-child)::after{content:"✈";position:absolute;right:-12px;top:22px;font-size:20px;color:var(--ink)}
-.stop .dot{width:64px;height:64px;margin:0 auto 6px;border-radius:50%;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;font-size:30px;background:var(--c,var(--white))}
-.stop b{display:block;font-size:16px;line-height:1.1}
-.stop small{display:block;color:var(--muted);font-weight:700;font-size:13px}
-
-/* ---------- itinerary ---------- */
-.days{display:grid;gap:14px}
-.day{display:grid;grid-template-columns:86px 1fr;gap:14px;align-items:start}
-.date{background:var(--c,var(--amarillo));border:3px solid var(--ink);border-radius:14px;box-shadow:3px 3px 0 var(--ink);text-align:center;padding:6px 4px;font-weight:800;line-height:1.05}
-.date b{display:block;font-family:Bangers;font-size:34px;letter-spacing:.04em}
-.date span{font-size:13px;text-transform:uppercase}
-.day .card{padding:12px 16px;box-shadow:var(--shadow-sm)}
-.day .card h3{font-size:24px}
-.day ul{margin:6px 0 0;padding-left:20px}
-.day li{margin:2px 0}
-.t{font-weight:800;color:var(--azul);white-space:nowrap}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
 
 /* ---------- prices ---------- */
-.price{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
-.pp{flex:1 1 120px;border:2.5px solid var(--ink);border-radius:12px;padding:6px 10px;background:var(--paper)}
-.pp small{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.pp b{font-family:Bangers;font-size:32px;letter-spacing:.03em;line-height:1.05}
-.pp.couple{background:#FFF0A8}
-.pp.total{background:var(--verde);color:#fff}
-.pp.total small{color:#eafff0}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 16px}
+.pbox{border:2.5px solid var(--ink);border-radius:14px;padding:8px 14px;background:var(--paper)}
+.pbox small{display:block;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.pbox b{font-family:Bangers;font-size:36px;letter-spacing:.03em;line-height:1.05;display:block}
+.pbox .x{display:block;font-size:14px;font-weight:700;color:var(--muted)}
+.pbox.hi{background:var(--amarillo-soft)}
+.pbox.tot{background:var(--verde);color:#fff}.pbox.tot small,.pbox.tot .x{color:#eafff0}
 
-.flight{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:8px 0}
-.flight .code{font-family:Bangers;font-size:44px;line-height:1;letter-spacing:.04em}
-.flight .code small{display:block;font-family:"Baloo 2";font-size:13px;font-weight:700;color:var(--muted);letter-spacing:0}
-.flight .mid{text-align:center;font-size:26px}
-.flight .end{text-align:right}
+/* ---------- route legs (flights / trains) ---------- */
+.when{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.when .d{font-weight:800;font-size:18px}
+.leg{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin:4px 0 18px}
+.pt b{display:block;font-family:Bangers;font-size:50px;line-height:.95;letter-spacing:.04em}
+.pt span{display:block;font-weight:700;color:var(--muted);font-size:16px;line-height:1.2}
+.pt em{display:inline-block;font-style:normal;font-weight:800;font-size:19px;color:var(--azul);margin-top:2px}
+.pt em small{font-size:13px;color:var(--muted)}
+.pt.end{text-align:right}
+.path{position:relative;height:56px;min-width:70px}
+.path::before{content:"";position:absolute;left:2px;right:8px;top:50%;border-top:3px dashed var(--ink)}
+.path::after{content:"";position:absolute;right:0;top:50%;transform:translateY(-50%);border-left:14px solid var(--ink);border-top:8px solid transparent;border-bottom:8px solid transparent}
+.path .icw{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--c,var(--azul));border:3px solid var(--ink);display:grid;place-items:center;color:#fff}
+.path .icw svg{width:24px;height:24px}
+.path .icw.plane svg{transform:rotate(90deg)}
+.path .dur{position:absolute;left:50%;top:-8px;transform:translateX(-50%);font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap;background:var(--white);padding:0 6px}
+@media(max-width:420px){.pt b{font-size:40px}.path{min-width:54px}}
 
-table{width:100%;border-collapse:collapse;font-size:16px}
-th,td{text-align:left;padding:8px 10px;border-bottom:2px dashed rgba(27,21,48,.18);vertical-align:top}
-th{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+/* ---------- route overview ---------- */
+.route{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:18px 10px}
+.stop{text-align:center}
+.stop .dot{width:66px;height:66px;margin:0 auto 8px;border-radius:50%;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:grid;place-items:center;font-size:30px;background:var(--c,var(--white))}
+.stop .dot .fl{font-size:28px}
+.stop .n{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;font-size:12px;font-weight:800;padding:0 8px;margin-bottom:4px}
+.stop b{display:block;font-size:18px;line-height:1.15}
+.stop small{display:block;color:var(--muted);font-weight:700;font-size:14px;line-height:1.3}
+
+/* ---------- itinerary ---------- */
+.days{display:grid;gap:18px}
+.day{display:grid;grid-template-columns:92px 1fr;gap:16px;align-items:start}
+.date{background:var(--c,var(--amarillo));border:3px solid var(--ink);border-radius:16px;box-shadow:3px 3px 0 var(--ink);text-align:center;padding:8px 4px;font-weight:800;line-height:1.05}
+.date b{display:block;font-family:Bangers;font-size:38px;letter-spacing:.03em}
+.date span{font-size:14px;text-transform:uppercase}
+.date.dk{color:#fff}
+.day .card{padding:16px 20px;box-shadow:var(--shadow-sm)}
+.day .card h3{font-size:27px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.day ul{margin:6px 0 0;padding-left:22px}
+.day li{margin:4px 0}
+.t{font-weight:800;color:var(--azul);white-space:nowrap}
+@media(max-width:480px){.day{grid-template-columns:72px 1fr;gap:12px}.date b{font-size:32px}.day .card{padding:14px 16px}}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:17px}
+th,td{text-align:left;padding:10px 10px;border-bottom:2px dashed rgba(27,21,48,.16);vertical-align:middle}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 td.n,th.n{text-align:right;white-space:nowrap;font-weight:800}
 tr.tot td{border-top:3px solid var(--ink);border-bottom:none;font-size:20px;font-weight:800}
-.tablewrap{overflow-x:auto;margin:0 -6px;padding:0 6px}
+tr.hl td{background:var(--amarillo-soft)}
 
-.bigtotal{background:var(--rojo);color:#fff;border:4px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;text-align:center;margin-top:22px}
-.bigtotal .bang{font-size:62px;line-height:1;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--ink)}
-.bigtotal p{margin:4px 0;font-weight:700}
+/* ---------- money ---------- */
+.rule{display:flex;gap:16px;align-items:center;background:var(--cian);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:10px}
+.rule .bang{font-size:32px;line-height:1.05;margin-bottom:4px}
+.rule .ico{font-size:50px}
+.tiers{display:grid;gap:10px;margin:6px 0 14px}
+.tier{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;border:2.5px solid var(--ink);border-radius:14px;padding:10px 14px;background:var(--paper)}
+.tier .nm{font-weight:800;line-height:1.2}
+.tier .nm small{display:block;font-weight:600;color:var(--muted);font-size:14px}
+.tier .v{text-align:right;line-height:1}
+.tier .v b{font-family:Bangers;font-size:30px;letter-spacing:.03em}
+.tier .v small{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.tier.main{background:var(--amarillo-soft);border-width:3.5px}
+.tier.main .nm::after{content:"PROMEDIO";display:inline-block;margin-left:8px;font-size:11px;background:var(--rojo);color:#fff;border-radius:6px;padding:1px 6px;vertical-align:2px;letter-spacing:.06em}
+.bigtotal{background:var(--rojo);color:#fff;border:4px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px;text-align:center;margin-top:26px}
+.bigtotal .bang{font-size:clamp(46px,9vw,72px);line-height:1;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--ink)}
+.bigtotal p{margin:10px auto 0;font-weight:700;max-width:640px}
 
-.rule{display:flex;gap:14px;align-items:center;background:var(--cian);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;margin:20px 0}
-.rule .bang{font-size:30px;line-height:1.05}
-.rule .ico{font-size:46px}
+/* ---------- hotel verdict ---------- */
+.score{display:flex;align-items:center;gap:10px;min-width:150px}
+.score .bar{flex:1;height:14px;border:2px solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
+.score .bar i{display:block;height:100%;background:var(--verde)}
+.score b{font-family:Bangers;font-size:26px;letter-spacing:.03em;min-width:34px;text-align:right}
+.win{border-width:4px}
+.win .medal{font-size:40px;line-height:1;margin-bottom:6px}
 
-/* ---------- who ---------- */
-.who{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin-top:20px;text-align:center}
-.who .bang{font-size:26px}
-.who button{font:inherit;font-weight:800;font-size:16px;cursor:pointer;border:3px solid var(--ink);border-radius:12px;padding:6px 14px;margin:6px 4px 0;box-shadow:3px 3px 0 var(--ink);background:var(--amarillo)}
+/* ---------- wip ---------- */
+.wip{background:repeating-linear-gradient(-45deg,var(--amarillo) 0 18px,var(--ink) 18px 36px);padding:10px;border-radius:calc(var(--radius) + 6px);border:3px solid var(--ink);box-shadow:var(--shadow)}
+.wip .card{box-shadow:none;height:100%}
+
+/* ---------- to-do ---------- */
+.prog{display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap}
+.prog .bar{flex:1;min-width:180px;height:22px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amarillo),var(--verde));transition:width .4s}
+.prog b{font-family:Bangers;font-size:28px;letter-spacing:.04em}
+.prog-msg{font-weight:700;color:var(--muted);margin-bottom:8px;min-height:1.6em}
+.todo{list-style:none;padding:0;margin:0}
+.todo li{border-bottom:2px dashed rgba(27,21,48,.14)}
+.todo li:last-child{border-bottom:none}
+.todo label{display:flex;align-items:center;gap:14px;padding:12px 4px;cursor:pointer;font-weight:700;user-select:none;-webkit-tap-highlight-color:transparent}
+.todo input{position:absolute;opacity:0;pointer-events:none}
+.todo .box{flex:none;width:32px;height:32px;border:3px solid var(--ink);border-radius:9px;background:var(--white);display:grid;place-items:center;font-weight:800;color:#fff;font-size:20px;box-shadow:2px 2px 0 var(--ink);transition:transform .15s,background .15s}
+.todo input:checked + .box{background:var(--verde);transform:rotate(-6deg) scale(1.08)}
+.todo input:checked + .box::after{content:"✓"}
+.todo input:focus-visible + .box{outline:3px solid var(--azul);outline-offset:2px}
+.todo input:checked ~ .txt{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--rojo);color:var(--muted)}
+
+.who{text-align:center;margin-top:28px;align-items:center}
+.who .bang{font-size:30px;margin-bottom:6px}
+.who .btns{justify-content:center}
+.who button{font:inherit;font-weight:800;font-size:18px;cursor:pointer;border:3px solid var(--ink);border-radius:14px;padding:8px 18px;box-shadow:3px 3px 0 var(--ink);background:var(--amarillo)}
 .who button.on{background:var(--verde);color:#fff}
 .who button:active{transform:translate(3px,3px);box-shadow:none}
-.who p{margin:6px 0 0;font-weight:700;color:var(--muted)}
+.who p{margin:12px 0 0;font-weight:700;color:var(--muted)}
 
-ul.check{list-style:none;padding:0;margin:0}
-ul.check li{padding:9px 0 9px 38px;position:relative;border-bottom:2px dashed rgba(27,21,48,.15);font-weight:600}
-ul.check li::before{content:"";position:absolute;left:2px;top:10px;width:22px;height:22px;border:3px solid var(--ink);border-radius:6px;background:var(--white)}
-ul.check li.ok::before{background:var(--verde)}
-ul.check li.ok::after{content:"✓";position:absolute;left:7px;top:6px;color:#fff;font-weight:800}
-
-.wip{background:repeating-linear-gradient(-45deg,var(--amarillo) 0 18px,var(--ink) 18px 36px);padding:10px;border-radius:var(--radius);border:3px solid var(--ink);box-shadow:var(--shadow)}
-.wip .card{box-shadow:none}
-
-footer{margin-top:56px;background:var(--ink);color:#fff;text-align:center;padding:30px 16px 40px}
-footer .bang{font-size:34px;color:var(--amarillo)}
-footer p{margin:6px 0;color:#d8d3ea}
+footer{margin-top:72px;background:var(--ink);color:#fff;text-align:center;padding:36px 16px 44px}
+footer .bang{font-size:38px;color:var(--amarillo);display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
+footer p{margin:8px 0;color:#d8d3ea}
 footer a{color:var(--cian)}
-.src{font-size:13px;color:var(--muted);margin-top:10px}
+.src{font-size:14px;color:var(--muted);margin-top:14px;line-height:1.5}
 .src a{font-weight:600}
 </style>
 </head>
 <body>
 
-<div class="flag"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="plane" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></symbol>
+  <symbol id="train" viewBox="0 0 24 24"><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h2.23l2-2H14l2 2h2v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-7H6V6h5v4zm2 0V6h5v4h-5zm3.5 7c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
+</svg>
+
+<div class="stripe"></div>
+
+<!-- ================= STICKY MENU ================= -->
+<header class="top" id="top">
+  <div class="bar">
+    <a class="brand" href="#inicio"><span class="fl co"></span> Papus &amp; Mamuska</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">☰ Menú</button>
+    <nav class="menu" id="menu">
+      <a href="#plan">🗺️ El plan</a>
+      <a href="#dia">📅 Día a día</a>
+      <a href="#boda">💍 La boda</a>
+      <a href="#vuelos">✈️ Vuelos</a>
+      <a href="#trenes">🚆 Trenes</a>
+      <a href="#madrid"><span class="fl es"></span> Madrid</a>
+      <a href="#medellin">🏨 Medellín</a>
+      <a href="#cali">💃 Cali</a>
+      <a href="#guita">💸 La guita</a>
+      <a href="#tips">🧉 Tips</a>
+      <a href="#pendientes">✅ Pendientes</a>
+    </nav>
+  </div>
+</header>
 
 <!-- ================= HERO ================= -->
-<header class="hero">
+<div class="hero" id="inicio">
   <div class="wrap">
     <div>
       <span class="dedica">PARA PAPUS Y MAMUSKA ❤️</span>
-      <h1><span class="y">¡Nos</span> <span class="b">vamos</span><br>a <span class="r">Colombia,</span> <span class="y">che!</span></h1>
+      <h1><span class="y">¡Nos</span> <span class="b">vamos</span> a <span class="r">Colombia,</span> <span class="y">che!</span></h1>
       <div class="lead">
         Dora, Ricardo: esta página la armé yo para ustedes, para que organicen <b>el viaje a la boda de Alexa &amp; Leor</b> y todo el paseo (Madrid, Medellín, Cali con Fanny y el Eje Cafetero) <b>sin quilombo</b>.
         Acá está todo lo que averigüé: vuelos, trenes, hoteles, la boda y cuánta guita llevar. Si algo cambia, lo actualizo acá. ¡Ustedes solo preocúpense por el baile!
         <span class="firma">— Con todo el amor, Nir 😘</span>
       </div>
-      <div class="count" id="count">
+      <div class="count">
         <div class="lbl">⏳ Faltan para despegar de Ben Gurión:</div>
         <div class="c"><b id="cd-d">--</b><span>días</span></div>
         <div class="c"><b id="cd-h">--</b><span>horas</span></div>
@@ -207,517 +310,571 @@ footer a{color:var(--cian)}
     </div>
     <div class="pic">
       <img src="colombia-papus.jpg" alt="Dibujo cómic de Ricardo y Dora planeando el viaje a la boda en Colombia, febrero 2027" width="820" height="1468">
-      <div class="bubble l">¿Y quién lleva las valijas, Dora?</div>
-      <div class="bubble r">¡Vos, Ricardo! Yo llevo el mapa 😎</div>
+      <div class="talk">
+        <div class="say l">¿Y quién lleva las valijas, Dora?<small>— Ricardo</small></div>
+        <div class="say r">¡Vos, Ricardo! Yo llevo el mapa 😎<small>— Dora</small></div>
+      </div>
     </div>
   </div>
-</header>
-
-<div class="flag"></div>
-
-<nav>
-  <div class="wrap">
-    <a href="#plan">🗺️ El plan</a>
-    <a href="#dia">📅 Día a día</a>
-    <a href="#boda">💍 La boda</a>
-    <a href="#vuelos">✈️ Vuelos</a>
-    <a href="#trenes">🚆 Trenes</a>
-    <a href="#madrid">🇪🇸 Madrid</a>
-    <a href="#medellin">🏨 Medellín</a>
-    <a href="#cali">💃 Cali</a>
-    <a href="#guita">💸 La guita</a>
-    <a href="#tips">🧉 Tips</a>
-    <a href="#pendientes">✅ Pendientes</a>
-  </div>
-</nav>
+</div>
 
 <main class="wrap">
 
 <!-- ================= PLAN ================= -->
 <section id="plan">
-  <div class="sh"><h2 style="--c:var(--naranja)">El plan en 30 segundos</h2><span class="emoji">🗺️</span></div>
-  <p class="sub">O sea, lo que tarda en enfriarse un mate. 17 días, 6 aviones, 1 boda, 1 hermana, mucho café y cero estrés (bueno, poquito).</p>
+  <div class="sh"><h2 style="--c:var(--naranja)">El plan</h2><span class="emoji">🗺️</span></div>
+  <p class="sub">En 30 segundos (lo que tarda en enfriarse un mate): 17 días, 6 aviones, 1 boda, 1 hermana y mucho café.</p>
   <div class="card">
     <div class="route">
-      <div class="stop" style="--c:#CFE0FF"><div class="dot">🏠</div><b>Kiryat Motzkin</b><small>2/2 · tren</small></div>
-      <div class="stop" style="--c:#FFF0A8"><div class="dot">🇮🇱</div><b>Tel Aviv</b><small>2/2 · Air Europa</small></div>
-      <div class="stop" style="--c:#FFD0D6"><div class="dot">🥘</div><b>Madrid</b><small>1 noche de tapas</small></div>
-      <div class="stop" style="--c:#C9F3D6"><div class="dot">💍</div><b>Medellín</b><small>3/2 → 8/2 · ¡la boda!</small></div>
-      <div class="stop" style="--c:#FFE0C2"><div class="dot">💃</div><b>Cali</b><small>8/2 → 17/2 · Fanny</small></div>
-      <div class="stop" style="--c:#E6D3C3"><div class="dot">☕</div><b>Eje Cafetero</b><small>desde Cali · a confirmar</small></div>
-      <div class="stop" style="--c:#C9F3D6"><div class="dot">🔁</div><b>Medellín</b><small>17/2 · Avianca</small></div>
-      <div class="stop" style="--c:#FFD0D6"><div class="dot">⏱️</div><b>Madrid</b><small>18/2 · escala 6 h</small></div>
-      <div class="stop" style="--c:#CFE0FF"><div class="dot">🛌</div><b>Casita</b><small>19/2 · 05:39</small></div>
+      <div class="stop" style="--c:var(--azul-soft)"><div class="dot">🏠</div><span class="n">1</span><b>Kiryat Motzkin</b><small>Mar 2/2 · tren</small></div>
+      <div class="stop" style="--c:var(--amarillo-soft)"><div class="dot"><span class="fl il"></span></div><span class="n">2</span><b>Tel Aviv</b><small>Mar 2/2 · Air Europa</small></div>
+      <div class="stop" style="--c:var(--rojo-soft)"><div class="dot"><span class="fl es"></span></div><span class="n">3</span><b>Madrid</b><small>1 noche de tapas</small></div>
+      <div class="stop" style="--c:var(--verde-soft)"><div class="dot">💍</div><span class="n">4</span><b>Medellín</b><small>3/2 → 8/2 · ¡la boda!</small></div>
+      <div class="stop" style="--c:var(--naranja-soft)"><div class="dot">💃</div><span class="n">5</span><b>Cali</b><small>8/2 → 17/2 · Fanny</small></div>
+      <div class="stop" style="--c:#EBDCCF"><div class="dot">☕</div><span class="n">6</span><b>Eje Cafetero</b><small>Desde Cali · a confirmar</small></div>
+      <div class="stop" style="--c:var(--verde-soft)"><div class="dot"><span class="fl co"></span></div><span class="n">7</span><b>Medellín</b><small>Mié 17/2 · Avianca</small></div>
+      <div class="stop" style="--c:var(--rojo-soft)"><div class="dot">⏱️</div><span class="n">8</span><b>Madrid</b><small>Jue 18/2 · escala 6 h</small></div>
+      <div class="stop" style="--c:var(--azul-soft)"><div class="dot">🛌</div><span class="n">9</span><b>¡Casita!</b><small>Vie 19/2 · 05:39</small></div>
     </div>
   </div>
-  <div class="note">💡 <b>¿Por qué salir el 2 y no el 3 o el 4?</b> Porque con los vuelos es lo más conveniente en precio, y salir más tarde ya los deja muy justos para llegar a la <b>cena de Shabat del viernes 5</b> en Medellín. Y de yapa, se ganan una noche en Madrid. 🍷</div>
+  <div class="note"><span class="ni">💡</span><div><b>¿Por qué salir el 2 y no el 3 o el 4?</b> Porque es lo más conveniente en precio de vuelos, y salir más tarde ya los deja muy justos para la <b>cena de Shabat del viernes 5</b> en Medellín. De yapa, se ganan una noche en Madrid. 🍷</div></div>
 </section>
 
 <!-- ================= DIA A DIA ================= -->
 <section id="dia">
   <div class="sh"><h2 style="--c:var(--azul)">Día a día</h2><span class="emoji">📅</span></div>
-  <p class="sub">Horarios locales de cada lugar. Madrid está 1 hora atrás de Israel, y Colombia 7 horas atrás. (Sí, Ricardo, el reloj del celu se cambia solo.)</p>
+  <p class="sub">Horarios locales. Madrid está 1 hora atrás de Israel y Colombia 7 horas atrás. (Sí, Ricardo, el celu cambia la hora solo.)</p>
   <div class="days">
 
     <div class="day"><div class="date"><b>2</b><span>mar · feb</span></div>
-      <div class="card"><h3>🇮🇱 → 🇪🇸 ¡Arrancamos!</h3><ul>
+      <div class="card"><h3><span class="fl il"></span> → <span class="fl es"></span> ¡Arrancamos!</h3><ul>
         <li><span class="t">12:03</span> tren Kiryat Motzkin → Ben Gurión (llega <span class="t">13:48</span>)</li>
-        <li><span class="t">16:05</span> vuelo Air Europa TLV → Madrid, aterrizan <span class="t">20:30</span></li>
-        <li>Dejan las valijas en la consigna del aeropuerto y se van livianitos a la ciudad 🧳➡️🏙️</li>
+        <li><span class="t">16:05</span> vuelo Air Europa a Madrid, aterrizan <span class="t">20:30</span></li>
+        <li>Dejan las valijas en la consigna del aeropuerto y van livianitos a la ciudad</li>
         <li>Check-in en el hotel y a cenar unas tapas. ¡Olé!</li></ul></div></div>
 
     <div class="day"><div class="date"><b>3</b><span>mié · feb</span></div>
-      <div class="card"><h3>🇪🇸 → 🇨🇴 Churros y despegue</h3><ul>
-        <li>Mañana de paseo: Palacio Real, Plaza Mayor, chocolate con churros 🍫</li>
-        <li><span class="t">~12:00</span> vuelta al aeropuerto, retirar valijas y hacer check-in</li>
-        <li><span class="t">15:25</span> Avianca Madrid → Medellín, aterrizan <span class="t">19:45</span> (hora Colombia)</li>
-        <li>Taxi al hotel (~45–60 min) y a dormir, que fue un día largo 😴</li></ul></div></div>
+      <div class="card"><h3><span class="fl es"></span> → <span class="fl co"></span> Churros y despegue</h3><ul>
+        <li>Mañana de paseo: Palacio Real, Plaza Mayor y chocolate con churros</li>
+        <li><span class="t">~12:00</span> vuelta al aeropuerto, retirar valijas y check-in</li>
+        <li><span class="t">15:25</span> Avianca a Medellín, aterrizan <span class="t">19:45</span> (hora Colombia)</li>
+        <li>Traslado al hotel (~45–60 min) y a dormir 😴</li></ul></div></div>
 
     <div class="day"><div class="date" style="--c:var(--cian)"><b>4</b><span>jue · feb</span></div>
       <div class="card"><h3>☕ Día libre en Medellín</h3><ul>
-        <li>Aclimatarse a la "ciudad de la eterna primavera" (1.500 m de altura, ~24 °C)</li>
-        <li>Paseo por El Poblado y Provenza, un buen tinto y una arepa. Tranqui.</li></ul></div></div>
+        <li>Aclimatarse a la "ciudad de la eterna primavera" (1.500 m, ~24 °C)</li>
+        <li>Paseo por El Poblado y Provenza, un tinto y una arepa. Tranqui.</li></ul></div></div>
 
-    <div class="day"><div class="date" style="--c:var(--rosa)"><b>5</b><span>vie · feb</span></div>
+    <div class="day"><div class="date dk" style="--c:var(--rosa)"><b>5</b><span>vie · feb</span></div>
       <div class="card"><h3>🕯️ Shabat &amp; Welcome Dinner</h3><ul>
-        <li>📍 Hotel InterContinental (Movich) Medellín</li>
-        <li><span class="t">17:45</span> encendido de velas (solo mujeres · opcional) — ¡Mamuska, te toca!</li>
+        <li>📍 Hotel InterContinental Medellín</li>
+        <li><span class="t">17:45</span> velas (solo mujeres, opcional) — ¡Mamuska, te toca!</li>
         <li><span class="t">18:30</span> Kabalat Shabat (opcional)</li>
-        <li><span class="t">19:30</span> cena de Shabat, organizada por Judy &amp; Ilan Fidler</li>
+        <li><span class="t">19:30</span> cena, organizada por Judy &amp; Ilan Fidler</li>
         <li>👗 Dress code: <b>Tropical Chic</b></li></ul></div></div>
 
     <div class="day"><div class="date" style="--c:var(--cian)"><b>6</b><span>sáb · feb</span></div>
       <div class="card"><h3>🌴 Sábado libre</h3><ul>
-        <li>Ideas de los novios: Comuna 13, Jardín Botánico, Plaza Botero, Guatapé (la piedra con 740 escalones… o mirarla desde abajo con un jugo 😅)</li></ul></div></div>
+        <li>Ideas de los novios: Comuna 13, Jardín Botánico, Plaza Botero o Guatapé (740 escalones… o mirarla desde abajo con un jugo 😅)</li></ul></div></div>
 
-    <div class="day"><div class="date" style="--c:var(--rojo)"><b style="color:#fff">7</b><span style="color:#fff">dom · feb</span></div>
+    <div class="day"><div class="date dk" style="--c:var(--rojo)"><b>7</b><span>dom · feb</span></div>
       <div class="card"><h3>💍 ¡LA BODA!</h3><ul>
-        <li><span class="t">16:00</span> salen los shuttles desde el hotel InterContinental</li>
+        <li><span class="t">16:00</span> salen los shuttles desde el InterContinental</li>
         <li><span class="t">16:30</span> ceremonia en <b>Casa El Rosal</b></li>
         <li>🤵 Dress code: <b>Black Tie Optional</b> — Papus, la camisa a cuadros del dibujo NO 😂</li></ul></div></div>
 
-    <div class="day"><div class="date" style="--c:var(--rosa)"><b>8</b><span>lun · feb</span></div>
-      <div class="card"><h3>🥐 Brunch y ¡rumbo a Cali!</h3><ul>
+    <div class="day"><div class="date dk" style="--c:var(--rosa)"><b>8</b><span>lun · feb</span></div>
+      <div class="card"><h3>🥐 Brunch y rumbo a Cali</h3><ul>
         <li><span class="t">9:30–11:30</span> brunch de despedida en el InterContinental</li>
-        <li>Check-out y vuelo interno Medellín → Cali 🛫</li>
-        <li>¡Abrazo gigante con Fanny! 🤗</li></ul></div></div>
+        <li>Check-out y vuelo interno a Cali. ¡Abrazo gigante con Fanny! 🤗</li></ul></div></div>
 
-    <div class="day"><div class="date" style="--c:#FFB070"><b>9–16</b><span>feb</span></div>
+    <div class="day"><div class="date" style="--c:var(--naranja-soft)"><b>9–16</b><span>feb</span></div>
       <div class="card"><h3>💃 Cali con Fanny + ☕ Eje Cafetero</h3><ul>
         <li>Familia, sobremesas eternas, salsa y chusmerío del bueno</li>
-        <li>Escapada al Eje Cafetero: <b>a confirmar</b>, lo cerramos y lo actualizo acá</li></ul></div></div>
+        <li>Escapada al Eje Cafetero: <b>a confirmar</b> (lo actualizo acá)</li></ul></div></div>
 
     <div class="day"><div class="date"><b>17</b><span>mié · feb</span></div>
       <div class="card"><h3>🔁 Cali → Medellín → Madrid</h3><ul>
-        <li>Vuelo interno Cali → Medellín (mejor que llegue a la tarde temprano, con margen)</li>
-        <li><span class="t">22:20</span> Avianca Medellín → Madrid</li></ul></div></div>
+        <li>Vuelo interno a Medellín, que llegue a la tarde temprano</li>
+        <li><span class="t">22:20</span> Avianca a Madrid</li></ul></div></div>
 
     <div class="day"><div class="date"><b>18</b><span>jue · feb</span></div>
-      <div class="card"><h3>⏱️ Escala en Madrid (6 horas)</h3><ul>
+      <div class="card"><h3>⏱️ Escala en Madrid (6 h)</h3><ul>
         <li><span class="t">13:55</span> aterrizan en Madrid</li>
-        <li>Retiran valijas y hacen check-in de nuevo con Israir (son pasajes separados)</li>
-        <li><span class="t">20:10</span> Israir Madrid → Tel Aviv</li></ul></div></div>
+        <li>Retirar valijas y hacer check-in otra vez con Israir (pasajes separados)</li>
+        <li><span class="t">20:10</span> Israir a Tel Aviv</li></ul></div></div>
 
-    <div class="day"><div class="date" style="--c:var(--verde)"><b style="color:#fff">19</b><span style="color:#fff">vie · feb</span></div>
+    <div class="day"><div class="date dk" style="--c:var(--verde)"><b>19</b><span>vie · feb</span></div>
       <div class="card"><h3>🏠 ¡Home sweet home!</h3><ul>
         <li><span class="t">02:55</span> aterrizan en Ben Gurión</li>
         <li><span class="t">04:04</span> tren → Kiryat Motzkin <span class="t">05:39</span> (plan B: <span class="t">05:03</span> → <span class="t">07:05</span>)</li>
-        <li>Fiaca total el resto del día. Se lo merecen. 🛌</li></ul></div></div>
+        <li>Fiaca total el resto del día. Se lo ganaron. 🛌</li></ul></div></div>
   </div>
 </section>
 
 <!-- ================= BODA ================= -->
 <section id="boda">
-  <div class="sh"><h2 style="--c:var(--rosa)">La boda: Alexa &amp; Leor</h2><span class="emoji">💍</span></div>
-  <p class="sub">Se casa Alexa, la prima de Mamuska (la hija de Maxi y Cathy), con Leor. Fin de semana de festejo del 5 al 8 de febrero de 2027 en Medellín. ¡Se viene la joda!</p>
+  <div class="sh"><h2 style="--c:var(--rosa)">La boda</h2><span class="emoji">💍</span></div>
+  <p class="sub">Se casa Alexa (la prima de Mamuska, hija de Maxi y Cathy) con Leor. Un fin de semana de festejo, del 5 al 8 de febrero de 2027 en Medellín. ¡Se viene la joda!</p>
   <div class="grid g3">
-    <div class="card"><span class="sticker">VIERNES 5</span>
-      <h3>🕯️ Shabat &amp; Welcome Dinner</h3>
-      <p>📍 Hotel InterContinental Medellín</p>
-      <p><span class="t">17:45</span> Velas (mujeres, opcional)<br><span class="t">18:30</span> Kabalat Shabat (opcional)<br><span class="t">19:30</span> Cena · anfitriones: Judy &amp; Ilan Fidler</p>
-      <span class="tag y">👗 Tropical Chic</span></div>
-    <div class="card"><span class="sticker" style="background:var(--rojo)">DOMINGO 7</span>
+    <div class="card">
+      <div class="labels"><span class="label r">Viernes 5</span></div>
+      <h3>Shabat &amp; Welcome Dinner</h3>
+      <div class="meta"><span class="chip b">📍 InterContinental</span><span class="chip y">👗 Tropical Chic</span></div>
+      <p><span class="t">17:45</span> Velas (mujeres, opcional)<br><span class="t">18:30</span> Kabalat Shabat (opcional)<br><span class="t">19:30</span> Cena · Judy &amp; Ilan Fidler</p>
+    </div>
+    <div class="card win">
+      <div class="labels"><span class="label" style="background:var(--rojo);color:#fff">Domingo 7</span></div>
       <h3>💒 La boda</h3>
-      <p>📍 Casa El Rosal</p>
+      <div class="meta"><span class="chip b">📍 Casa El Rosal</span><span class="chip r">🤵 Black Tie Optional</span></div>
       <p><span class="t">16:00</span> Shuttles desde el hotel<br><span class="t">16:30</span> Ceremonia</p>
-      <span class="tag r">🤵 Black Tie Optional</span></div>
-    <div class="card"><span class="sticker a">LUNES 8</span>
-      <h3>🥐 Farewell Brunch</h3>
-      <p>📍 Hotel InterContinental Medellín</p>
+    </div>
+    <div class="card">
+      <div class="labels"><span class="label b">Lunes 8</span></div>
+      <h3>Farewell Brunch</h3>
+      <div class="meta"><span class="chip b">📍 InterContinental</span><span class="chip g">😋 Comer hasta rodar</span></div>
       <p><span class="t">9:30–11:30</span> Brunch de despedida</p>
-      <span class="tag g">😋 Comer hasta rodar</span></div>
+    </div>
   </div>
 
-  <div class="grid g2" style="margin-top:22px">
+  <div class="grid g2" style="margin-top:24px">
     <div class="card">
       <h3>🚐 Traslado desde el aeropuerto</h3>
-      <p>Los novios ofrecen transporte. Hay que escribir por WhatsApp al <b>+57 301 190 9955</b> con:</p>
-      <p>✔️ Nombre de los invitados · ✔️ Número de vuelo (Avianca, 3/2) · ✔️ Hora de llegada (19:45) · ✔️ Teléfono · ✔️ Email (para recibir la confirmación y los datos del chofer)</p>
+      <p>Los novios ofrecen transporte. Hay que mandar por WhatsApp al <b>+57 301 190 9955</b>:</p>
+      <ul class="feats">
+        <li>Nombres de los invitados</li>
+        <li>Número de vuelo (Avianca, miércoles 3/2)</li>
+        <li>Hora de llegada: 19:45</li>
+        <li>Teléfono y email (para recibir los datos del chofer)</li>
+      </ul>
       <a class="btn g" href="https://wa.me/573011909955" target="_blank" rel="noopener">💬 WhatsApp traslados</a>
     </div>
     <div class="card">
       <h3>📲 La web de los novios</h3>
-      <p>Ahí está todo: el RSVP (¡hay que confirmar asistencia!), la sección de regalos, recomendaciones de restaurantes, tours y peluquería en el hotel para Mamuska 💇‍♀️.</p>
+      <p>Ahí está el RSVP (¡hay que confirmar asistencia!), la sección de regalos, restaurantes y tours recomendados, y la peluquería del hotel para Mamuska 💇‍♀️.</p>
+      <p class="src" style="margin-top:0">Dudas con reservas: <a href="mailto:reservas@sarychaki.com">reservas@sarychaki.com</a></p>
       <a class="btn r" href="https://alexa-leor.lovable.app/" target="_blank" rel="noopener">💌 Abrir la web de la boda</a>
-      <p class="src">Dudas con reservas: <a href="mailto:reservas@sarychaki.com">reservas@sarychaki.com</a></p>
     </div>
   </div>
 </section>
 
 <!-- ================= VUELOS ================= -->
 <section id="vuelos">
-  <div class="sh"><h2 style="--c:var(--azul)">Vuelos: el Tetris aéreo</h2><span class="emoji">✈️</span></div>
-  <p class="sub">4 vuelos internacionales con 3 aerolíneas. Precios en shekels (₪), por persona y para la parejita.</p>
+  <div class="sh"><h2 style="--c:var(--azul)">Vuelos</h2><span class="emoji">✈️</span></div>
+  <p class="sub">El Tetris aéreo: 4 vuelos internacionales con 3 aerolíneas, más 2 saltitos dentro de Colombia. Todo en shekels (₪).</p>
 
-  <div class="sh" style="margin-top:10px"><h3 class="bang" style="font-size:34px">🛫 IDA</h3></div>
+  <h3 class="part">🛫 Ida</h3>
   <div class="grid g2">
-    <div class="card"><span class="sticker y">MAR 2/2</span>
-      <div class="flight"><div class="code">TLV<small>Tel Aviv · 16:05</small></div><div class="mid">✈️</div><div class="code end">MAD<small>Madrid · 20:30</small></div></div>
-      <span class="tag b">Air Europa</span>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪356</b></div><div class="pp couple"><small>la pareja</small><b>₪712</b></div></div>
+    <div class="card">
+      <div class="when"><span class="label">Martes 2 de febrero</span><span class="chip b">Air Europa</span></div>
+      <div class="leg">
+        <div class="pt"><b>TLV</b><span>Tel Aviv</span><em>16:05</em></div>
+        <div class="path"><span class="dur">5 h 25 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>MAD</b><span>Madrid</span><em>20:30</em></div>
+      </div>
+      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪356</b></div><div class="pbox hi"><small>Los dos</small><b>₪712</b></div></div>
     </div>
-    <div class="card"><span class="sticker y">MIÉ 3/2</span>
-      <div class="flight"><div class="code">MAD<small>Madrid · 15:25</small></div><div class="mid">✈️</div><div class="code end">MDE<small>Medellín · 19:45</small></div></div>
-      <span class="tag r">Avianca 🇨🇴</span>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪2,362</b></div><div class="pp couple"><small>la pareja</small><b>₪4,724</b></div></div>
+    <div class="card">
+      <div class="when"><span class="label">Miércoles 3 de febrero</span><span class="chip r"><span class="fl co"></span> Avianca</span></div>
+      <div class="leg">
+        <div class="pt"><b>MAD</b><span>Madrid</span><em>15:25</em></div>
+        <div class="path" style="--c:var(--rojo)"><span class="dur">10 h 20 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>MDE</b><span>Medellín</span><em>19:45</em></div>
+      </div>
+      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪2,362</b></div><div class="pbox hi"><small>Los dos</small><b>₪4,724</b></div></div>
     </div>
   </div>
 
-  <div class="sh" style="margin-top:26px"><h3 class="bang" style="font-size:34px">🛬 VUELTA</h3></div>
+  <h3 class="part">🛬 Vuelta</h3>
   <div class="grid g2">
-    <div class="card"><span class="sticker y">MIÉ 17/2</span>
-      <div class="flight"><div class="code">MDE<small>Medellín · 22:20</small></div><div class="mid">✈️</div><div class="code end">MAD<small>Madrid · 13:55 (18/2)</small></div></div>
-      <span class="tag r">Avianca 🇨🇴</span>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪1,823</b></div><div class="pp couple"><small>la pareja</small><b>₪3,646</b></div></div>
+    <div class="card">
+      <div class="when"><span class="label">Miércoles 17 de febrero</span><span class="chip r"><span class="fl co"></span> Avianca</span></div>
+      <div class="leg">
+        <div class="pt"><b>MDE</b><span>Medellín</span><em>22:20</em></div>
+        <div class="path" style="--c:var(--rojo)"><span class="dur">9 h 35 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>MAD</b><span>Madrid</span><em>13:55 <small>(jue 18)</small></em></div>
+      </div>
+      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪1,823</b></div><div class="pbox hi"><small>Los dos</small><b>₪3,646</b></div></div>
     </div>
-    <div class="card"><span class="sticker y">JUE 18/2</span>
-      <div class="flight"><div class="code">MAD<small>Madrid · 20:10</small></div><div class="mid">✈️</div><div class="code end">TLV<small>Tel Aviv · 02:55 (19/2)</small></div></div>
-      <span class="tag b">Israir</span> <span class="tag y">⏱️ 6 h de escala</span>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪406</b></div><div class="pp couple"><small>la pareja</small><b>₪812</b></div></div>
+    <div class="card">
+      <div class="when"><span class="label">Jueves 18 de febrero</span><span class="chip b">Israir</span></div>
+      <div class="leg">
+        <div class="pt"><b>MAD</b><span>Madrid</span><em>20:10</em></div>
+        <div class="path"><span class="dur">5 h 45 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>TLV</b><span>Tel Aviv</span><em>02:55 <small>(vie 19)</small></em></div>
+      </div>
+      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪406</b></div><div class="pbox hi"><small>Los dos</small><b>₪812</b></div></div>
     </div>
   </div>
 
-  <div class="card" style="margin-top:22px;background:#FFF0A8">
+  <div class="card" style="margin-top:24px;background:var(--amarillo-soft)">
     <h3>🧮 Total vuelos internacionales</h3>
-    <div class="price">
-      <div class="pp"><small>por persona</small><b>₪4,947</b></div>
-      <div class="pp total"><small>la pareja</small><b>₪9,894</b></div>
+    <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por persona</small><b>₪4,947</b></div><div class="pbox tot"><small>Los dos</small><b>₪9,894</b></div></div>
+  </div>
+  <div class="note"><span class="ni">⚠️</span><div><b>Ojo en la escala de vuelta:</b> Avianca e Israir son pasajes separados. En Madrid hay que <b>retirar las valijas, pasar migración y volver a hacer check-in</b> con Israir. Con 6 horas sobra tiempo, ¡da hasta para un bocadillo de calamares! 🦑</div></div>
+
+  <h3 class="part" id="internos">🛩️ Medellín ↔ Cali</h3>
+  <p class="sub" style="margin-bottom:20px">Dos vuelos de ~1 hora: <b>ida</b> el lunes 8/2 y <b>vuelta</b> el miércoles 17/2. Ojo: el precio de abajo es <b>por persona y por un solo tramo</b> (solo ida). Abajo de cada uno está el total ida y vuelta para los dos.</p>
+  <div class="grid g3">
+    <div class="card">
+      <div class="labels"><span class="label r">Low cost</span><span class="label w">🧳 Valija aparte</span></div>
+      <h3>JetSMART</h3>
+      <div class="prices"><div class="pbox"><small>1 tramo · 1 persona</small><b>₪54</b></div><div class="pbox hi"><small>Ida y vuelta · los dos</small><b>₪216</b><span class="x">+ valijas</span></div></div>
+      <ul class="feats"><li class="x">La valija se paga aparte (averiguo cuánto)</li></ul>
+      <p class="src" style="margin-top:auto">El low cost te cobra hasta el aire que respirás. 😅</p>
+    </div>
+    <div class="card">
+      <div class="labels"><span class="label w">🧳 Valija aparte</span></div>
+      <h3>Avianca</h3>
+      <div class="prices"><div class="pbox"><small>1 tramo · 1 persona</small><b>₪226</b></div><div class="pbox hi"><small>Ida y vuelta · los dos</small><b>₪904</b><span class="x">+ valijas</span></div></div>
+      <ul class="feats"><li class="x">Precio de la valija: a averiguar</li></ul>
+    </div>
+    <div class="card">
+      <div class="labels"><span class="label g">Todo incluido</span><span class="label w">🧳 Con valija</span></div>
+      <h3>LATAM</h3>
+      <div class="prices"><div class="pbox"><small>1 tramo · 1 persona</small><b>₪170–200</b></div><div class="pbox hi"><small>Ida y vuelta · los dos</small><b>₪680–800</b></div></div>
+      <ul class="feats"><li>Valija incluida, sin sorpresas</li></ul>
     </div>
   </div>
-
-  <div class="note">⚠️ <b>Ojo en la escala de vuelta:</b> Avianca e Israir son pasajes separados, así que en Madrid hay que <b>retirar las valijas, pasar migración y volver a hacer check-in</b> con Israir. Con 6 horas sobra tiempo: ¡da hasta para un bocadillo de calamares en el aeropuerto! 🦑</div>
+  <div class="note"><span class="ni">🛬</span><div><b>Tip para el 17/2:</b> el vuelo a Madrid sale a las 22:20 del aeropuerto internacional <b>José María Córdova</b> (en Rionegro). Busquen un vuelo desde Cali que llegue a la tarde temprano a ese mismo aeropuerto. En Medellín hay otro (Olaya Herrera): ¡que no sea ese!</div></div>
 </section>
 
 <!-- ================= TRENES ================= -->
 <section id="trenes">
-  <div class="sh"><h2 style="--c:var(--verde)">Trenes: de Motzkin al mundo</h2><span class="emoji">🚆</span></div>
-  <p class="sub">Los horarios los saqué de diciembre porque para febrero todavía no están publicados, pero no deberían cambiar.</p>
+  <div class="sh"><h2 style="--c:var(--verde)">Trenes</h2><span class="emoji">🚆</span></div>
+  <p class="sub">De Motzkin al mundo. Los horarios son de diciembre (los de febrero todavía no salieron) y no deberían cambiar. Como el 2/2 cae <b>martes</b>, lo reconfirmo cuando publiquen el horario.</p>
   <div class="grid g2">
-    <div class="card"><span class="sticker v">IDA · 2/2</span>
-      <h3>🏠 Kiryat Motzkin → Ben Gurión</h3>
-      <p style="font-size:22px"><span class="t">12:03</span> → <span class="t">13:48</span></p>
+    <div class="card">
+      <div class="when"><span class="label g">Ida · martes 2/2</span></div>
+      <div class="leg">
+        <div class="pt"><b style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>12:03</em></div>
+        <div class="path" style="--c:var(--verde)"><span class="dur">1 h 45 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
+        <div class="pt end"><b style="font-size:34px">TLV</b><span>Ben Gurión</span><em>13:48</em></div>
+      </div>
       <p>Llegan 2 h 15 min antes del vuelo. Justito y cómodo. 👌</p>
     </div>
-    <div class="card"><span class="sticker v">VUELTA · 19/2</span>
-      <h3>✈️ Ben Gurión → Kiryat Motzkin</h3>
-      <p style="font-size:22px"><span class="t">04:04</span> → <span class="t">05:39</span></p>
-      <p><b>Plan B</b> si se escapa: <span class="t">05:03</span> → <span class="t">07:05</span> (más lento, 2 h, pero llega igual).</p>
-      <p>Sí, hay trenes: es la noche de jueves a viernes. 🙌</p>
+    <div class="card">
+      <div class="when"><span class="label g">Vuelta · viernes 19/2</span></div>
+      <div class="leg">
+        <div class="pt"><b style="font-size:34px">TLV</b><span>Ben Gurión</span><em>04:04</em></div>
+        <div class="path" style="--c:var(--verde)"><span class="dur">1 h 35 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
+        <div class="pt end"><b style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>05:39</em></div>
+      </div>
+      <p><b>Plan B</b> si se escapa: <span class="t">05:03</span> → <span class="t">07:05</span> (más lento, pero llega). Sí, hay trenes: es la noche de jueves a viernes. 🙌</p>
     </div>
   </div>
 </section>
 
 <!-- ================= MADRID ================= -->
 <section id="madrid">
-  <div class="sh"><h2 style="--c:var(--rojo)">Madrid: escala con tapas</h2><span class="emoji">🥘</span></div>
-  <p class="sub">El truco: dejar las valijas en la consigna del aeropuerto, ir a la ciudad livianitos, dormir en un lindo hotel, pasear a la mañana y volver al mediodía para el vuelo a Medellín. Una mini-vacación de regalo. 🎁</p>
+  <div class="sh"><h2 style="--c:var(--rojo)">Madrid</h2><span class="fl es" style="font-size:40px"></span></div>
+  <p class="sub">Escala con tapas: dejan las valijas en el aeropuerto, duermen en la ciudad, pasean a la mañana y vuelven al mediodía para el vuelo a Medellín. Una mini-vacación de regalo. 🎁</p>
 
   <div class="grid g3">
-    <div class="card"><h3>🧳 Consigna de valijas</h3>
-      <p>La consigna oficial de Aena (hay en T1 y T4 — fíjense en qué terminal aterrizan):</p>
-      <p><b>~€17 por valija</b> hasta 24 h<br>(2 valijas ≈ €34 ≈ <b>₪120</b>)</p>
-      <p class="src">Llegan 20:30 y las retiran ~12:30: entra en las 24 h. Confirmen precio y horario en <a href="https://www.aena.es/es/adolfo-suarez-madrid-barajas/servicios-del-aeropuerto/categorias-y-terminales/equipajes.html" target="_blank" rel="noopener">aena.es</a>.</p></div>
-    <div class="card"><h3>🚕 Aeropuerto ↔ centro</h3>
-      <p><b>Taxi:</b> tarifa fija ~€33 (≈ ₪115) — de noche y cansados, vale la pena.<br>
-      <b>Bus Exprés Aeropuerto (203):</b> €5 c/u, 24 h.<br>
-      <b>Metro línea 8:</b> ~€5–6 c/u (con suplemento aeropuerto).</p>
-      <p class="src">Idea: ida en taxi, vuelta en metro o bus.</p></div>
-    <div class="card"><h3>💶 ¿Cuánto es un euro?</h3>
-      <p>Más o menos <b>€1 ≈ ₪3.5</b>.</p>
-      <p>Una cena de tapas con vinito para dos: €40–70. Chocolate con churros: €5–8 c/u. 🍫</p></div>
+    <div class="card"><h3>🧳 Consigna</h3>
+      <p>La consigna oficial de Aena (hay en T1 y T4):</p>
+      <div class="prices" style="grid-template-columns:1fr"><div class="pbox hi"><small>2 valijas · hasta 24 h</small><b>≈ ₪120</b><span class="x">€17 por valija</span></div></div>
+      <p class="src" style="margin-top:auto">Llegan 20:30 y las retiran ~12:30, entra en 24 h. Confirmen en <a href="https://www.aena.es/es/adolfo-suarez-madrid-barajas/servicios-del-aeropuerto/categorias-y-terminales/equipajes.html" target="_blank" rel="noopener">aena.es</a>.</p></div>
+    <div class="card"><h3>🚕 Al centro</h3>
+      <ul class="feats">
+        <li><b>Taxi:</b> tarifa fija ~€33 (≈ ₪115). De noche y cansados, vale la pena.</li>
+        <li><b>Bus Exprés 203:</b> €5 por persona, 24 h.</li>
+        <li><b>Metro línea 8:</b> ~€5–6 por persona.</li>
+      </ul>
+      <p class="src" style="margin-top:auto">Idea: ida en taxi, vuelta en metro o bus.</p></div>
+    <div class="card"><h3>💶 El euro</h3>
+      <div class="prices" style="grid-template-columns:1fr"><div class="pbox hi"><small>Más o menos</small><b>€1 ≈ ₪3.5</b></div></div>
+      <ul class="feats"><li>Tapas con vinito para dos: €40–70</li><li>Chocolate con churros: €5–8 c/u</li></ul></div>
   </div>
 
-  <h3 class="bang" style="font-size:34px;margin:30px 0 14px">🛏️ Hoteles para 1 noche (2 → 3 de febrero)</h3>
+  <h3 class="part">🛏️ Hoteles · 1 noche (2 → 3 feb)</h3>
   <div class="grid g3">
-    <div class="card"><span class="sticker v">CÉNTRICO</span>
-      <h3>Oriente Palace Madrid</h3>
-      <span class="tag g">⭐ 8.9 Booking</span> <span class="tag y">📍 Al lado del Palacio Real</span>
-      <div class="price"><div class="pp couple"><small>la pareja / noche</small><b>₪427</b></div></div>
-      <p>✅ Cancelación gratis hasta fin de enero</p>
+    <div class="card">
+      <div class="labels"><span class="label g">Céntrico</span></div>
+      <h3>Oriente Palace</h3>
+      <div class="meta"><span class="chip g">⭐ 8.9 Booking</span><span class="chip y">📍 Al lado del Palacio Real</span></div>
+      <div class="prices" style="grid-template-columns:1fr"><div class="pbox hi"><small>Los dos · 1 noche</small><b>₪427</b></div></div>
+      <ul class="feats"><li>Cancelación gratis hasta fin de enero</li><li>Pleno centro: a pie a todo lo lindo</li></ul>
       <a class="btn" href="https://www.booking.com/hotel/es/oriente-palace-apartments.html?checkin=2027-02-02&checkout=2027-02-03&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Ver en Booking ↗</a>
     </div>
-    <div class="card"><span class="sticker">EL MÁS BARATO</span>
-      <h3>Bety Dreams Apartments</h3>
-      <span class="tag g">⭐ 8.7 Booking</span> <span class="tag y">📍 Ciudad</span>
-      <div class="price"><div class="pp couple"><small>la pareja / noche</small><b>₪369</b></div></div>
-      <p>✅ Cancelación gratis hasta fin de enero</p>
-      <p class="src">Chequeen la ubicación exacta en el mapa de Booking antes de reservar.</p>
+    <div class="card">
+      <div class="labels"><span class="label r">El más barato</span></div>
+      <h3>Bety Dreams</h3>
+      <div class="meta"><span class="chip g">⭐ 8.7 Booking</span><span class="chip y">📍 Tetuán · metro Estrecho</span></div>
+      <div class="prices" style="grid-template-columns:1fr"><div class="pbox hi"><small>Los dos · 1 noche</small><b>₪369</b></div></div>
+      <ul class="feats"><li>Cancelación gratis hasta fin de enero</li><li class="i">No es el centro histórico: metro línea 1 a Sol en ~15 min</li></ul>
       <a class="btn" href="https://www.booking.com/hotel/es/bety-dreams-apartments.html?checkin=2027-02-02&checkout=2027-02-03&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Ver en Booking ↗</a>
     </div>
-    <div class="card"><span class="sticker a">MODO FIACA</span>
-      <h3>Hotel Maydrit Airport</h3>
-      <span class="tag g">⭐ 9.1 Booking</span> <span class="tag y">📍 10 min del aeropuerto</span>
-      <div class="price"><div class="pp couple"><small>la pareja / noche</small><b>₪426</b></div></div>
-      <p>🚐 Shuttle gratis al aeropuerto. Si no quieren ir a la ciudad, ni consigna necesitan: van con las valijas y listo.</p>
+    <div class="card">
+      <div class="labels"><span class="label b">Modo fiaca</span></div>
+      <h3>Maydrit Airport</h3>
+      <div class="meta"><span class="chip g">⭐ 9.1 Booking</span><span class="chip y">📍 10 min del aeropuerto</span></div>
+      <div class="prices" style="grid-template-columns:1fr"><div class="pbox hi"><small>Los dos · 1 noche</small><b>₪426</b></div></div>
+      <ul class="feats"><li>Shuttle gratis al aeropuerto</li><li>Ni consigna necesitan: van con las valijas y listo</li></ul>
       <a class="btn" href="https://www.booking.com/hotel/es/maydrit.html?checkin=2027-02-02&checkout=2027-02-03&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Ver en Booking ↗</a>
     </div>
   </div>
 
-  <div class="note">🤔 <b>¿Y si 5 noches en Medellín les parece mucho?</b> Se puede estirar Madrid a <b>2 noches</b> en vez de 1 y volar a Medellín un día después (el 4/2) — igual llegan bien a la cena de Shabat del viernes. Lo que sí: el vuelo Tel Aviv → Madrid del <b>2 de febrero</b> sigue siendo el más conveniente, así que la salida de Israel no se mueve. Si quieren esta opción, me avisan y reviso el precio del Avianca para el 4. 📞</div>
+  <div class="note"><span class="ni">🤔</span><div><b>¿Y si 5 noches en Medellín es mucho?</b> Se puede quedar <b>2 noches en Madrid</b> y volar a Medellín el jueves 4/2: igual llegan bien a la cena del viernes. La salida de Israel el 2/2 no se mueve (es la más conveniente). Si les gusta la idea, me avisan y reviso el precio de Avianca para el 4.</div></div>
 </section>
 
 <!-- ================= MEDELLIN ================= -->
 <section id="medellin">
-  <div class="sh"><h2 style="--c:var(--verde)">Dónde tirar los huesos en Medellín</h2><span class="emoji">🏨</span></div>
-  <p class="sub">5 noches: del miércoles 3 al lunes 8 de febrero. Precios para la pareja.</p>
+  <div class="sh"><h2 style="--c:var(--verde)">Medellín</h2><span class="emoji">🏨</span></div>
+  <p class="sub">Dónde tirar los huesos: 5 noches, del miércoles 3 al lunes 8 de febrero. Todos los precios son para los dos.</p>
 
-  <div class="wip">
-    <div class="card"><span class="sticker y">⏳ ESPERANDO RESPUESTA</span>
-      <h3>⭐ InterContinental Medellín (Movich) — el que propuso Maxi</h3>
-      <p>Es el hotel de los novios: ahí es la cena de Shabat, el brunch, y de ahí salen los shuttles a la boda. Tienen un bloque de habitaciones con el código <b>"BODA ALEXA &amp; LEOR – DS8"</b>.</p>
-      <p>📧 <b>Ya mandé el mail pidiendo el precio por noche para una habitación doble en nuestras fechas.</b> Apenas me contesten, lo actualizo acá. 🔄</p>
+  <div class="card win" style="background:linear-gradient(180deg,#fff 0,#fff 60%,var(--verde-soft) 100%)">
+    <div class="labels"><span class="label g">✔ ¡Ya contestaron!</span><span class="label">El que propuso Maxi</span></div>
+    <h3>InterContinental Medellín (Movich)</h3>
+    <div class="meta"><span class="chip g">⭐ ~8.2 en las webs de reseñas</span><span class="chip y">📍 El Poblado · Calle 16</span><span class="chip b">🍳 Desayuno incluido</span></div>
+    <p>Es el hotel de la boda: ahí es la cena de Shabat, el brunch, y de ahí salen los shuttles. Nos ofrecen la <b>tarifa especial de la boda</b>:</p>
+    <div class="grid g2" style="gap:14px;margin:6px 0 16px">
+      <div class="pbox hi"><small>Habitación Premium King · por noche</small><b>₪623</b><span class="x">635.000 pesos + impuestos · 5 noches ≈ <b>₪3,116</b></span></div>
+      <div class="pbox"><small>Junior Suite · por noche</small><b>₪731</b><span class="x">745.000 pesos + impuestos · 5 noches ≈ <b>₪3,655</b></span></div>
+    </div>
+    <ul class="feats">
+      <li><b>Impuestos:</b> si entran con pasaporte israelí (turistas no residentes), el IVA del hotel es 0%, así que pagan casi la tarifa base. Si entran con pasaporte colombiano, se suma el 19%: ≈ ₪742/noche (Premium) o ₪870/noche (Suite).</li>
+      <li>2 piletas, spa con sauna y baño turco, gimnasio</li>
+      <li>Con toda la familia: Maxi, Cathy y los novios ahí mismo</li>
+      <li class="x">Es casi el doble que las otras opciones</li>
+    </ul>
+    <div class="btns">
+      <a class="btn g" href="mailto:reservas@movichhotels.com?subject=BODA%20ALEXA%20%26%20LEOR%20%E2%80%93%20DS8">📧 Mail de reservas</a>
       <a class="btn y" href="https://www.ihg.com/intercontinental/hotels/us/en/medellin/mdeha/hoteldetail" target="_blank" rel="noopener">Ver el hotel ↗</a>
     </div>
   </div>
 
-  <p class="sub" style="margin-top:26px">Si no se da, estas 3 opciones están <b>a pasos del InterContinental</b> — así quedan cerquita de todo el festejo:</p>
+  <h3 class="part">🏘️ Las alternativas (cerquita del InterContinental)</h3>
   <div class="grid g3">
-    <div class="card"><span class="sticker v">DESAYUNO TOP</span>
-      <h3>EcoHub Hotel Medellín</h3>
-      <span class="tag y">📍 El Poblado</span>
-      <div class="price">
-        <div class="pp"><small>noche · sin desayuno</small><b>₪367</b></div>
-        <div class="pp couple"><small>5 noches</small><b>₪1,838</b></div>
-      </div>
-      <p>🍳 Con desayuno: <b>₪393/noche</b> (+₪26) → ₪1,965 total. Las reviews dicen que el desayuno es <b>excelente</b>.</p>
-      <p>✅ Cancelación gratis hasta fin de enero</p>
+    <div class="card">
+      <div class="labels"><span class="label g">Desayuno top</span></div>
+      <h3>EcoHub Hotel</h3>
+      <div class="meta"><span class="chip g">⭐ ~8.7</span><span class="chip y">📍 ~600 m de la boda</span></div>
+      <div class="prices"><div class="pbox"><small>Por noche</small><b>₪367</b><span class="x">sin desayuno</span></div><div class="pbox hi"><small>5 noches</small><b>₪1,838</b></div></div>
+      <ul class="feats"><li>Con desayuno: ₪393/noche (+₪26) → <b>₪1,965</b>. Las reviews dicen que el desayuno es excelente.</li><li>Cancelación gratis hasta fin de enero</li><li class="i">El más cerca: ~10 min a pie (en subida) o un taxi corto</li></ul>
       <a class="btn" href="https://www.booking.com/hotel/co/ecohub.html?checkin=2027-02-03&checkout=2027-02-08&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Ver en Booking ↗</a>
     </div>
-    <div class="card"><span class="sticker a">DEPTO DE LUJO</span>
-      <h3>Loma Verde Aparthotel</h3>
-      <span class="tag g">⭐ 9.3 Booking</span> <span class="tag y">📍 El Poblado</span>
-      <div class="price">
-        <div class="pp"><small>noche · sin desayuno</small><b>₪372</b></div>
-        <div class="pp couple"><small>5 noches</small><b>₪1,860</b></div>
-      </div>
-      <p>🍳 Con desayuno: <b>₪431/noche</b> (+₪59) → ₪2,155 total.</p>
-      <p>🏢 Es un <b>apart-hotel</b>: un departamento grande, moderno y equipado (cocina completa, 2 baños, aire acondicionado), pero con recepción, limpieza diaria y seguridad 24 h.</p>
-      <p style="font-style:italic;color:var(--muted)">Una israelí escribió que se sentía como un edificio de departamentos pero con servicio de hotel, con mucha seguridad y todo perfecto.</p>
-      <p>✅ Cancelación gratis <b>hasta el mismo día</b></p>
+    <div class="card">
+      <div class="labels"><span class="label b">Depto de lujo</span></div>
+      <h3>Loma Verde</h3>
+      <div class="meta"><span class="chip g">⭐ 9.3 Booking</span><span class="chip y">📍 ~1,2 km de la boda</span></div>
+      <div class="prices"><div class="pbox"><small>Por noche</small><b>₪372</b><span class="x">sin desayuno</span></div><div class="pbox hi"><small>5 noches</small><b>₪1,860</b></div></div>
+      <ul class="feats"><li>Con desayuno: ₪431/noche (+₪59) → <b>₪2,155</b></li><li>Apart-hotel: depto grande con cocina, 2 baños y aire, pero con recepción, limpieza diaria y seguridad 24 h</li><li>Una israelí contó que se sentía muy segura y que todo estaba perfecto</li><li>Cancelación gratis <b>hasta el mismo día</b></li></ul>
       <a class="btn" href="https://www.booking.com/hotel/co/loma-verde.html?checkin=2027-02-03&checkout=2027-02-08&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Ver en Booking ↗</a>
     </div>
-    <div class="card"><span class="sticker">EL MÁS BARATO</span>
-      <h3>Café Hotel Medellín</h3>
-      <span class="tag g">⭐ 8.9 Booking</span> <span class="tag y">📍 El Poblado</span>
-      <div class="price">
-        <div class="pp"><small>noche · con desayuno</small><b>₪352</b></div>
-        <div class="pp couple"><small>5 noches</small><b>₪1,759</b></div>
-      </div>
-      <p>🍳 <b>¡Desayuno incluido!</b> El más barato y encima con desayuno. Negocio redondo.</p>
-      <p>✅ Cancelación gratis hasta fin de enero</p>
+    <div class="card">
+      <div class="labels"><span class="label r">El más barato</span></div>
+      <h3>Café Hotel</h3>
+      <div class="meta"><span class="chip g">⭐ 8.9 Booking</span><span class="chip y">📍 ~1,2 km de la boda</span></div>
+      <div class="prices"><div class="pbox"><small>Por noche</small><b>₪352</b><span class="x">con desayuno</span></div><div class="pbox hi"><small>5 noches</small><b>₪1,759</b></div></div>
+      <ul class="feats"><li>¡Desayuno incluido! El más barato y encima con desayuno</li><li>Cancelación gratis hasta fin de enero</li></ul>
       <a class="btn" href="https://www.booking.com/hotel/co/cafe-by-lars.html?checkin=2027-02-03&checkout=2027-02-08&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Ver en Booking ↗</a>
     </div>
   </div>
-  <p class="src">Hay muchos más hoteles; estos me llamaron la atención por precio y reviews. Cuando cerremos los vuelos, miramos más.</p>
-</section>
 
-<!-- ================= VUELOS INTERNOS ================= -->
-<section id="internos">
-  <div class="sh"><h2 style="--c:var(--naranja)">Medellín ↔ Cali: el saltito</h2><span class="emoji">🛩️</span></div>
-  <p class="sub">Dos vuelos internos: ida el lunes 8/2 y vuelta el miércoles 17/2. Precios por persona, por tramo (vuelo de ~1 hora).</p>
-  <div class="grid g3">
-    <div class="card"><span class="sticker">LOW COST</span>
-      <h3>JetSMART</h3>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪54</b></div></div>
-      <p>🧳 <b>Sin valija.</b> La valija se paga aparte (averiguo cuánto y actualizo).</p>
-      <p class="src">El low cost te cobra hasta el aire que respirás. 😅</p>
+  <h3 class="part">⚖️ El veredicto de Nir</h3>
+  <div class="card">
+    <p>Les puse nota a cada uno según lo que más importa para este viaje: <b>precio</b> (30%), <b>cercanía a la boda</b> (25%), <b>reseñas</b> (20%), <b>comodidades</b> (15%) y <b>desayuno</b> (10%). Comparando siempre con desayuno incluido:</p>
+    <div class="tablewrap"><table>
+      <tr><th>Hotel</th><th class="n">Noche c/ desayuno</th><th class="n">5 noches</th><th>Nota final</th></tr>
+      <tr class="hl"><td><b>EcoHub</b></td><td class="n">₪393</td><td class="n">₪1,965</td><td><div class="score"><div class="bar"><i style="width:84%"></i></div><b>8.4</b></div></td></tr>
+      <tr><td><b>InterContinental</b></td><td class="n">₪623</td><td class="n">₪3,116</td><td><div class="score"><div class="bar"><i style="width:83%"></i></div><b>8.3</b></div></td></tr>
+      <tr><td><b>Café Hotel</b></td><td class="n">₪352</td><td class="n">₪1,759</td><td><div class="score"><div class="bar"><i style="width:82%"></i></div><b>8.2</b></div></td></tr>
+      <tr><td><b>Loma Verde</b></td><td class="n">₪431</td><td class="n">₪2,155</td><td><div class="score"><div class="bar"><i style="width:80%"></i></div><b>8.0</b></div></td></tr>
+    </table></div>
+  </div>
+  <div class="grid g3" style="margin-top:24px">
+    <div class="card">
+      <div class="medal">🏆</div>
+      <h3>Mejor precio/calidad</h3>
+      <p><b>EcoHub.</b> Barato, el más cerca del InterContinental y con un desayuno que todos elogian. Pagan ~₪1,150 menos que en el InterContinental.</p>
     </div>
     <div class="card">
-      <h3>Avianca</h3>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪226</b></div></div>
-      <p>🧳 <b>Sin valija.</b> Precio de la valija: a averiguar.</p>
+      <div class="medal">💍</div>
+      <h3>Mejor para la boda</h3>
+      <p><b>InterContinental.</b> Cero taxis con tacos y traje: bajan del cuarto a la cena de Shabat, al shuttle y al brunch. Y están con toda la familia. Es la opción "sin pensar en nada".</p>
     </div>
-    <div class="card"><span class="sticker v">TODO INCLUIDO</span>
-      <h3>LATAM</h3>
-      <div class="price"><div class="pp"><small>por persona</small><b>₪170–200</b></div></div>
-      <p>🧳 <b>Con valija incluida.</b> Sin sorpresas.</p>
+    <div class="card" style="background:var(--amarillo-soft)">
+      <div class="medal">💡</div>
+      <h3>El combo inteligente</h3>
+      <p><b>2 noches EcoHub</b> (3→5/2) + <b>3 noches InterContinental</b> (5→8/2), justo el finde de la boda.</p>
+      <div class="prices" style="grid-template-columns:1fr;margin-bottom:6px"><div class="pbox tot"><small>Total 5 noches</small><b>≈ ₪2,655</b><span class="x">~₪460 menos que todo en el InterContinental</span></div></div>
+      <p class="src" style="margin:0">Hay que preguntar si la tarifa de la boda vale para 3 noches.</p>
     </div>
   </div>
-  <div class="note">✈️ <b>Tip para el 17/2:</b> el vuelo a Madrid sale a las 22:20 del aeropuerto internacional José María Córdova (en Rionegro). Busquen un vuelo desde Cali que llegue <b>a la tarde temprano</b> a ese mismo aeropuerto, así no corren. Ojo: en Medellín hay otro aeropuerto (Olaya Herrera) — ¡que no sea ese!</div>
+  <p class="src">Conversión: 1 shekel ≈ 1.020 pesos colombianos (2/11/2026). Reseñas y distancias son aproximadas, de Booking, Kayak y Expedia.</p>
 </section>
 
 <!-- ================= CALI ================= -->
 <section id="cali">
-  <div class="sh"><h2 style="--c:#FF8A3D">Cali con Fanny</h2><span class="emoji">💃</span></div>
-  <p class="sub">Del 8 al 17 de febrero, unos 9 días con la hermana de Mamuska. Salsa, sobremesa y chusmerío del bueno.</p>
+  <div class="sh"><h2 style="--c:var(--naranja)">Cali</h2><span class="emoji">💃</span></div>
+  <p class="sub">Del 8 al 17 de febrero, unos 9 días con Fanny, la hermana de Mamuska. Salsa, sobremesa y chusmerío del bueno.</p>
   <div class="grid g2">
     <div class="card"><h3>🌞 Qué esperar</h3>
-      <p>Cali es más calurosa que Medellín (20–31 °C): ropa liviana, protector solar y sombrero, Papus.</p>
-      <p>Es la <b>capital mundial de la salsa</b> 💃🕺: si Fanny los lleva a una salsoteca, no hay excusa. Y prueben el <b>cholado</b>, la <b>lulada</b> y el <b>pandebono</b>.</p>
+      <ul class="feats">
+        <li>Más calor que en Medellín (20–31 °C): ropa liviana, protector y sombrero, Papus</li>
+        <li>Es la <b>capital mundial de la salsa</b>: si Fanny los lleva a una salsoteca, no hay excusa 🕺</li>
+        <li>Para probar: <b>cholado</b>, <b>lulada</b> y <b>pandebono</b></li>
+      </ul>
     </div>
-    <div class="wip"><div class="card"><span class="sticker y">🚧 EN CONSTRUCCIÓN</span>
+    <div class="wip"><div class="card">
+      <div class="labels"><span class="label">🚧 En construcción</span></div>
       <h3>☕ Eje Cafetero</h3>
-      <p>La escapada al Eje Cafetero (fincas de café, paisajes verdes, pueblitos de colores) la vamos a cerrar más adelante. Cuando esté, lo actualizo acá con todo el detalle. ¡Paciencia, que viene lindo!</p>
+      <p>La escapada al Eje Cafetero (fincas de café, paisajes verdes y pueblitos de colores) la cerramos más adelante. Cuando esté, la actualizo acá con todo el detalle. ¡Viene lindo!</p>
     </div></div>
   </div>
 </section>
 
 <!-- ================= GUITA ================= -->
 <section id="guita">
-  <div class="sh"><h2 style="--c:var(--verde)">La guita: cuánto sale todo</h2><span class="emoji">💸</span></div>
-  <p class="sub">La cuenta del almacenero, en shekels y para la pareja. Precios de Colombia actualizados a noviembre 2026.</p>
+  <div class="sh"><h2 style="--c:var(--verde)">La guita</h2><span class="emoji">💸</span></div>
+  <p class="sub">La cuenta del almacenero, en shekels. Precios de Colombia actualizados a noviembre 2026.</p>
 
-  <div class="rule"><div class="ico">🧠</div><div><div class="bang">Regla de oro: 1.000 pesos colombianos ≈ ₪1</div>
-    <div style="font-weight:700">¡Sacale 3 ceros y listo! Un café de 8.000 pesos = ₪8. (Dólar ≈ 3.200 pesos ≈ ₪3.14.) No se asusten con los ceros: no son millonarios, es que los pesos son así. 😂</div></div></div>
+  <div class="rule"><div class="ico">🧠</div><div><div class="bang">Regla de oro: 1.000 pesos ≈ ₪1</div>
+    <div style="font-weight:700">¡Sáquenle 3 ceros y listo! Un café de 8.000 pesos = ₪8. No se asusten con tantos ceros: no son millonarios, es que los pesos colombianos son así. 😂</div></div></div>
 
-  <h3 class="bang" style="font-size:34px;margin:26px 0 12px">💳 ¿Cuánto se gasta por día?</h3>
+  <h3 class="part">💳 ¿Cuánto se gasta por día?</h3>
   <div class="grid g2">
-    <div class="card"><span class="sticker v">MEDELLÍN</span>
-      <h3>Promedio por día</h3>
-      <div class="price">
-        <div class="pp"><small>por persona</small><b>~₪230</b></div>
-        <div class="pp couple"><small>la pareja</small><b>~₪450</b></div>
+    <div class="card">
+      <div class="labels"><span class="label g">Medellín</span></div>
+      <div class="tiers">
+        <div class="tier"><div class="nm">🪙 Gasolero<small>Comida casera, corrientazo, metro</small></div><div class="v"><b>₪80</b><small>por persona</small></div><div class="v"><b>₪150</b><small>los dos</small></div></div>
+        <div class="tier main"><div class="nm">👍 Normal<small>Almuerzo + cena tranqui, cafecitos, algún Uber</small></div><div class="v"><b>₪130</b><small>por persona</small></div><div class="v"><b>₪250</b><small>los dos</small></div></div>
+        <div class="tier"><div class="nm">🥂 Con gustitos<small>Cena linda, tour, cócteles</small></div><div class="v"><b>₪220</b><small>por persona</small></div><div class="v"><b>₪420</b><small>los dos</small></div></div>
       </div>
-      <p>Modo "cómodo": desayuno en el hotel, almuerzo en un lugar lindo, cena rica, un par de Ubers, cafecito y alguna entrada o tour.</p>
-      <p class="src">🪙 Modo gasolero: ~₪120 p/p · 🍾 Modo "tiro la casa por la ventana": ~₪400 p/p</p>
+      <p class="src" style="margin:0">Un día "normal" por persona: almuerzo ejecutivo ~₪25 · cena tranqui ~₪50 · cafés y jugos ~₪15 · Ubers ~₪15 · alguna entrada o gustito ~₪25. (Desayuno en el hotel.)</p>
     </div>
-    <div class="card"><span class="sticker" style="background:var(--naranja)">CALI</span>
-      <h3>Promedio por día</h3>
-      <div class="price">
-        <div class="pp"><small>por persona</small><b>~₪180</b></div>
-        <div class="pp couple"><small>la pareja</small><b>~₪350</b></div>
+    <div class="card">
+      <div class="labels"><span class="label o">Cali</span></div>
+      <div class="tiers">
+        <div class="tier"><div class="nm">🪙 Gasolero<small>Mucho en casa de Fanny</small></div><div class="v"><b>₪60</b><small>por persona</small></div><div class="v"><b>₪110</b><small>los dos</small></div></div>
+        <div class="tier main"><div class="nm">👍 Normal<small>Comer afuera una vez por día, taxis</small></div><div class="v"><b>₪100</b><small>por persona</small></div><div class="v"><b>₪190</b><small>los dos</small></div></div>
+        <div class="tier"><div class="nm">🥂 Con gustitos<small>Salsoteca, restaurantes, paseos</small></div><div class="v"><b>₪180</b><small>por persona</small></div><div class="v"><b>₪340</b><small>los dos</small></div></div>
       </div>
-      <p>Cali es un poquito más barata que Medellín, y estando con familia se come mucho en casa (y Fanny seguro no los deja pagar 😉).</p>
-      <p class="src">🪙 Modo gasolero: ~₪100 p/p · 🍾 Modo derroche: ~₪350 p/p</p>
+      <p class="src" style="margin:0">Cali es un poco más barata que Medellín, y estando con familia se come mucho en casa (y Fanny seguro no los deja pagar 😉).</p>
     </div>
   </div>
 
-  <h3 class="bang" style="font-size:34px;margin:30px 0 12px">🛒 ¿Cuánto sale cada cosa?</h3>
+  <h3 class="part">🛒 ¿Cuánto sale cada cosa?</h3>
   <div class="grid g2">
     <div class="card"><h3>🏙️ Medellín</h3>
       <div class="tablewrap"><table>
-        <tr><th>Qué</th><th class="n">Pesos (COP)</th><th class="n">≈ ₪</th></tr>
-        <tr><td>☕ Tinto (cafecito negro) en la calle</td><td class="n">1.500–3.000</td><td class="n">2–3</td></tr>
+        <tr><th>Qué</th><th class="n">Pesos</th><th class="n">≈ ₪</th></tr>
+        <tr><td>☕ Tinto en la calle</td><td class="n">1.500–3.000</td><td class="n">2–3</td></tr>
         <tr><td>☕ Capuchino en café lindo</td><td class="n">8.000–12.000</td><td class="n">8–12</td></tr>
         <tr><td>🫓 Arepa o empanada</td><td class="n">3.000–8.000</td><td class="n">3–8</td></tr>
         <tr><td>🥤 Jugo natural</td><td class="n">6.000–12.000</td><td class="n">6–12</td></tr>
-        <tr><td>🍛 Almuerzo ejecutivo (corrientazo)</td><td class="n">18.000–30.000</td><td class="n">18–30</td></tr>
-        <tr><td>🥩 Bandeja paisa en restaurante</td><td class="n">35.000–55.000</td><td class="n">35–55</td></tr>
-        <tr><td>🍽️ Cena linda en El Poblado (p/p con bebida)</td><td class="n">80.000–150.000</td><td class="n">80–150</td></tr>
-        <tr><td>🍺 Birra nacional en un bar</td><td class="n">6.000–12.000</td><td class="n">6–12</td></tr>
+        <tr><td>🍛 Almuerzo ejecutivo</td><td class="n">18.000–30.000</td><td class="n">18–30</td></tr>
+        <tr><td>🥩 Bandeja paisa</td><td class="n">35.000–55.000</td><td class="n">35–55</td></tr>
+        <tr><td>🍽️ Cena linda (p/p con bebida)</td><td class="n">80.000–150.000</td><td class="n">80–150</td></tr>
+        <tr><td>🍺 Birra en un bar</td><td class="n">6.000–12.000</td><td class="n">6–12</td></tr>
         <tr><td>🍹 Cóctel</td><td class="n">30.000–45.000</td><td class="n">30–45</td></tr>
-        <tr><td>💧 Agua 1,5 L en el súper</td><td class="n">3.000–4.500</td><td class="n">3–4.5</td></tr>
-        <tr><td>🚕 Uber/taxi corto en la ciudad</td><td class="n">10.000–20.000</td><td class="n">10–20</td></tr>
-        <tr><td>🛬 Taxi aeropuerto ↔ El Poblado</td><td class="n">110.000–140.000</td><td class="n">110–140</td></tr>
+        <tr><td>💧 Agua 1,5 L</td><td class="n">3.000–4.500</td><td class="n">3–4.5</td></tr>
+        <tr><td>🚕 Uber corto</td><td class="n">10.000–20.000</td><td class="n">10–20</td></tr>
+        <tr><td>🛬 Taxi aeropuerto ↔ Poblado</td><td class="n">110.000–140.000</td><td class="n">110–140</td></tr>
         <tr><td>🚇 Metro / Metrocable</td><td class="n">~4.000</td><td class="n">~4</td></tr>
         <tr><td>🎨 Tour Comuna 13</td><td class="n">60.000–120.000</td><td class="n">60–120</td></tr>
-        <tr><td>🪨 Excursión de día a Guatapé</td><td class="n">150.000–250.000</td><td class="n">150–250</td></tr>
+        <tr><td>🪨 Día en Guatapé</td><td class="n">150.000–250.000</td><td class="n">150–250</td></tr>
       </table></div>
     </div>
     <div class="card"><h3>💃 Cali</h3>
       <div class="tablewrap"><table>
-        <tr><th>Qué</th><th class="n">Pesos (COP)</th><th class="n">≈ ₪</th></tr>
+        <tr><th>Qué</th><th class="n">Pesos</th><th class="n">≈ ₪</th></tr>
         <tr><td>☕ Tinto</td><td class="n">1.500–3.000</td><td class="n">2–3</td></tr>
         <tr><td>☕ Café de especialidad</td><td class="n">5.000–9.000</td><td class="n">5–9</td></tr>
         <tr><td>🧀 Pandebono</td><td class="n">2.000–4.000</td><td class="n">2–4</td></tr>
-        <tr><td>🍋 Lulada o jugo natural</td><td class="n">5.000–10.000</td><td class="n">5–10</td></tr>
+        <tr><td>🍋 Lulada o jugo</td><td class="n">5.000–10.000</td><td class="n">5–10</td></tr>
         <tr><td>🍧 Cholado</td><td class="n">8.000–15.000</td><td class="n">8–15</td></tr>
-        <tr><td>🍛 Almuerzo ejecutivo (corrientazo)</td><td class="n">12.000–22.000</td><td class="n">12–22</td></tr>
-        <tr><td>🍽️ Cena en buen restaurante (p/p)</td><td class="n">60.000–120.000</td><td class="n">60–120</td></tr>
-        <tr><td>🍺 Birra nacional en un bar</td><td class="n">5.000–10.000</td><td class="n">5–10</td></tr>
-        <tr><td>🚕 Taxi corto en la ciudad</td><td class="n">8.000–15.000</td><td class="n">8–15</td></tr>
+        <tr><td>🍛 Almuerzo ejecutivo</td><td class="n">12.000–22.000</td><td class="n">12–22</td></tr>
+        <tr><td>🍽️ Cena buena (p/p)</td><td class="n">60.000–120.000</td><td class="n">60–120</td></tr>
+        <tr><td>🍺 Birra en un bar</td><td class="n">5.000–10.000</td><td class="n">5–10</td></tr>
+        <tr><td>🚕 Taxi corto</td><td class="n">8.000–15.000</td><td class="n">8–15</td></tr>
         <tr><td>🛬 Taxi aeropuerto ↔ ciudad</td><td class="n">50.000–70.000</td><td class="n">50–70</td></tr>
         <tr><td>🚌 Bus MIO</td><td class="n">~3.500</td><td class="n">~3.5</td></tr>
-        <tr><td>💃 Entrada a una salsoteca</td><td class="n">10.000–30.000</td><td class="n">10–30</td></tr>
+        <tr><td>💃 Entrada a salsoteca</td><td class="n">10.000–30.000</td><td class="n">10–30</td></tr>
         <tr><td>🕺 Clase de salsa</td><td class="n">30.000–60.000</td><td class="n">30–60</td></tr>
       </table></div>
     </div>
   </div>
-  <p class="src">Son estimaciones armadas con varias fuentes de 2026 (los precios varían según el barrio y el lugar). En los restaurantes suelen agregar un 10% de "servicio voluntario" en la cuenta. Fuentes:
+  <p class="src">Estimaciones con fuentes de 2026; varían según barrio y lugar. En los restaurantes suelen sumar un 10% de "servicio voluntario". Fuentes:
     <a href="https://world-prices.com/en/colombia/prices/medellin" target="_blank" rel="noopener">world-prices</a> ·
     <a href="https://citycost.org/medellin/" target="_blank" rel="noopener">citycost</a> ·
     <a href="https://colombiamove.com/blog/colombia-cost-of-living-2026-1500-month-breakdown/" target="_blank" rel="noopener">colombiamove</a> ·
-    <a href="https://www.infobae.com/colombia/2026/10/09/el-corrientazo-ya-esta-casi-en-20000-luego-del-dato-de-inflacion-del-dane-ha-subido-224-en-2026/" target="_blank" rel="noopener">Infobae (corrientazo, oct 2026)</a> ·
-    <a href="https://www.trabajovalle.com/2026/09/costo-vida-en-cali.html" target="_blank" rel="noopener">trabajovalle (Cali)</a> ·
+    <a href="https://www.infobae.com/colombia/2026/10/09/el-corrientazo-ya-esta-casi-en-20000-luego-del-dato-de-inflacion-del-dane-ha-subido-224-en-2026/" target="_blank" rel="noopener">Infobae</a> ·
+    <a href="https://www.trabajovalle.com/2026/09/costo-vida-en-cali.html" target="_blank" rel="noopener">trabajovalle</a> ·
     <a href="https://www.dolarhoy.co/" target="_blank" rel="noopener">dólar hoy</a></p>
 
-  <h3 class="bang" style="font-size:34px;margin:30px 0 12px">🧾 El presupuesto total (para la pareja)</h3>
+  <h3 class="part">🧾 El presupuesto total (los dos)</h3>
   <div class="card">
     <div class="tablewrap"><table>
-      <tr><th>Categoría</th><th>Detalle</th><th class="n">Total pareja</th></tr>
-      <tr><td>✈️ Vuelos internacionales</td><td>4 vuelos × 2 personas</td><td class="n">₪9,894</td></tr>
-      <tr><td>🛩️ Vuelos internos</td><td>Medellín ↔ Cali, ida y vuelta (estimado tipo LATAM con valija)</td><td class="n">~₪740</td></tr>
+      <tr><th>Qué</th><th>Detalle</th><th class="n">Los dos</th></tr>
+      <tr><td>✈️ Vuelos internacionales</td><td>4 vuelos</td><td class="n">₪9,894</td></tr>
+      <tr><td>🛩️ Vuelos internos</td><td>Medellín ↔ Cali (estimado con valija)</td><td class="n">~₪740</td></tr>
       <tr><td>🚆 Trenes en Israel</td><td>Ida y vuelta</td><td class="n">~₪100</td></tr>
-      <tr><td>🏨 Hotel Madrid</td><td>1 noche (₪369–427)</td><td class="n">~₪400</td></tr>
-      <tr><td>🥘 Madrid extras</td><td>Consigna, taxi/bus, cena y paseo</td><td class="n">~₪500</td></tr>
-      <tr><td>🏨 Hotel Medellín</td><td>5 noches (₪1,759–1,965) · o el InterContinental, a confirmar</td><td class="n">~₪1,850</td></tr>
-      <tr><td>🍽️ Gastos diarios Medellín</td><td>5 días × ~₪450 (la boda y el Shabat ya incluyen comida 😋)</td><td class="n">~₪2,250</td></tr>
-      <tr><td>💃 Gastos diarios Cali</td><td>9 días × ~₪350</td><td class="n">~₪3,150</td></tr>
-      <tr><td>☕ Eje Cafetero</td><td>🚧 A confirmar</td><td class="n">?</td></tr>
-      <tr><td>🏡 Alojamiento en Cali</td><td>¿En lo de Fanny? A confirmar</td><td class="n">?</td></tr>
-      <tr class="tot"><td colspan="2">TOTAL ESTIMADO</td><td class="n">~₪18,900</td></tr>
+      <tr><td>🛏️ Hotel Madrid</td><td>1 noche</td><td class="n">~₪400</td></tr>
+      <tr><td>🥘 Extras en Madrid</td><td>Consigna, taxi, cena, churros</td><td class="n">~₪500</td></tr>
+      <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
+      <tr><td>💃 Día a día en Cali</td><td>9 días × ₪190</td><td class="n">~₪1,710</td></tr>
+      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪14,600</td></tr>
+      <tr><td>🏨 Hotel Medellín · opción ahorro</td><td>EcoHub con desayuno</td><td class="n">₪1,965</td></tr>
+      <tr><td>🏨 Hotel Medellín · opción boda</td><td>InterContinental Premium King</td><td class="n">₪3,116</td></tr>
+      <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
   </div>
   <div class="bigtotal">
-    <div class="bang">≈ ₪19.000</div>
-    <p>para los dos, todo incluido… menos el Eje Cafetero, el alojamiento en Cali (si no es en lo de Fanny) y el regalo para los novios 🎁</p>
-    <p style="font-size:14px;opacity:.9">≈ ₪9.500 por persona · son estimaciones, se van a ir ajustando</p>
+    <div class="bang">≈ ₪16.500 – ₪17.700</div>
+    <p>para los dos, según el hotel de Medellín (EcoHub o InterContinental). Sin contar el Eje Cafetero, el alojamiento en Cali (si no es en lo de Fanny) y el regalo para los novios. 🎁</p>
+    <p style="font-size:15px;opacity:.9;margin-top:6px">≈ ₪8.300 – ₪8.900 por persona · son estimaciones y se van ajustando</p>
   </div>
 </section>
 
 <!-- ================= TIPS ================= -->
 <section id="tips">
-  <div class="sh"><h2 style="--c:var(--cafe)">Tips de supervivencia paisa</h2><span class="emoji">🧉</span></div>
-  <p class="sub">Para que vuelvan diciendo "parce" y "qué bacano" como locales.</p>
+  <div class="sh"><h2 style="--c:var(--cafe)">Tips</h2><span class="emoji">🧉</span></div>
+  <p class="sub">De supervivencia paisa, para que vuelvan diciendo "parce" y "qué bacano" como locales.</p>
   <div class="grid g3">
-    <div class="card"><h3>🍌 "No dar papaya"</h3><p>Es EL consejo colombiano: no andar mostrando el celu, joyas o la billetera en la calle. Taxis por app (Uber, DiDi, Cabify) y listo.</p></div>
-    <div class="card"><h3>🔌 Enchufes</h3><p>En Colombia los enchufes son <b>tipo americano</b> (patitas planas, 110 V). ¡Lleven adaptador! En España son como los europeos.</p></div>
-    <div class="card"><h3>💵 Plata</h3><p>Se paga con tarjeta en casi todos lados. Para efectivo, saquen de cajeros dentro de bancos o shoppings. Avisen al banco que viajan.</p></div>
-    <div class="card"><h3>🌦️ El clima</h3><p>Medellín: 17–28 °C, con alguna lluvia de tarde (lleven un piloto liviano). Cali: calorcito, 20–31 °C.</p></div>
-    <div class="card"><h3>🛂 Papeles</h3><p>Con pasaporte israelí <b>no hace falta visa</b> para Colombia ni para España. Colombia pide completar online el formulario <b>Check-MIG</b> (gratis) antes de volar. Y ojo con <b>ETIAS</b>, el nuevo permiso online de la Unión Europea: si ya está activo para febrero, hay que sacarlo antes de pasar por Madrid. Yo lo chequeo. 😉</p></div>
-    <div class="card"><h3>🗣️ Diccionario express</h3><p><b>Parce</b> = amigo/che · <b>Bacano / chévere</b> = copado · <b>Tinto</b> = cafecito negro (¡no es vino!) · <b>¿Qué más?</b> = ¿cómo andás? · <b>Paisa</b> = de Medellín · <b>Caleño</b> = de Cali</p></div>
+    <div class="card"><h3>🍌 "No dar papaya"</h3><p>EL consejo colombiano: no andar mostrando el celu, joyas o la billetera en la calle. Taxis por app (Uber, DiDi, Cabify) y listo.</p></div>
+    <div class="card"><h3>🔌 Enchufes</h3><p>En Colombia son <b>tipo americano</b> (patitas planas, 110 V). ¡Lleven adaptador! En España son como los europeos.</p></div>
+    <div class="card"><h3>💵 Plata</h3><p>Se paga con tarjeta en casi todos lados. Para efectivo, cajeros dentro de bancos o shoppings. Avisen al banco que viajan.</p></div>
+    <div class="card"><h3>🌦️ Clima</h3><p>Medellín: 17–28 °C, con alguna lluvia de tarde (un piloto liviano). Cali: calorcito, 20–31 °C.</p></div>
+    <div class="card"><h3>🛂 Papeles</h3><p>Con pasaporte israelí <b>no hace falta visa</b> ni para Colombia ni para España. Colombia pide el formulario online <b>Check-MIG</b> (gratis) antes de volar. Y si para febrero ya arrancó el <b>ETIAS</b> europeo, hay que sacarlo antes de Madrid. Yo lo chequeo. 😉</p></div>
+    <div class="card"><h3>🗣️ Diccionario</h3><p><b>Parce</b> = che · <b>Bacano</b> = copado · <b>Tinto</b> = cafecito (¡no vino!) · <b>¿Qué más?</b> = ¿cómo andás? · <b>Paisa</b> = de Medellín · <b>Caleño</b> = de Cali</p></div>
   </div>
 </section>
 
 <!-- ================= PENDIENTES ================= -->
 <section id="pendientes">
   <div class="sh"><h2 style="--c:var(--rojo)">Pendientes</h2><span class="emoji">✅</span></div>
-  <p class="sub">La lista de cosas por cerrar. Las voy tachando a medida que avanzamos.</p>
+  <p class="sub">Toquen cada cosa cuando esté lista y se tacha. Queda guardado en este celu o compu, así cuando vuelvan sigue igual.</p>
   <div class="card">
-    <ul class="check">
-      <li class="ok">Averiguar vuelos internacionales y trenes</li>
-      <li class="ok">Opciones de hoteles en Madrid y Medellín</li>
-      <li>Comprar los vuelos internacionales ✈️</li>
-      <li>Respuesta del InterContinental con el precio (mail enviado 📧)</li>
-      <li>Elegir y reservar hotel en Madrid</li>
-      <li>Elegir y reservar hotel en Medellín</li>
-      <li>Confirmar asistencia (RSVP) en la web de los novios 💌</li>
-      <li>Pedir el traslado del aeropuerto por WhatsApp a los novios 🚐</li>
-      <li>Vuelos internos Medellín ↔ Cali (averiguar valijas JetSMART/Avianca)</li>
-      <li>Planear la escapada al Eje Cafetero ☕</li>
-      <li>Chequear Check-MIG y ETIAS 🛂</li>
-      <li>Seguro de viaje 🩺</li>
-      <li>Regalo para Alexa &amp; Leor 🎁</li>
-      <li>Adaptador de enchufe tipo americano 🔌</li>
-      <li>Elegir pilchas: Tropical Chic + Black Tie Optional 👗🤵</li>
+    <div class="prog"><b id="prog-n">0/0</b><div class="bar"><i id="prog-bar"></i></div></div>
+    <div class="prog-msg" id="prog-msg"></div>
+    <ul class="todo" id="todo">
+      <li><label><input type="checkbox" data-id="averiguar" data-done="1"><span class="box"></span><span class="txt">Averiguar vuelos internacionales y trenes</span></label></li>
+      <li><label><input type="checkbox" data-id="opciones-hoteles" data-done="1"><span class="box"></span><span class="txt">Opciones de hoteles en Madrid y Medellín</span></label></li>
+      <li><label><input type="checkbox" data-id="respuesta-inter" data-done="1"><span class="box"></span><span class="txt">Respuesta del InterContinental con el precio</span></label></li>
+      <li><label><input type="checkbox" data-id="comprar-vuelos"><span class="box"></span><span class="txt">Comprar los vuelos internacionales ✈️</span></label></li>
+      <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Elegir y reservar hotel en Madrid</span></label></li>
+      <li><label><input type="checkbox" data-id="hotel-medellin"><span class="box"></span><span class="txt">Decidir hotel en Medellín (¿InterContinental, EcoHub o el combo?)</span></label></li>
+      <li><label><input type="checkbox" data-id="rsvp"><span class="box"></span><span class="txt">Confirmar asistencia (RSVP) en la web de los novios 💌</span></label></li>
+      <li><label><input type="checkbox" data-id="traslado"><span class="box"></span><span class="txt">Pedir el traslado del aeropuerto por WhatsApp 🚐</span></label></li>
+      <li><label><input type="checkbox" data-id="internos"><span class="box"></span><span class="txt">Vuelos Medellín ↔ Cali (averiguar valijas)</span></label></li>
+      <li><label><input type="checkbox" data-id="eje"><span class="box"></span><span class="txt">Planear la escapada al Eje Cafetero ☕</span></label></li>
+      <li><label><input type="checkbox" data-id="papeles"><span class="box"></span><span class="txt">Chequear Check-MIG y ETIAS 🛂</span></label></li>
+      <li><label><input type="checkbox" data-id="seguro"><span class="box"></span><span class="txt">Seguro de viaje 🩺</span></label></li>
+      <li><label><input type="checkbox" data-id="regalo"><span class="box"></span><span class="txt">Regalo para Alexa &amp; Leor 🎁</span></label></li>
+      <li><label><input type="checkbox" data-id="adaptador"><span class="box"></span><span class="txt">Adaptador de enchufe tipo americano 🔌</span></label></li>
+      <li><label><input type="checkbox" data-id="pilchas"><span class="box"></span><span class="txt">Pilchas: Tropical Chic + Black Tie Optional 👗🤵</span></label></li>
     </ul>
   </div>
 
-  <div class="who" id="who">
-    <div class="bang">👀 ¿Quién está chusmeando la página?</div>
-    <button type="button" data-who="Dora">Soy Dora 💃</button>
-    <button type="button" data-who="Ricardo">Soy Ricardo 🕺</button>
-    <button type="button" data-who="Dora y Ricardo">Los dos juntos 💑</button>
+  <div class="card who" id="who">
+    <div class="bang">👀 ¿Quién está chusmeando?</div>
+    <div class="btns">
+      <button type="button" data-who="Dora">Soy Dora 💃</button>
+      <button type="button" data-who="Ricardo">Soy Ricardo 🕺</button>
+      <button type="button" data-who="Dora y Ricardo">Los dos 💑</button>
+    </div>
     <p id="who-msg">Toquen su nombre así Nir sabe que pasaron por acá 😉</p>
   </div>
 </section>
@@ -725,17 +882,20 @@ footer a{color:var(--cian)}
 </main>
 
 <footer>
-  <div class="bang">¡Buen viaje, Papus y Mamuska! 🇨🇴❤️🇮🇱</div>
+  <div class="bang">¡Buen viaje, Papus y Mamuska! <span class="fl co"></span> ❤️ <span class="fl il"></span></div>
   <p>Hecho con amor (y mucho mate) por Nir · Febrero 2027</p>
   <p>Cualquier duda, me llaman. Y si no atiendo, insistan. 📞</p>
   <p style="margin-top:14px"><a href="https://alexa-leor.lovable.app/" target="_blank" rel="noopener">Web de la boda de Alexa &amp; Leor ↗</a></p>
 </footer>
-<div class="flag"></div>
+<div class="stripe"></div>
 
 <script>
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+
 // ---------- countdown ----------
 (function(){
-  var target = new Date('2027-02-02T16:05:00+02:00').getTime();
+  var target=new Date('2027-02-02T16:05:00+02:00').getTime();
   var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
   function pad(n){return String(n).padStart(2,'0')}
   function tick(){
@@ -748,19 +908,28 @@ footer a{color:var(--cian)}
   tick(); setInterval(tick,1000);
 })();
 
+// ---------- sticky menu ----------
+(function(){
+  var top=document.getElementById('top'),btn=document.getElementById('menu-btn'),links=[].slice.call(document.querySelectorAll('#menu a'));
+  function setHead(){document.documentElement.style.setProperty('--head',top.querySelector('.bar').offsetHeight+'px')}
+  setHead(); addEventListener('resize',setHead);
+  btn.addEventListener('click',function(){var o=top.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.textContent=o?'✕ Cerrar':'☰ Menú'});
+  links.forEach(function(a){a.addEventListener('click',function(){top.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='☰ Menú'})});
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.isIntersecting)links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id)});
+  })},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)});
+})();
+
 // ---------- visit notifications (ntfy.sh) ----------
 // Every visit sends a push to the ntfy topic below. Subscribe in the ntfy app to get them.
 // Open the page once with ?yo=nir on your own devices so your visits are not reported (?yo=reset undoes it).
-(function(){
+var notify=(function(){
   var TOPIC='papus-colombia-64a457230b';
-  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
-  function set(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
-
   var yo=new URLSearchParams(location.search).get('yo');
-  if(yo==='nir') set('colombia_nir','1');
-  if(yo==='reset'){set('colombia_nir',null);set('colombia_who',null)}
-  var isNir=get('colombia_nir')==='1';
-
+  if(yo==='nir') lsSet('colombia_nir','1');
+  if(yo==='reset'){lsSet('colombia_nir',null);lsSet('colombia_who',null)}
+  var isNir=lsGet('colombia_nir')==='1';
   function device(){
     var ua=navigator.userAgent;
     if(/iPhone/.test(ua))return 'iPhone';
@@ -779,29 +948,29 @@ footer a{color:var(--cian)}
       fetch('https://ntfy.sh/',{method:'POST',body:body,keepalive:true}).catch(function(){});
     }catch(e){}
   }
+  return {send:send,device:device,now:now,who:function(){return lsGet('colombia_who')}};
+})();
 
-  var visits=Number(get('colombia_visits')||0)+1; set('colombia_visits',String(visits));
-  var who=get('colombia_who');
-  send({
-    title:'🇨🇴 '+(who||'Alguien')+' entró a la página de Colombia',
-    message:'🕒 '+now()+' (hora Israel)\n📱 '+device()+'\n🔁 Visita n.º '+visits+' desde este dispositivo',
+(function(){
+  var visits=Number(lsGet('colombia_visits')||0)+1; lsSet('colombia_visits',String(visits));
+  notify.send({
+    title:'🇨🇴 '+(notify.who()||'Alguien')+' entró a la página de Colombia',
+    message:'🕒 '+notify.now()+' (hora Israel)\n📱 '+notify.device()+'\n🔁 Visita n.º '+visits+' desde este dispositivo',
     tags:['eyes'],priority:3
   });
 
-  // who-is-it buttons
   var box=document.getElementById('who'),msg=document.getElementById('who-msg');
   function mark(name){
     box.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.who===name)});
     if(name)msg.textContent='¡Hola, '+name+'! Nir ya sabe que pasaste por acá 😘';
   }
-  mark(who);
+  mark(notify.who());
   box.addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b)return;
-    who=b.dataset.who; set('colombia_who',who); mark(who);
-    send({title:'👋 Se identificó: '+who,message:'🕒 '+now()+' · 📱 '+device(),tags:['wave'],priority:3});
+    lsSet('colombia_who',b.dataset.who); mark(b.dataset.who);
+    notify.send({title:'👋 Se identificó: '+b.dataset.who,message:'🕒 '+notify.now()+' · 📱 '+notify.device(),tags:['wave'],priority:3});
   });
 
-  // when they leave: time on page + furthest section reached
   var start=Date.now(),seen='inicio',order=[];
   document.querySelectorAll('main section[id]').forEach(function(s){order.push(s.id)});
   var io=new IntersectionObserver(function(es){es.forEach(function(en){
@@ -812,10 +981,34 @@ footer a{color:var(--cian)}
   function bye(){
     if(sent)return; var secs=Math.round((Date.now()-start)/1000); if(secs<8)return; sent=true;
     var mins=secs<60?secs+' seg':Math.round(secs/60)+' min';
-    send({title:'👋 '+(who||'Alguien')+' cerró la página',message:'⏱️ Estuvo '+mins+'\n📍 Llegó hasta: '+seen,tags:['hourglass'],priority:2},true);
+    notify.send({title:'👋 '+(notify.who()||'Alguien')+' cerró la página',message:'⏱️ Estuvo '+mins+'\n📍 Llegó hasta: '+seen,tags:['hourglass'],priority:2},true);
   }
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')bye()});
-  window.addEventListener('pagehide',bye);
+  addEventListener('pagehide',bye);
+})();
+
+// ---------- to-do list (saved on this device) ----------
+(function(){
+  var KEY='colombia_todo',state={};
+  try{state=JSON.parse(lsGet(KEY)||'{}')||{}}catch(e){state={}}
+  var boxes=[].slice.call(document.querySelectorAll('#todo input'));
+  var n=document.getElementById('prog-n'),bar=document.getElementById('prog-bar'),msg=document.getElementById('prog-msg');
+  var msgs=['¡Arrancamos! Un pasito a la vez. 🐢','¡Vamos bien! Ya huele a arepa. 🫓','¡Mitad del camino! Se escucha la salsa de fondo. 💃','¡Casi casi! Vayan planchando la ropa de la boda. 👔','¡TODO LISTO! A hacer las valijas. 🧳🎉'];
+  function update(){
+    var done=boxes.filter(function(b){return b.checked}).length,pct=done/boxes.length;
+    n.textContent=done+'/'+boxes.length; bar.style.width=Math.round(pct*100)+'%';
+    msg.textContent=msgs[pct===1?4:pct>=.75?3:pct>=.5?2:pct>=.25?1:0];
+  }
+  boxes.forEach(function(b){
+    var id=b.dataset.id;
+    b.checked=(id in state)?state[id]:b.dataset.done==='1';
+    b.addEventListener('change',function(){
+      state[id]=b.checked; lsSet(KEY,JSON.stringify(state)); update();
+      var txt=b.parentNode.querySelector('.txt').textContent;
+      notify.send({title:(b.checked?'✅ ':'↩️ ')+(notify.who()||'Alguien')+(b.checked?' tachó':' destachó')+' un pendiente',message:txt+'\n🕒 '+notify.now(),tags:['memo'],priority:3});
+    });
+  });
+  update();
 })();
 </script>
 </body>
