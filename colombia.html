@@ -64,7 +64,7 @@ svg.ic{width:1em;height:1em;fill:currentColor;flex:none}
 .top{position:sticky;top:0;z-index:50;background:var(--amarillo);border-bottom:3px solid var(--ink);box-shadow:0 4px 0 rgba(27,21,48,.12)}
 .top .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1240px;margin:0 auto;padding:10px 16px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:Bangers;font-size:26px;letter-spacing:.05em;white-space:nowrap}
-.menu-btn{display:none;font:inherit;font-weight:800;font-size:18px;background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:6px 16px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+.menu-btn{display:none;white-space:nowrap;font:inherit;font-weight:800;font-size:18px;background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:6px 16px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
 .menu{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
 .menu a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink);background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:5px 13px;font-weight:800;font-size:17px;box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:transform .1s}
 .menu a:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
@@ -142,7 +142,7 @@ ul.feats li.i::before{content:"i";background:var(--azul)}
 .prices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 16px}
 .pbox{border:2.5px solid var(--ink);border-radius:14px;padding:8px 14px;background:var(--paper)}
 .pbox small{display:block;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.pbox b{font-family:Bangers;font-size:36px;letter-spacing:.03em;line-height:1.05;display:block}
+.pbox > b{font-family:Bangers;font-size:36px;letter-spacing:.03em;line-height:1.05;display:block}
 .pbox .x{display:block;font-size:14px;font-weight:700;color:var(--muted)}
 .pbox.hi{background:var(--amarillo-soft)}
 .pbox.tot{background:var(--verde);color:#fff}.pbox.tot small,.pbox.tot .x{color:#eafff0}
@@ -162,8 +162,8 @@ ul.feats li.i::before{content:"i";background:var(--azul)}
 .path .icw{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--c,var(--azul));border:3px solid var(--ink);display:grid;place-items:center;color:#fff}
 .path .icw svg{width:24px;height:24px}
 .path .icw.plane svg{transform:rotate(90deg)}
-.path .dur{position:absolute;left:50%;top:-8px;transform:translateX(-50%);font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap;background:var(--white);padding:0 6px}
-@media(max-width:420px){.pt b{font-size:40px}.path{min-width:54px}}
+.path .dur{position:absolute;left:50%;top:-14px;transform:translateX(-50%);font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap;background:var(--white);padding:0 6px}
+@media(max-width:420px){.pt b{font-size:40px}.pt b.sm{font-size:26px!important}.path{min-width:54px}.path .dur{font-size:12px}}
 
 /* ---------- route overview ---------- */
 .route{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:18px 10px}
@@ -547,18 +547,18 @@ footer a{color:var(--cian)}
     <div class="card">
       <div class="when"><span class="label g">Ida · martes 2/2</span></div>
       <div class="leg">
-        <div class="pt"><b style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>12:03</em></div>
+        <div class="pt"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>12:03</em></div>
         <div class="path" style="--c:var(--verde)"><span class="dur">1 h 45 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
-        <div class="pt end"><b style="font-size:34px">TLV</b><span>Ben Gurión</span><em>13:48</em></div>
+        <div class="pt end"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>13:48</em></div>
       </div>
       <p>Llegan 2 h 15 min antes del vuelo. Justito y cómodo. 👌</p>
     </div>
     <div class="card">
       <div class="when"><span class="label g">Vuelta · viernes 19/2</span></div>
       <div class="leg">
-        <div class="pt"><b style="font-size:34px">TLV</b><span>Ben Gurión</span><em>04:04</em></div>
+        <div class="pt"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>04:04</em></div>
         <div class="path" style="--c:var(--verde)"><span class="dur">1 h 35 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
-        <div class="pt end"><b style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>05:39</em></div>
+        <div class="pt end"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>05:39</em></div>
       </div>
       <p><b>Plan B</b> si se escapa: <span class="t">05:03</span> → <span class="t">07:05</span> (más lento, pero llega). Sí, hay trenes: es la noche de jueves a viernes. 🙌</p>
     </div>
