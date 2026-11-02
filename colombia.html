@@ -62,18 +62,21 @@ svg.ic{width:1em;height:1em;fill:currentColor;flex:none}
 
 /* ---------- sticky header + big menu ---------- */
 .top{position:sticky;top:0;z-index:50;background:var(--amarillo);border-bottom:3px solid var(--ink);box-shadow:0 4px 0 rgba(27,21,48,.12)}
-.top .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1240px;margin:0 auto;padding:10px 16px}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:18px;max-width:1400px;margin:0 auto;padding:10px 20px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:Bangers;font-size:26px;letter-spacing:.05em;white-space:nowrap}
 .menu-btn{display:none;white-space:nowrap;font:inherit;font-weight:800;font-size:18px;background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:6px 16px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
-.menu{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
-.menu a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink);background:var(--white);border:3px solid var(--ink);border-radius:14px;padding:5px 13px;font-weight:800;font-size:17px;box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:transform .1s}
+.menu{display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:7px}
+.menu a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:80px;text-decoration:none;color:var(--ink);background:var(--white);border:3px solid var(--ink);border-radius:16px;padding:6px 10px 3px;font-weight:800;font-size:15px;line-height:1.2;box-shadow:3px 3px 0 var(--ink);white-space:nowrap;transition:transform .1s,background .15s}
+.menu .mi{font-size:24px;line-height:1.15;display:block}
+.menu .mi .fl{font-size:22px}
 .menu a:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
 .menu a.on{background:var(--azul);color:#fff}
-@media(max-width:1180px){
+@media(max-width:1300px){
   .menu-btn{display:inline-flex;align-items:center;gap:8px}
   .menu{display:none;position:absolute;left:0;right:0;top:100%;background:var(--amarillo);border-bottom:3px solid var(--ink);padding:14px 16px 18px;display:none;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
   .top.open .menu{display:grid}
-  .menu a{font-size:19px;padding:12px 14px;justify-content:flex-start}
+  .menu a{flex-direction:row;gap:10px;font-size:19px;padding:12px 14px;justify-content:flex-start}
+  .menu .mi{font-size:22px}
 }
 
 /* ---------- hero ---------- */
@@ -88,14 +91,47 @@ svg.ic{width:1em;height:1em;fill:currentColor;flex:none}
 .lead{background:var(--white);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;font-size:20px;line-height:1.6}
 .lead b{color:var(--rojo)}
 .lead .firma{display:block;margin-top:10px;font-family:Bangers;font-size:28px;color:var(--azul);letter-spacing:.05em}
-.count{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:flex-end}
-.count .lbl{width:100%;font-weight:800;font-size:18px}
-.count .c{background:var(--azul);color:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:var(--shadow-sm);padding:6px 10px;text-align:center;min-width:80px}
-.count .c b{display:block;font-family:Bangers;font-size:40px;line-height:1;letter-spacing:.04em}
-.count .c span{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+/* countdown */
+.launch{--gold:#FFCD00;position:relative;overflow:hidden;margin-top:24px;color:#fff;border-radius:24px;padding:20px 22px 18px;
+  background:radial-gradient(120% 90% at 0% 0%,#3a1f8f 0,transparent 55%),radial-gradient(100% 90% at 100% 100%,#0b3c8c 0,transparent 60%),linear-gradient(160deg,#120f3a,#1c1250 60%,#0d1a4a);
+  border:3px solid var(--ink);box-shadow:var(--shadow),inset 0 0 0 2px rgba(255,205,0,.55),inset 0 0 40px rgba(255,205,0,.12)}
+.launch::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.8;
+  background-image:radial-gradient(1.5px 1.5px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 32% 70%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 58% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 78% 60%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 90% 25%,#FFE27A 50%,transparent 51%),radial-gradient(1px 1px at 45% 45%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 6% 80%,#FFE27A 50%,transparent 51%);
+  animation:twinkle 3.2s ease-in-out infinite alternate}
+.launch::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);transform:skewX(-18deg);animation:shine 5.5s ease-in-out infinite}
+@keyframes twinkle{from{opacity:.35}to{opacity:.95}}
+@keyframes shine{0%,55%{left:-60%}100%{left:130%}}
+.l-top{display:flex;justify-content:space-between;align-items:center;gap:10px;position:relative}
+.l-kicker{font-size:13px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.l-live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:2px 10px}
+.l-live i{width:8px;height:8px;border-radius:50%;background:#ff3b5c;box-shadow:0 0 0 0 rgba(255,59,92,.7);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(255,59,92,0)}100%{box-shadow:0 0 0 0 rgba(255,59,92,0)}}
+.l-title{position:relative;font-size:17px;font-weight:600;color:#dcd6ff;margin:6px 0 14px}
+.l-title b{color:#fff}
+.l-digits{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.unit{flex:1;text-align:center}
+.num{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:clamp(38px,5.2vw,58px);line-height:1.1;padding:8px 4px 4px;border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03));border:1px solid rgba(255,205,0,.45);box-shadow:inset 0 -10px 20px rgba(0,0,0,.25),0 6px 18px rgba(0,0,0,.35);
+  font-variant-numeric:tabular-nums;color:var(--gold);text-shadow:0 0 18px rgba(255,205,0,.45)}
+.num.tick{animation:flip .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes flip{0%{transform:perspective(300px) rotateX(-80deg);opacity:.2}100%{transform:perspective(300px) rotateX(0);opacity:1}}
+.unit span{display:block;margin-top:6px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#bfb8ef}
+.colon{font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1.6;color:var(--gold);opacity:.85;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:.2}}
+.l-track{position:relative;margin-top:18px}
+.l-rail{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.14)}
+.l-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#FFCD00,#1F4FD8,#E8253C);box-shadow:0 0 14px rgba(255,205,0,.6);transition:width 1s}
+.l-plane{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;border:2px solid #fff;box-shadow:0 0 16px rgba(255,205,0,.8);transition:left 1s}
+.l-plane svg{width:20px;height:20px;transform:rotate(90deg)}
+.l-ends{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#bfb8ef}
+.l-ends #cd-pct{color:var(--gold)}
+.l-foot{position:relative;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.25);font-size:16px;color:#e6e2ff}
+.l-foot b{color:var(--gold)}
+@media(max-width:480px){.launch{padding:16px 14px}.unit span{letter-spacing:.08em;font-size:11px}.colon{display:none}.l-digits{gap:8px}}
+@media(prefers-reduced-motion:reduce){.launch::before,.launch::after,.colon,.l-live i{animation:none}.num.tick{animation:none}}
 
 .pic{justify-self:center;width:100%;max-width:380px}
-.pic img{display:block;width:100%;height:auto;border:4px solid var(--ink);border-radius:16px;box-shadow:10px 10px 0 var(--ink);background:#fff}
+.pic video{display:block;width:100%;height:auto;aspect-ratio:716/1280;object-fit:cover;border:4px solid var(--ink);border-radius:16px;box-shadow:10px 10px 0 var(--ink);background:#fff}
 .talk{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
 .say{position:relative;background:var(--white);border:3px solid var(--ink);border-radius:18px;padding:10px 12px;font-weight:800;font-size:16px;line-height:1.3;box-shadow:3px 3px 0 var(--ink)}
 .say small{display:block;font-weight:700;color:var(--muted);font-size:13px;margin-top:4px}
@@ -210,9 +246,21 @@ tr.hl td{background:var(--amarillo-soft)}
 .tier .v small{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
 .tier.main{background:var(--amarillo-soft);border-width:3.5px}
 .tier.main .nm::after{content:"PROMEDIO";display:inline-block;margin-left:8px;font-size:11px;background:var(--rojo);color:#fff;border-radius:6px;padding:1px 6px;vertical-align:2px;letter-spacing:.06em}
-.bigtotal{background:var(--rojo);color:#fff;border:4px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px;text-align:center;margin-top:26px}
-.bigtotal .bang{font-size:clamp(46px,9vw,72px);line-height:1;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:4px 4px 0 var(--ink)}
-.bigtotal p{margin:10px auto 0;font-weight:700;max-width:640px}
+.total{margin-top:26px;background:linear-gradient(160deg,#F2FFF6,#E3F7EA);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+.total-head{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.total-head .ti{font-size:44px;line-height:1}
+.total-head h3{font-size:36px;line-height:1}
+.total-head p{margin:4px 0 0;font-weight:600;color:var(--muted)}
+.total-opts{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:640px){.total-opts{grid-template-columns:1fr 1fr}}
+.opt{background:var(--white);border:3px solid var(--ink);border-radius:18px;padding:14px 18px;box-shadow:3px 3px 0 var(--ink)}
+.opt small{display:block;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.opt b{display:block;font-family:"Baloo 2",sans-serif;font-weight:800;font-size:clamp(40px,6vw,52px);line-height:1.15;color:#0E7A3A;font-variant-numeric:tabular-nums}
+.opt span{font-weight:700;color:var(--muted)}
+.total-lists{display:grid;gap:8px 24px;grid-template-columns:1fr;margin-top:20px}
+@media(min-width:640px){.total-lists{grid-template-columns:1fr 1fr}}
+.total-lists h4{margin:0 0 4px;font-size:20px}
+.total-lists ul.feats{margin:0}
 
 /* ---------- hotel verdict ---------- */
 .score{display:flex;align-items:center;gap:10px;min-width:150px}
@@ -274,17 +322,17 @@ footer a{color:var(--cian)}
     <a class="brand" href="#inicio"><span class="fl co"></span> Papus &amp; Mamuska</a>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">☰ Menú</button>
     <nav class="menu" id="menu">
-      <a href="#plan">🗺️ El plan</a>
-      <a href="#dia">📅 Día a día</a>
-      <a href="#boda">💍 La boda</a>
-      <a href="#vuelos">✈️ Vuelos</a>
-      <a href="#trenes">🚆 Trenes</a>
-      <a href="#madrid"><span class="fl es"></span> Madrid</a>
-      <a href="#medellin">🏨 Medellín</a>
-      <a href="#cali">💃 Cali</a>
-      <a href="#guita">💸 La guita</a>
-      <a href="#tips">🧉 Tips</a>
-      <a href="#pendientes">✅ Pendientes</a>
+      <a href="#plan"><span class="mi">🗺️</span><span>Plan</span></a>
+      <a href="#dia"><span class="mi">📅</span><span>Día a día</span></a>
+      <a href="#boda"><span class="mi">💍</span><span>Boda</span></a>
+      <a href="#vuelos"><span class="mi">✈️</span><span>Vuelos</span></a>
+      <a href="#trenes"><span class="mi">🚆</span><span>Trenes</span></a>
+      <a href="#madrid"><span class="mi"><span class="fl es"></span></span><span>Madrid</span></a>
+      <a href="#medellin"><span class="mi">🏨</span><span>Medellín</span></a>
+      <a href="#cali"><span class="mi">💃</span><span>Cali</span></a>
+      <a href="#guita"><span class="mi">💸</span><span>Guita</span></a>
+      <a href="#tips"><span class="mi">🧉</span><span>Tips</span></a>
+      <a href="#pendientes"><span class="mi">✅</span><span>Pendientes</span></a>
     </nav>
   </div>
 </header>
@@ -300,16 +348,22 @@ footer a{color:var(--cian)}
         Acá está todo lo que averigüé: vuelos, trenes, hoteles, la boda y cuánta guita llevar. Si algo cambia, lo actualizo acá. ¡Ustedes solo preocúpense por el baile!
         <span class="firma">— Con todo el amor, Nir 😘</span>
       </div>
-      <div class="count">
-        <div class="lbl">⏳ Faltan para despegar de Ben Gurión:</div>
-        <div class="c"><b id="cd-d">--</b><span>días</span></div>
-        <div class="c"><b id="cd-h">--</b><span>horas</span></div>
-        <div class="c"><b id="cd-m">--</b><span>min</span></div>
-        <div class="c"><b id="cd-s">--</b><span>seg</span></div>
+      <div class="launch">
+        <div class="l-top"><span class="l-kicker">Cuenta regresiva</span><span class="l-live"><i></i>En vivo</span></div>
+        <div class="l-title">Despegamos el <b>martes 2 de febrero</b> a las <b>16:05</b></div>
+        <div class="l-digits">
+          <div class="unit"><div class="num" id="cd-d">--</div><span>días</span></div><div class="colon">:</div>
+          <div class="unit"><div class="num" id="cd-h">--</div><span>horas</span></div><div class="colon">:</div>
+          <div class="unit"><div class="num" id="cd-m">--</div><span>min</span></div><div class="colon">:</div>
+          <div class="unit"><div class="num" id="cd-s">--</div><span>seg</span></div>
+        </div>
+        <div class="l-track"><div class="l-rail"><div class="l-fill" id="cd-fill"></div><div class="l-plane" id="cd-plane"><svg class="ic"><use href="#plane"/></svg></div></div>
+          <div class="l-ends"><span>Hoy</span><span id="cd-pct"></span><span>¡Colombia!</span></div></div>
+        <div class="l-foot">…y <b id="cd-boda">--</b> días para ver a Alexa y Leor decir <b>"¡sí, acepto!"</b> 💍</div>
       </div>
     </div>
     <div class="pic">
-      <img src="colombia-papus.jpg" alt="Dibujo cómic de Ricardo y Dora planeando el viaje a la boda en Colombia, febrero 2027" width="820" height="1468">
+      <video id="papus-vid" src="colombia-papus.mp4" poster="colombia-papus-poster.jpg" autoplay muted loop playsinline preload="auto" width="716" height="1280" aria-label="Dibujo cómic animado de Ricardo y Dora tomando café y planeando el viaje a la boda en Colombia"></video>
       <div class="talk">
         <div class="say l">¿Y quién lleva las valijas, Dora?<small>— Ricardo</small></div>
         <div class="say r">¡Vos, Ricardo! Yo llevo el mapa 😎<small>— Dora</small></div>
@@ -821,10 +875,29 @@ footer a{color:var(--cian)}
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
   </div>
-  <div class="bigtotal">
-    <div class="bang">≈ ₪16.500 – ₪17.700</div>
-    <p>para los dos, según el hotel de Medellín (EcoHub o InterContinental). Sin contar el Eje Cafetero, el alojamiento en Cali (si no es en lo de Fanny) y el regalo para los novios. 🎁</p>
-    <p style="font-size:15px;opacity:.9;margin-top:6px">≈ ₪8.300 – ₪8.900 por persona · son estimaciones y se van ajustando</p>
+  <div class="total">
+    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido. Depende del hotel que elijan en Medellín:</p></div></div>
+    <div class="total-opts">
+      <div class="opt"><small>Con hotel EcoHub</small><b>₪16,559</b><span>≈ ₪8,280 por persona</span></div>
+      <div class="opt"><small>Con el InterContinental</small><b>₪17,710</b><span>≈ ₪8,855 por persona</span></div>
+    </div>
+    <div class="total-lists">
+      <div><h4>✅ Incluye</h4><ul class="feats">
+        <li>Los 4 vuelos internacionales</li>
+        <li>Vuelos Medellín ↔ Cali, con valija</li>
+        <li>Trenes en Israel</li>
+        <li>Hotel y extras en Madrid</li>
+        <li>Hotel en Medellín (5 noches)</li>
+        <li>Comida, transporte y paseos de todos los días</li>
+      </ul></div>
+      <div><h4>➕ No incluye (todavía)</h4><ul class="feats">
+        <li class="x">Escapada al Eje Cafetero</li>
+        <li class="x">Alojamiento en Cali (si no es en lo de Fanny)</li>
+        <li class="x">Regalo para Alexa &amp; Leor</li>
+        <li class="x">Seguro de viaje</li>
+      </ul></div>
+    </div>
+    <p class="src" style="margin:4px 0 0">Son estimaciones y se van ajustando a medida que cerremos cosas.</p>
   </div>
 </section>
 
@@ -896,17 +969,28 @@ function lsSet(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem
 // ---------- countdown ----------
 (function(){
   var target=new Date('2027-02-02T16:05:00+02:00').getTime();
-  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
+  var planStart=new Date('2026-11-02T00:00:00+02:00').getTime();
+  var boda=new Date('2027-02-07T16:30:00-05:00').getTime();
+  var els=['cd-d','cd-h','cd-m','cd-s'].map(function(id){return document.getElementById(id)});
+  var fill=document.getElementById('cd-fill'),plane=document.getElementById('cd-plane'),pct=document.getElementById('cd-pct'),bd=document.getElementById('cd-boda');
   function pad(n){return String(n).padStart(2,'0')}
+  function set(el,v){if(el.textContent!==v){el.textContent=v;el.classList.remove('tick');void el.offsetWidth;el.classList.add('tick')}}
   function tick(){
-    var diff=Math.max(0,target-Date.now());
-    d.textContent=Math.floor(diff/864e5);
-    h.textContent=pad(Math.floor(diff/36e5)%24);
-    m.textContent=pad(Math.floor(diff/6e4)%60);
-    s.textContent=pad(Math.floor(diff/1e3)%60);
+    var now=Date.now(),diff=Math.max(0,target-now);
+    set(els[0],String(Math.floor(diff/864e5)));
+    set(els[1],pad(Math.floor(diff/36e5)%24));
+    set(els[2],pad(Math.floor(diff/6e4)%60));
+    set(els[3],pad(Math.floor(diff/1e3)%60));
+    var p=Math.min(1,Math.max(0,(now-planStart)/(target-planStart)));
+    var w=(3+p*94).toFixed(2)+'%'; fill.style.width=w; plane.style.left=w;
+    pct.textContent=Math.floor(p*100)+'% del camino';
+    bd.textContent=Math.max(0,Math.ceil((boda-now)/864e5));
   }
   tick(); setInterval(tick,1000);
 })();
+
+// ---------- hero video ----------
+(function(){var v=document.getElementById('papus-vid');if(!v)return;v.muted=true;var p=v.play();if(p&&p.catch)p.catch(function(){});})();
 
 // ---------- sticky menu ----------
 (function(){
