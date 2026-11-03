@@ -321,6 +321,9 @@ footer a{color:var(--cian)}
 .status b{color:var(--amarillo)}
 .status p{margin:0;line-height:1.45}
 .status small{display:block;color:#cfc9e6;font-weight:600;font-size:15px;margin-top:2px}
+.status.ok .pulse{background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.3);animation:none}
+.status.ok b{color:#3ddc84}
+.pop-sub{font-weight:700;color:var(--muted);margin:4px 0 8px;font-size:15px}
 
 /* ---------- room comparison ---------- */
 .room{padding:0;overflow:hidden}
@@ -950,11 +953,11 @@ footer a{color:var(--cian)}
 <!-- ================= MEDELLIN ================= -->
 <section id="medellin">
   <div class="sh"><h2 style="--c:var(--verde)">Medellín</h2><span class="emoji">🏨</span><span class="nuevo">¡Nuevo!</span></div>
-  <p class="sub">¡Decidido! Se quedan en el <b>InterContinental</b>, el hotel de la boda, como propuso Maxi. 5 noches, del miércoles 3 al lunes 8 de febrero. Ahora falta elegir la habitación.</p>
+  <p class="sub">¡Decidido! Se quedan en el <b>InterContinental</b>, el hotel de la boda, como propuso Maxi. 5 noches, del miércoles 3 al lunes 8 de febrero. El hotel ya confirmó precios y tamaños: ahora falta elegir la habitación.</p>
 
-  <div class="status" id="hotel-status"><span class="pulse"></span>
-    <p><b>📧 Esperando la respuesta del hotel.</b> Nir les escribió pidiendo que nos guarden las dos opciones de habitación del 3 al 8/2, el precio total de cada una y la confirmación de que es la tarifa especial de la boda. Apenas contesten, lo actualizo acá.
-    <small>Mail enviado el 3/11/2026</small></p>
+  <div class="status ok" id="hotel-status"><span class="pulse"></span>
+    <p><b>✅ ¡El hotel contestó!</b> Nos guardan <b>las dos habitaciones</b> del 3 al 8/2 con la <b>tarifa especial de la boda</b> (código de confirmación 36262616). Ahora solo falta elegir una y avisarles: después el hotel manda el enlace para pagar.
+    <small>Respuesta recibida el 3/11/2026</small></p>
   </div>
 
   <div class="grid g2">
@@ -965,16 +968,16 @@ footer a{color:var(--cian)}
         <img src="colombia-inter-premium-3.jpg" alt="Habitación Premium en versión con dos camas" loading="lazy" width="900" height="600">
       </div>
       <div class="in">
-        <div class="labels"><span class="label b">Opción 1</span></div>
+        <div class="labels"><span class="label b">Opción 1</span><span class="label g">✔ Confirmado</span></div>
         <h3>Premium King</h3>
-        <div class="big-m2">26–28 m²</div>
+        <div class="big-m2">28 m²</div>
         <dl class="specs">
-          <dt>🛏️ Cama</dt><dd>King (también hay versión con 2 camas)</dd>
+          <dt>🛏️ Cama</dt><dd>King de 1,80 × 1,90 m</dd>
           <dt>🏠 Ambiente</dt><dd>Uno solo: cama, escritorio y TV</dd>
-          <dt>➕ Puede incluir</dt><dd>Sofá cama y acceso al lounge (según el hotel)</dd>
+          <dt>➕ Tiene</dt><dd>Aire acondicionado, minibar, caja fuerte, wifi y baño privado con amenities</dd>
           <dt>🍳 Desayuno</dt><dd>Incluido (tarifa de la boda)</dd>
         </dl>
-        <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por noche</small><b>₪623</b><span class="x">635.000 pesos + impuestos</span></div><div class="pbox hi"><small>5 noches</small><b>₪3,116</b></div></div>
+        <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por noche</small><b>₪623</b><span class="x">635.000 pesos + IVA</span></div><div class="pbox hi"><small>5 noches</small><b>₪3,116</b><span class="x">Con IVA: ₪3,708</span></div></div>
       </div>
     </div>
     <div class="card room win">
@@ -984,35 +987,35 @@ footer a{color:var(--cian)}
         <img src="colombia-inter-junior-3.jpg" alt="Junior Suite con rincón de estar y cama al fondo" loading="lazy" width="900" height="600">
       </div>
       <div class="in">
-        <div class="labels"><span class="label g">Opción 2</span><span class="label">⭐ Upgrade</span></div>
+        <div class="labels"><span class="label g">Opción 2</span><span class="label">⭐ Upgrade</span><span class="label g">✔ Confirmado</span></div>
         <h3>Junior Suite</h3>
-        <div class="big-m2">44–65 m²</div>
+        <div class="big-m2">44 m²</div>
         <dl class="specs">
-          <dt>🛏️ Cama</dt><dd>King (también hay versión con 2 camas)</dd>
+          <dt>🛏️ Cama</dt><dd>King de 1,80 × 1,90 m</dd>
           <dt>🏠 Ambiente</dt><dd>Dormitorio + rincón de estar con sillones, mesa y lugar para desplegar todo</dd>
-          <dt>➕ Puede incluir</dt><dd>Sofá cama y acceso al lounge (según el hotel)</dd>
+          <dt>➕ Tiene</dt><dd>Todo lo de la Premium, más <b>sofá cama</b>, plancha con mesa y secador de pelo</dd>
           <dt>🍳 Desayuno</dt><dd>Incluido (tarifa de la boda)</dd>
         </dl>
-        <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por noche</small><b>₪731</b><span class="x">745.000 pesos + impuestos</span></div><div class="pbox hi"><small>5 noches</small><b>₪3,655</b></div></div>
+        <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por noche</small><b>₪731</b><span class="x">745.000 pesos + IVA</span></div><div class="pbox hi"><small>5 noches</small><b>₪3,655</b><span class="x">Con IVA: ₪4,350</span></div></div>
       </div>
     </div>
   </div>
-  <p class="src">Tocá una foto para verla grande. Fotos y tamaños: <a href="https://www.ihg.com/intercontinental/hotels/us/en/medellin/mdeha/hoteldetail/rooms" target="_blank" rel="noopener">web oficial del InterContinental Medellín</a>. La web oficial de Movich da 44 m² para la Junior Suite King.</p>
+  <p class="src">Tocá una foto para verla grande. Precios, tamaños y equipamiento: la respuesta del hotel (3/11/2026). Fotos: <a href="https://www.ihg.com/intercontinental/hotels/us/en/medellin/mdeha/hoteldetail/rooms" target="_blank" rel="noopener">web oficial del InterContinental Medellín</a>.</p>
 
   <h3 class="part">⚖️ Cara a cara</h3>
   <div class="card">
     <div class="vs">
       <div class="vs-row"><div class="lab">📐 Tamaño</div><div class="vs-bars">
-        <div class="vs-bar"><i style="width:42%"></i>Premium · 26–28 m²</div>
-        <div class="vs-bar j"><i style="width:70%"></i>Junior · 44–65 m²</div></div></div>
+        <div class="vs-bar"><i style="width:45%"></i>Premium · 28 m²</div>
+        <div class="vs-bar j"><i style="width:70%"></i>Junior · 44 m²</div></div></div>
       <div class="vs-row"><div class="lab">💸 Precio por noche</div><div class="vs-bars">
         <div class="vs-bar"><i style="width:60%"></i>Premium · ₪623</div>
         <div class="vs-bar j"><i style="width:70%"></i>Junior · ₪731</div></div></div>
       <div class="vs-row"><div class="lab">🧮 Precio por m²<br><small style="font-weight:600;color:var(--muted)">(menos es mejor)</small></div><div class="vs-bars">
-        <div class="vs-bar"><i style="width:70%"></i>Premium · ≈₪23</div>
+        <div class="vs-bar"><i style="width:70%"></i>Premium · ≈₪22</div>
         <div class="vs-bar j"><i style="width:50%"></i>Junior · ≈₪17</div></div></div>
     </div>
-    <div class="note" style="margin-top:20px"><span class="ni">🧾</span><div>La diferencia es de <b>110.000 pesos por noche ≈ ₪108</b>, o sea <b>≈ ₪540 por las 5 noches</b> (+17%). A cambio, entre 1,6 y 2,4 veces más espacio.</div></div>
+    <div class="note" style="margin-top:20px"><span class="ni">🧾</span><div>La diferencia es de <b>110.000 pesos por noche ≈ ₪108</b>, o sea <b>≈ ₪540 por las 5 noches</b> (+17%), o ≈ ₪640 si les cobran el IVA. A cambio, <b>16 m² más</b>: 1,6 veces más espacio.</div></div>
   </div>
 
   <div class="grid g2" style="margin-top:24px">
@@ -1028,12 +1031,15 @@ footer a{color:var(--cian)}
       <p class="src" style="margin:0">Si el presupuesto aprieta, la Premium King es un hotelazo igual: la diferencia es comodidad, no calidad.</p>
     </div>
     <div class="card">
-      <h3>❓ Lo que le pregunté al hotel</h3>
+      <h3>📋 Lo que contestó el hotel</h3>
       <ul class="feats">
-        <li class="i">El precio total de cada habitación por las 5 noches, con impuestos</li>
-        <li class="i">Si es la tarifa con descuento de la boda de Alexa &amp; Leor</li>
-        <li class="i">Que nos guarden las dos opciones hasta que elijamos</li>
-        <li class="i">Los metros exactos de cada una, si tienen bañera, la vista y si incluyen el lounge</li>
+        <li>Nos <b>guardan las dos</b> habitaciones hasta que elijamos</li>
+        <li>Es la <b>tarifa especial de la boda</b></li>
+        <li>Total 5 noches: Premium <b>3.175.000</b> pesos y Junior <b>3.725.000</b>, más IVA</li>
+        <li>Tamaños: 28 m² y 44 m²</li>
+        <li class="i">No contestaron si les sacan el IVA por ser turistas: se lo volvemos a preguntar</li>
+        <li class="i">Bañera, vista y lounge: no dijeron nada</li>
+        <li class="i">Hasta cuándo las guardan y la política de cancelación: llega en otro mail con los términos</li>
       </ul>
       <div class="btns"><a class="btn g" href="mailto:reservas@movichhotels.com?subject=BODA%20ALEXA%20%26%20LEOR%20%E2%80%93%20DS8">📧 Mail de reservas</a><a class="btn y" href="https://www.ihg.com/intercontinental/hotels/us/en/medellin/mdeha/hoteldetail" target="_blank" rel="noopener">Ver el hotel ↗</a></div>
     </div>
@@ -1045,7 +1051,7 @@ footer a{color:var(--cian)}
       <li>Es el hotel de la boda: ahí es la cena de Shabat, el brunch, y de ahí salen los shuttles. Cero taxis con tacos y traje.</li>
       <li>Con toda la familia: Maxi, Cathy y los novios ahí mismo</li>
       <li>2 piletas, spa con sauna y baño turco, gimnasio · El Poblado, Calle 16</li>
-      <li><b>Impuestos:</b> si entran con pasaporte israelí (turistas no residentes), el IVA del hotel es 0%, así que pagan casi la tarifa base. Si entran con pasaporte colombiano, se suma el 19%: ≈ ₪742 por noche (Premium) o ₪870 por noche (Suite).</li>
+      <li><b>Impuestos:</b> el hotel cotizó <b>con el IVA del 19%</b>. Pero los turistas extranjeros no residentes no pagan IVA en el hotel: con pasaporte israelí y el sello de entrada pagan la tarifa base. Si entraran con pasaporte colombiano, sí se suma: ≈ ₪742 por noche (Premium) o ₪870 por noche (Suite).</li>
     </ul>
     <p class="src" style="margin:0">Las alternativas que habíamos mirado (EcoHub, Loma Verde y Café Hotel) quedan descartadas. Conversión: 1 shekel ≈ 1.020 pesos colombianos (2/11/2026).</p>
   </div>
@@ -1169,13 +1175,13 @@ footer a{color:var(--cian)}
       <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
       <tr><td>💃 Día a día en Cali</td><td>~12 días × ₪190 (sin contar el Eje Cafetero)</td><td class="n">~₪2,280</td></tr>
       <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪16,900</td></tr>
-      <tr><td>🏨 InterContinental · Premium King</td><td>5 noches con desayuno</td><td class="n">₪3,116</td></tr>
-      <tr><td>🏨 InterContinental · Junior Suite</td><td>5 noches con desayuno</td><td class="n">₪3,655</td></tr>
+      <tr><td>🏨 InterContinental · Premium King</td><td>5 noches con desayuno, sin IVA (confirmado)</td><td class="n">₪3,116</td></tr>
+      <tr><td>🏨 InterContinental · Junior Suite</td><td>5 noches con desayuno, sin IVA (confirmado)</td><td class="n">₪3,655</td></tr>
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
   </div>
   <div class="total">
-    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido. Depende de la habitación que elijan en el InterContinental:</p></div></div>
+    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido. Depende de la habitación que elijan en el InterContinental (sin IVA; si el hotel lo cobra, suman ₪592 o ₪695):</p></div></div>
     <div class="total-opts">
       <div class="opt"><small>Con Premium King</small><b>₪20,028</b><span>≈ ₪10,014 por persona</span></div>
       <div class="opt"><small>Con Junior Suite</small><b>₪20,567</b><span>≈ ₪10,284 por persona</span></div>
@@ -1229,7 +1235,9 @@ footer a{color:var(--cian)}
       <li><label><input type="checkbox" data-id="respuesta-inter" data-done="1"><span class="box"></span><span class="txt">Primera respuesta del InterContinental con el precio</span></label></li>
       <li><label><input type="checkbox" data-id="elegir-inter" data-done="1"><span class="box"></span><span class="txt">Elegir hotel en Medellín: ¡el InterContinental! 🏨</span></label></li>
       <li><label><input type="checkbox" data-id="mail-inter" data-done="1"><span class="box"></span><span class="txt">Escribirle al hotel para que guarde las 2 habitaciones (3 → 8/2)</span></label></li>
-      <li><label><input type="checkbox" data-id="hotel-medellin"><span class="box"></span><span class="txt">Elegir habitación: ¿Premium King o Junior Suite?</span></label></li>
+      <li><label><input type="checkbox" data-id="bloqueo-inter" data-done="1"><span class="box"></span><span class="txt">¡El hotel guardó las 2 habitaciones con la tarifa de la boda! ✅</span></label></li>
+      <li><label><input type="checkbox" data-id="hotel-medellin"><span class="box"></span><span class="txt">Elegir habitación y avisarle al hotel: ¿Premium King o Junior Suite?</span></label></li>
+      <li><label><input type="checkbox" data-id="pagar-inter"><span class="box"></span><span class="txt">Pagar el hotel con el enlace que mandan 💳 (¡sin IVA!)</span></label></li>
       <li><label><input type="checkbox" data-id="comprar-vuelos"><span class="box"></span><span class="txt">Comprar los vuelos internacionales ✈️ (ver Letra chica)</span></label></li>
       <li><label><input type="checkbox" data-id="valijas"><span class="box"></span><span class="txt">Elegir tarifa con valija o agregar valijas 🧳</span></label></li>
       <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar el Maydrit Airport en Madrid (2 → 3/2)</span></label></li>
@@ -1272,18 +1280,21 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">¡Hay novedades! 🎉</div>
-    <p>Desde la última vez que entraron, Nir actualizó un montón de cosas. Toquen cualquiera y los llevo directo:</p>
+    <div class="bang" id="pop-t">¡El hotel contestó! 🎉</div>
+    <p>El InterContinental nos guarda las dos habitaciones con la tarifa de la boda. Solo falta elegir una:</p>
     <ul class="pop-list">
-      <li><a href="#medellin"><span class="e">🏨</span>Las 2 habitaciones del InterContinental, con fotos y cuál conviene</a></li>
-      <li><a href="#hotel-status"><span class="e">📧</span>Le escribimos al hotel: esperando la respuesta</a></li>
+      <li><a href="#hotel-status"><span class="e">✅</span>La respuesta del hotel, con los precios finales</a></li>
+      <li><a href="#medellin"><span class="e">🏨</span>Premium King o Junior Suite: fotos y cuál conviene</a></li>
+    </ul>
+    <p class="pop-sub">Y si todavía no lo vieron:</p>
+    <ul class="pop-list">
       <li><a href="#plan"><span class="e">📅</span>¡Una semana más de viaje! Ahora vuelven el 26/2</a></li>
       <li><a href="#madrid"><span class="e"><span class="fl es"></span></span>Madrid: el Maydrit Airport, paso a paso</a></li>
       <li><a href="#valijas"><span class="e">🧳</span>Cuánto cuestan las valijas de verdad</a></li>
       <li><a href="#letra"><span class="e">💎</span>La letra chica de los pasajes (¡importante!)</a></li>
       <li><a href="#boda"><span class="e">🚐</span>Qué traslados ofrecen los novios</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#medellin">¡Llevame a lo nuevo! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#hotel-status">¡Quiero ver la respuesta! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1399,7 +1410,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-03';
+  var NEWS_VER='2026-11-03b';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
