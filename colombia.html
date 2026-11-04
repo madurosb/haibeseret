@@ -324,6 +324,45 @@ footer a{color:var(--cian)}
 .status.ok .pulse{background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.3);animation:none}
 .status.ok b{color:#3ddc84}
 .pop-sub{font-weight:700;color:var(--muted);margin:4px 0 8px;font-size:15px}
+.voucher{position:relative;background:var(--white);border:4px solid var(--ink);border-radius:24px;box-shadow:10px 10px 0 var(--ink);overflow:hidden;margin:0 0 28px}
+.v-top{display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;background:#15110d;padding:20px 26px;border-bottom:4px solid var(--ink)}
+.v-brand small,.v-num small,.v-dates small,.v-total small{display:block;font:700 12px/1.2 "DM Sans",sans-serif;letter-spacing:.22em;text-transform:uppercase}
+.v-brand small{color:#bfa36a}
+.v-brand b{display:block;font:700 30px/1.15 "Playfair Display",serif;background:linear-gradient(100deg,#c9a65a,#f6e3a8 45%,#c9a65a);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
+.v-num{text-align:right}
+.v-num small{color:#bfa36a}
+.v-num b{font:700 28px/1.1 "DM Sans",sans-serif;letter-spacing:.1em;color:#fff}
+.v-body{position:relative;padding:24px 26px 6px}
+.v-stamp{position:absolute;top:22px;right:22px;transform:rotate(-9deg);border:4px solid var(--verde);border-radius:12px;color:var(--verde);font-family:Bangers;font-size:30px;letter-spacing:.06em;line-height:1;padding:6px 14px 4px;background:rgba(255,255,255,.85);box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 4px var(--verde)}
+.v-hola{margin:0 0 2px;font-weight:700;color:var(--muted)}
+.v-room{font-family:Bangers;font-size:40px;letter-spacing:.03em;line-height:1.05;margin:0 0 16px;padding-right:150px}
+.v-dates{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;background:var(--paper);border:3px solid var(--ink);border-radius:16px;padding:14px 18px;margin-bottom:18px}
+.v-dates small{color:var(--muted)}
+.v-dates b{display:block;font-size:22px;line-height:1.2}
+.v-dates span{font-weight:600;color:var(--muted);font-size:15px}
+.v-dates > div:last-child{text-align:right}
+.v-arrow{text-align:center;font-weight:800;font-size:14px;color:var(--verde);line-height:1.1}
+.v-arrow i{display:block;font-style:normal;font-size:30px;color:var(--ink)}
+.v-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0 0 18px}
+.v-grid dt{font-weight:800}
+.v-grid dd{margin:0}
+.v-total{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:3px dashed var(--ink);margin:0 -26px;padding:16px 26px}
+.v-total small{color:var(--muted)}
+.v-total b{font-size:26px}
+.v-ils{font-family:Bangers;font-size:44px;line-height:1;color:var(--verde);text-align:right}
+.v-ils small{font-family:"DM Sans",sans-serif;color:var(--muted)}
+.v-foot{display:flex;flex-wrap:wrap;gap:6px 22px;background:var(--amarillo-soft);border-top:3px solid var(--ink);padding:12px 26px;font-weight:700;font-size:15px}
+.v-foot span{min-width:0;overflow-wrap:anywhere}
+@media(max-width:640px){
+  .v-num{text-align:left}
+  .v-stamp{position:static;display:inline-block;margin:0 0 12px;font-size:24px}
+  .v-room{padding-right:0;font-size:34px}
+  .v-dates{grid-template-columns:1fr 1fr;padding:12px 14px}
+  .v-dates b{font-size:18px}
+  .v-arrow{grid-column:1/-1;grid-row:2}
+  .v-grid{grid-template-columns:1fr;gap:2px}
+  .v-grid dd{margin-bottom:10px}
+}
 
 /* ---------- room comparison ---------- */
 .room{padding:0;overflow:hidden}
@@ -953,11 +992,56 @@ footer a{color:var(--cian)}
 <!-- ================= MEDELLIN ================= -->
 <section id="medellin">
   <div class="sh"><h2 style="--c:var(--verde)">Medellín</h2><span class="emoji">🏨</span><span class="nuevo">¡Nuevo!</span></div>
-  <p class="sub">¡Decidido! Se quedan en el <b>InterContinental</b>, el hotel de la boda, como propuso Maxi. 5 noches, del miércoles 3 al lunes 8 de febrero. El hotel ya confirmó precios y tamaños, y eligieron <b>la Junior Suite</b>, la grande. 🏆</p>
+  <p class="sub">¡Decidido! Se quedan en el <b>InterContinental</b>, el hotel de la boda, como propuso Maxi. 5 noches, del miércoles 3 al lunes 8 de febrero. Eligieron <b>la Junior Suite</b>, la grande, y el hotel ya la <b>confirmó</b>: sin IVA y con el descuento de la boda. 🏆</p>
 
-  <div class="status ok" id="hotel-status"><span class="pulse"></span>
-    <p><b>✅ ¡Elegimos la Junior Suite!</b> El hotel nos guardó las dos habitaciones del 3 al 8/2 con la <b>tarifa especial de la boda</b> (código 36262616), y nos quedamos con <b>la grande</b>. Nir le avisa al hotel y le pide el enlace de pago <b>sin IVA</b>: apenas llegue, se paga y queda reservada.
-    <small>Respuesta del hotel y elección: 3/11/2026</small></p>
+  <div class="voucher" id="reserva">
+    <div class="v-top">
+      <div class="v-brand"><small>InterContinental</small><b>Movich Medellín</b></div>
+      <div class="v-num"><small>N° de reserva</small><b>36262616</b></div>
+    </div>
+    <div class="v-body">
+      <div class="v-stamp">✔ Confirmada</div>
+      <p class="v-hola">¡Mamuska y Papus ya tienen habitación! 🎉</p>
+      <h3 class="v-room">Junior Suite King</h3>
+      <div class="v-dates">
+        <div><small>Check-in</small><b>Mié 3/2/2027</b><span>desde las 15:00</span></div>
+        <div class="v-arrow">5 noches<i>→</i></div>
+        <div><small>Check-out</small><b>Lun 8/2/2027</b><span>hasta las 13:00</span></div>
+      </div>
+      <dl class="v-grid">
+        <dt>👤 A nombre de</dt><dd>Ricardo Brainin · 2 adultos · 1 habitación</dd>
+        <dt>🛏️ Habitación</dt><dd>Junior Suite King de 44 m², con cama king y sofá cama</dd>
+        <dt>🍳 Incluye</dt><dd>Desayuno buffet, piletas y zonas húmedas, gimnasio y wifi</dd>
+        <dt>🎟️ Tarifa</dt><dd>Especial de la boda: 745.000 pesos por noche</dd>
+        <dt>🧾 IVA</dt><dd><b>0%</b>: exentos por ser extranjeros ✔</dd>
+        <dt>↩️ Cancelación</dt><dd><b>Gratis hasta el 1/2/2027</b> (tarifa reembolsable)</dd>
+      </dl>
+      <div class="v-total">
+        <div><small>Total 5 noches, sin impuestos</small><b>3.725.000 pesos</b></div>
+        <div class="v-ils">≈ ₪3,655<small>los dos</small></div>
+      </div>
+    </div>
+    <div class="v-foot"><span>📍 Calle 16 #28-51, Variante Las Palmas</span><span>📞 (604) 444 8106</span><span>✉️ recepcion.interconti@movichhotels.com</span></div>
+  </div>
+
+  <div class="status" id="hotel-status"><span class="pulse"></span>
+    <p><b>💳 Falta un solo paso: pagar.</b> La reserva figura "sin garantía" hasta que se pague el total (3.725.000 pesos), y hay que hacerlo <b>dentro de las 48 horas</b>: o sea, <b>hasta el jueves 5/11 a la noche</b> (hora de Israel). Tranquilos: se puede cancelar gratis hasta el 1/2/2027.
+    <small>Reserva confirmada el 3/11/2026 · Se paga con tarjeta de crédito, con el enlace del hotel</small></p>
+  </div>
+
+  <div class="card" id="reserva-precio" style="margin-bottom:28px">
+    <h3>🔍 ¿Nos cobraron de más? ¡Al revés!</h3>
+    <p>Busqué la misma estadía (3 → 8/2, 2 adultos, con desayuno) en la web oficial del hotel (IHG) y en Booking, sin IVA como les corresponde a los extranjeros:</p>
+    <div class="vs">
+      <div class="vs-row"><div class="lab">🏆 Tarifa de la boda</div><div class="vs-bars">
+        <div class="vs-bar j"><i style="width:30%"></i>₪3,655 · reembolsable</div></div></div>
+      <div class="vs-row"><div class="lab">💻 En internet, la más barata</div><div class="vs-bars">
+        <div class="vs-bar"><i style="width:55%"></i>≈ ₪6,800 · sin devolución</div></div></div>
+      <div class="vs-row"><div class="lab">💻 En internet, flexible</div><div class="vs-bars">
+        <div class="vs-bar"><i style="width:65%"></i>≈ ₪8,020</div></div></div>
+    </div>
+    <div class="note" style="margin-top:20px"><span class="ni">💰</span><div>El descuento de la boda es de verdad, y es grande: <b>se ahorran ≈ ₪4,350 (54%)</b> contra la tarifa flexible de internet, y ≈ ₪3,150 contra la más barata, que encima no devuelve la plata. Con la Premium King pasa lo mismo: ~45% menos que en IHG y en Booking.</div></div>
+    <p class="src" style="margin:0">Precios del 4/11/2026 para el 3 → 8/2/2027: <a href="https://www.ihg.com/intercontinental/hotels/us/en/medellin/mdeha/hoteldetail" target="_blank" rel="noopener">IHG</a> (suite de 44 m²: US$430 la noche pagando por adelantado, US$507 la flexible con desayuno) y <a href="https://www.booking.com/hotel/co/intercontinental-medellin.html" target="_blank" rel="noopener">Booking</a> (no vende la Junior Suite; la Premium King flexible con desayuno, 1.153.708 pesos la noche). US$1 ≈ 3.221 pesos ≈ ₪3,16.</p>
   </div>
 
   <div class="grid g2">
@@ -994,9 +1078,11 @@ footer a{color:var(--cian)}
           <dt>🛏️ Cama</dt><dd>King de 1,80 × 1,90 m</dd>
           <dt>🏠 Ambiente</dt><dd>Dormitorio + rincón de estar con sillones, mesa y lugar para desplegar todo</dd>
           <dt>➕ Tiene</dt><dd>Todo lo de la Premium, más <b>sofá cama</b>, plancha con mesa y secador de pelo</dd>
+          <dt>🚿 Baño</dt><dd>Con ducha (ninguna habitación del hotel tiene bañera)</dd>
+          <dt>👀 Vista</dt><dd>Ciudad, montaña o pileta: la asignan el día del check-in</dd>
           <dt>🍳 Desayuno</dt><dd>Incluido (tarifa de la boda)</dd>
         </dl>
-        <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por noche</small><b>₪731</b><span class="x">745.000 pesos + IVA</span></div><div class="pbox hi"><small>5 noches</small><b>₪3,655</b><span class="x">Con IVA: ₪4,350</span></div></div>
+        <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por noche</small><b>₪731</b><span class="x">745.000 pesos, sin IVA ✔</span></div><div class="pbox hi"><small>5 noches</small><b>₪3,655</b><span class="x">✔ Reservada</span></div></div>
       </div>
     </div>
   </div>
@@ -1015,7 +1101,7 @@ footer a{color:var(--cian)}
         <div class="vs-bar"><i style="width:70%"></i>Premium · ≈₪22</div>
         <div class="vs-bar j"><i style="width:50%"></i>Junior · ≈₪17</div></div></div>
     </div>
-    <div class="note" style="margin-top:20px"><span class="ni">🧾</span><div>La diferencia es de <b>110.000 pesos por noche ≈ ₪108</b>, o sea <b>≈ ₪540 por las 5 noches</b> (+17%), o ≈ ₪640 si les cobran el IVA. A cambio, <b>16 m² más</b>: 1,6 veces más espacio.</div></div>
+    <div class="note" style="margin-top:20px"><span class="ni">🧾</span><div>La diferencia es de <b>110.000 pesos por noche ≈ ₪108</b>, o sea <b>≈ ₪540 por las 5 noches</b> (+17%). A cambio, <b>16 m² más</b>: 1,6 veces más espacio.</div></div>
   </div>
 
   <div class="grid g2" style="margin-top:24px">
@@ -1033,17 +1119,29 @@ footer a{color:var(--cian)}
     <div class="card">
       <h3>📋 Lo que contestó el hotel</h3>
       <ul class="feats">
-        <li>Nos <b>guardan las dos</b> habitaciones hasta que elijamos</li>
         <li>Es la <b>tarifa especial de la boda</b></li>
-        <li>Total 5 noches: Premium <b>3.175.000</b> pesos y Junior <b>3.725.000</b>, más IVA</li>
-        <li>Tamaños: 28 m² y 44 m²</li>
-        <li class="i">No contestaron si les sacan el IVA por ser turistas: se lo volvemos a preguntar</li>
-        <li class="i">Bañera, vista y lounge: no dijeron nada</li>
-        <li class="i">Hasta cuándo las guardan y la política de cancelación: llega en otro mail con los términos</li>
-        <li class="i"><b>Lo que sigue:</b> avisarles que elegimos la Junior Suite y pedir el enlace de pago sin IVA</li>
+        <li><b>Sin IVA</b> por ser extranjeros: confirmado</li>
+        <li>Cancelación o cambios <b>gratis hasta el 1/2/2027</b></li>
+        <li class="x">Bañera: no. Ninguna habitación del hotel tiene, es con ducha</li>
+        <li class="x">Lounge: no está incluido</li>
+        <li class="i">Vista: ciudad, montaña o pileta. La asignan al llegar, pero se puede pedir una preferencia (¿la de montaña? ⛰️)</li>
       </ul>
       <div class="btns"><a class="btn g" href="mailto:reservas@movichhotels.com?subject=BODA%20ALEXA%20%26%20LEOR%20%E2%80%93%20DS8">📧 Mail de reservas</a><a class="btn y" href="https://www.ihg.com/intercontinental/hotels/us/en/medellin/mdeha/hoteldetail" target="_blank" rel="noopener">Ver el hotel ↗</a></div>
     </div>
+  </div>
+
+  <div class="card" style="margin-top:24px">
+    <h3>📜 La letra chica de la reserva, en criollo</h3>
+    <ul class="feats">
+      <li><b>Pago:</b> el total, dentro de las 48 horas de la reserva. Con el enlace de pago (tarjeta de crédito; cada enlace dura 24 horas) o por transferencia. Si se vence, se pide otro a reservas@movichhotels.com o por WhatsApp al +57 316 289 3777.</li>
+      <li><b>Cancelar o cambiar:</b> gratis hasta el <b>1/2/2027</b>.</li>
+      <li class="x"><b>Si cancelan el día antes o no llegan</b> antes de las 22:00 sin avisar: pierden la primera noche o el 20% del total, lo que sea más (≈ ₪730).</li>
+      <li class="x"><b>Para no pagar IVA:</b> en el check-in hay que mostrar el <b>pasaporte original con el sello de entrada</b> a Colombia (Permiso de Turismo). En Migración, ¡que les sellen el pasaporte!</li>
+      <li class="i"><b>Seguro hotelero:</b> no está incluido. Es un cargo chiquito por noche que ofrecen en el check-in: pregunten si es opcional.</li>
+      <li class="i"><b>Prohibido fumar</b> en la habitación: la multa es de US$150.</li>
+      <li class="i">Hay <b>5 días hábiles</b> de arrepentimiento desde la reserva (además de la cancelación gratis).</li>
+    </ul>
+    <p class="src" style="margin:0">Fuentes: el mail de confirmación del hotel (3/11/2026) y los <a href="https://terminosycondiciones.movichhotels.com/" target="_blank" rel="noopener">términos y condiciones de Movich</a>.</p>
   </div>
 
   <div class="card" style="margin-top:24px">
@@ -1052,9 +1150,9 @@ footer a{color:var(--cian)}
       <li>Es el hotel de la boda: ahí es la cena de Shabat, el brunch, y de ahí salen los shuttles. Cero taxis con tacos y traje.</li>
       <li>Con toda la familia: Maxi, Cathy y los novios ahí mismo</li>
       <li>2 piletas, spa con sauna y baño turco, gimnasio · El Poblado, Calle 16</li>
-      <li><b>Impuestos:</b> el hotel cotizó <b>con el IVA del 19%</b>. Pero los turistas extranjeros no residentes no pagan IVA en el hotel: con pasaporte israelí y el sello de entrada pagan la tarifa base. Si entraran con pasaporte colombiano, sí se suma: ≈ ₪742 por noche (Premium) o ₪870 por noche (Suite).</li>
+      <li><b>Impuestos:</b> confirmado por el hotel: como turistas extranjeros <b>no pagan el IVA del 19%</b>. Solo hay que mostrar el pasaporte con el sello de entrada en el check-in.</li>
     </ul>
-    <p class="src" style="margin:0">Las alternativas que habíamos mirado (EcoHub, Loma Verde y Café Hotel) quedan descartadas. Conversión: 1 shekel ≈ 1.020 pesos colombianos (2/11/2026).</p>
+    <p class="src" style="margin:0">Las alternativas que habíamos mirado (EcoHub, Loma Verde y Café Hotel) quedan descartadas. Conversión: 1 shekel ≈ 1.018 pesos colombianos (4/11/2026).</p>
   </div>
 </section>
 
@@ -1176,15 +1274,15 @@ footer a{color:var(--cian)}
       <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
       <tr><td>💃 Día a día en Cali</td><td>~12 días × ₪190 (sin contar el Eje Cafetero)</td><td class="n">~₪2,280</td></tr>
       <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪16,900</td></tr>
-      <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>La elegida · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
+      <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>✔ Reservada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
       <tr><td>🏨 InterContinental · Premium King</td><td>Descartada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,116</td></tr>
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
   </div>
   <div class="total">
-    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido y con la <b>Junior Suite</b> que eligieron (sin IVA; si el hotel lo cobra, suman ₪695):</p></div></div>
+    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido y con la <b>Junior Suite</b> ya reservada (sin IVA, confirmado por el hotel):</p></div></div>
     <div class="total-opts">
-      <div class="opt"><small>🏆 Con la Junior Suite (la elegida)</small><b>₪20,567</b><span>≈ ₪10,284 por persona</span></div>
+      <div class="opt"><small>🏆 Con la Junior Suite (reservada)</small><b>₪20,567</b><span>≈ ₪10,284 por persona</span></div>
       <div class="opt" style="opacity:.6"><small>Con Premium King (descartada)</small><b>₪20,028</b><span>≈ ₪10,014 por persona</span></div>
     </div>
     <div class="total-lists">
@@ -1238,8 +1336,9 @@ footer a{color:var(--cian)}
       <li><label><input type="checkbox" data-id="mail-inter" data-done="1"><span class="box"></span><span class="txt">Escribirle al hotel para que guarde las 2 habitaciones (3 → 8/2)</span></label></li>
       <li><label><input type="checkbox" data-id="bloqueo-inter" data-done="1"><span class="box"></span><span class="txt">¡El hotel guardó las 2 habitaciones con la tarifa de la boda! ✅</span></label></li>
       <li><label><input type="checkbox" data-id="elegir-junior" data-done="1"><span class="box"></span><span class="txt">Elegir habitación: ¡la Junior Suite! 🏆</span></label></li>
-      <li><label><input type="checkbox" data-id="avisar-junior"><span class="box"></span><span class="txt">Avisarle al hotel y pedir el enlace de pago sin IVA 📧</span></label></li>
-      <li><label><input type="checkbox" data-id="pagar-inter"><span class="box"></span><span class="txt">Pagar el hotel con el enlace que mandan 💳 (¡sin IVA!)</span></label></li>
+      <li><label><input type="checkbox" data-id="reserva-ok" data-done="1"><span class="box"></span><span class="txt">¡Reserva confirmada, sin IVA! N° 36262616 ✅</span></label></li>
+      <li><label><input type="checkbox" data-id="sello-migracion"><span class="box"></span><span class="txt">En Migración de Colombia: que les sellen el pasaporte 🛂 (así no pagan IVA)</span></label></li>
+      <li><label><input type="checkbox" data-id="pagar-inter"><span class="box"></span><span class="txt">Pagar el hotel con el enlace, ¡hasta el jueves 5/11! 💳</span></label></li>
       <li><label><input type="checkbox" data-id="comprar-vuelos"><span class="box"></span><span class="txt">Comprar los vuelos internacionales ✈️ (ver Letra chica)</span></label></li>
       <li><label><input type="checkbox" data-id="valijas"><span class="box"></span><span class="txt">Elegir tarifa con valija o agregar valijas 🧳</span></label></li>
       <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar el Maydrit Airport en Madrid (2 → 3/2)</span></label></li>
@@ -1282,11 +1381,12 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">¡Elegimos la Junior Suite! 🏆</div>
-    <p>El InterContinental nos guardó las dos habitaciones con la tarifa de la boda, y nos quedamos con la grande:</p>
+    <div class="bang" id="pop-t">¡Reserva confirmada! 🏨</div>
+    <p>El InterContinental confirmó la Junior Suite: sin IVA y con el descuento de la boda.</p>
     <ul class="pop-list">
-      <li><a href="#hotel-status"><span class="e">✅</span>La respuesta del hotel y lo que sigue</a></li>
-      <li><a href="#medellin"><span class="e">🏆</span>La Junior Suite: fotos y por qué conviene</a></li>
+      <li><a href="#reserva"><span class="e">🎟️</span>La reserva, con todos los detalles</a></li>
+      <li><a href="#reserva-precio"><span class="e">🔍</span>¿Es buen precio? Lo comparamos con internet</a></li>
+      <li><a href="#hotel-status"><span class="e">💳</span>Lo único que falta: pagar antes del 5/11</a></li>
     </ul>
     <p class="pop-sub">Y si todavía no lo vieron:</p>
     <ul class="pop-list">
@@ -1296,7 +1396,7 @@ footer a{color:var(--cian)}
       <li><a href="#letra"><span class="e">💎</span>La letra chica de los pasajes (¡importante!)</a></li>
       <li><a href="#boda"><span class="e">🚐</span>Qué traslados ofrecen los novios</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#hotel-status">¡Quiero verla! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#reserva">¡Quiero verla! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1412,7 +1512,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-03c';
+  var NEWS_VER='2026-11-04';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
