@@ -186,7 +186,6 @@ html[dir="rtl"] .cut svg{transform:scaleX(-1)}
 html[dir="rtl"] .cutmark.l{left:auto;right:calc(var(--pad) - 6px)}
 html[dir="rtl"] .cutmark.r{right:auto;left:calc(var(--pad) - 6px)}
 html[dir="rtl"] .cvsheet{right:auto;left:clamp(20px,7vw,110px);transform:rotate(3deg)}
-html[dir="rtl"] .cvpanel:hover .cvsheet{transform:rotate(1deg)}
 html[dir="rtl"] .copen{right:auto;left:12px}
 html[dir="rtl"] .wt-tapb{right:auto;left:14px}
 html[dir="rtl"] .capplay i{transform:scaleX(-1)}
@@ -708,21 +707,235 @@ section{padding-block:clamp(52px,7.5vh,104px)}
 }
 @keyframes capSwap{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* ---------- cv ---------- */
-.cvpanel{border:1px solid var(--line);padding:clamp(26px,4vw,52px);position:relative;overflow:hidden;
-  min-height:clamp(300px,32vw,430px);display:flex;flex-direction:column;justify-content:center}
-.cvpanel .lead{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
-  font-size:clamp(1.15rem,2.1vw,1.75rem);line-height:1.32;margin:0 0 26px;max-width:36ch}
-.cvpanel .acts{display:flex;flex-wrap:wrap;gap:12px}
-.cvsheet{position:absolute;right:clamp(20px,7vw,110px);bottom:-38%;
-  width:clamp(150px,21vw,265px);aspect-ratio:595/842;object-fit:cover;object-position:top center;
-  border:1px solid var(--line);background:#fff;transform:rotate(-3.5deg);
-  transition:transform .8s cubic-bezier(.2,.7,.3,1),bottom .8s cubic-bezier(.2,.7,.3,1);
-  pointer-events:none;box-shadow:0 26px 60px rgba(0,0,0,.16)}
-.cvpanel:hover .cvsheet{bottom:-16%;transform:rotate(-1deg)}
-.cvcap{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
-  opacity:.45;margin:18px 0 0}
-@media(max-width:760px){.cvsheet{display:none}}
+/* ---------- career journey ---------- */
+.cj{--cj-c:#0AA2DC;--cj-y:#F2C500;--yw:clamp(104px,13vw,176px);
+  padding-block:clamp(70px,12vh,140px) clamp(50px,9vh,110px);position:relative}
+.cj-mono{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+.cj .eyebrow{margin:0;opacity:.8}
+.cj-intro{position:relative;padding-bottom:clamp(60px,12vh,130px)}
+.cj-top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:clamp(26px,5vh,56px)}
+.cj-cmyk{display:flex;gap:6px}
+.cj-cmyk b{width:9px;height:9px;border-radius:50%;display:block;opacity:0;transform:scale(.4);
+  transition:opacity .5s,transform .5s cubic-bezier(.2,.7,.3,1);transition-delay:calc(900ms + var(--k,0)*90ms)}
+.cj-cmyk b:nth-child(2){--k:1}.cj-cmyk b:nth-child(3){--k:2}.cj-cmyk b:nth-child(4){--k:3}
+.in .cj-cmyk b{opacity:1;transform:none}
+.cj-big{position:absolute;top:clamp(34px,6vh,70px);right:0;font-family:var(--f-display);
+  font-size:clamp(6rem,19vw,17rem);line-height:.8;color:transparent;-webkit-text-stroke:1px var(--line);
+  opacity:0;transform:translateY(24px);transition:opacity 1.2s .2s,transform 1.2s .2s cubic-bezier(.2,.7,.3,1);
+  pointer-events:none;user-select:none}
+.in .cj-big{opacity:.9;transform:none}
+.cj-h{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;text-transform:uppercase;
+  font-size:clamp(1.9rem,5.5vw,5rem);line-height:1.04;letter-spacing:-.005em;margin:0;position:relative}
+.cj .ln{display:block;overflow:hidden;padding-block:.07em}
+.cj .ln>span{display:block;transform:translateY(112%);
+  transition:transform 1.1s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--d,0)*1ms + 150ms)}
+.in .ln>span{transform:none}
+.cj-reg{display:flex;align-items:center;gap:10px;margin:clamp(26px,5vh,52px) 0 clamp(20px,3.5vh,34px);color:var(--fg)}
+.cj-reg .x{width:20px;height:20px;flex:none;opacity:0;transition:opacity .6s}
+.cj-reg .x:last-child{transition-delay:1.5s}
+.cj-reg .x:first-child{transition-delay:.5s}
+.in .cj-reg .x{opacity:.7}
+.cj-reg .rule{flex:1;height:1px;background:currentColor;opacity:.55;transform:scaleX(0);transform-origin:left;
+  transition:transform 1.5s .55s cubic-bezier(.65,0,.25,1)}
+.in .cj-reg .rule{transform:none}
+.cj-lede{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
+  font-size:clamp(1.15rem,2.1vw,1.75rem);line-height:1.34;max-width:38ch;margin:0 0 14px}
+.cj-sub{opacity:.55;max-width:66ch;margin:0;line-height:1.7;letter-spacing:.1em}
+.cj-intro>.cj-lede,.cj-intro>.cj-sub{opacity:0;transform:translateY(14px);transition:opacity .9s 1.1s,transform .9s 1.1s cubic-bezier(.2,.7,.3,1)}
+.cj-intro.in>.cj-lede{opacity:1;transform:none}
+.cj-intro.in>.cj-sub{opacity:.55;transform:none}
+.cj-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,44px);margin:clamp(40px,8vh,84px) 0 0}
+.cj-stats>div{border-top:1px solid var(--line);padding-top:16px;opacity:0;transform:translateY(16px);
+  transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.3,1);transition-delay:calc(1300ms + var(--i)*140ms)}
+.in .cj-stats>div{opacity:1;transform:none}
+.cj-stats dt{opacity:.62;line-height:1.6;order:2;max-width:28ch;margin:0}
+.cj-stats dd{margin:0}
+.cj-stats>div{display:flex;flex-direction:column}
+.cj-stats dd{order:1;margin-bottom:12px}
+.cj-stats b{display:block;font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
+  font-size:clamp(2.6rem,6vw,5rem);line-height:1;font-variant-numeric:tabular-nums}
+.cj-stats small{display:block;margin-top:8px;font-size:.72rem;letter-spacing:.06em;color:var(--mg)}
+
+.cj-chapter{padding-top:clamp(70px,13vh,150px)}
+.cj-chap{display:flex;align-items:center;gap:14px;opacity:.8;margin-bottom:22px}
+.cj-chap i{display:block;width:clamp(30px,6vw,74px);height:1px;background:currentColor;opacity:.35}
+.cj-chap,.cj-h3{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.3,1)}
+.cj-chap.in,.cj-h3.in{transform:none}
+.cj-chap.in{opacity:.8}.cj-h3.in{opacity:1}
+.cj-h3{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;
+  font-size:clamp(1.8rem,4.2vw,3.6rem);line-height:1.08;margin:0 0 clamp(34px,6vh,64px);max-width:20ch}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:clamp(34px,6vh,72px);--p:0}
+.tl-line{position:absolute;top:0;bottom:0;inset-inline-start:calc(var(--yw) + 14px);width:1px;background:var(--line)}
+.tl-line i{display:block;width:3px;margin-inline-start:-1px;height:100%;background:var(--mg);transform-origin:top;
+  transform:scaleY(var(--p))}
+.tl-item{display:grid;grid-template-columns:var(--yw) 28px minmax(0,1fr);align-items:start;position:relative}
+.tl-yr{padding-top:10px;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.1em;line-height:1.5;
+  display:flex;flex-wrap:wrap;gap:0 .4em;opacity:.45;transition:opacity .7s}
+.tl-yr b{font-weight:400}
+.tl-item.on .tl-yr{opacity:1}
+.tl-node{width:11px;height:11px;border-radius:50%;border:1px solid var(--fg);background:var(--bg);
+  margin:12px 0 0 9px;position:relative;z-index:1;transition:background .5s,border-color .5s,transform .5s}
+.tl-item.on .tl-node{background:var(--mg);border-color:var(--mg);transform:scale(1.15)}
+.jcard{position:relative;border:1px solid var(--line);padding:clamp(22px,3vw,40px);display:grid;
+  grid-template-columns:minmax(0,1fr) clamp(120px,16vw,200px);gap:24px clamp(20px,3vw,44px);align-items:start;
+  clip-path:inset(0 0 100% 0);opacity:0;transition:clip-path 1.1s cubic-bezier(.65,0,.25,1),opacity .6s}
+.tl-item.on .jcard{clip-path:inset(-2px -2px -2px -2px);opacity:1}
+.jcard::before,.jcard::after{content:"";position:absolute;width:14px;height:14px;border:solid var(--mg);opacity:0;
+  transition:opacity .5s .8s}
+.jcard::before{top:-1px;inset-inline-start:-1px;border-width:2px 0 0 2px}
+.jcard::after{bottom:-1px;inset-inline-end:-1px;border-width:0 2px 2px 0}
+html[dir=rtl] .jcard::before{border-width:2px 2px 0 0}
+html[dir=rtl] .jcard::after{border-width:0 0 2px 2px}
+.tl-item.on .jcard::before,.tl-item.on .jcard::after{opacity:1}
+.card-main>*{opacity:0;transform:translateY(12px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.3,1)}
+.tl-item.on .card-main>*{opacity:1;transform:none}
+.tl-item.on .card-main>*:nth-child(1){transition-delay:.35s}.tl-item.on .card-main>*:nth-child(2){transition-delay:.45s}
+.tl-item.on .card-main>*:nth-child(3){transition-delay:.55s}.tl-item.on .card-main>*:nth-child(4){transition-delay:.65s}
+.tl-item.on .card-main>*:nth-child(5){transition-delay:.75s}.tl-item.on .card-main>*:nth-child(6){transition-delay:.85s}
+.jcard h4{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;text-transform:uppercase;
+  font-size:clamp(1.35rem,2.6vw,2.2rem);line-height:1.1;margin:0 0 8px}
+.jcard .loc{opacity:.58;margin:0 0 18px}
+.jcard .role{margin:0 0 16px;font-weight:500}
+.jcard .role em,.ed em{font-style:normal;color:var(--mg);margin-inline-end:10px}
+.jcard ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.jcard li{position:relative;padding-inline-start:22px;opacity:.86;line-height:1.5}
+.jcard li::before{content:"";position:absolute;top:.8em;inset-inline-start:0;width:12px;height:1px;background:var(--mg)}
+.yr-m{display:none;margin:0 0 12px;color:var(--mg)}
+.tag{display:inline-block;border:1px solid var(--mg);color:var(--mg);padding:3px 9px;margin-bottom:14px}
+.cj-ill{width:100%;height:auto;color:var(--fg);opacity:.85;overflow:visible}
+.cj-ill *{stroke-dasharray:1;stroke-dashoffset:1}
+.cj-ill .f{stroke-dasharray:none;stroke-dashoffset:0;opacity:0;transition:opacity 1.3s .9s}
+.tl-item.on .cj-ill *{stroke-dashoffset:0;transition:stroke-dashoffset 1.8s cubic-bezier(.5,0,.2,1) .4s}
+.tl-item.on .cj-ill .f{opacity:1;transition:opacity 1.3s .9s}
+.tl-item.cur .jcard{border-top:3px solid var(--mg);padding-block:clamp(28px,4vw,56px);
+  grid-template-columns:minmax(0,1fr) clamp(150px,22vw,280px)}
+.tl-item.cur .jcard h4{font-size:clamp(1.8rem,3.8vw,3.2rem)}
+.tl-item.cur .tl-node{width:15px;height:15px;margin-top:10px;margin-inline-start:7px}
+
+/* education */
+.edu{display:grid;grid-template-columns:minmax(0,1fr) clamp(36px,6vw,84px) minmax(0,1.3fr);align-items:end}
+.ed{position:relative;border:1px solid var(--line);padding:clamp(22px,3vw,40px);
+  opacity:0;transform:translateX(calc(var(--dx,1)*-34px));transition:opacity .9s .1s,transform 1.1s .1s cubic-bezier(.2,.7,.3,1)}
+.ed-2{transform:translateX(calc(var(--dx,1)*34px));transition-delay:.45s}
+.edu.in .ed{opacity:1;transform:none}
+.ed .yr{margin:0 0 14px;color:var(--mg)}
+.ed h4{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;text-transform:uppercase;
+  font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.2;margin:0 0 18px}
+.ed p{margin:0}.ed .meta,.ed .deg{line-height:1.5}
+.ed-2{padding-block:clamp(34px,5vw,68px);border-color:var(--fg)}
+.ed-2 h4{font-size:clamp(1.7rem,3.6vw,3rem);line-height:1.05;margin-bottom:26px}
+.ed-2 .deg{font-family:var(--f-display);font-size:clamp(1.1rem,2vw,1.6rem);line-height:1.3;margin-bottom:16px;font-weight:400}
+.ed-2 .deg em{display:block;margin-bottom:6px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+.ed-2::before,.ed-2::after{content:"";position:absolute;inset:0;border:1px solid var(--line);z-index:-1;
+  transition:transform 1s .9s cubic-bezier(.2,.7,.3,1)}
+.edu.in .ed-2::before{transform:translate(calc(var(--dx,1)*10px),10px)}
+.edu.in .ed-2::after{transform:translate(calc(var(--dx,1)*20px),20px)}
+.ed-2{isolation:isolate}
+.edu-join{align-self:center;height:1px;position:relative}
+.edu-join i{display:block;height:1px;background:var(--mg);transform:scaleX(0);transform-origin:left;transition:transform 1s .7s cubic-bezier(.65,0,.25,1)}
+.edu.in .edu-join i{transform:none}
+html[dir=rtl] .edu-join i{transform-origin:right}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px)}
+.sk h4{display:flex;align-items:center;gap:12px;margin:0 0 20px;padding-top:14px;border-top:1px solid var(--line);font-weight:400;opacity:.8}
+.sk h4 span{color:var(--mg)}
+.sk ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.sk li{border:1px solid var(--line);padding:9px 15px;font-size:.95rem;line-height:1.3;opacity:0;transform:translateY(12px);
+  transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.3,1);transition-delay:calc(var(--g)*220ms + var(--i)*90ms + 200ms)}
+.skills.in .sk li{opacity:1;transform:none}
+.sk-pr li{border-color:var(--fg)}
+.sk-pr li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mg);margin-inline-end:9px;vertical-align:middle}
+
+/* languages */
+.langs{list-style:none;margin:0;padding:0}
+.langs li{display:grid;grid-template-columns:minmax(0,auto) 1fr auto;align-items:baseline;gap:clamp(14px,3vw,40px);
+  padding-block:clamp(18px,3vw,30px);border-top:1px solid var(--line);
+  opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.3,1);
+  transition-delay:calc(var(--i)*150ms + 100ms)}
+.langs li:last-child{border-bottom:1px solid var(--line)}
+.langs.in li{opacity:1;transform:none}
+.langs .nm{font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;font-size:clamp(1.5rem,4.2vw,3.5rem);line-height:1.1}
+.langs .ruler{align-self:center;height:9px;min-width:30px;
+  background:repeating-linear-gradient(90deg,currentColor 0 1px,transparent 1px 12px) bottom/100% 5px no-repeat,
+             linear-gradient(currentColor,currentColor) bottom/100% 1px no-repeat;
+  opacity:.4;transform:scaleX(0);transform-origin:left;transition:transform 1.3s cubic-bezier(.65,0,.25,1);
+  transition-delay:calc(var(--i)*150ms + 350ms)}
+html[dir=rtl] .langs .ruler{transform-origin:right}
+.langs.in .ruler{transform:none}
+.langs .lv{color:var(--mg);white-space:nowrap}
+
+/* closing */
+.cj-close{padding-top:clamp(80px,15vh,170px);padding-bottom:clamp(10px,3vh,40px)}
+.cj-say{margin:0 0 clamp(26px,5vh,48px);font-family:var(--f-display);font-weight:400;font-synthesis-weight:none;text-transform:uppercase;
+  font-size:clamp(1.9rem,6.2vw,5.4rem);line-height:1.04}
+.cj-say .ln:last-child{color:var(--mg)}
+.cj-close .cj-chap{opacity:.8;transform:none}
+.cj-close .cj-lede{opacity:0;transform:translateY(12px);transition:opacity .9s 1s,transform .9s 1s cubic-bezier(.2,.7,.3,1)}
+.cj-close.in .cj-lede{opacity:1;transform:none}
+.cj-dl{display:inline-block;margin-top:14px;padding-bottom:5px;border-bottom:1px solid var(--line);opacity:0;
+  transition:opacity .9s 1.3s,border-color .3s,color .3s}
+.cj-close.in .cj-dl{opacity:.75}
+.cj-close.in .cj-dl:hover{opacity:1;color:var(--mg);border-color:var(--mg)}
+
+html[dir=rtl] .cj{--dx:-1}
+html[dir=rtl] .cj-big{right:auto;left:0}
+html[dir=rtl] .tl-yr{justify-content:flex-end;padding-inline-end:6px}
+html[dir=rtl] .cj-mono,html[dir=rtl] .tl-yr{font-family:var(--f-body-he);letter-spacing:.02em;text-transform:none;font-size:.9rem}
+html[dir=rtl] .tl-yr{font-family:var(--f-mono)}
+html[dir=rtl] .cj-h,html[dir=rtl] .cj-h3,html[dir=rtl] .cj-say,html[dir=rtl] .cj-lede,html[dir=rtl] .jcard h4,
+html[dir=rtl] .ed h4,html[dir=rtl] .langs .nm,html[dir=rtl] .cj-stats b{font-family:var(--f-display-he);text-transform:none;letter-spacing:0}
+html[dir=rtl] .cj-stats b{font-family:var(--f-display)}
+html[dir=rtl] .ed-2 .deg{font-family:var(--f-display-he)}
+html[dir=rtl] .cj-h{line-height:1.12}
+html[dir=rtl] .cj-reg .rule{transform-origin:right}
+html[dir=rtl] .tl-line i{transform-origin:top}
+html[dir=rtl] .cj-sub{letter-spacing:.02em}
+
+@media(max-width:900px){
+  .skills{grid-template-columns:1fr}
+  .jcard,.tl-item.cur .jcard{grid-template-columns:1fr}
+  .cj-ill{max-width:150px}
+  .tl-item.cur .cj-ill{max-width:190px}
+}
+@media(max-width:700px){
+  .cj{--yw:0px}
+  .tl-yr{display:none}
+  .tl-item{grid-template-columns:24px minmax(0,1fr)}
+  .tl-line{inset-inline-start:11px}
+  .tl-node{margin:8px 0 0 5px}
+  .tl-item.cur .tl-node{margin:6px 0 0 3px}
+  .yr-m{display:block}
+  .cj-stats{grid-template-columns:1fr;gap:26px}
+  .cj-stats>div{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:6px 16px}
+  .cj-stats dd{margin-bottom:0}
+  .cj-stats dt{flex:1 1 100%}
+  .cj-big{display:none}
+  .edu{grid-template-columns:1fr;gap:0}
+  .edu-join{width:1px;height:46px;justify-self:start;margin-inline-start:28px}
+  .edu-join i{width:1px;height:100%;transform:scaleY(0);transform-origin:top}
+  .edu.in .edu-join i{transform:none}
+  .ed-2{margin-inline-end:20px}
+  .langs li{grid-template-columns:1fr auto}
+  .langs .ruler{grid-column:1/-1;grid-row:2;order:3}
+  .langs .nm{grid-column:1/-1}
+  .langs .lv{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){
+  .cj *{transition-duration:.001ms!important;transition-delay:0s!important}
+  .cj .ln>span,.cj-big,.cj-cmyk b,.cj-reg .x,.cj-reg .rule,.cj-intro>.cj-lede,.cj-intro>.cj-sub,.cj-stats>div,
+  .cj-chap,.cj-h3,.jcard,.card-main>*,.cj-ill *,.ed,.edu-join i,.sk li,.langs li,.langs .ruler,.cj-close .cj-lede,.cj-dl{
+    opacity:1!important;transform:none!important;clip-path:none!important;stroke-dashoffset:0!important}
+  .cj-intro>.cj-sub{opacity:.55!important}
+  .cj-ill .f{opacity:1!important}
+  .jcard::before,.jcard::after{opacity:1}
+  .tl-line i{transform:none!important}
+  .tl-item .tl-yr{opacity:1}
+  .tl-node{background:var(--mg);border-color:var(--mg)}
+}
+
 
 /* ---------- lightbox ---------- */
 .lb{position:fixed;inset:0;z-index:150;background:rgba(13,21,36,.96);display:none;
@@ -883,7 +1096,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <a href="#work">work</a>
     <a href="#process">process</a>
     <a href="#about">about</a>
-    <a href="#cv">resume</a>
+    <a href="#cv">career journey</a>
     <a href="#contact">contact</a>
   </nav>
   <div class="navright">
@@ -920,7 +1133,7 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
     <a href="#process"><i>02</i>Process</a>
     <a href="#capabilities"><i>03</i>What I do</a>
     <a href="#about"><i>04</i>About</a>
-    <a href="#cv"><i>05</i>Resume</a>
+    <a href="#cv"><i>05</i>Career Journey</a>
     <a href="#contact"><i>06</i>Contact</a>
   </nav>
   <div class="menufoot">
@@ -1064,20 +1277,217 @@ footer{padding:clamp(30px,4vh,56px) 0 0}
   </dl>
 </section>
 
-<!-- ============ CV ============ -->
-<section class="wrap" id="cv">
-  <div class="shead rv">
-    <h3>My resume / CV</h3>
-    <span class="idx">05 - One page, print-ready</span>
-  </div>
-  <div class="cvpanel rv">
-    <p class="lead">Graphic machine engineering on one side, graphic design on the other - and the print floor in between.</p>
-    <div class="acts">
-      <button class="btn" data-lb="cv-1">Read the CV ↗</button>
-      <a class="btn" id="cvDownload" href="#" download="Benjamin-Kljuno-Resume.pdf">Download PDF</a>
+<!-- ============ CAREER JOURNEY (id kept as #cv so old links work) ============ -->
+<section class="wrap cj" id="cv" aria-labelledby="cjTitle">
+
+  <!-- 01 / intro -->
+  <div class="cj-intro" data-cj>
+    <div class="cj-top cj-mono">
+      <div class="eyebrow"><span dir="ltr">05</span><i></i><span>Career Journey</span></div>
+      <span class="cj-cmyk" aria-hidden="true"><b style="background:var(--cj-c)"></b><b style="background:var(--mg)"></b><b style="background:var(--cj-y)"></b><b style="background:var(--fg)"></b></span>
     </div>
-    <img class="cvsheet" id="cvSheet" alt="" aria-hidden="true">
-    <p class="cvcap">A4 · one page · updated 2026</p>
+    <span class="cj-big" aria-hidden="true" dir="ltr">05</span>
+    <h2 class="cj-h" id="cjTitle">
+      <span class="ln" style="--d:0"><span>A career built between</span></span>
+      <span class="ln" style="--d:140"><span>design &amp; print.</span></span>
+    </h2>
+    <div class="cj-reg" aria-hidden="true">
+      <svg class="x" viewBox="0 0 22 22" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="6"/><path d="M11 0v22M0 11h22"/></svg>
+      <span class="rule"></span>
+      <svg class="x" viewBox="0 0 22 22" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="6"/><path d="M11 0v22M0 11h22"/></svg>
+    </div>
+    <p class="cj-lede">Combining creative design, technical knowledge and hands-on experience across the printing industry.</p>
+    <p class="cj-sub cj-mono">From graphic design and print technology to pre-press production, technical support and client relationships.</p>
+
+    <dl class="cj-stats">
+      <div style="--i:0"><dt class="cj-mono">Digital files prepared monthly</dt><dd><b dir="ltr"><span data-to="100">100</span>+</b><small>at Peer Print</small></dd></div>
+      <div style="--i:1"><dt class="cj-mono">Clients supported</dt><dd><b dir="ltr">~<span data-to="200">200</span></b><small>at Peer Print</small></dd></div>
+      <div style="--i:2"><dt class="cj-mono">Private hotel brochures designed</dt><dd><b dir="ltr"><span data-to="4">4</span></b><small>at Ilidza Hotel Group</small></dd></div>
+    </dl>
+  </div>
+
+  <!-- 02 / experience -->
+  <div class="cj-chapter">
+    <div class="cj-chap cj-mono" data-cj><span dir="ltr">02</span><i></i><span>Work history</span></div>
+    <h3 class="cj-h3" data-cj>Professional experience</h3>
+
+    <ol class="tl" id="cjTl">
+      <li class="tl-line" aria-hidden="true"><i></i></li>
+
+      <li class="tl-item">
+        <div class="tl-yr" dir="ltr"><b>2016</b><span>–</span><b>2018</b></div>
+        <span class="tl-node" aria-hidden="true"></span>
+        <article class="jcard">
+          <div class="card-main">
+            <p class="yr-m cj-mono" dir="ltr">2016–2018</p>
+            <h4>Arben Graphic Systems</h4>
+            <p class="loc cj-mono">Sarajevo, Bosnia and Herzegovina</p>
+            <p class="role"><em class="cj-mono">Role</em> <span>Maintenance &amp; Support Engineer</span></p>
+            <ul>
+              <li>Maintenance of pre-press machines for offset printing (CTP).</li>
+              <li>Customer support engineering.</li>
+              <li>Marketing and sales of graphic materials, with more than 100 materials sold daily.</li>
+            </ul>
+          </div>
+          <svg class="cj-ill" viewBox="0 0 200 130" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <rect x="12" y="30" width="176" height="62"/><line x1="12" y1="50" x2="188" y2="50"/>
+            <circle cx="50" cy="72" r="13"/><circle cx="50" cy="72" r="4"/><circle cx="90" cy="72" r="13"/><circle cx="90" cy="72" r="4"/>
+            <rect x="118" y="62" width="56" height="20"/><line x1="130" y1="62" x2="130" y2="82"/>
+            <line x1="146" y1="30" x2="146" y2="62" stroke="#E0218A"/><circle cx="146" cy="62" r="2.5" stroke="#E0218A"/>
+            <path d="M24 92v20M176 92v20M12 112h176M28 40h44M28 44h26"/>
+          </svg>
+        </article>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-yr" dir="ltr"><b>2018</b><span>–</span><b>2019</b></div>
+        <span class="tl-node" aria-hidden="true"></span>
+        <article class="jcard">
+          <div class="card-main">
+            <p class="yr-m cj-mono" dir="ltr">2018–2019</p>
+            <h4>Info House</h4>
+            <p class="loc cj-mono">Sarajevo, Bosnia and Herzegovina</p>
+            <p class="role"><em class="cj-mono">Role</em> <span>Graphic Designer</span></p>
+            <ul>
+              <li>Magazine graphic design.</li>
+              <li>Brochure graphic design.</li>
+            </ul>
+          </div>
+          <svg class="cj-ill" viewBox="0 0 200 130" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <rect x="22" y="14" width="76" height="102"/><rect x="98" y="14" width="76" height="102"/>
+            <path d="M32 28h44" stroke-width="3"/><rect x="32" y="40" width="56" height="34"/><path d="M32 40l56 34M88 40L32 74M32 84h56M32 90h56M32 96h40"/>
+            <path d="M108 28h56M108 34h56M108 40h30M108 88h56M108 94h56M108 100h44M142 54h22M142 60h22M142 66h22M142 72h22"/>
+            <rect x="108" y="52" width="26" height="26" stroke="#E0218A"/>
+          </svg>
+        </article>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-yr" dir="ltr"><b>2019</b><span>–</span><b>2020</b></div>
+        <span class="tl-node" aria-hidden="true"></span>
+        <article class="jcard">
+          <div class="card-main">
+            <p class="yr-m cj-mono" dir="ltr">2019–2020</p>
+            <h4>Ilidza Hotel Group</h4>
+            <p class="loc cj-mono">Ilidza, Bosnia and Herzegovina</p>
+            <p class="role"><em class="cj-mono">Role</em> <span>Graphic Design &amp; Advertising</span></p>
+            <ul>
+              <li>Monthly flyer design.</li>
+              <li>Designed four private brochures for the hotel.</li>
+              <li>Web advertising on social networks.</li>
+              <li>Publishing and updating events.</li>
+            </ul>
+          </div>
+          <svg class="cj-ill" viewBox="0 0 200 130" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <g transform="rotate(-6 49 64)"><rect x="18" y="20" width="62" height="88"/><path d="M30 78h34M30 86h26M30 94h30"/><circle cx="49" cy="46" r="12" stroke="#E0218A"/></g>
+            <rect x="96" y="44" width="26" height="66"/><rect x="122" y="38" width="26" height="72"/><rect x="148" y="44" width="26" height="66"/>
+            <path d="M101 56h16M101 62h16M127 52h16M127 58h16M127 64h16M153 56h16M153 62h12"/>
+            <path d="M96 118h78"/>
+          </svg>
+        </article>
+      </li>
+
+      <li class="tl-item cur">
+        <div class="tl-yr" dir="ltr"><b>2022</b><span>–</span><b class="pr"><bdi>Present</bdi></b></div>
+        <span class="tl-node" aria-hidden="true"></span>
+        <article class="jcard">
+          <div class="card-main">
+            <p class="yr-m cj-mono"><span dir="ltr">2022–</span><span>Present</span></p>
+            <span class="tag cj-mono">Current</span>
+            <h4>Peer Print</h4>
+            <p class="loc cj-mono">Ness Ziona, Israel</p>
+            <p class="role"><em class="cj-mono">Role</em> <span>Graphic Technician &amp; Designer</span></p>
+            <ul>
+              <li>Digital label pre-press printing.</li>
+              <li>Preparing more than 100 files for digital printing machines monthly.</li>
+              <li>Graphic design.</li>
+              <li>Customer support, assisting approximately 200 clients.</li>
+            </ul>
+          </div>
+          <svg class="cj-ill" viewBox="0 0 200 130" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <circle class="f" cx="80" cy="58" r="34" fill="#0AA2DC" fill-opacity=".42" stroke="none"/>
+            <circle class="f" cx="114" cy="58" r="34" fill="#E0218A" fill-opacity=".42" stroke="none"/>
+            <circle class="f" cx="97" cy="86" r="34" fill="#F2C500" fill-opacity=".5" stroke="none"/>
+            <circle cx="97" cy="68" r="34"/>
+            <circle cx="172" cy="28" r="9"/><path d="M172 14v28M158 28h28"/>
+            <path d="M4 18V4h14M196 18V4h-14M4 112v14h14M196 112v14h-14"/>
+          </svg>
+        </article>
+      </li>
+    </ol>
+  </div>
+
+  <!-- 03 / education -->
+  <div class="cj-chapter">
+    <div class="cj-chap cj-mono" data-cj><span dir="ltr">03</span><i></i><span>Education</span></div>
+    <h3 class="cj-h3" data-cj>The foundation behind the experience.</h3>
+
+    <div class="edu" data-cj>
+      <article class="ed ed-1">
+        <p class="yr cj-mono" dir="ltr">2010–2014</p>
+        <h4>Technical High School of Graphic Design and Multimedia Technology</h4>
+        <p class="meta"><em class="cj-mono">Field</em> <span>Web and Graphic Design.</span></p>
+      </article>
+      <span class="edu-join" aria-hidden="true"><i></i></span>
+      <article class="ed ed-2">
+        <p class="yr cj-mono" dir="ltr">2014–2018</p>
+        <h4>Travnik University</h4>
+        <p class="deg"><em class="cj-mono">Degree</em> <span>BSc. in Graphic Engineering and Design.</span></p>
+        <p class="meta"><em class="cj-mono">Location</em> <span>Bosnia and Herzegovina</span></p>
+      </article>
+    </div>
+  </div>
+
+  <!-- 04 / skills -->
+  <div class="cj-chapter">
+    <div class="cj-chap cj-mono" data-cj><span dir="ltr">04</span><i></i><span>Toolkit</span></div>
+    <h3 class="cj-h3" data-cj>The tools behind the work.</h3>
+
+    <div class="skills" data-cj>
+      <section class="sk" style="--g:0">
+        <h4 class="cj-mono"><span dir="ltr">A</span>Graphic design</h4>
+        <ul>
+          <li style="--i:0">Adobe Photoshop</li><li style="--i:1">Adobe Dreamweaver</li><li style="--i:2">Adobe InDesign</li><li style="--i:3">CorelDRAW</li><li style="--i:4">Adobe Illustrator</li>
+        </ul>
+      </section>
+      <section class="sk" style="--g:1">
+        <h4 class="cj-mono"><span dir="ltr">B</span>Microsoft Office</h4>
+        <ul>
+          <li style="--i:0">Microsoft Word</li><li style="--i:1">Microsoft PowerPoint</li><li style="--i:2">Microsoft Excel</li>
+        </ul>
+      </section>
+      <section class="sk sk-pr" style="--g:2">
+        <h4 class="cj-mono"><span dir="ltr">C</span>Printing technologies</h4>
+        <ul>
+          <li style="--i:0">Offset Printing</li><li style="--i:1">Flexographic Printing (Flexo)</li><li style="--i:2">Digital Printing</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- 05 / languages -->
+  <div class="cj-chapter">
+    <div class="cj-chap cj-mono" data-cj><span dir="ltr">05</span><i></i><span>Languages</span></div>
+    <h3 class="cj-h3" data-cj>Communication without borders.</h3>
+
+    <ul class="langs" data-cj>
+      <li style="--i:0"><span class="nm">English</span><span class="ruler" aria-hidden="true"></span><span class="lv cj-mono">Fluent</span></li>
+      <li style="--i:1"><span class="nm">Hebrew</span><span class="ruler" aria-hidden="true"></span><span class="lv cj-mono">Upper Intermediate</span></li>
+      <li style="--i:2"><span class="nm">German</span><span class="ruler" aria-hidden="true"></span><span class="lv cj-mono">Basic</span></li>
+      <li style="--i:3"><span class="nm">Bosnian / Croatian / Serbian</span><span class="ruler" aria-hidden="true"></span><span class="lv cj-mono">Native</span></li>
+    </ul>
+  </div>
+
+  <!-- 06 / closing -->
+  <div class="cj-close" data-cj>
+    <div class="cj-chap cj-mono"><i></i><span>In short</span></div>
+    <p class="cj-say">
+      <span class="ln" style="--d:0"><span>Creative thinking.</span></span>
+      <span class="ln" style="--d:160"><span>Technical understanding.</span></span>
+      <span class="ln" style="--d:320"><span>Real-world experience.</span></span>
+    </p>
+    <p class="cj-lede">Bringing design, printing technology and production knowledge together.</p>
+    <a class="cj-dl cj-mono" id="cvDownload" href="#" download="Benjamin-Kljuno-Resume.pdf">Download full CV (PDF) ↗</a>
   </div>
 </section>
 
@@ -1297,7 +1707,7 @@ function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 const LANG_ON = true;   // language switch + chooser are now live for every visitor
 lang = lsGet("bk_lang") || "en";
 /* ================= COPY (EN ⇄ HE) ================= */
-const T_PAIRS = {"work": "עבודות", "process": "תהליך", "about": "אודות", "resume": "קורות חיים", "contact": "צור קשר", "What I do": "מה אני עושה?", "Pre-press & digital label production": "קדם־דפוס והפקת תוויות בדפוס דיגיטלי", "Technical graphic designer for work that has to": "מעצב גרפי טכני לעבודות שחייבות", "print right": "לצאת מושלמות", "the first time.": "כבר בהדפסה הראשונה.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for HP Indigo digital presses.": "אני יושב בין קובץ העיצוב למכונת הדפוס - בודק קבצים גרפיים, פותר הפרדות צבע, בונה קו חיתוך ובליד, ומכין עבודות מורכבות ל‑HP Indigo.", "Selected label work": "עבודות נבחרות", "01 - Work · 6 projects": "01 - עבודות · 6 פרויקטים", "Production artwork prepared for print. Each project opens the real press sheet - click Show marks to see the trim and bleed geometry the file was built to.": "אמנות מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי - לחיצה על Show marks מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Open sheet ↗": "פתח גיליון ↗", "Show marks": "הצג סימנים", "Front": "קדמי", "Back": "אחורי", "Label": "תווית", "Close ×": "סגור ×", "Client": "לקוח", "Format": "פורמט", "Colour": "צבע", "Press": "מכונת דפוס", "Trim size": "מידת חיתוך סופית", "Bleed": "בליד", "32 fl oz / 0.95 L · front + back": "32 fl oz / 0.95 ל׳ · קדמי + אחורי", "Die-cut bottle label": "תווית בקבוק בחיתוך צורני", "Full-colour front · single-colour back": "צבע מלא בחזית · צבע אחד בגב", "A two-part label: a photographic front panel carrying the product shot and brand block, and a text-dense back panel with directions for use, hazard copy, net contents and the EAN barcode.": "תווית דו-חלקית: פאנל קדמי צילומי שנושא את תמונת המוצר ובלוק המותג, ופאנל אחורי צפוף בטקסט עם הוראות שימוש, אזהרות בטיחות, תכולה נטו וברקוד EAN.", "Both faces are built to the same die and the same 3 mm bleed, so front and back register to one another on the finished bottle.": "שני הצדדים נבנו לפי אותה סכין חיתוך ולאותו בליד של 3 מ״מ, כך שהקדמי והאחורי נמצאים ברגיסטר מלא על הבקבוק המוגמר.", "2.26 kg · front + back": "2.26 ק״ג · קדמי + אחורי", "Pail / tub wrap label": "תווית עטיפה לדלי", "Front carries a soft watercolour rose image against white - a job where tonal transitions and the edge of the image are the whole design, so image quality and colour behaviour matter more than anything else on the sheet.": "בצד הקדמי איור ורד רך בסגנון אקוורל על רקע לבן - עבודה שבה מעברי הגוונים וקצה התמונה הם כל העיצוב, ולכן איכות התמונה והתנהגות הצבע חשובות יותר מכל דבר אחר בגיליון.", "The back is a trilingual instruction panel (EN / FR / ES) built from line icons, dosage figures, handling symbols and a barcode: fine black line art that has to hold at size.": "בצד האחורי פאנל הוראות בשלוש שפות (אנגלית / צרפתית / ספרדית) הבנוי מאייקוני קו, טבלת מינון, סמלי טיפול וברקוד: קווי שחור עדינים שחייבים להישאר חדים וברורים בגודל הסופי.", "10 lb / 4.53 kg": "10 lb / 4.53 ק״ג", "Bag / sack label": "תווית לשק", "One sheet holding two very different jobs side by side: a bold flat-colour brand block on black, and a four-step instruction grid with icons, dosage table and barcode.": "גיליון אחד הכולל שתי עבודות שונות לגמרי זו לצד זו: בלוק מותג בצבע שטוח ועז על רקע שחור, וגריד הוראות בארבעה שלבים עם אייקונים, טבלת מינון וברקוד.", "Flat spot-like reds and greens sit next to reversed white type - the kind of build where rich black limits and overprint settings decide whether the edges stay clean on press.": "אדומים וירוקים שטוחים בסגנון צבעי ספוט יושבים לצד טקסט לבן מנוגד - בנייה שבה מגבלות הריץ׳ בלק והגדרות האוברפרינט הן שקובעות אם הקצוות יישארו נקיים במכונה.", "Wrap-around jar label": "תווית עטיפה לצנצנת", "A long, narrow wrap where the artwork has to run continuously around the container and meet itself at the seam.": "עטיפה ארוכה וצרה שבה הגרפיקה חייבת להימשך ברצף סביב המכל ולהיפגש עם עצמה בתפר.", "Heavy file - layered artwork with large placed imagery - which makes clean output and RIP behaviour part of the job, not an afterthought.": "קובץ כבד - גרפיקה רב־שכבתית עם תמונות גדולות מוטמעות - מה שהופך פלט נקי והתנהגות ה-RIP לחלק מהעבודה עצמה, לא למחשבה שנייה.", "100 ct · 100 × 100 mm": "100 יח׳ · 100 × 100 מ״מ", "Carton / bag label": "תווית לקרטון / שקית", "Illustrated kraft-paper design with hand-drawn white lettering knocked out of a textured background - artwork where a white knockout on a busy texture is the detail that has to survive the press.": "עיצוב מאויר על נייר קראפט עם כיתוב לבן בכתב יד שנחתך מתוך רקע מרקמי - גרפיקה שבה הנוקאאוט הלבן על מרקם עמוס הוא הפרט שחייב לשרוד את המכונה.", "Product photography of the sachet itself sits inside the illustration, so two different image types share one colour build.": "צילום מוצר של השקית עצמה משולב בתוך האיור, כך ששני סוגי תמונה שונים חולקים בנייה צבעונית אחת.", "200 ct · 100 × 100 mm": "200 יח׳ · 100 × 100 מ״מ", "From client file to final print": "מקובץ הלקוח ועד להדפסה הסופית", "02 - Process · 7 parts": "02 - תהליך · 7 חלקים", "A walk-through of how a job actually moves through pre-press - what gets checked, what gets corrected, and what happens when the screen and the press disagree.": "סקירה של הדרך שבה עבודה עוברת בפועל בהכנה לדפוס - מה נבדק, מה מתוקן, ומה קורה כשהמסך והמכונה לא מסכימים.", "Step {n} of 07": "שלב {n} מתוך 07", "Open full sheet ↗": "פתח גיליון מלא ↗", "Swipe between stages": "החליקו בין השלבים", "Tap to enlarge": "הקישו להגדלה", "Use the ← → arrow keys on your keyboard": "השתמשו במקשי החיצים ← → במקלדת", "✂ tear here · 03 next": "✂ קרעו כאן · 03 הבא", "The role": "התפקיד", "Working across pre-press and digital print production - artwork inspection, file optimisation, press troubleshooting.": "עבודה לרוחב ההכנה לדפוס וההפקה הדיגיטלית - בדיקת קבצים גרפיים, אופטימיזציה של קבצים ופתרון תקלות במכונה.", "Before it goes to press": "לפני שזה נכנס למכונה", "Every incoming file is examined, diagnosed and prepared. Catching problems early saves time, material and cost.": "כל קובץ נכנס נבדק, מאובחן ומוכן. איתור מוקדם של בעיות חוסך זמן, חומר וכסף.", "Design files → press-ready": "מקובץ עיצוב לקובץ מוכן לדפוס", "Bleed and die-line, colour separation, overprint and trapping, white ink, image and vector quality.": "בליד וקו חיתוך (דייליין), הפרדות צבע, אוברפרינט וטראפינג, לבן טכני, ואיכות תמונה ווקטור.", "When screen ≠ print": "כשהמסך ≠ הדפוס", "RGB against CMYK, foil detail too fine to survive, effects that vanish on press - and what to do about each.": "RGB מול CMYK, פרטי הטבעה עדינים מכדי לשרוד, אפקטים שנעלמים במכונה - ומה עושים עם כל אחד מהם.", "From problem to solution": "מבעיה לפתרון", "Explaining the issue to the client, weighing the options, and sometimes changing the material instead of the design.": "להסביר את הבעיה ללקוח, לשקול את האפשרויות, ולפעמים לשנות את החומר במקום את העיצוב.", "Knowledge sharing": "העברת ידע", "Training the team to recognise the cause, not just apply the fix - fewer errors, less waste, smoother production.": "ללמד את הצוות לזהות את הסיבה, לא רק להחיל את התיקון - פחות טעויות, פחות בזבוז, ייצור חלק יותר.", "The complete journey": "המסע השלם", "The seven steps from file received to finished product delivered, and what gets verified at each one.": "שבעת השלבים מקבלת הקובץ ועד אספקת המוצר המוגמר, ומה נבדק בכל אחד מהם.", "03 - Capabilities · 4 stages": "03 - יכולות · 4 תחומים", "Click any stage to play it": "לחצו על תחום כדי להפעיל אותו", "or use the ← → arrow keys on your keyboard": "או השתמשו במקשי החיצים ← → במקלדת", "Swipe to change stage": "החליקו כדי להחליף תחום", "Play the films": "הפעל את הסרטונים", "Design & layout": "עיצוב ולייאאוט", "Custom label graphics, branding, typography, and packaging visual identity.": "גרפיקת תוויות בהתאמה אישית, מיתוג, טיפוגרפיה וזהות חזותית לאריזה.", "Pre-press & preflight": "הכנה לדפוס ופריפלייט", "File auditing, trapping, bleed setup, colour separation, additional separations, die-lines, and artwork correction.": "בדיקת קבצים, טראפינג, הגדרת בליד, הפרדות צבע, הפרדות נוספות, דיילנים ותיקון קבצים גרפיים.", "Specialised hardware": "ציוד ייעודי", "File prep, colour calibration, and output optimisation for HP Indigo digital presses.": "הכנת קבצים, כיול צבע ואופטימיזציה של פלט למכונות HP Indigo.", "Print production": "הפקת דפוס", "Label stock material handling, finishing requirements, and print-floor troubleshooting.": "עבודה עם חומרי גלם לתוויות, דרישות גימור ופתרון תקלות ברצפת הייצור.", "About": "קצת עליי", "04 - Benjamin Kljuno": "04 - בנימין קליונו", "Technical graphic designer specialising in pre-press workflow, file correction, and digital label manufacturing. I bridge the gap between creative visual design and print-floor execution.": "מעצב גרפי טכני המתמחה בתהליכי הכנה לדפוס, תיקון קבצים וייצור תוויות בדפוס דיגיטלי. אני מגשר בין העיצוב היצירתי לבין הביצוע ברצפת הייצור.", "My name is Benjamin Kljuno. I work across graphic machine engineering and graphic design. My strength is in printing-machine engineering knowledge combined with hands-on experience in graphic design.": "שמי בנימין קליונו. אני עובד בשני העולמות - הנדסת מכונות דפוס ועיצוב גרפי. החוזק שלי הוא בהיכרות ההנדסית עם מכונות הדפוס לצד ניסיון מעשי בעיצוב גרפי.", "Knowledge in both worlds allows for a deep understanding of the customer's needs - in maintenance, in troubleshooting, and in defining machine capabilities. I'm experienced in offset printing, flexo printing, and digital printing.": "הידע בשני העולמות מאפשר הבנה עמוקה של צורכי הלקוח - בתחזוקה, באיתור תקלות ובהגדרת יכולות המכונה. יש לי ניסיון בדפוס אופסט, בדפוס פלקסו ובדפוס דיגיטלי.", "Experienced in auditing artwork, resolving colour separation issues, and preparing complex print files specifically for HP Indigo digital presses.": "מנוסה בבדיקת קבצים גרפיים, בפתרון בעיות הפרדות צבע ובהכנת קבצי דפוס מורכבים במיוחד למכונות HP Indigo.", "Role": "תפקיד", "Pre-press & graphic production": "הכנה לדפוס והפקה גרפית", "Experience": "ותק", "Since 2022": "משנת 2022", "HP Indigo digital": "HP Indigo דפוס דיגיטלי", "Also": "בנוסף", "Offset · Flexo · Digital press": "אופסט · פלקסו · דפוס דיגיטלי", "Based": "מיקום", "Israel": "ישראל", "My resume / CV": "קורות החיים שלי", "05 - One page, print-ready": "05 - עמוד אחד, מוכן לדפוס", "Graphic machine engineering on one side, graphic design on the other - and the print floor in between.": "הנדסת מכונות דפוס מצד אחד, עיצוב גרפי מצד שני - ורצפת הייצור ביניהם.", "Read the CV ↗": "קראו את קורות החיים ↗", "Download PDF": "הורדת PDF", "A4 · one page · updated 2026": "A4 · עמוד אחד · עודכן 2026", "Send a file, or a job": "שלחו קובץ, או עבודה", "06 - Contact": "06 - צור קשר", "Open to full-time roles and freelance pre-press work. If you have artwork that needs to be made press-ready, tell me what it's printing on and I'll tell you what it needs.": "פנוי למשרות מלאות ולעבודות הכנה לדפוס כפרילנס. אם יש לכם קובץ גרפי שצריך להכין לדפוס - ספרו לי על מה הוא מודפס, ואני אגיד לכם מה הוא צריך.", "Email": "אימייל", "LinkedIn": "לינקדאין", "Send a message": "שליחת הודעה", "Reply within 24h": "מענה תוך 24 שעות", "Name": "שם", "Company or subject": "חברה או נושא", "Message": "הודעה", "Send message": "שליחה", "Required": "שדה חובה", "Enter a valid email": "הזינו כתובת אימייל תקינה", "Press-ready is a decision, not a file format.": "מוכנות לדפוס היא החלטה, לא פורמט קובץ.", "Preflight check": "בדיקת פריפלייט", "Skip": "דלג", "01 - Work ·": "01 - עבודות ·", "projects": "פרויקטים", "Click to enlarge": "לחצו להגדלה", "Tap the sheet to enlarge": "הקישו על הגיליון להגדלה", "Use the": "השתמשו במקשי", "arrow keys on your keyboard": "החיצים במקלדת", "or use the": "או השתמשו במקשי", "Open the enquiry form ↗": "פתחו את טופס הפנייה ↗", "Or email": "או שלחו מייל", "Enquiry": "פנייה", "Tell me what it's printing on.": "ספרו לי על מה זה מודפס.", "Send the artwork, the substrate and the press it's going on - I'll come back with what the file needs before it gets there.": "שלחו את הקובץ, את החומר ואת המכונה שעליה זה יודפס - ואחזור אליכם עם מה שהקובץ צריך לפני שהוא מגיע לשם.", "digital presses.": "הדיגיטליות.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for": "אני מגשר בין קובץ העיצוב למכונת הדפוס: בודק קבצים גרפיים, פותר בעיות הפרדת צבע, בונה בליד וקווי חיתוך, ומכין עבודות מורכבות למכונות", "Production artwork prepared for print. Each project opens the real press sheet - click": "גרפיקה מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי - לחיצה על", "to see the trim and bleed geometry the file was built to.": "מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Source file": "קובץ מקור", "⤢ Tap to enlarge": "⤢ הקישו להגדלה", "Work": "עבודות", "Process": "תהליך", "Resume": "קורות חיים", "Contact": "צור קשר", "Close ✕": "סגור ✕"};
+const T_PAIRS = {"work": "עבודות", "process": "תהליך", "about": "אודות", "resume": "קורות חיים", "contact": "צור קשר", "What I do": "מה אני עושה?", "Pre-press & digital label production": "קדם־דפוס והפקת תוויות בדפוס דיגיטלי", "Technical graphic designer for work that has to": "מעצב גרפי טכני לעבודות שחייבות", "print right": "לצאת מושלמות", "the first time.": "כבר בהדפסה הראשונה.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for HP Indigo digital presses.": "אני יושב בין קובץ העיצוב למכונת הדפוס - בודק קבצים גרפיים, פותר הפרדות צבע, בונה קו חיתוך ובליד, ומכין עבודות מורכבות ל‑HP Indigo.", "Selected label work": "עבודות נבחרות", "01 - Work · 6 projects": "01 - עבודות · 6 פרויקטים", "Production artwork prepared for print. Each project opens the real press sheet - click Show marks to see the trim and bleed geometry the file was built to.": "אמנות מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי - לחיצה על Show marks מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Open sheet ↗": "פתח גיליון ↗", "Show marks": "הצג סימנים", "Front": "קדמי", "Back": "אחורי", "Label": "תווית", "Close ×": "סגור ×", "Client": "לקוח", "Format": "פורמט", "Colour": "צבע", "Press": "מכונת דפוס", "Trim size": "מידת חיתוך סופית", "Bleed": "בליד", "32 fl oz / 0.95 L · front + back": "32 fl oz / 0.95 ל׳ · קדמי + אחורי", "Die-cut bottle label": "תווית בקבוק בחיתוך צורני", "Full-colour front · single-colour back": "צבע מלא בחזית · צבע אחד בגב", "A two-part label: a photographic front panel carrying the product shot and brand block, and a text-dense back panel with directions for use, hazard copy, net contents and the EAN barcode.": "תווית דו-חלקית: פאנל קדמי צילומי שנושא את תמונת המוצר ובלוק המותג, ופאנל אחורי צפוף בטקסט עם הוראות שימוש, אזהרות בטיחות, תכולה נטו וברקוד EAN.", "Both faces are built to the same die and the same 3 mm bleed, so front and back register to one another on the finished bottle.": "שני הצדדים נבנו לפי אותה סכין חיתוך ולאותו בליד של 3 מ״מ, כך שהקדמי והאחורי נמצאים ברגיסטר מלא על הבקבוק המוגמר.", "2.26 kg · front + back": "2.26 ק״ג · קדמי + אחורי", "Pail / tub wrap label": "תווית עטיפה לדלי", "Front carries a soft watercolour rose image against white - a job where tonal transitions and the edge of the image are the whole design, so image quality and colour behaviour matter more than anything else on the sheet.": "בצד הקדמי איור ורד רך בסגנון אקוורל על רקע לבן - עבודה שבה מעברי הגוונים וקצה התמונה הם כל העיצוב, ולכן איכות התמונה והתנהגות הצבע חשובות יותר מכל דבר אחר בגיליון.", "The back is a trilingual instruction panel (EN / FR / ES) built from line icons, dosage figures, handling symbols and a barcode: fine black line art that has to hold at size.": "בצד האחורי פאנל הוראות בשלוש שפות (אנגלית / צרפתית / ספרדית) הבנוי מאייקוני קו, טבלת מינון, סמלי טיפול וברקוד: קווי שחור עדינים שחייבים להישאר חדים וברורים בגודל הסופי.", "10 lb / 4.53 kg": "10 lb / 4.53 ק״ג", "Bag / sack label": "תווית לשק", "One sheet holding two very different jobs side by side: a bold flat-colour brand block on black, and a four-step instruction grid with icons, dosage table and barcode.": "גיליון אחד הכולל שתי עבודות שונות לגמרי זו לצד זו: בלוק מותג בצבע שטוח ועז על רקע שחור, וגריד הוראות בארבעה שלבים עם אייקונים, טבלת מינון וברקוד.", "Flat spot-like reds and greens sit next to reversed white type - the kind of build where rich black limits and overprint settings decide whether the edges stay clean on press.": "אדומים וירוקים שטוחים בסגנון צבעי ספוט יושבים לצד טקסט לבן מנוגד - בנייה שבה מגבלות הריץ׳ בלק והגדרות האוברפרינט הן שקובעות אם הקצוות יישארו נקיים במכונה.", "Wrap-around jar label": "תווית עטיפה לצנצנת", "A long, narrow wrap where the artwork has to run continuously around the container and meet itself at the seam.": "עטיפה ארוכה וצרה שבה הגרפיקה חייבת להימשך ברצף סביב המכל ולהיפגש עם עצמה בתפר.", "Heavy file - layered artwork with large placed imagery - which makes clean output and RIP behaviour part of the job, not an afterthought.": "קובץ כבד - גרפיקה רב־שכבתית עם תמונות גדולות מוטמעות - מה שהופך פלט נקי והתנהגות ה-RIP לחלק מהעבודה עצמה, לא למחשבה שנייה.", "100 ct · 100 × 100 mm": "100 יח׳ · 100 × 100 מ״מ", "Carton / bag label": "תווית לקרטון / שקית", "Illustrated kraft-paper design with hand-drawn white lettering knocked out of a textured background - artwork where a white knockout on a busy texture is the detail that has to survive the press.": "עיצוב מאויר על נייר קראפט עם כיתוב לבן בכתב יד שנחתך מתוך רקע מרקמי - גרפיקה שבה הנוקאאוט הלבן על מרקם עמוס הוא הפרט שחייב לשרוד את המכונה.", "Product photography of the sachet itself sits inside the illustration, so two different image types share one colour build.": "צילום מוצר של השקית עצמה משולב בתוך האיור, כך ששני סוגי תמונה שונים חולקים בנייה צבעונית אחת.", "200 ct · 100 × 100 mm": "200 יח׳ · 100 × 100 מ״מ", "From client file to final print": "מקובץ הלקוח ועד להדפסה הסופית", "02 - Process · 7 parts": "02 - תהליך · 7 חלקים", "A walk-through of how a job actually moves through pre-press - what gets checked, what gets corrected, and what happens when the screen and the press disagree.": "סקירה של הדרך שבה עבודה עוברת בפועל בהכנה לדפוס - מה נבדק, מה מתוקן, ומה קורה כשהמסך והמכונה לא מסכימים.", "Step {n} of 07": "שלב {n} מתוך 07", "Open full sheet ↗": "פתח גיליון מלא ↗", "Swipe between stages": "החליקו בין השלבים", "Tap to enlarge": "הקישו להגדלה", "Use the ← → arrow keys on your keyboard": "השתמשו במקשי החיצים ← → במקלדת", "✂ tear here · 03 next": "✂ קרעו כאן · 03 הבא", "The role": "התפקיד", "Working across pre-press and digital print production - artwork inspection, file optimisation, press troubleshooting.": "עבודה לרוחב ההכנה לדפוס וההפקה הדיגיטלית - בדיקת קבצים גרפיים, אופטימיזציה של קבצים ופתרון תקלות במכונה.", "Before it goes to press": "לפני שזה נכנס למכונה", "Every incoming file is examined, diagnosed and prepared. Catching problems early saves time, material and cost.": "כל קובץ נכנס נבדק, מאובחן ומוכן. איתור מוקדם של בעיות חוסך זמן, חומר וכסף.", "Design files → press-ready": "מקובץ עיצוב לקובץ מוכן לדפוס", "Bleed and die-line, colour separation, overprint and trapping, white ink, image and vector quality.": "בליד וקו חיתוך (דייליין), הפרדות צבע, אוברפרינט וטראפינג, לבן טכני, ואיכות תמונה ווקטור.", "When screen ≠ print": "כשהמסך ≠ הדפוס", "RGB against CMYK, foil detail too fine to survive, effects that vanish on press - and what to do about each.": "RGB מול CMYK, פרטי הטבעה עדינים מכדי לשרוד, אפקטים שנעלמים במכונה - ומה עושים עם כל אחד מהם.", "From problem to solution": "מבעיה לפתרון", "Explaining the issue to the client, weighing the options, and sometimes changing the material instead of the design.": "להסביר את הבעיה ללקוח, לשקול את האפשרויות, ולפעמים לשנות את החומר במקום את העיצוב.", "Knowledge sharing": "העברת ידע", "Training the team to recognise the cause, not just apply the fix - fewer errors, less waste, smoother production.": "ללמד את הצוות לזהות את הסיבה, לא רק להחיל את התיקון - פחות טעויות, פחות בזבוז, ייצור חלק יותר.", "The complete journey": "המסע השלם", "The seven steps from file received to finished product delivered, and what gets verified at each one.": "שבעת השלבים מקבלת הקובץ ועד אספקת המוצר המוגמר, ומה נבדק בכל אחד מהם.", "03 - Capabilities · 4 stages": "03 - יכולות · 4 תחומים", "Click any stage to play it": "לחצו על תחום כדי להפעיל אותו", "or use the ← → arrow keys on your keyboard": "או השתמשו במקשי החיצים ← → במקלדת", "Swipe to change stage": "החליקו כדי להחליף תחום", "Play the films": "הפעל את הסרטונים", "Design & layout": "עיצוב ולייאאוט", "Custom label graphics, branding, typography, and packaging visual identity.": "גרפיקת תוויות בהתאמה אישית, מיתוג, טיפוגרפיה וזהות חזותית לאריזה.", "Pre-press & preflight": "הכנה לדפוס ופריפלייט", "File auditing, trapping, bleed setup, colour separation, additional separations, die-lines, and artwork correction.": "בדיקת קבצים, טראפינג, הגדרת בליד, הפרדות צבע, הפרדות נוספות, דיילנים ותיקון קבצים גרפיים.", "Specialised hardware": "ציוד ייעודי", "File prep, colour calibration, and output optimisation for HP Indigo digital presses.": "הכנת קבצים, כיול צבע ואופטימיזציה של פלט למכונות HP Indigo.", "Print production": "הפקת דפוס", "Label stock material handling, finishing requirements, and print-floor troubleshooting.": "עבודה עם חומרי גלם לתוויות, דרישות גימור ופתרון תקלות ברצפת הייצור.", "About": "קצת עליי", "04 - Benjamin Kljuno": "04 - בנימין קליונו", "Technical graphic designer specialising in pre-press workflow, file correction, and digital label manufacturing. I bridge the gap between creative visual design and print-floor execution.": "מעצב גרפי טכני המתמחה בתהליכי הכנה לדפוס, תיקון קבצים וייצור תוויות בדפוס דיגיטלי. אני מגשר בין העיצוב היצירתי לבין הביצוע ברצפת הייצור.", "My name is Benjamin Kljuno. I work across graphic machine engineering and graphic design. My strength is in printing-machine engineering knowledge combined with hands-on experience in graphic design.": "שמי בנימין קליונו. אני עובד בשני העולמות - הנדסת מכונות דפוס ועיצוב גרפי. החוזק שלי הוא בהיכרות ההנדסית עם מכונות הדפוס לצד ניסיון מעשי בעיצוב גרפי.", "Knowledge in both worlds allows for a deep understanding of the customer's needs - in maintenance, in troubleshooting, and in defining machine capabilities. I'm experienced in offset printing, flexo printing, and digital printing.": "הידע בשני העולמות מאפשר הבנה עמוקה של צורכי הלקוח - בתחזוקה, באיתור תקלות ובהגדרת יכולות המכונה. יש לי ניסיון בדפוס אופסט, בדפוס פלקסו ובדפוס דיגיטלי.", "Experienced in auditing artwork, resolving colour separation issues, and preparing complex print files specifically for HP Indigo digital presses.": "מנוסה בבדיקת קבצים גרפיים, בפתרון בעיות הפרדות צבע ובהכנת קבצי דפוס מורכבים במיוחד למכונות HP Indigo.", "Role": "תפקיד", "Pre-press & graphic production": "הכנה לדפוס והפקה גרפית", "Experience": "ותק", "Since 2022": "משנת 2022", "HP Indigo digital": "HP Indigo דפוס דיגיטלי", "Also": "בנוסף", "Offset · Flexo · Digital press": "אופסט · פלקסו · דפוס דיגיטלי", "Based": "מיקום", "Israel": "ישראל", "My resume / CV": "קורות החיים שלי", "05 - One page, print-ready": "05 - עמוד אחד, מוכן לדפוס", "Graphic machine engineering on one side, graphic design on the other - and the print floor in between.": "הנדסת מכונות דפוס מצד אחד, עיצוב גרפי מצד שני - ורצפת הייצור ביניהם.", "Read the CV ↗": "קראו את קורות החיים ↗", "Download PDF": "הורדת PDF", "A4 · one page · updated 2026": "A4 · עמוד אחד · עודכן 2026", "Send a file, or a job": "שלחו קובץ, או עבודה", "06 - Contact": "06 - צור קשר", "Open to full-time roles and freelance pre-press work. If you have artwork that needs to be made press-ready, tell me what it's printing on and I'll tell you what it needs.": "פנוי למשרות מלאות ולעבודות הכנה לדפוס כפרילנס. אם יש לכם קובץ גרפי שצריך להכין לדפוס - ספרו לי על מה הוא מודפס, ואני אגיד לכם מה הוא צריך.", "Email": "אימייל", "LinkedIn": "לינקדאין", "Send a message": "שליחת הודעה", "Reply within 24h": "מענה תוך 24 שעות", "Name": "שם", "Company or subject": "חברה או נושא", "Message": "הודעה", "Send message": "שליחה", "Required": "שדה חובה", "Enter a valid email": "הזינו כתובת אימייל תקינה", "Press-ready is a decision, not a file format.": "מוכנות לדפוס היא החלטה, לא פורמט קובץ.", "Preflight check": "בדיקת פריפלייט", "Skip": "דלג", "01 - Work ·": "01 - עבודות ·", "projects": "פרויקטים", "Click to enlarge": "לחצו להגדלה", "Tap the sheet to enlarge": "הקישו על הגיליון להגדלה", "Use the": "השתמשו במקשי", "arrow keys on your keyboard": "החיצים במקלדת", "or use the": "או השתמשו במקשי", "Open the enquiry form ↗": "פתחו את טופס הפנייה ↗", "Or email": "או שלחו מייל", "Enquiry": "פנייה", "Tell me what it's printing on.": "ספרו לי על מה זה מודפס.", "Send the artwork, the substrate and the press it's going on - I'll come back with what the file needs before it gets there.": "שלחו את הקובץ, את החומר ואת המכונה שעליה זה יודפס - ואחזור אליכם עם מה שהקובץ צריך לפני שהוא מגיע לשם.", "digital presses.": "הדיגיטליות.", "I sit between the design file and the press. I audit artwork, resolve separations and colour, build die-lines and bleed, and prepare complex jobs for": "אני מגשר בין קובץ העיצוב למכונת הדפוס: בודק קבצים גרפיים, פותר בעיות הפרדת צבע, בונה בליד וקווי חיתוך, ומכין עבודות מורכבות למכונות", "Production artwork prepared for print. Each project opens the real press sheet - click": "גרפיקה מוכנה לייצור. כל פרויקט נפתח לגיליון הדפוס האמיתי - לחיצה על", "to see the trim and bleed geometry the file was built to.": "מציגה את גיאומטריית החיתוך והבליד שהקובץ נבנה לפיה.", "Source file": "קובץ מקור", "⤢ Tap to enlarge": "⤢ הקישו להגדלה", "Work": "עבודות", "Process": "תהליך", "Resume": "קורות חיים", "Contact": "צור קשר", "Close ✕": "סגור ✕", "career journey": "המסלול המקצועי", "Career Journey": "המסלול המקצועי", "A career built between": "קריירה שנבנתה בין", "design & print.": "עיצוב לדפוס.", "Combining creative design, technical knowledge and hands-on experience across the printing industry.": "שילוב של עיצוב יצירתי, ידע טכני וניסיון מעשי בתעשיית הדפוס.", "From graphic design and print technology to pre-press production, technical support and client relationships.": "מעיצוב גרפי וטכנולוגיית דפוס, דרך הכנה לדפוס ותמיכה טכנית, ועד קשרי לקוחות.", "Digital files prepared monthly": "קבצים דיגיטליים שמוכנים מדי חודש", "Clients supported": "לקוחות בליווי ותמיכה", "Private hotel brochures designed": "ברושורים פרטיים למלון שעוצבו", "at Peer Print": "ב-Peer Print", "at Ilidza Hotel Group": "ב-Ilidza Hotel Group", "Work history": "היסטוריית עבודה", "Professional experience": "ניסיון מקצועי", "Sarajevo, Bosnia and Herzegovina": "סרייבו, בוסניה והרצגובינה", "Ilidza, Bosnia and Herzegovina": "אילידז'ה, בוסניה והרצגובינה", "Ness Ziona, Israel": "נס ציונה, ישראל", "Bosnia and Herzegovina": "בוסניה והרצגובינה", "Maintenance & Support Engineer": "מהנדס תחזוקה ותמיכה", "Graphic Designer": "מעצב גרפי", "Graphic Design & Advertising": "עיצוב גרפי ופרסום", "Graphic Technician & Designer": "טכנאי גרפי ומעצב", "Maintenance of pre-press machines for offset printing (CTP).": "תחזוקה של מכונות הכנה לדפוס להדפסת אופסט (CTP).", "Customer support engineering.": "הנדסת תמיכה בלקוחות.", "Marketing and sales of graphic materials, with more than 100 materials sold daily.": "שיווק ומכירה של חומרים גרפיים, עם יותר מ-100 חומרים שנמכרו מדי יום.", "Magazine graphic design.": "עיצוב גרפי של מגזינים.", "Brochure graphic design.": "עיצוב גרפי של ברושורים.", "Monthly flyer design.": "עיצוב פלייר חודשי.", "Designed four private brochures for the hotel.": "עיצוב ארבעה ברושורים פרטיים עבור המלון.", "Web advertising on social networks.": "פרסום ברשתות החברתיות.", "Publishing and updating events.": "פרסום ועדכון אירועים.", "Digital label pre-press printing.": "הכנה לדפוס דיגיטלי של תוויות.", "Preparing more than 100 files for digital printing machines monthly.": "הכנה של יותר מ-100 קבצים בחודש למכונות הדפסה דיגיטליות.", "Graphic design.": "עיצוב גרפי.", "Customer support, assisting approximately 200 clients.": "תמיכה בלקוחות, עם ליווי של כ-200 לקוחות.", "Present": "הווה", "Current": "נוכחי", "Education": "השכלה", "The foundation behind the experience.": "היסודות שמאחורי הניסיון.", "Technical High School of Graphic Design and Multimedia Technology": "בית ספר תיכון טכני לעיצוב גרפי וטכנולוגיית מולטימדיה", "Field": "תחום", "Web and Graphic Design.": "עיצוב אתרים ועיצוב גרפי.", "Travnik University": "אוניברסיטת טרבניק", "Degree": "תואר", "BSc. in Graphic Engineering and Design.": "תואר ראשון (B.Sc.) בהנדסה ועיצוב גרפי.", "Location": "מיקום", "Toolkit": "ארגז כלים", "The tools behind the work.": "הכלים שמאחורי העבודה.", "Graphic design": "עיצוב גרפי", "Printing technologies": "טכנולוגיות הדפסה", "Offset Printing": "הדפסת אופסט", "Flexographic Printing (Flexo)": "הדפסה פלקסוגרפית (פלקסו)", "Digital Printing": "הדפסה דיגיטלית", "Languages": "שפות", "Communication without borders.": "תקשורת ללא גבולות.", "English": "אנגלית", "Hebrew": "עברית", "German": "גרמנית", "Bosnian / Croatian / Serbian": "בוסנית / קרואטית / סרבית", "Fluent": "שוטף", "Upper Intermediate": "בינוני-גבוה", "Basic": "בסיסי", "Native": "שפת אם", "In short": "בקיצור", "Creative thinking.": "חשיבה יצירתית.", "Technical understanding.": "הבנה טכנית.", "Real-world experience.": "ניסיון בשטח.", "Bringing design, printing technology and production knowledge together.": "מחבר יחד עיצוב, טכנולוגיית דפוס וידע ייצורי.", "Download full CV (PDF) ↗": "הורדת קורות החיים המלאים (PDF) ↗"};
 const T_EN2HE = T_PAIRS;
 const T_HE2EN = (()=>{ const o={}; for(const k in T_PAIRS){ if(!(T_PAIRS[k] in o)) o[T_PAIRS[k]]=k; } return o; })();
 function translateTree(root,to){
@@ -1880,7 +2290,42 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape"){closeSheet();close
 
 /* ================= CV DOWNLOAD ================= */
 $("#cvDownload").href="data:application/pdf;base64,"+CV_PDF;
-$("#cvSheet").src=src("cv-1");
+
+/* ================= CAREER JOURNEY ================= */
+(()=>{
+  const cj=$("#cv"); if(!cj) return;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const tl=$("#cjTl"), items=[...tl.querySelectorAll(".tl-item")];
+  cj.querySelectorAll(".cj-ill *").forEach(el=>{ if(!el.classList.contains("f")) el.setAttribute("pathLength","1"); });
+  const counters=[...cj.querySelectorAll("[data-to]")];
+  const runCount=el=>{
+    const to=+el.dataset.to;
+    if(reduce){ el.textContent=to; return; }
+    const t0=performance.now(), d=1500;
+    (function f(t){
+      const k=Math.min(1,(t-t0)/d), e=1-Math.pow(1-k,3);
+      el.textContent=Math.round(to*e);
+      if(k<1) requestAnimationFrame(f);
+    })(t0);
+  };
+  if(!reduce) counters.forEach(c=>c.textContent="0");
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.classList.add("in"); io.unobserve(e.target);
+    if(e.target.classList.contains("cj-intro")) setTimeout(()=>counters.forEach(runCount),1300);
+  }),{threshold:.18,rootMargin:"0px 0px -6% 0px"});
+  cj.querySelectorAll("[data-cj]").forEach(el=>io.observe(el));
+  function prog(){
+    const r=tl.getBoundingClientRect(), H=r.height||1;
+    const p=reduce?1:Math.min(1,Math.max(0,(innerHeight*.66-r.top)/H));
+    tl.style.setProperty("--p",p.toFixed(4));
+    items.forEach(it=>it.classList.toggle("on",reduce||p*H>=it.offsetTop+14));
+  }
+  addEventListener("scroll",()=>requestAnimationFrame(prog),{passive:true});
+  addEventListener("resize",prog);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(prog);
+  prog();
+})();
 
 /* ================= SCROLL: BACKGROUND TRANSITION ================= */
 const INK=[13,21,36], PAPER=[228,228,226], FG_D=[237,237,234], FG_L=[26,32,44];
