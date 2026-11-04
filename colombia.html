@@ -323,6 +323,29 @@ footer a{color:var(--cian)}
 .status small{display:block;color:#cfc9e6;font-weight:600;font-size:15px;margin-top:2px}
 .status.ok .pulse{background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.3);animation:none}
 .status.ok b{color:#3ddc84}
+.paybox{background:var(--ink);color:#fff;border:4px solid var(--ink);border-radius:24px;box-shadow:8px 8px 0 var(--rojo);padding:22px 24px;margin-bottom:28px;text-align:center}
+.pay-head{display:flex;gap:14px;align-items:center;justify-content:center;text-align:left;margin-bottom:16px}
+.pay-head .pulse{flex:none;width:16px;height:16px;border-radius:50%;background:var(--amarillo);animation:pulseY 1.6s infinite}
+.pay-head b{display:block;color:var(--amarillo);font-size:22px;line-height:1.25}
+.pay-head small{display:block;color:#cfc9e6;font-weight:600;font-size:15px}
+.cd{display:flex;justify-content:center;align-items:flex-start;gap:8px;margin:0 0 12px}
+.cd > div{min-width:92px;background:#2b2347;border:3px solid var(--amarillo);border-radius:16px;padding:8px 6px 6px;box-shadow:0 5px 0 #0e0a1c}
+.cd b{display:block;font-family:Bangers;font-size:56px;line-height:1;letter-spacing:.04em;color:var(--amarillo);font-variant-numeric:tabular-nums}
+.cd small{display:block;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#cfc9e6}
+.cd i{font-style:normal;font-family:Bangers;font-size:48px;line-height:1.3;color:var(--amarillo);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:.2}}
+.cd.urgent > div{border-color:var(--rojo);animation:shake .5s 2}
+.cd.urgent b,.cd.urgent i{color:#ff6b6b}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.pay-when{margin:0 0 16px;font-weight:600;color:#cfc9e6}
+.pay-when b{color:#fff}
+.pay-btns{justify-content:center}
+.pay-btns .btn{align-self:auto}
+.pay-btns .btn.big{font-size:22px;padding:12px 26px;background:var(--rojo)}
+.pay-note{margin:14px 0 0;font-size:14px;color:#cfc9e6}
+.paybox.over .cd{display:none}
+@media(max-width:640px){.cd > div{min-width:0;flex:1}.cd b{font-size:42px}.cd i{font-size:36px}.pay-head b{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.cd i,.cd.urgent > div,.pay-head .pulse{animation:none}}
 .pop-sub{font-weight:700;color:var(--muted);margin:4px 0 8px;font-size:15px}
 .voucher{position:relative;background:var(--white);border:4px solid var(--ink);border-radius:24px;box-shadow:10px 10px 0 var(--ink);overflow:hidden;margin:0 0 28px}
 .v-top{display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;background:#15110d;padding:20px 26px;border-bottom:4px solid var(--ink)}
@@ -1024,9 +1047,20 @@ footer a{color:var(--cian)}
     <div class="v-foot"><span>📍 Calle 16 #28-51, Variante Las Palmas</span><span>📞 (604) 444 8106</span><span>✉️ recepcion.interconti@movichhotels.com</span></div>
   </div>
 
-  <div class="status" id="hotel-status"><span class="pulse"></span>
-    <p><b>💳 Falta un solo paso: pagar.</b> La reserva figura "sin garantía" hasta que se pague el total (3.725.000 pesos), y hay que hacerlo <b>dentro de las 48 horas</b>: o sea, <b>hasta el jueves 5/11 a la noche</b> (hora de Israel). Tranquilos: se puede cancelar gratis hasta el 1/2/2027.
-    <small>Reserva confirmada el 3/11/2026 · Se paga con tarjeta de crédito, con el enlace del hotel</small></p>
+  <div class="paybox" id="hotel-status">
+    <div class="pay-head"><span class="pulse"></span><div><b>💳 Falta un solo paso: pagar la reserva</b><small>3.725.000 pesos (≈ ₪3,655) con tarjeta de crédito · cancelación gratis hasta el 1/2/2027</small></div></div>
+    <div class="cd" id="pay-cd" role="timer" aria-label="Tiempo que queda para pagar">
+      <div><b data-u="h">--</b><small>horas</small></div><i>:</i>
+      <div><b data-u="m">--</b><small>minutos</small></div><i>:</i>
+      <div><b data-u="s">--</b><small>segundos</small></div>
+    </div>
+    <p class="pay-when" id="pay-when">El hotel da 48 horas: <b>hasta el jueves 5/11 a las 22:25</b> (hora de Israel). ¡Mejor no dejarlo para el último minuto!</p>
+    <div class="btns pay-btns">
+      <a class="btn big" id="pay-link" href="#" target="_blank" rel="noopener" style="display:none">💳 Pagar la reserva ↗</a>
+      <a class="btn g" href="https://wa.me/573162893777?text=Hola%2C%20quisiera%20el%20enlace%20de%20pago%20de%20la%20reserva%2036262616%20(Ricardo%20Brainin%2C%20Junior%20Suite%2C%203%20al%208%20de%20febrero%20de%202027).%20%C2%A1Gracias!" target="_blank" rel="noopener">💬 Pedir el enlace por WhatsApp</a>
+      <a class="btn y" href="mailto:reservas@movichhotels.com?subject=Reserva%2036262616%20-%20enlace%20de%20pago">📧 Pedirlo por mail</a>
+    </div>
+    <p class="pay-note">El enlace de pago lo manda el hotel por mail y dura 24 horas. Si ya se venció, pídanle uno nuevo al hotel con los botones de arriba (reserva N° 36262616).</p>
   </div>
 
   <div class="card" id="reserva-precio" style="margin-bottom:28px">
@@ -1384,9 +1418,9 @@ footer a{color:var(--cian)}
     <div class="bang" id="pop-t">¡Reserva confirmada! 🏨</div>
     <p>El InterContinental confirmó la Junior Suite: sin IVA y con el descuento de la boda.</p>
     <ul class="pop-list">
+      <li><a href="#hotel-status"><span class="e">⏳</span>¡Cuenta regresiva! Pagar el hotel antes del jueves 5/11</a></li>
       <li><a href="#reserva"><span class="e">🎟️</span>La reserva, con todos los detalles</a></li>
       <li><a href="#reserva-precio"><span class="e">🔍</span>¿Es buen precio? Lo comparamos con internet</a></li>
-      <li><a href="#hotel-status"><span class="e">💳</span>Lo único que falta: pagar antes del 5/11</a></li>
     </ul>
     <p class="pop-sub">Y si todavía no lo vieron:</p>
     <ul class="pop-list">
@@ -1510,9 +1544,30 @@ var notify=(function(){
   addEventListener('pagehide',bye);
 })();
 
+// ---------- hotel payment countdown ----------
+(function(){
+  var PAY_URL='';  // the hotel's payment link; each one only lasts 24 h
+  var END=Date.parse('2026-11-05T20:25:00Z');  // 48 h after the booking email: Thu 5/11 22:25 Israel time
+  var cd=document.getElementById('pay-cd');if(!cd)return;
+  var link=document.getElementById('pay-link');
+  if(PAY_URL){link.href=PAY_URL;link.style.display=''}
+  var u={h:cd.querySelector('[data-u=h]'),m:cd.querySelector('[data-u=m]'),s:cd.querySelector('[data-u=s]')},iv;
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var left=Math.max(0,END-Date.now()),t=Math.floor(left/1000);
+    u.h.textContent=pad(Math.floor(t/3600));u.m.textContent=pad(Math.floor(t%3600/60));u.s.textContent=pad(t%60);
+    cd.classList.toggle('urgent',left<6*3600);
+    if(!left){
+      clearInterval(iv);cd.parentNode.classList.add('over');
+      document.getElementById('pay-when').innerHTML='<b>⚠️ Se venció el plazo de 48 horas.</b> Si todavía no pagaron, escríbanle ya al hotel para que no se caiga la reserva.';
+    }
+  }
+  tick();iv=setInterval(tick,1000);
+})();
+
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-04';
+  var NEWS_VER='2026-11-04b';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
