@@ -344,6 +344,9 @@ footer a{color:var(--cian)}
 .pay-btns .btn.big{font-size:22px;padding:12px 26px;background:var(--rojo)}
 .pay-note{margin:14px 0 0;font-size:14px;color:#cfc9e6}
 .paybox.over .cd{display:none}
+.paybox.paid{box-shadow:8px 8px 0 var(--verde)}
+.paybox.paid .pay-head b{color:#3ddc84;font-size:26px}
+.paybox.paid .paid-ico{flex:none;font-size:44px;line-height:1}
 @media(max-width:640px){.cd > div{min-width:0;flex:1}.cd b{font-size:42px}.cd i{font-size:36px}.pay-head b{font-size:19px}}
 @media(prefers-reduced-motion:reduce){.cd i,.cd.urgent > div,.pay-head .pulse{animation:none}}
 .pop-sub{font-weight:700;color:var(--muted);margin:4px 0 8px;font-size:15px}
@@ -1023,7 +1026,7 @@ footer a{color:var(--cian)}
       <div class="v-num"><small>N° de reserva</small><b>36262616</b></div>
     </div>
     <div class="v-body">
-      <div class="v-stamp">✔ Confirmada</div>
+      <div class="v-stamp">✔ Pagada</div>
       <p class="v-hola">¡Mamuska y Papus ya tienen habitación! 🎉</p>
       <h3 class="v-room">Junior Suite King</h3>
       <div class="v-dates">
@@ -1047,20 +1050,10 @@ footer a{color:var(--cian)}
     <div class="v-foot"><span>📍 Calle 16 #28-51, Variante Las Palmas</span><span>📞 (604) 444 8106</span><span>✉️ recepcion.interconti@movichhotels.com</span></div>
   </div>
 
-  <div class="paybox" id="hotel-status">
-    <div class="pay-head"><span class="pulse"></span><div><b>💳 ¡Llegó el enlace! Falta un solo paso: pagar</b><small>3.725.000 pesos (≈ ₪3,655) con tarjeta de crédito · si cancelan hasta el 1/2/2027, devuelven el 100%</small></div></div>
-    <div class="cd" id="pay-cd" role="timer" aria-label="Tiempo que queda para pagar">
-      <div><b data-u="h">--</b><small>horas</small></div><i>:</i>
-      <div><b data-u="m">--</b><small>minutos</small></div><i>:</i>
-      <div><b data-u="s">--</b><small>segundos</small></div>
-    </div>
-    <p class="pay-when" id="pay-when">El hotel da 48 horas: <b>hasta el jueves 5/11 a las 22:25</b> (hora de Israel). ¡Mejor no dejarlo para el último minuto!</p>
-    <div class="btns pay-btns">
-      <a class="btn big" id="pay-link" href="#" target="_blank" rel="noopener" style="display:none">💳 Pagar la reserva ↗</a>
-      <a class="btn g" href="https://wa.me/573162893777?text=Hola%2C%20quisiera%20el%20enlace%20de%20pago%20de%20la%20reserva%2036262616%20(Ricardo%20Brainin%2C%20Junior%20Suite%2C%203%20al%208%20de%20febrero%20de%202027).%20%C2%A1Gracias!" target="_blank" rel="noopener">💬 ¿No abre? Pedir otro por WhatsApp</a>
-      <a class="btn y" href="mailto:reservas@movichhotels.com?subject=Reserva%2036262616%20-%20enlace%20de%20pago">📧 O por mail</a>
-    </div>
-    <p class="pay-note">✔ Lo revisamos: es <b>Wompi</b>, la plataforma de pago oficial de Bancolombia, a nombre de <b>MOVICH HOTELS</b>, reserva 36262616 "sin IVA", por <b>3.725.000 pesos</b> justos. Adentro elijan <b>"Tarjeta débito o crédito"</b>. El enlace dura 24 horas: si ya no abre, pidan otro con los botones verdes (reserva N° 36262616).</p>
+  <div class="paybox paid" id="hotel-status">
+    <div class="pay-head"><span class="paid-ico">✅</span><div><b>¡Hotel pagado!</b><small>Ricardo pagó la Junior Suite el 18/11/2026: 3.725.000 pesos (≈ ₪3,655), sin IVA</small></div></div>
+    <p class="pay-when">Ya no hay que hacer nada más con la reserva. Nir le pidió al hotel que confirme el pago y mande el comprobante 🧾</p>
+    <p class="pay-note">Si hubiera que cancelar: hasta el <b>1/2/2027 a las 15:00</b> (hora de Colombia) devuelven el <b>100%</b> a la tarjeta, en unos 30 días hábiles.</p>
   </div>
 
   <div class="card" id="reserva-precio" style="margin-bottom:28px">
@@ -1373,7 +1366,8 @@ footer a{color:var(--cian)}
       <li><label><input type="checkbox" data-id="reserva-ok" data-done="1"><span class="box"></span><span class="txt">¡Reserva confirmada, sin IVA! N° 36262616 ✅</span></label></li>
       <li><label><input type="checkbox" data-id="enlace-pago" data-done="1"><span class="box"></span><span class="txt">Recibir el enlace de pago del hotel 🔗</span></label></li>
       <li><label><input type="checkbox" data-id="sello-migracion"><span class="box"></span><span class="txt">En Migración de Colombia: que les sellen el pasaporte 🛂 (así no pagan IVA)</span></label></li>
-      <li><label><input type="checkbox" data-id="pagar-inter"><span class="box"></span><span class="txt">Pagar el hotel con el enlace, ¡hasta el jueves 5/11! 💳</span></label></li>
+      <li><label><input type="checkbox" data-id="hotel-pagado" data-done="1"><span class="box"></span><span class="txt">¡Hotel pagado! 3.725.000 pesos 💳✅</span></label></li>
+      <li><label><input type="checkbox" data-id="comprobante-hotel"><span class="box"></span><span class="txt">Recibir del hotel la confirmación del pago 🧾</span></label></li>
       <li><label><input type="checkbox" data-id="comprar-vuelos"><span class="box"></span><span class="txt">Comprar los vuelos internacionales ✈️ (ver Letra chica)</span></label></li>
       <li><label><input type="checkbox" data-id="valijas"><span class="box"></span><span class="txt">Elegir tarifa con valija o agregar valijas 🧳</span></label></li>
       <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar el Maydrit Airport en Madrid (2 → 3/2)</span></label></li>
@@ -1416,12 +1410,12 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">Si cancelan, ¡devuelven todo! ✅</div>
-    <p>El hotel confirmó por escrito: cancelando hasta el 1/2/2027, devuelven el 100% a la tarjeta. Así que pueden pagar tranquilos.</p>
+    <div class="bang" id="pop-t">¡Hotel pagado! 🎉</div>
+    <p>La Junior Suite del InterContinental ya está paga: 3.725.000 pesos, sin IVA. ¡Una cosa menos!</p>
     <ul class="pop-list">
-      <li><a href="#letra-reserva"><span class="e">↩️</span>Cómo funciona la devolución</a></li>
+      <li><a href="#hotel-status"><span class="e">✅</span>El hotel, pagado y reservado</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#hotel-status">¡A pagar tranquilos! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#reserva">¡Quiero verla! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1558,7 +1552,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-04d';
+  var NEWS_VER='2026-11-18';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
