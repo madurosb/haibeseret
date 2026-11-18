@@ -344,6 +344,14 @@ footer a{color:var(--cian)}
 .pay-btns .btn.big{font-size:22px;padding:12px 26px;background:var(--rojo)}
 .pay-note{margin:14px 0 0;font-size:14px;color:#cfc9e6}
 .paybox.over .cd{display:none}
+.fdet{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:7px;font-weight:600;font-size:15.5px;line-height:1.35}
+.fdet li{display:flex;gap:9px;align-items:baseline}
+.fdet .k{flex:none;width:1.5em;text-align:center}
+.fdet .ok{color:#0E7A3A;font-weight:800}
+.fdet .wait{color:#C0510A;font-weight:800}
+.hop{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto;padding:8px 16px;max-width:560px;border:2.5px dashed var(--ink);border-radius:999px;background:var(--paper);font-weight:800;text-align:center}
+.todo-cols{align-items:start}
+.todo-cols h3{margin-bottom:10px}
 .paybox.paid{box-shadow:8px 8px 0 var(--verde)}
 .paybox.paid .pay-head b{color:#3ddc84;font-size:26px}
 .paybox.paid .paid-ico{flex:none;font-size:44px;line-height:1}
@@ -517,6 +525,7 @@ footer a{color:var(--cian)}
     <a class="brand" href="#inicio"><span class="fl co"></span> Papus &amp; Mamuska</a>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">☰ Menú</button>
     <nav class="menu" id="menu">
+      <a href="#pendientes"><span class="mi">✅</span><span>Pendientes</span></a>
       <a href="#plan"><span class="mi">🗺️</span><span>Plan</span></a>
       <a href="#dia"><span class="mi">📅</span><span>Día a día</span></a>
       <a href="#boda"><span class="mi">💍</span><span>Boda</span></a>
@@ -528,7 +537,6 @@ footer a{color:var(--cian)}
       <a href="#cali"><span class="mi">💃</span><span>Cali</span></a>
       <a href="#guita"><span class="mi">💸</span><span>Guita</span></a>
       <a href="#tips"><span class="mi">🧉</span><span>Tips</span></a>
-      <a href="#pendientes"><span class="mi">✅</span><span>Pendientes</span></a>
     </nav>
   </div>
 </header>
@@ -546,7 +554,7 @@ footer a{color:var(--cian)}
       </div>
       <div class="launch">
         <div class="l-top"><span class="l-kicker">Cuenta regresiva</span><span class="l-live"><i></i>En vivo</span></div>
-        <div class="l-title">Despegamos el <b>martes 2 de febrero</b> a las <b>16:05</b></div>
+        <div class="l-title">Despegamos el <b>martes 2 de febrero</b> a las <b>18:30</b></div>
         <div class="l-digits">
           <div class="unit"><div class="num" id="cd-d">--</div><span>días</span></div><div class="colon">:</div>
           <div class="unit"><div class="num" id="cd-h">--</div><span>horas</span></div><div class="colon">:</div>
@@ -570,26 +578,76 @@ footer a{color:var(--cian)}
 
 <main class="wrap">
 
+<!-- ================= PENDIENTES ================= -->
+<section id="pendientes">
+  <div class="sh"><h2 style="--c:var(--rojo)">Pendientes</h2><span class="emoji">✅</span><span class="nuevo">¡Ahora arriba de todo!</span></div>
+  <p class="sub">Toquen cada cosa cuando esté lista y se tacha. Queda guardado en este celu o compu, así cuando vuelvan sigue igual.</p>
+  <div class="grid g2 todo-cols" id="todo">
+    <div class="card" id="todo-antes">
+      <h3>🏠 Antes de viajar</h3>
+      <div class="prog"><b id="prog-n">0/0</b><div class="bar"><i id="prog-bar"></i></div></div>
+      <div class="prog-msg" id="prog-msg"></div>
+      <ul class="todo">
+        <li><label><input type="checkbox" data-id="averiguar" data-done="1"><span class="box"></span><span class="txt">Averiguar vuelos, trenes y hoteles</span></label></li>
+        <li><label><input type="checkbox" data-id="hotel-pagado" data-done="1"><span class="box"></span><span class="txt">Reservar y pagar el InterContinental: ¡la Junior Suite! 🏨</span></label></li>
+        <li><label><input type="checkbox" data-id="vuelos-ok" data-done="1"><span class="box"></span><span class="txt">¡Comprar los pasajes! Iberia + Avianca ✈️</span></label></li>
+        <li><label><input type="checkbox" data-id="valijas-ok" data-done="1"><span class="box"></span><span class="txt">Valijas: 1 cada uno, ya incluida en el pasaje 🧳</span></label></li>
+        <li><label><input type="checkbox" data-id="comprobante-hotel"><span class="box"></span><span class="txt">Recibir del hotel la confirmación del pago 🧾</span></label></li>
+        <li><label><input type="checkbox" data-id="silla-iberia"><span class="box"></span><span class="txt">Que ISSTA confirme la silla de ruedas en los vuelos de Iberia 🦽</span></label></li>
+        <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar el Maydrit Airport en Madrid (2 → 3/2) y avisar que llegan tipo medianoche 🌙</span></label></li>
+        <li><label><input type="checkbox" data-id="shuttle-madrid"><span class="box"></span><span class="txt">Shuttle del Maydrit: preguntar si los espera (aterrizan 23:00) o ir en taxi 🚐</span></label></li>
+        <li><label><input type="checkbox" data-id="rsvp"><span class="box"></span><span class="txt">Confirmar asistencia (RSVP) en la web de los novios 💌</span></label></li>
+        <li><label><input type="checkbox" data-id="traslado"><span class="box"></span><span class="txt">Pedir el traslado del aeropuerto de Medellín (vuelo AV 017) por WhatsApp 🚐</span></label></li>
+        <li><label><input type="checkbox" data-id="vuelo-cali"><span class="box"></span><span class="txt">Comprar el vuelo Medellín → Cali del lunes 8/2 🛩️</span></label></li>
+        <li><label><input type="checkbox" data-id="eje"><span class="box"></span><span class="txt">Planear la escapada al Eje Cafetero ☕</span></label></li>
+        <li><label><input type="checkbox" data-id="papeles"><span class="box"></span><span class="txt">Chequear Check-MIG y ETIAS 🛂</span></label></li>
+        <li><label><input type="checkbox" data-id="seguro"><span class="box"></span><span class="txt">Seguro de viaje con cancelación del viaje 🩺</span></label></li>
+        <li><label><input type="checkbox" data-id="banco"><span class="box"></span><span class="txt">Avisarle al banco que viajan 💳</span></label></li>
+        <li><label><input type="checkbox" data-id="vuelta-casa"><span class="box"></span><span class="txt">Organizar cómo vuelven de Ben Gurión el 24/2 a las 23:20 🚕</span></label></li>
+        <li><label><input type="checkbox" data-id="regalo"><span class="box"></span><span class="txt">Regalo para Alexa &amp; Leor 🎁</span></label></li>
+        <li><label><input type="checkbox" data-id="adaptador"><span class="box"></span><span class="txt">Adaptador de enchufe tipo americano 🔌</span></label></li>
+        <li><label><input type="checkbox" data-id="pilchas"><span class="box"></span><span class="txt">Pilchas: Tropical Chic + Black Tie Optional 👗🤵</span></label></li>
+        <li><label><input type="checkbox" data-id="checkin-ida"><span class="box"></span><span class="txt">Check-in online de la ida (abre 1–2 días antes) 📲</span></label></li>
+      </ul>
+    </div>
+    <div class="card" id="todo-alla">
+      <h3>🌴 Allá, durante el viaje</h3>
+      <div class="prog"><b id="prog-n2">0/0</b><div class="bar"><i id="prog-bar2"></i></div></div>
+      <div class="prog-msg">Para ir tachando en el viaje. ¡A disfrutar! <span class="fl co"></span></div>
+      <ul class="todo">
+        <li><label><input type="checkbox" data-id="valija-directo"><span class="box"></span><span class="txt">En Ben Gurión: preguntar si la valija va directo a Medellín (si sí, lo de la noche en Madrid va en el bolso de mano) 🧳</span></label></li>
+        <li><label><input type="checkbox" data-id="sello-migracion"><span class="box"></span><span class="txt">En Migración de Colombia: que les sellen el pasaporte 🛂 (así no pagan IVA)</span></label></li>
+        <li><label><input type="checkbox" data-id="llegamos"><span class="box"></span><span class="txt">Mandarle a Nir un WhatsApp: ¡llegamos a Medellín! 📲</span></label></li>
+        <li><label><input type="checkbox" data-id="checkin-inter"><span class="box"></span><span class="txt">Check-in en el InterContinental: mostrar el pasaporte sellado y pedir vista a la montaña ⛰️</span></label></li>
+        <li><label><input type="checkbox" data-id="seguro-hotelero"><span class="box"></span><span class="txt">Preguntar en el hotel si el "seguro hotelero" es opcional</span></label></li>
+        <li><label><input type="checkbox" data-id="checkout-inter"><span class="box"></span><span class="txt">Lunes 8/2: brunch, check-out (hasta las 13:00) y ¡a Cali! 💃</span></label></li>
+        <li><label><input type="checkbox" data-id="checkin-vuelta"><span class="box"></span><span class="txt">Check-in online de la vuelta (Cali → Madrid → Tel Aviv) 📲</span></label></li>
+        <li><label><input type="checkbox" data-id="aeropuerto-cali"><span class="box"></span><span class="txt">Martes 23/2: en el aeropuerto de Cali a las 19:10 ✈️</span></label></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
 <!-- ================= PLAN ================= -->
 <section id="plan">
   <div class="sh"><h2 style="--c:var(--naranja)">El plan</h2><span class="emoji">🗺️</span></div>
-  <p class="sub">En 30 segundos (lo que tarda en enfriarse un mate): 24 días, 6 aviones, 1 boda, 1 hermana, 2 semanas largas de Cali y mucho café.</p>
+  <p class="sub">En 30 segundos (lo que tarda en enfriarse un mate): 23 días, 5 aviones, 1 boda, 1 hermana, 2 semanas largas de Cali y mucho café.</p>
   <div class="card">
     <div class="route">
       <div class="stop" style="--c:var(--azul-soft)"><div class="dot">🏠</div><span class="n">1</span><b>Kiryat Motzkin</b><small>Mar 2/2 · tren</small></div>
-      <div class="stop" style="--c:var(--amarillo-soft)"><div class="dot"><span class="fl il"></span></div><span class="n">2</span><b>Tel Aviv</b><small>Mar 2/2 · Air Europa</small></div>
+      <div class="stop" style="--c:var(--amarillo-soft)"><div class="dot"><span class="fl il"></span></div><span class="n">2</span><b>Tel Aviv</b><small>Mar 2/2 · 18:30 · Iberia</small></div>
       <div class="stop" style="--c:var(--rojo-soft)"><div class="dot"><span class="fl es"></span></div><span class="n">3</span><b>Madrid</b><small>1 noche al lado del aeropuerto</small></div>
-      <div class="stop" style="--c:var(--verde-soft)"><div class="dot">💍</div><span class="n">4</span><b>Medellín</b><small>3/2 → 8/2 · ¡la boda!</small></div>
+      <div class="stop" style="--c:var(--verde-soft)"><div class="dot">💍</div><span class="n">4</span><b>Medellín</b><small>3/2 → 8/2 · Avianca · ¡la boda!</small></div>
       <div class="stop" style="--c:var(--naranja-soft)"><div class="dot">💃</div><span class="n">5</span><b>Cali</b><small>Desde el 8/2 · Fanny</small></div>
       <div class="stop" style="--c:#EBDCCF"><div class="dot">☕</div><span class="n">6</span><b>Eje Cafetero</b><small>3–4 días en el medio · a planear</small></div>
-      <div class="stop" style="--c:var(--naranja-soft)"><div class="dot">💃</div><span class="n">7</span><b>Cali otra vez</b><small>Hasta el 24/2 · Fanny</small></div>
-      <div class="stop" style="--c:var(--verde-soft)"><div class="dot"><span class="fl co"></span></div><span class="n">8</span><b>Medellín</b><small>Mié 24/2 · Avianca</small></div>
-      <div class="stop" style="--c:var(--rojo-soft)"><div class="dot">⏱️</div><span class="n">9</span><b>Madrid</b><small>Jue 25/2 · escala 6 h</small></div>
-      <div class="stop" style="--c:var(--azul-soft)"><div class="dot">🛌</div><span class="n">10</span><b>¡Casita!</b><small>Vie 26/2 · 05:39</small></div>
+      <div class="stop" style="--c:var(--naranja-soft)"><div class="dot">💃</div><span class="n">7</span><b>Cali otra vez</b><small>Hasta el 23/2 · Fanny</small></div>
+      <div class="stop" style="--c:var(--rojo-soft)"><div class="dot">⏱️</div><span class="n">8</span><b>Madrid</b><small>Mié 24/2 · escala 3½ h</small></div>
+      <div class="stop" style="--c:var(--azul-soft)"><div class="dot">🛌</div><span class="n">9</span><b>¡Casita!</b><small>Mié 24/2 · 23:20</small></div>
     </div>
   </div>
   <div class="note"><span class="ni">💡</span><div><b>¿Por qué salir el 2 y no el 3 o el 4?</b> Porque es lo más conveniente en precio de vuelos, y salir más tarde ya los deja muy justos para la <b>cena de Shabat del viernes 5</b> en Medellín. De yapa, una noche tranqui en Madrid. 🍷</div></div>
-  <div class="note" style="background:var(--verde-soft)"><span class="ni">🆕</span><div><b>¡Papus alargó el viaje una semana!</b> Ahora son 5 días en Medellín y después <b>dos semanas largas en Cali</b>, con una escapada de 3–4 días al Eje Cafetero en el medio (no al final). Salen de Medellín el <b>miércoles 24/2</b> a la noche y llegan a casa el <b>viernes 26/2</b> de madrugada.</div></div>
+  <div class="note" style="background:var(--verde-soft)"><span class="ni">🆕</span><div><b>¡Pasajes comprados! ✈️</b> 5 días en Medellín y después <b>dos semanas largas en Cali</b>, con una escapada de 3–4 días al Eje Cafetero en el medio. La vuelta es <b>directo desde Cali</b>, sin pasar por Medellín: salen el <b>martes 23/2</b> a la noche y llegan a casa el <b>miércoles 24/2</b> a las 23:20.</div></div>
 </section>
 
 <!-- ================= DIA A DIA ================= -->
@@ -600,16 +658,16 @@ footer a{color:var(--cian)}
 
     <div class="day"><div class="date"><b>2</b><span>mar · feb</span></div>
       <div class="card"><h3><span class="fl il"></span> → <span class="fl es"></span> ¡Arrancamos!</h3><ul>
-        <li><span class="t">12:03</span> tren Kiryat Motzkin → Ben Gurión (llega <span class="t">13:48</span>)</li>
-        <li><span class="t">16:05</span> vuelo Air Europa a Madrid, aterrizan <span class="t">20:30</span> en la Terminal 1</li>
-        <li>Retiran las valijas y van con todo en el shuttle al hotel <b>Maydrit Airport</b> (~10 min)</li>
-        <li>Cena tranqui en el restaurante del hotel y a la cama. ¡Olé!</li></ul></div></div>
+        <li><span class="t">~13:30</span> tren Kiryat Motzkin → Ben Gurión (horario a confirmar)</li>
+        <li><span class="t">15:30</span> en el aeropuerto, 3 horas antes (Terminal 3)</li>
+        <li><span class="t">18:30</span> Iberia <b>IB 1872</b> a Madrid, aterrizan <span class="t">23:00</span> en la Terminal 4S</li>
+        <li>Shuttle o taxi al hotel <b>Maydrit Airport</b> (~10 min) y derecho a la cama. ¡Olé!</li></ul></div></div>
 
     <div class="day"><div class="date"><b>3</b><span>mié · feb</span></div>
       <div class="card"><h3><span class="fl es"></span> → <span class="fl co"></span> Churros y despegue</h3><ul>
         <li>Desayuno en el hotel. Si tienen ganas: metro directo al centro y chocolate con churros (opcional, ver <a href="#madrid">Madrid</a>)</li>
         <li><span class="t">~12:00</span> shuttle del hotel a la <b>Terminal 4</b> (de ahí sale Avianca)</li>
-        <li><span class="t">15:25</span> Avianca a Medellín, aterrizan <span class="t">19:45</span> (hora Colombia)</li>
+        <li><span class="t">15:25</span> Avianca <b>AV 017</b> a Medellín, aterrizan <span class="t">19:45</span> (hora Colombia)</li>
         <li>Traslado al hotel (~45–60 min) y a dormir 😴</li></ul></div></div>
 
     <div class="day"><div class="date" style="--c:var(--cian)"><b>4</b><span>jue · feb</span></div>
@@ -647,22 +705,16 @@ footer a{color:var(--cian)}
         <li>Vuelta a lo de Fanny para unos días más de mimos antes de volar</li>
         <li><i>El Eje Cafetero lo planeamos aparte, más adelante.</i></li></ul></div></div>
 
-    <div class="day"><div class="date"><b>24</b><span>mié · feb</span></div>
-      <div class="card"><h3>🔁 Cali → Medellín → Madrid</h3><ul>
-        <li>Vuelo interno a Medellín, que llegue a la tarde temprano</li>
-        <li><span class="t">22:20</span> Avianca a Madrid</li></ul></div></div>
+    <div class="day"><div class="date"><b>23</b><span>mar · feb</span></div>
+      <div class="card"><h3><span class="fl co"></span> → <span class="fl es"></span> Chau, Colombia</h3><ul>
+        <li><span class="t">19:10</span> en el aeropuerto de Cali (Alfonso Bonilla Aragón), 3 horas antes</li>
+        <li><span class="t">22:10</span> Avianca <b>AV 014</b> directo a Madrid. ¡A dormir en el avión! 😴</li></ul></div></div>
 
-    <div class="day"><div class="date"><b>25</b><span>jue · feb</span></div>
-      <div class="card"><h3>⏱️ Escala en Madrid (6 h)</h3><ul>
-        <li><span class="t">13:55</span> aterrizan en Madrid, Terminal 4</li>
-        <li>Retirar valijas y hacer check-in otra vez con Israir (pasajes separados). ¡Israir también sale de la T4, no hay que cambiar de terminal!</li>
-        <li><span class="t">20:10</span> Israir a Tel Aviv</li></ul></div></div>
-
-    <div class="day"><div class="date dk" style="--c:var(--verde)"><b>26</b><span>vie · feb</span></div>
-      <div class="card"><h3>🏠 ¡Home sweet home!</h3><ul>
-        <li><span class="t">01:55</span> aterrizan en Ben Gurión</li>
-        <li><span class="t">04:04</span> tren → Kiryat Motzkin <span class="t">05:39</span> (plan B: <span class="t">05:03</span> → <span class="t">07:05</span>)</li>
-        <li>Fiaca total el resto del día. Se lo ganaron. 🛌</li></ul></div></div>
+    <div class="day"><div class="date dk" style="--c:var(--verde)"><b>24</b><span>mié · feb</span></div>
+      <div class="card"><h3><span class="fl es"></span> → <span class="fl il"></span> ¡Home sweet home!</h3><ul>
+        <li><span class="t">13:55</span> aterrizan en Madrid (Terminal 4S): escala de 3½ horas, sin cambiar de terminal</li>
+        <li><span class="t">17:30</span> Iberia <b>IB 1873</b> a Tel Aviv</li>
+        <li><span class="t">23:20</span> aterrizan en Ben Gurión y a casa. Fiaca total al día siguiente: se la ganaron 🛌</li></ul></div></div>
   </div>
 </section>
 
@@ -710,7 +762,7 @@ footer a{color:var(--cian)}
       <p>Mandar por WhatsApp al <b>+57 301 190 9955</b> estos datos (los pide la web):</p>
       <ul class="feats">
         <li>Nombre de los invitados</li>
-        <li>Número de vuelo (Avianca, miércoles 3/2, sale de Madrid 15:25)</li>
+        <li>Número de vuelo: <b>AV 017</b> (Avianca, miércoles 3/2, sale de Madrid 15:25)</li>
         <li>Hora de llegada: 19:45</li>
         <li>Teléfono</li>
         <li>Email (ahí mandan la confirmación y los datos del chofer)</li>
@@ -729,110 +781,114 @@ footer a{color:var(--cian)}
 
 <!-- ================= VUELOS ================= -->
 <section id="vuelos">
-  <div class="sh"><h2 style="--c:var(--azul)">Vuelos</h2><span class="emoji">✈️</span></div>
-  <p class="sub">El Tetris aéreo: 4 vuelos internacionales con 3 aerolíneas, más 2 saltitos dentro de Colombia. Todo en shekels (₪).</p>
+  <div class="sh"><h2 style="--c:var(--azul)">Vuelos</h2><span class="emoji">✈️</span><span class="nuevo">¡Comprados!</span></div>
+  <div class="status ok"><span class="pulse"></span><p><b>✅ ¡Pasajes comprados!</b> Ricardo los sacó en ISSTA Kiryat Motzkin el 18/11/2026: Iberia + Avianca, ida y vuelta, <b>todo en un mismo pasaje</b>, con asientos juntos, valija y silla de ruedas.
+    <small>Los códigos de reserva y los números de pasaje están en el mail de ISSTA. No los pongo acá porque esta página es pública 🔒</small></p></div>
+  <p class="sub">4 vuelos, 2 aerolíneas, 1 solo pasaje. Cada horario es la hora local de esa ciudad.</p>
 
   <h3 class="part">🛫 Ida</h3>
   <div class="grid g2">
     <div class="card">
-      <div class="when"><span class="label">Martes 2 de febrero</span><span class="chip b">Air Europa</span></div>
+      <div class="when"><span class="label">Martes 2 de febrero</span><span class="chip r">Iberia Express</span></div>
       <div class="leg">
-        <div class="pt"><b>TLV</b><span>Tel Aviv</span><em>16:05</em></div>
-        <div class="path"><span class="dur">5 h 25 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
-        <div class="pt end"><b>MAD</b><span>Madrid</span><em>20:30</em></div>
+        <div class="pt"><b>TLV</b><span>Tel Aviv · T3</span><em>18:30</em></div>
+        <div class="path"><span class="dur">5 h 30 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>MAD</b><span>Madrid · T4S</span><em>23:00</em></div>
       </div>
-      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪356</b></div><div class="pbox hi"><small>Los dos</small><b>₪712</b></div></div>
+      <ul class="fdet">
+        <li><span class="k">✈️</span><span><b>IB 1872</b> · Airbus A321neo · directo</span></li>
+        <li><span class="k">💺</span><span>Ricardo <b>11E</b> · Dora <b>11F</b>, juntitos</span></li>
+        <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
+        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="wait">pedida</span> (falta que la confirmen)</span></li>
+      </ul>
     </div>
     <div class="card">
       <div class="when"><span class="label">Miércoles 3 de febrero</span><span class="chip r"><span class="fl co"></span> Avianca</span></div>
       <div class="leg">
-        <div class="pt"><b>MAD</b><span>Madrid</span><em>15:25</em></div>
+        <div class="pt"><b>MAD</b><span>Madrid · T4S</span><em>15:25</em></div>
         <div class="path" style="--c:var(--rojo)"><span class="dur">10 h 20 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
         <div class="pt end"><b>MDE</b><span>Medellín</span><em>19:45</em></div>
       </div>
-      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪2,362</b></div><div class="pbox hi"><small>Los dos</small><b>₪4,724</b></div></div>
+      <ul class="fdet">
+        <li><span class="k">✈️</span><span><b>AV 017</b> · Boeing 787 · directo</span></li>
+        <li><span class="k">💺</span><span>Ricardo <b>8E</b> · Dora <b>8F</b>, juntitos</span></li>
+        <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
+        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="ok">confirmada ✔</span></span></li>
+      </ul>
     </div>
   </div>
+  <div class="hop">🌙 En el medio: una noche en el <a href="#madrid">Maydrit Airport</a></div>
 
-  <h3 class="part">🛬 Vuelta <span class="nuevo">¡Una semana después!</span></h3>
+  <h3 class="part">🛬 Vuelta <span class="nuevo">¡Directo desde Cali!</span></h3>
   <div class="grid g2">
     <div class="card">
-      <div class="when"><span class="label">Miércoles 24 de febrero</span><span class="chip r"><span class="fl co"></span> Avianca</span></div>
+      <div class="when"><span class="label">Martes 23 de febrero</span><span class="chip r"><span class="fl co"></span> Avianca</span></div>
       <div class="leg">
-        <div class="pt"><b>MDE</b><span>Medellín</span><em>22:20</em></div>
-        <div class="path" style="--c:var(--rojo)"><span class="dur">9 h 35 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
-        <div class="pt end"><b>MAD</b><span>Madrid</span><em>13:55 <small>(jue 25)</small></em></div>
+        <div class="pt"><b>CLO</b><span>Cali</span><em>22:10</em></div>
+        <div class="path" style="--c:var(--rojo)"><span class="dur">9 h 45 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>MAD</b><span>Madrid · T4S</span><em>13:55 <small>(mié 24)</small></em></div>
       </div>
-      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪1,823</b></div><div class="pbox hi"><small>Los dos</small><b>₪3,646</b></div></div>
+      <ul class="fdet">
+        <li><span class="k">✈️</span><span><b>AV 014</b> · Boeing 787 · directo</span></li>
+        <li><span class="k">💺</span><span>Ricardo <b>8J</b> · Dora <b>8K</b>, juntitos</span></li>
+        <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
+        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="ok">confirmada ✔</span></span></li>
+      </ul>
     </div>
     <div class="card">
-      <div class="when"><span class="label">Jueves 25 de febrero</span><span class="chip b">Israir</span></div>
+      <div class="when"><span class="label">Miércoles 24 de febrero</span><span class="chip r">Iberia Express</span></div>
       <div class="leg">
-        <div class="pt"><b>MAD</b><span>Madrid</span><em>20:10</em></div>
-        <div class="path"><span class="dur">4 h 45 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
-        <div class="pt end"><b>TLV</b><span>Tel Aviv</span><em>01:55 <small>(vie 26)</small></em></div>
+        <div class="pt"><b>MAD</b><span>Madrid · T4S</span><em>17:30</em></div>
+        <div class="path"><span class="dur">4 h 50 min</span><span class="icw plane"><svg class="ic"><use href="#plane"/></svg></span></div>
+        <div class="pt end"><b>TLV</b><span>Tel Aviv · T3</span><em>23:20</em></div>
       </div>
-      <div class="prices"><div class="pbox"><small>Por persona</small><b>₪406</b></div><div class="pbox hi"><small>Los dos</small><b>₪812</b></div></div>
+      <ul class="fdet">
+        <li><span class="k">✈️</span><span><b>IB 1873</b> · Airbus A321neo · directo</span></li>
+        <li><span class="k">💺</span><span>Ricardo <b>11E</b> · Dora <b>11F</b>, juntitos</span></li>
+        <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
+        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="wait">pedida</span> (falta que la confirmen)</span></li>
+      </ul>
     </div>
   </div>
-  <p class="src">Mismos vuelos y horarios, una semana más tarde. Los precios de la vuelta son los de la búsqueda anterior: se reconfirman al comprar.</p>
+  <div class="hop">⏱️ En el medio: 3 h 35 min de escala en Madrid, sin cambiar de terminal</div>
 
-  <div class="card" style="margin-top:24px;background:var(--amarillo-soft)">
-    <h3>🧮 Total vuelos internacionales</h3>
-    <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por persona</small><b>₪4,947</b><span class="x">sin valija</span></div><div class="pbox tot"><small>Los dos</small><b>₪9,894</b><span class="x">sin valija</span></div></div>
-  </div>
-  <div class="note"><span class="ni">⚠️</span><div><b>Ojo en la escala de vuelta:</b> Avianca e Israir son pasajes separados. En Madrid hay que <b>retirar las valijas, pasar migración y volver a hacer check-in</b> con Israir. La buena noticia: <b>los dos vuelan desde la Terminal 4</b>, así que no hay que cambiar de terminal. Con 6 horas sobra tiempo, ¡da hasta para un bocadillo de calamares! 🦑</div></div>
+  <div class="note"><span class="ni">🧳</span><div><b>¿La valija va directo?</b> Como es todo un mismo pasaje, lo más probable es que en Ben Gurión la despachen <b>directo hasta Medellín</b>. Pregunten en el mostrador. Si es así, lleven en el bolso de mano lo de la noche en Madrid: pijama, remedios, cepillo de dientes y una muda.</div></div>
+  <div class="note"><span class="ni">🦽</span><div><b>Silla de ruedas:</b> Avianca ya la confirmó en sus dos vuelos. En los de Iberia figura como "pedida": hay que pedirle a ISSTA que la confirme. Con la asistencia los esperan en la puerta del avión y los acompañan en migración y en las escalas.</div></div>
 
   <!-- ===== VALIJAS ===== -->
-  <h3 class="part" id="valijas">🧳 Valijas: lo que cuestan de verdad <span class="nuevo">¡Nuevo!</span></h3>
+  <h3 class="part" id="valijas">🧳 Valijas</h3>
   <div class="card">
-    <span class="ver">✔ Chequeado en las webs oficiales de cada aerolínea el 3/11/2026</span>
-    <p>Los precios de arriba son de la <b>tarifa más barata</b>, que <b>no trae valija para despachar</b>. Esto cuesta agregar <b>1 valija de 23 kg por persona</b>, comprándola online antes de volar:</p>
-    <div class="tablewrap"><table>
-      <tr><th>Vuelo</th><th>Valija de mano</th><th>Valija 23 kg</th><th class="n">≈ ₪ p/p</th><th class="n">Los dos</th></tr>
-      <tr><td>🛫 <b>TLV → MAD</b><br><small>Air Europa · tarifa Lite</small></td><td>✅ Incluida (10 kg)</td><td>US$40 / €40<br><small>Si la agregan en los últimos 2 días: US$65</small></td><td class="n">₪126</td><td class="n">₪252</td></tr>
-      <tr><td>🛫 <b>MAD → MDE</b><br><small>Avianca · tarifa Light</small></td><td>✅ Incluida (10 kg)</td><td>Desde €95<br><small>Incluida en Classic y Flex</small></td><td class="n">₪333</td><td class="n">₪666</td></tr>
-      <tr><td>🛬 <b>MDE → MAD</b><br><small>Avianca · tarifa Light</small></td><td>✅ Incluida (10 kg)</td><td>Desde US$95<br><small>Incluida en Classic y Flex</small></td><td class="n">₪298</td><td class="n">₪596</td></tr>
-      <tr><td>🛬 <b>MAD → TLV</b><br><small>Israir</small></td><td>❌ Solo un bolsito (40×30×20)<br><small>Carry-on: US$30 ≈ ₪94</small></td><td>US$65<br><small>En el aeropuerto de Madrid: €85 (≈₪298)</small></td><td class="n">₪204</td><td class="n">₪408</td></tr>
-      <tr class="tot"><td colspan="3">1 valija de 23 kg cada uno, en los 4 vuelos</td><td class="n">₪961</td><td class="n">₪1,922</td></tr>
-    </table></div>
-    <ul class="feats" style="margin-top:14px">
-      <li><b>Avianca:</b> la tarifa <b>Classic</b> ya trae la valija. Si la Classic cuesta menos de ~₪630 más que la Light (ida y vuelta, por persona), conviene la Classic. Además, los cambios de fecha salen más baratos (ver <a href="#letra">Letra chica</a>).</li>
-      <li><b>Air Europa:</b> la tarifa <b>Standard</b> trae valija. Si sale menos de US$40 más que la Lite, vale la pena.</li>
-      <li class="x"><b>Israir:</b> ¡ni el carry-on está incluido! Compren valija (y/o carry-on) <b>online por adelantado</b>: en el mostrador de Madrid sale €85 en vez de US$65.</li>
-      <li class="i">Avianca dice "desde": el precio final depende del vuelo. Se ve exacto al comprar.</li>
+    <ul class="feats" style="margin:0">
+      <li><b>1 valija para despachar cada uno, incluida en el pasaje</b>, en los 4 vuelos. Ya no hay que comprar nada aparte 🙌</li>
+      <li>Más el equipaje de mano. El peso y las medidas exactas figuran en la app de cada aerolínea y en el check-in online.</li>
+      <li class="i">El vuelo Medellín → Cali del 8/2 va aparte: ese sí hay que ver si trae valija.</li>
     </ul>
-    <p class="src" style="margin:0">Fuentes oficiales: <a href="https://www.aireuropa.com/es/es/aea/informacion-para-volar/equipaje/equipaje-facturado.html" target="_blank" rel="noopener">Air Europa</a> · <a href="https://www.avianca.com/en/my-booking/prepare-your-trip/baggage" target="_blank" rel="noopener">Avianca</a> · <a href="https://www.israir.co.il/Passengers_Info/Baggage_Policy.html" target="_blank" rel="noopener">Israir</a>. Conversión: US$1 ≈ ₪3.14 · €1 ≈ ₪3.5.</p>
-  </div>
-  <div class="card" style="margin-top:24px;background:var(--amarillo-soft)">
-    <h3>🧮 Total vuelos internacionales + 1 valija cada uno</h3>
-    <div class="prices" style="margin-bottom:0"><div class="pbox"><small>Por persona</small><b>₪5,908</b></div><div class="pbox tot"><small>Los dos</small><b>₪11,816</b></div></div>
   </div>
 
-  <h3 class="part" id="internos">🛩️ Medellín ↔ Cali</h3>
-  <p class="sub" style="margin-bottom:20px">Dos vuelos de ~1 hora: <b>ida</b> el lunes 8/2 y <b>vuelta</b> el miércoles 24/2. Ojo: el precio de abajo es <b>por persona y por un solo tramo</b> (solo ida). Abajo de cada uno está el total ida y vuelta para los dos.</p>
+  <h3 class="part" id="internos">🛩️ Medellín → Cali</h3>
+  <p class="sub" style="margin-bottom:20px">Un solo vuelo de ~1 hora, el <b>lunes 8/2</b> después del brunch (la vuelta ya sale directo de Cali). El precio de arriba es por persona; abajo, para los dos.</p>
   <div class="grid g3">
     <div class="card">
       <div class="labels"><span class="label r">Low cost</span><span class="label w">🧳 Valija aparte</span></div>
       <h3>JetSMART</h3>
-      <div class="prices"><div class="pbox"><small>1 tramo · 1 persona</small><b>₪54</b></div><div class="pbox hi"><small>Ida y vuelta · los dos</small><b>₪216</b><span class="x">+ valijas</span></div></div>
-      <ul class="feats"><li class="x">La valija se paga aparte (averiguo cuánto)</li></ul>
+      <div class="prices"><div class="pbox"><small>1 persona</small><b>₪54</b></div><div class="pbox hi"><small>Los dos</small><b>₪108</b><span class="x">+ valijas</span></div></div>
+      <ul class="feats"><li class="x">La valija se paga aparte</li></ul>
       <p class="src" style="margin-top:auto">El low cost te cobra hasta el aire que respirás. 😅</p>
     </div>
     <div class="card">
       <div class="labels"><span class="label w">🧳 Valija aparte</span></div>
       <h3>Avianca</h3>
-      <div class="prices"><div class="pbox"><small>1 tramo · 1 persona</small><b>₪226</b></div><div class="pbox hi"><small>Ida y vuelta · los dos</small><b>₪904</b><span class="x">+ valijas</span></div></div>
-      <ul class="feats"><li class="x">Valija 23 kg: desde 79.900 pesos (≈ ₪78) por tramo y por persona</li><li class="i">La tarifa Basic nacional trae solo un bolsito; la Classic ya incluye valija</li></ul>
+      <div class="prices"><div class="pbox"><small>1 persona</small><b>₪226</b></div><div class="pbox hi"><small>Los dos</small><b>₪452</b><span class="x">+ valijas</span></div></div>
+      <ul class="feats"><li class="x">Valija 23 kg: desde 79.900 pesos (≈ ₪78) por persona</li><li class="i">La tarifa Basic nacional trae solo un bolsito; la Classic ya incluye valija</li></ul>
     </div>
     <div class="card">
       <div class="labels"><span class="label g">Todo incluido</span><span class="label w">🧳 Con valija</span></div>
       <h3>LATAM</h3>
-      <div class="prices"><div class="pbox"><small>1 tramo · 1 persona</small><b>₪170–200</b></div><div class="pbox hi"><small>Ida y vuelta · los dos</small><b>₪680–800</b></div></div>
+      <div class="prices"><div class="pbox"><small>1 persona</small><b>₪170–200</b></div><div class="pbox hi"><small>Los dos</small><b>₪340–400</b></div></div>
       <ul class="feats"><li>Valija incluida, sin sorpresas</li></ul>
     </div>
   </div>
-  <div class="note" id="internos-tip"><span class="ni">🛬</span><div><b>Tip para el 24/2:</b> el vuelo a Madrid sale a las 22:20 del aeropuerto internacional <b>José María Córdova</b> (en Rionegro). Busquen un vuelo desde Cali que llegue a la tarde temprano a ese mismo aeropuerto. En Medellín hay otro (Olaya Herrera): ¡que no sea ese!</div></div>
+  <div class="note" id="internos-tip"><span class="ni">🛬</span><div><b>Ojo con el aeropuerto:</b> en Medellín hay dos. Los vuelos a Cali salen del internacional <b>José María Córdova</b> (Rionegro, ~45–60 min del hotel) y también del Olaya Herrera, en la ciudad. Fíjense bien cuál dice el pasaje antes de pedir el taxi.</div></div>
 </section>
 
 <!-- ================= LETRA CHICA (deliberately different design) ================= -->
@@ -840,7 +896,7 @@ footer a{color:var(--cian)}
   <div class="lux">
     <div class="eyebrow">Edición especial · Letra chica</div>
     <h2>Antes de comprar <em>los pasajes</em></h2>
-    <p class="intro">Cuándo comprar, cuánto cuesta arrepentirse y si existe un "seguro" de la aerolínea. Todo chequeado en las páginas oficiales de cada compañía el 3 de noviembre de 2026.</p>
+    <p class="intro"><b style="color:#3ddc84">✔ Ya están comprados</b> (Iberia + Avianca, ver <a href="#vuelos" style="color:inherit">Vuelos</a>), así que esto queda solo de referencia. Cuándo comprar, cuánto cuesta arrepentirse y si existe un "seguro" de la aerolínea. Todo chequeado en las páginas oficiales de cada compañía el 3 de noviembre de 2026.</p>
 
     <h3><span class="no">01</span> ¿Cuándo comprar?</h3>
     <div class="lx-row">
@@ -910,25 +966,20 @@ footer a{color:var(--cian)}
 <!-- ================= TRENES ================= -->
 <section id="trenes">
   <div class="sh"><h2 style="--c:var(--verde)">Trenes</h2><span class="emoji">🚆</span></div>
-  <p class="sub">De Motzkin al mundo. Los horarios son de diciembre (los de febrero todavía no salieron) y no deberían cambiar. Como el 2/2 cae <b>martes</b>, lo reconfirmo cuando publiquen el horario.</p>
+  <p class="sub">De Motzkin al mundo. El horario de febrero todavía no salió: lo reconfirmo apenas lo publiquen.</p>
   <div class="grid g2">
     <div class="card">
       <div class="when"><span class="label g">Ida · martes 2/2</span></div>
       <div class="leg">
-        <div class="pt"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>12:03</em></div>
-        <div class="path" style="--c:var(--verde)"><span class="dur">1 h 45 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
-        <div class="pt end"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>13:48</em></div>
+        <div class="pt"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>~13:30</em></div>
+        <div class="path" style="--c:var(--verde)"><span class="dur">~1 h 45 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
+        <div class="pt end"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>~15:15</em></div>
       </div>
-      <p>Llegan 2 h 15 min antes del vuelo. Justito y cómodo. 👌</p>
+      <p>El vuelo sale <span class="t">18:30</span>, y conviene estar <b>3 horas antes</b> (15:30). Un tren que salga de Motzkin tipo 13:30 llega justo y tranqui. 👌</p>
     </div>
     <div class="card">
-      <div class="when"><span class="label g">Vuelta · viernes 26/2</span></div>
-      <div class="leg">
-        <div class="pt"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>04:04</em></div>
-        <div class="path" style="--c:var(--verde)"><span class="dur">1 h 35 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
-        <div class="pt end"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>05:39</em></div>
-      </div>
-      <p>El avión aterriza <span class="t">01:55</span>: tienen 2 horas para migración y valijas. <b>Plan B</b> si se escapa: <span class="t">05:03</span> → <span class="t">07:05</span> (más lento, pero llega). Sí, hay trenes: es la noche de jueves a viernes. 🙌</p>
+      <div class="when"><span class="label g">Vuelta · miércoles 24/2</span></div>
+      <p>Aterrizan a las <span class="t">23:20</span>. Con migración, valijas y silla de ruedas, salen del aeropuerto tipo <b>medianoche</b>. A esa hora conviene que alguien los busque o un taxi. Lo organizamos más cerca de la fecha. 🚕</p>
     </div>
   </div>
 </section>
@@ -936,7 +987,7 @@ footer a{color:var(--cian)}
 <!-- ================= MADRID ================= -->
 <section id="madrid">
   <div class="sh"><h2 style="--c:var(--rojo)">Madrid</h2><span class="fl es" style="font-size:40px"></span><span class="nuevo">¡Nuevo!</span></div>
-  <p class="sub">Ganó el <b>Maydrit Airport</b>: a 1 km del aeropuerto, sin consigna ni corridas. Llegan, duermen, desayunan y se van a Colombia. Acá está todo, paso a paso. 👇</p>
+  <p class="sub">Ganó el <b>Maydrit Airport</b>: a 1 km del aeropuerto, sin consigna ni corridas. Llegan tarde (23:00), duermen, desayunan y se van a Colombia. Acá está todo, paso a paso. 👇</p>
 
   <div class="card win">
     <div class="labels"><span class="label g">✔ El elegido</span><span class="label w">Martes 2 → miércoles 3/2</span></div>
@@ -946,7 +997,7 @@ footer a{color:var(--cian)}
       <div class="prices" style="grid-template-columns:1fr;margin:0"><div class="pbox hi"><small>Los dos · 1 noche</small><b>₪426</b><span class="x">Calle Piragua 1, Barajas</span></div></div>
       <ul class="feats" style="margin:0">
         <li>Check-in desde las 14:00 · check-out hasta las 12:00 (justo lo que necesitan)</li>
-        <li>Restaurante abierto hasta tarde: ideal para llegar y cenar ahí mismo</li>
+        <li>Llegan tipo medianoche: mejor comer algo antes, en Ben Gurión o en el avión</li>
         <li>Lo que más elogian: lo cerca que está, el shuttle, el metro y el desayuno</li>
       </ul>
     </div>
@@ -956,15 +1007,15 @@ footer a{color:var(--cian)}
   <h3 class="part">🗺️ El paso a paso</h3>
   <div class="steps">
     <div class="step"><div class="ico" style="--c:var(--azul-soft)">🛬</div><div class="card">
-      <h4><span class="clock">Mar 2/2 · 20:30</span> Aterrizan en la Terminal 1</h4>
-      <p>Air Europa llega a la <b>T1</b>. Retiran las valijas y le mandan un WhatsApp al hotel avisando que ya están (mejor si el shuttle ya quedó reservado desde antes).</p>
+      <h4><span class="clock">Mar 2/2 · 23:00</span> Aterrizan en la Terminal 4S</h4>
+      <p>Iberia llega a la <b>T4S</b>. Pasan migración (con la silla de ruedas los acompañan), retiran las valijas si no siguieron directo a Medellín, y le mandan un WhatsApp al hotel avisando que ya están.</p>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--amarillo-soft)">🚐</div><div class="card">
       <h4>Al hotel en 10 minutos</h4>
       <ul class="feats">
-        <li><b>Shuttle del hotel:</b> funciona de 06:00 a 23:45 y <b>hay que reservarlo</b> por WhatsApp al <a href="https://wa.me/34638606482" target="_blank" rel="noopener">+34 638 60 64 82</a></li>
+        <li><b>Shuttle del hotel:</b> funciona de 06:00 a <b>23:45</b>: ¡justo justo! Hay que reservarlo y preguntar si los espera, por WhatsApp al <a href="https://wa.me/34638606482" target="_blank" rel="noopener">+34 638 60 64 82</a></li>
         <li class="x"><b>No es gratis</b> (en Booking dice "con cargo"). Expedia habla de ~€5 por persona: confírmenlo al reservar.</li>
-        <li class="i"><b>Plan B:</b> taxi, ~€20–25. Es un viaje cortito, pero desde el aeropuerto hay tarifa mínima.</li>
+        <li class="i"><b>Plan B (bastante probable a esa hora):</b> taxi, ~€20–25. Es un viaje cortito, pero desde el aeropuerto hay tarifa mínima.</li>
       </ul>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--verde-soft)">☀️</div><div class="card">
@@ -979,7 +1030,7 @@ footer a{color:var(--cian)}
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--naranja-soft)">🧳</div><div class="card">
       <h4><span class="clock">~11:50</span> Check-out y shuttle a la Terminal 4</h4>
-      <p>¡Ojo: Avianca sale de la <b>T4</b>, no de la T1 donde llegaron! Pidan el shuttle por WhatsApp el día anterior.</p>
+      <p>Avianca sale de la misma terminal donde llegaron: el shuttle los deja en la <b>T4</b>, y el vuelo sale de la <b>T4S</b> (se llega en un trencito interno, después de seguridad). Pidan el shuttle por WhatsApp el día anterior.</p>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--rojo-soft)">✈️</div><div class="card">
       <h4><span class="clock">12:25 como tarde</span> En el aeropuerto, 3 horas antes</h4>
@@ -987,29 +1038,14 @@ footer a{color:var(--cian)}
     </div></div>
   </div>
 
-  <div class="grid g2" style="margin-top:28px">
-    <div class="card">
-      <h3>⏱️ La vuelta: 6 horas en Madrid</h3>
-      <p class="src" style="margin:0 0 8px">Jueves 25/2</p>
-      <ul class="feats">
-        <li><span class="t">13:55</span> llegan con Avianca a la <b>T4</b></li>
-        <li>Pasan migración, retiran las valijas y esperan a que abra el mostrador de Israir</li>
-        <li><b>Israir también sale de la T4:</b> no hay que cambiar de terminal 🙌</li>
-        <li><span class="t">20:10</span> despegan a casa</li>
-      </ul>
-    </div>
-    <div class="card" style="background:var(--amarillo-soft)">
-      <div class="labels"><span class="label o">💡 Opción</span><span class="label w">A decidir</span></div>
-      <h3>¿Y si se quedan el finde en Madrid?</h3>
-      <p>En vez de volar el jueves a la noche: llegan el jueves 25/2, <b>3 noches en el centro</b> (jueves, viernes y sábado) y vuelven a Israel el <b>domingo 28/2</b>.</p>
-      <ul class="feats">
-        <li>Hotel céntrico ~₪400–450 por noche → <b>~₪1,300</b></li>
-        <li>Comidas, paseos y museos ~₪350 por día los dos → <b>~₪1,050</b></li>
-        <li class="x">Más la diferencia del pasaje: habría que cambiar el vuelo de Israir por uno del domingo</li>
-      </ul>
-      <div class="prices" style="grid-template-columns:1fr;margin:0 0 10px"><div class="pbox"><small>Extra estimado · los dos</small><b>≈ ₪2,350</b><span class="x">+ diferencia del pasaje</span></div></div>
-      <p class="src" style="margin:0">Los céntricos que ya habíamos visto (Oriente Palace o Bety Dreams) quedan perfectos para esto. Si les tienta, me avisan y busco el vuelo.</p>
-    </div>
+  <div class="card" style="margin-top:28px">
+    <h3>⏱️ La vuelta: 3½ horas en Madrid</h3>
+    <p class="src" style="margin:0 0 8px">Miércoles 24/2</p>
+    <ul class="feats">
+      <li><span class="t">13:55</span> llegan de Cali a la <b>T4S</b></li>
+      <li>Es el mismo pasaje: en principio la valija sigue sola hasta Tel Aviv y no hay que pasar migración. Siguen los carteles de <b>"Conexiones"</b> (y con la silla de ruedas los llevan). Confírmenlo en el mostrador de Cali.</li>
+      <li><span class="t">17:30</span> Iberia a casa, desde la misma terminal 🙌</li>
+    </ul>
   </div>
   <div class="note"><span class="ni">💶</span><div><b>El euro:</b> €1 ≈ ₪3.5. Chocolate con churros: €5–8 cada uno. Tapas con vinito para dos: €40–70.</div></div>
   <p class="src">Fuentes: <a href="https://www.booking.com/hotel/es/maydrit.html" target="_blank" rel="noopener">Booking</a> (shuttle, horarios, metro y check-in) · <a href="https://www.aena.es/es/adolfo-suarez-madrid-barajas/aerolineas-y-destinos/aerolineas.html" target="_blank" rel="noopener">Aena</a> (terminales de cada aerolínea) · <a href="https://www.expedia.com/Barajas-hotels-Hotel-Maydrit-Airport.h2206360.Hotel-information" target="_blank" rel="noopener">Expedia</a> (precio del shuttle).</p>
@@ -1186,11 +1222,11 @@ footer a{color:var(--cian)}
 <!-- ================= CALI ================= -->
 <section id="cali">
   <div class="sh"><h2 style="--c:var(--naranja)">Cali</h2><span class="emoji">💃</span><span class="nuevo">¡Más días!</span></div>
-  <p class="sub">Del 8 al 24 de febrero: <b>dos semanas largas</b> con Fanny, la hermana de Mamuska, con una escapada al Eje Cafetero en el medio. Salsa, sobremesa y chusmerío del bueno.</p>
+  <p class="sub">Del 8 al 23 de febrero: <b>dos semanas largas</b> con Fanny, la hermana de Mamuska, con una escapada al Eje Cafetero en el medio. Salsa, sobremesa y chusmerío del bueno.</p>
   <div class="split" aria-label="Reparto aproximado de los días en Cali y el Eje Cafetero">
     <div class="c1">💃 Cali<small>~8 → 12/2</small></div>
     <div class="c2">☕ Eje Cafetero<small>3–4 días</small></div>
-    <div class="c3">💃 Cali otra vez<small>~16 → 24/2</small></div>
+    <div class="c3">💃 Cali otra vez<small>~16 → 23/2</small></div>
   </div>
   <p class="src" style="margin:-12px 0 22px">Fechas aproximadas: el Eje Cafetero se acomoda donde mejor les quede, siempre en el medio y no al final.</p>
   <div class="grid g2">
@@ -1292,32 +1328,28 @@ footer a{color:var(--cian)}
   <div class="card">
     <div class="tablewrap"><table>
       <tr><th>Qué</th><th>Detalle</th><th class="n">Los dos</th></tr>
-      <tr><td>✈️ Vuelos internacionales</td><td>4 vuelos, tarifa básica</td><td class="n">₪9,894</td></tr>
-      <tr><td>🧳 Valijas</td><td>1 valija de 23 kg cada uno, en los 4 vuelos</td><td class="n">~₪1,922</td></tr>
-      <tr><td>🛩️ Vuelos internos</td><td>Medellín ↔ Cali (estimado con valija)</td><td class="n">~₪740</td></tr>
-      <tr><td>🚆 Trenes en Israel</td><td>Ida y vuelta</td><td class="n">~₪100</td></tr>
+      <tr><td>✈️ Vuelos internacionales</td><td>✔ Comprados (Iberia + Avianca), con valija. Estimado: falta el precio real</td><td class="n">~₪11,816</td></tr>
+      <tr><td>🛩️ Vuelo interno</td><td>Medellín → Cali (estimado con valija)</td><td class="n">~₪370</td></tr>
+      <tr><td>🚆 Tren y vuelta a casa</td><td>Tren a Ben Gurión + taxi de vuelta</td><td class="n">~₪100</td></tr>
       <tr><td>🛏️ Hotel Madrid</td><td>Maydrit Airport, 1 noche</td><td class="n">₪426</td></tr>
       <tr><td>🥘 Extras en Madrid</td><td>Shuttle, cena, metro y churros</td><td class="n">~₪300</td></tr>
       <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
       <tr><td>💃 Día a día en Cali</td><td>~12 días × ₪190 (sin contar el Eje Cafetero)</td><td class="n">~₪2,280</td></tr>
-      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪16,900</td></tr>
-      <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>✔ Reservada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
-      <tr><td>🏨 InterContinental · Premium King</td><td>Descartada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,116</td></tr>
+      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪16,540</td></tr>
+      <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>✔ Pagada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
   </div>
   <div class="total">
-    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido y con la <b>Junior Suite</b> ya reservada (sin IVA, confirmado por el hotel):</p></div></div>
+    <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido: la <b>Junior Suite</b> ya pagada y los pasajes ya comprados.</p></div></div>
     <div class="total-opts">
-      <div class="opt"><small>🏆 Con la Junior Suite (reservada)</small><b>₪20,567</b><span>≈ ₪10,284 por persona</span></div>
-      <div class="opt" style="opacity:.6"><small>Con Premium King (descartada)</small><b>₪20,028</b><span>≈ ₪10,014 por persona</span></div>
+      <div class="opt"><small>🧾 Total estimado</small><b>₪20,195</b><span>≈ ₪10,100 por persona</span></div>
     </div>
     <div class="total-lists">
-      <div class="tl-head">👆 Vale para <b>las dos</b> 👆</div>
       <div><h4>✅ Incluye</h4><ul class="feats">
         <li>Los 4 vuelos internacionales, con 1 valija cada uno</li>
-        <li>Vuelos Medellín ↔ Cali, con valija</li>
-        <li>Trenes en Israel</li>
+        <li>Vuelo Medellín → Cali, con valija</li>
+        <li>Tren a Ben Gurión y vuelta a casa</li>
         <li>Hotel y extras en Madrid</li>
         <li>Hotel en Medellín (5 noches, con desayuno)</li>
         <li>Comida, transporte y paseos de todos los días</li>
@@ -1327,7 +1359,6 @@ footer a{color:var(--cian)}
         <li class="x">Alojamiento en Cali (si no es en lo de Fanny)</li>
         <li class="x">Regalo para Alexa &amp; Leor</li>
         <li class="x">Seguro de viaje</li>
-        <li class="x">El finde opcional en Madrid (~₪2,350)</li>
       </ul></div>
     </div>
     <p class="src" style="margin:4px 0 0">Son estimaciones y se van ajustando a medida que cerremos cosas.</p>
@@ -1348,43 +1379,6 @@ footer a{color:var(--cian)}
   </div>
 </section>
 
-<!-- ================= PENDIENTES ================= -->
-<section id="pendientes">
-  <div class="sh"><h2 style="--c:var(--rojo)">Pendientes</h2><span class="emoji">✅</span></div>
-  <p class="sub">Toquen cada cosa cuando esté lista y se tacha. Queda guardado en este celu o compu, así cuando vuelvan sigue igual.</p>
-  <div class="card">
-    <div class="prog"><b id="prog-n">0/0</b><div class="bar"><i id="prog-bar"></i></div></div>
-    <div class="prog-msg" id="prog-msg"></div>
-    <ul class="todo" id="todo">
-      <li><label><input type="checkbox" data-id="averiguar" data-done="1"><span class="box"></span><span class="txt">Averiguar vuelos internacionales y trenes</span></label></li>
-      <li><label><input type="checkbox" data-id="opciones-hoteles" data-done="1"><span class="box"></span><span class="txt">Opciones de hoteles en Madrid y Medellín</span></label></li>
-      <li><label><input type="checkbox" data-id="respuesta-inter" data-done="1"><span class="box"></span><span class="txt">Primera respuesta del InterContinental con el precio</span></label></li>
-      <li><label><input type="checkbox" data-id="elegir-inter" data-done="1"><span class="box"></span><span class="txt">Elegir hotel en Medellín: ¡el InterContinental! 🏨</span></label></li>
-      <li><label><input type="checkbox" data-id="mail-inter" data-done="1"><span class="box"></span><span class="txt">Escribirle al hotel para que guarde las 2 habitaciones (3 → 8/2)</span></label></li>
-      <li><label><input type="checkbox" data-id="bloqueo-inter" data-done="1"><span class="box"></span><span class="txt">¡El hotel guardó las 2 habitaciones con la tarifa de la boda! ✅</span></label></li>
-      <li><label><input type="checkbox" data-id="elegir-junior" data-done="1"><span class="box"></span><span class="txt">Elegir habitación: ¡la Junior Suite! 🏆</span></label></li>
-      <li><label><input type="checkbox" data-id="reserva-ok" data-done="1"><span class="box"></span><span class="txt">¡Reserva confirmada, sin IVA! N° 36262616 ✅</span></label></li>
-      <li><label><input type="checkbox" data-id="enlace-pago" data-done="1"><span class="box"></span><span class="txt">Recibir el enlace de pago del hotel 🔗</span></label></li>
-      <li><label><input type="checkbox" data-id="sello-migracion"><span class="box"></span><span class="txt">En Migración de Colombia: que les sellen el pasaporte 🛂 (así no pagan IVA)</span></label></li>
-      <li><label><input type="checkbox" data-id="hotel-pagado" data-done="1"><span class="box"></span><span class="txt">¡Hotel pagado! 3.725.000 pesos 💳✅</span></label></li>
-      <li><label><input type="checkbox" data-id="comprobante-hotel"><span class="box"></span><span class="txt">Recibir del hotel la confirmación del pago 🧾</span></label></li>
-      <li><label><input type="checkbox" data-id="comprar-vuelos"><span class="box"></span><span class="txt">Comprar los vuelos internacionales ✈️ (ver Letra chica)</span></label></li>
-      <li><label><input type="checkbox" data-id="valijas"><span class="box"></span><span class="txt">Elegir tarifa con valija o agregar valijas 🧳</span></label></li>
-      <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar el Maydrit Airport en Madrid (2 → 3/2)</span></label></li>
-      <li><label><input type="checkbox" data-id="shuttle-madrid"><span class="box"></span><span class="txt">Reservar el shuttle del Maydrit por WhatsApp 🚐</span></label></li>
-      <li><label><input type="checkbox" data-id="finde-madrid"><span class="box"></span><span class="txt">¿Finde en Madrid a la vuelta? Decidir</span></label></li>
-      <li><label><input type="checkbox" data-id="rsvp"><span class="box"></span><span class="txt">Confirmar asistencia (RSVP) en la web de los novios 💌</span></label></li>
-      <li><label><input type="checkbox" data-id="traslado"><span class="box"></span><span class="txt">Pedir el traslado del aeropuerto por WhatsApp 🚐</span></label></li>
-      <li><label><input type="checkbox" data-id="internos"><span class="box"></span><span class="txt">Vuelos Medellín ↔ Cali (averiguar valijas)</span></label></li>
-      <li><label><input type="checkbox" data-id="eje"><span class="box"></span><span class="txt">Planear la escapada al Eje Cafetero ☕</span></label></li>
-      <li><label><input type="checkbox" data-id="papeles"><span class="box"></span><span class="txt">Chequear Check-MIG y ETIAS 🛂</span></label></li>
-      <li><label><input type="checkbox" data-id="seguro"><span class="box"></span><span class="txt">Seguro de viaje con cancelación del viaje 🩺</span></label></li>
-      <li><label><input type="checkbox" data-id="regalo"><span class="box"></span><span class="txt">Regalo para Alexa &amp; Leor 🎁</span></label></li>
-      <li><label><input type="checkbox" data-id="adaptador"><span class="box"></span><span class="txt">Adaptador de enchufe tipo americano 🔌</span></label></li>
-      <li><label><input type="checkbox" data-id="pilchas"><span class="box"></span><span class="txt">Pilchas: Tropical Chic + Black Tie Optional 👗🤵</span></label></li>
-    </ul>
-  </div>
-
   <div class="card who" id="who">
     <div class="bang">👀 ¿Quién está chusmeando?</div>
     <div class="btns">
@@ -1394,7 +1388,6 @@ footer a{color:var(--cian)}
     </div>
     <p id="who-msg">Toquen su nombre así Nir sabe que pasaron por acá 😉</p>
   </div>
-</section>
 
 </main>
 
@@ -1410,12 +1403,13 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">¡Hotel pagado! 🎉</div>
-    <p>La Junior Suite del InterContinental ya está paga: 3.725.000 pesos, sin IVA. ¡Una cosa menos!</p>
+    <div class="bang" id="pop-t">¡Pasajes comprados! ✈️</div>
+    <p>Iberia + Avianca, con asientos juntos y valija. Ojo: la vuelta es <b>directo desde Cali</b> el 23/2, y llegan a casa el <b>miércoles 24/2</b>.</p>
     <ul class="pop-list">
-      <li><a href="#hotel-status"><span class="e">✅</span>El hotel, pagado y reservado</a></li>
+      <li><a href="#vuelos"><span class="e">✈️</span>Los 4 vuelos, con horarios y asientos</a></li>
+      <li><a href="#pendientes"><span class="e">✅</span>Los pendientes, ahora arriba: antes del viaje y allá</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#reserva">¡Quiero verla! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#vuelos">¡Quiero verlos! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1426,7 +1420,7 @@ function lsSet(k,v){try{v===null?localStorage.removeItem(k):localStorage.setItem
 
 // ---------- countdown ----------
 (function(){
-  var target=new Date('2027-02-02T16:05:00+02:00').getTime();
+  var target=new Date('2027-02-02T18:30:00+02:00').getTime();
   var planStart=new Date('2026-11-02T00:00:00+02:00').getTime();
   var boda=new Date('2027-02-07T16:30:00-05:00').getTime();
   var els=['cd-d','cd-h','cd-m','cd-s'].map(function(id){return document.getElementById(id)});
@@ -1552,7 +1546,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-18';
+  var NEWS_VER='2026-11-18b';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
@@ -1583,11 +1577,15 @@ var notify=(function(){
   try{state=JSON.parse(lsGet(KEY)||'{}')||{}}catch(e){state={}}
   var boxes=[].slice.call(document.querySelectorAll('#todo input'));
   var n=document.getElementById('prog-n'),bar=document.getElementById('prog-bar'),msg=document.getElementById('prog-msg');
+  var n2=document.getElementById('prog-n2'),bar2=document.getElementById('prog-bar2');
+  var antes=boxes.filter(function(b){return b.closest('#todo-antes')}),alla=boxes.filter(function(b){return b.closest('#todo-alla')});
+  function cnt(list){return list.filter(function(b){return b.checked}).length}
   var msgs=['¡Arrancamos! Un pasito a la vez. 🐢','¡Vamos bien! Ya huele a arepa. 🫓','¡Mitad del camino! Se escucha la salsa de fondo. 💃','¡Casi casi! Vayan planchando la ropa de la boda. 👔','¡TODO LISTO! A hacer las valijas. 🧳🎉'];
   function update(){
-    var done=boxes.filter(function(b){return b.checked}).length,pct=done/boxes.length;
-    n.textContent=done+'/'+boxes.length; bar.style.width=Math.round(pct*100)+'%';
+    var done=cnt(antes),pct=done/antes.length;
+    n.textContent=done+'/'+antes.length; bar.style.width=Math.round(pct*100)+'%';
     msg.textContent=msgs[pct===1?4:pct>=.75?3:pct>=.5?2:pct>=.25?1:0];
+    var d2=cnt(alla); n2.textContent=d2+'/'+alla.length; bar2.style.width=Math.round(d2/alla.length*100)+'%';
   }
   boxes.forEach(function(b){
     var id=b.dataset.id;
