@@ -351,6 +351,20 @@ footer a{color:var(--cian)}
 .fdet .wait{color:#C0510A;font-weight:800}
 .hop{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto;padding:8px 16px;max-width:560px;border:2.5px dashed var(--ink);border-radius:999px;background:var(--paper);font-weight:800;text-align:center}
 .todo-cols{align-items:start}
+.askbox{background:var(--amarillo);border:4px solid var(--ink);border-radius:24px;box-shadow:8px 8px 0 var(--rojo);padding:20px 22px;margin:0 0 26px}
+.ask-head{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.ask-ico{flex:none;font-size:52px;line-height:1;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-6deg)}}
+.ask-head b{display:block;font-family:Bangers;font-size:32px;letter-spacing:.04em;line-height:1.1}
+.ask-head small{display:block;font-weight:700;font-size:16px;line-height:1.35}
+.ask-form label{display:block;font-weight:800;margin-bottom:6px}
+.ask-row{display:flex;gap:10px;flex-wrap:wrap}
+.ask-row input,.ask-row select{font:inherit;font-weight:800;font-size:20px;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;background:#fff;color:var(--ink);min-width:0}
+.ask-row input{flex:1 1 150px}
+.ask-row button{font-size:20px;cursor:pointer}
+.ask-msg{margin:10px 0 0;font-weight:700;min-height:1.4em}
+.askbox.done{background:var(--verde-soft);box-shadow:8px 8px 0 var(--verde)}
+@media(prefers-reduced-motion:reduce){.ask-ico{animation:none}}
 .todo-cols h3{margin-bottom:10px}
 .paybox.paid{box-shadow:8px 8px 0 var(--verde)}
 .paybox.paid .pay-head b{color:#3ddc84;font-size:26px}
@@ -591,10 +605,11 @@ footer a{color:var(--cian)}
         <li><label><input type="checkbox" data-id="averiguar" data-done="1"><span class="box"></span><span class="txt">Averiguar vuelos, trenes y hoteles</span></label></li>
         <li><label><input type="checkbox" data-id="hotel-pagado" data-done="1"><span class="box"></span><span class="txt">Reservar y pagar el InterContinental: ¡la Junior Suite! 🏨</span></label></li>
         <li><label><input type="checkbox" data-id="vuelos-ok" data-done="1"><span class="box"></span><span class="txt">¡Comprar los pasajes! Iberia + Avianca ✈️</span></label></li>
+        <li><label><input type="checkbox" data-id="precio-pasajes"><span class="box"></span><span class="txt">Ricardo: anotar en "La guita" cuánto costaron los pasajes 💰</span></label></li>
         <li><label><input type="checkbox" data-id="valijas-ok" data-done="1"><span class="box"></span><span class="txt">Valijas: 1 cada uno, ya incluida en el pasaje 🧳</span></label></li>
-        <li><label><input type="checkbox" data-id="comprobante-hotel"><span class="box"></span><span class="txt">Recibir del hotel la confirmación del pago 🧾</span></label></li>
-        <li><label><input type="checkbox" data-id="silla-iberia"><span class="box"></span><span class="txt">Que ISSTA confirme la silla de ruedas en los vuelos de Iberia 🦽</span></label></li>
-        <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar el Maydrit Airport en Madrid (2 → 3/2) y avisar que llegan tipo medianoche 🌙</span></label></li>
+        <li><label><input type="checkbox" data-id="hotel-garantizada" data-done="1"><span class="box"></span><span class="txt">El hotel confirmó el pago: ¡reserva garantizada! 🧾</span></label></li>
+        <li><label><input type="checkbox" data-id="silla-sacar"><span class="box"></span><span class="txt">Pedirle a ISSTA que saque la "silla de ruedas" del pasaje (no la pidieron) 🦽</span></label></li>
+        <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar hotel en Madrid (2 → 3/2): el Maydrit u otro cerca del aeropuerto. Llegan tipo medianoche 🌙</span></label></li>
         <li><label><input type="checkbox" data-id="shuttle-madrid"><span class="box"></span><span class="txt">Shuttle del Maydrit: preguntar si los espera (aterrizan 23:00) o ir en taxi 🚐</span></label></li>
         <li><label><input type="checkbox" data-id="rsvp"><span class="box"></span><span class="txt">Confirmar asistencia (RSVP) en la web de los novios 💌</span></label></li>
         <li><label><input type="checkbox" data-id="traslado"><span class="box"></span><span class="txt">Pedir el traslado del aeropuerto de Medellín (vuelo AV 017) por WhatsApp 🚐</span></label></li>
@@ -603,7 +618,7 @@ footer a{color:var(--cian)}
         <li><label><input type="checkbox" data-id="papeles"><span class="box"></span><span class="txt">Chequear Check-MIG y ETIAS 🛂</span></label></li>
         <li><label><input type="checkbox" data-id="seguro"><span class="box"></span><span class="txt">Seguro de viaje con cancelación del viaje 🩺</span></label></li>
         <li><label><input type="checkbox" data-id="banco"><span class="box"></span><span class="txt">Avisarle al banco que viajan 💳</span></label></li>
-        <li><label><input type="checkbox" data-id="vuelta-casa"><span class="box"></span><span class="txt">Organizar cómo vuelven de Ben Gurión el 24/2 a las 23:20 🚕</span></label></li>
+        <li><label><input type="checkbox" data-id="trenes-enero"><span class="box"></span><span class="txt">Reconfirmar los trenes un mes antes (ida 12:03 · vuelta nocturna 04:04) 🚆</span></label></li>
         <li><label><input type="checkbox" data-id="regalo"><span class="box"></span><span class="txt">Regalo para Alexa &amp; Leor 🎁</span></label></li>
         <li><label><input type="checkbox" data-id="adaptador"><span class="box"></span><span class="txt">Adaptador de enchufe tipo americano 🔌</span></label></li>
         <li><label><input type="checkbox" data-id="pilchas"><span class="box"></span><span class="txt">Pilchas: Tropical Chic + Black Tie Optional 👗🤵</span></label></li>
@@ -658,8 +673,7 @@ footer a{color:var(--cian)}
 
     <div class="day"><div class="date"><b>2</b><span>mar · feb</span></div>
       <div class="card"><h3><span class="fl il"></span> → <span class="fl es"></span> ¡Arrancamos!</h3><ul>
-        <li><span class="t">~13:30</span> tren Kiryat Motzkin → Ben Gurión (horario a confirmar)</li>
-        <li><span class="t">15:30</span> en el aeropuerto, 3 horas antes (Terminal 3)</li>
+        <li><span class="t">12:03</span> tren Kiryat Motzkin → Ben Gurión (llega <span class="t">13:48</span>, con tiempo de sobra)</li>
         <li><span class="t">18:30</span> Iberia <b>IB 1872</b> a Madrid, aterrizan <span class="t">23:00</span> en la Terminal 4S</li>
         <li>Shuttle o taxi al hotel <b>Maydrit Airport</b> (~10 min) y derecho a la cama. ¡Olé!</li></ul></div></div>
 
@@ -714,7 +728,7 @@ footer a{color:var(--cian)}
       <div class="card"><h3><span class="fl es"></span> → <span class="fl il"></span> ¡Home sweet home!</h3><ul>
         <li><span class="t">13:55</span> aterrizan en Madrid (Terminal 4S): escala de 3½ horas, sin cambiar de terminal</li>
         <li><span class="t">17:30</span> Iberia <b>IB 1873</b> a Tel Aviv</li>
-        <li><span class="t">23:20</span> aterrizan en Ben Gurión y a casa. Fiaca total al día siguiente: se la ganaron 🛌</li></ul></div></div>
+        <li><span class="t">23:20</span> aterrizan en Ben Gurión. Tren nocturno de las <span class="t">04:04</span> → Motzkin <span class="t">05:39</span>. Fiaca total el jueves: se la ganaron 🛌</li></ul></div></div>
   </div>
 </section>
 
@@ -782,7 +796,7 @@ footer a{color:var(--cian)}
 <!-- ================= VUELOS ================= -->
 <section id="vuelos">
   <div class="sh"><h2 style="--c:var(--azul)">Vuelos</h2><span class="emoji">✈️</span><span class="nuevo">¡Comprados!</span></div>
-  <div class="status ok"><span class="pulse"></span><p><b>✅ ¡Pasajes comprados!</b> Ricardo los sacó en ISSTA Kiryat Motzkin el 18/11/2026: Iberia + Avianca, ida y vuelta, <b>todo en un mismo pasaje</b>, con asientos juntos, valija y silla de ruedas.
+  <div class="status ok"><span class="pulse"></span><p><b>✅ ¡Pasajes comprados!</b> Ricardo los sacó en ISSTA Kiryat Motzkin el 18/11/2026: Iberia + Avianca, ida y vuelta, <b>todo en un mismo pasaje</b>, con asientos juntos y valija. Ricardo: <a href="#precio-pasajes" style="color:#fff">anotá cuánto pagaste</a> 💰
     <small>Los códigos de reserva y los números de pasaje están en el mail de ISSTA. No los pongo acá porque esta página es pública 🔒</small></p></div>
   <p class="sub">4 vuelos, 2 aerolíneas, 1 solo pasaje. Cada horario es la hora local de esa ciudad.</p>
 
@@ -799,7 +813,6 @@ footer a{color:var(--cian)}
         <li><span class="k">✈️</span><span><b>IB 1872</b> · Airbus A321neo · directo</span></li>
         <li><span class="k">💺</span><span>Ricardo <b>11E</b> · Dora <b>11F</b>, juntitos</span></li>
         <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
-        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="wait">pedida</span> (falta que la confirmen)</span></li>
       </ul>
     </div>
     <div class="card">
@@ -813,7 +826,6 @@ footer a{color:var(--cian)}
         <li><span class="k">✈️</span><span><b>AV 017</b> · Boeing 787 · directo</span></li>
         <li><span class="k">💺</span><span>Ricardo <b>8E</b> · Dora <b>8F</b>, juntitos</span></li>
         <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
-        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="ok">confirmada ✔</span></span></li>
       </ul>
     </div>
   </div>
@@ -832,7 +844,6 @@ footer a{color:var(--cian)}
         <li><span class="k">✈️</span><span><b>AV 014</b> · Boeing 787 · directo</span></li>
         <li><span class="k">💺</span><span>Ricardo <b>8J</b> · Dora <b>8K</b>, juntitos</span></li>
         <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
-        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="ok">confirmada ✔</span></span></li>
       </ul>
     </div>
     <div class="card">
@@ -846,14 +857,13 @@ footer a{color:var(--cian)}
         <li><span class="k">✈️</span><span><b>IB 1873</b> · Airbus A321neo · directo</span></li>
         <li><span class="k">💺</span><span>Ricardo <b>11E</b> · Dora <b>11F</b>, juntitos</span></li>
         <li><span class="k">🧳</span><span>1 valija despachada cada uno <span class="ok">incluida ✔</span></span></li>
-        <li><span class="k">🦽</span><span>Silla de ruedas: <span class="wait">pedida</span> (falta que la confirmen)</span></li>
       </ul>
     </div>
   </div>
   <div class="hop">⏱️ En el medio: 3 h 35 min de escala en Madrid, sin cambiar de terminal</div>
 
   <div class="note"><span class="ni">🧳</span><div><b>¿La valija va directo?</b> Como es todo un mismo pasaje, lo más probable es que en Ben Gurión la despachen <b>directo hasta Medellín</b>. Pregunten en el mostrador. Si es así, lleven en el bolso de mano lo de la noche en Madrid: pijama, remedios, cepillo de dientes y una muda.</div></div>
-  <div class="note"><span class="ni">🦽</span><div><b>Silla de ruedas:</b> Avianca ya la confirmó en sus dos vuelos. En los de Iberia figura como "pedida": hay que pedirle a ISSTA que la confirme. Con la asistencia los esperan en la puerta del avión y los acompañan en migración y en las escalas.</div></div>
+  <div class="note"><span class="ni">🦽</span><div><b>Ojo con un detalle del pasaje:</b> figura <b>"silla de ruedas"</b> para los dos (en los 4 vuelos), aunque no la pidieron. Seguro la agregaron en ISSTA. No cuesta nada, pero si no la necesitan, mejor pedirle a ISSTA que la saque.</div></div>
 
   <!-- ===== VALIJAS ===== -->
   <h3 class="part" id="valijas">🧳 Valijas</h3>
@@ -966,20 +976,25 @@ footer a{color:var(--cian)}
 <!-- ================= TRENES ================= -->
 <section id="trenes">
   <div class="sh"><h2 style="--c:var(--verde)">Trenes</h2><span class="emoji">🚆</span></div>
-  <p class="sub">De Motzkin al mundo. El horario de febrero todavía no salió: lo reconfirmo apenas lo publiquen.</p>
+  <p class="sub">De Motzkin al mundo. El horario es el mismo todos los días; igual lo reconfirmo un mes antes, por si cambia.</p>
   <div class="grid g2">
     <div class="card">
       <div class="when"><span class="label g">Ida · martes 2/2</span></div>
       <div class="leg">
-        <div class="pt"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>~13:30</em></div>
-        <div class="path" style="--c:var(--verde)"><span class="dur">~1 h 45 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
-        <div class="pt end"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>~15:15</em></div>
+        <div class="pt"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>12:03</em></div>
+        <div class="path" style="--c:var(--verde)"><span class="dur">1 h 45 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
+        <div class="pt end"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>13:48</em></div>
       </div>
-      <p>El vuelo sale <span class="t">18:30</span>, y conviene estar <b>3 horas antes</b> (15:30). Un tren que salga de Motzkin tipo 13:30 llega justo y tranqui. 👌</p>
+      <p>El vuelo sale <span class="t">18:30</span>: llegan con casi 5 horas, ¡tiempo de sobra! Si hay un tren una hora más tarde, también sirve (3 horas antes alcanza). 👌</p>
     </div>
     <div class="card">
       <div class="when"><span class="label g">Vuelta · miércoles 24/2</span></div>
-      <p>Aterrizan a las <span class="t">23:20</span>. Con migración, valijas y silla de ruedas, salen del aeropuerto tipo <b>medianoche</b>. A esa hora conviene que alguien los busque o un taxi. Lo organizamos más cerca de la fecha. 🚕</p>
+      <div class="leg">
+        <div class="pt"><b class="sm" style="font-size:34px">TLV</b><span>Ben Gurión</span><em>04:04</em></div>
+        <div class="path" style="--c:var(--verde)"><span class="dur">1 h 35 min</span><span class="icw"><svg class="ic"><use href="#train"/></svg></span></div>
+        <div class="pt end"><b class="sm" style="font-size:34px">Motzkin</b><span>Kiryat Motzkin</span><em>05:39</em></div>
+      </div>
+      <p>Aterrizan a las <span class="t">23:20</span> (noche de miércoles a jueves: hay trenes nocturnos). Salen del aeropuerto tipo medianoche y esperan el de las <span class="t">04:04</span>. <b>Plan B:</b> <span class="t">05:03</span> → <span class="t">07:05</span>. Si no quieren esperar 4 horas, un taxi. 🚕</p>
     </div>
   </div>
 </section>
@@ -987,10 +1002,10 @@ footer a{color:var(--cian)}
 <!-- ================= MADRID ================= -->
 <section id="madrid">
   <div class="sh"><h2 style="--c:var(--rojo)">Madrid</h2><span class="fl es" style="font-size:40px"></span><span class="nuevo">¡Nuevo!</span></div>
-  <p class="sub">Ganó el <b>Maydrit Airport</b>: a 1 km del aeropuerto, sin consigna ni corridas. Llegan tarde (23:00), duermen, desayunan y se van a Colombia. Acá está todo, paso a paso. 👇</p>
+  <p class="sub">La recomendación: el <b>Maydrit Airport</b>, a 1 km del aeropuerto, sin consigna ni corridas (todavía no está reservado: si aparece otro cerca del aeropuerto, también sirve). Llegan tarde (23:00), duermen, desayunan y se van a Colombia. Acá está todo, paso a paso. 👇</p>
 
   <div class="card win">
-    <div class="labels"><span class="label g">✔ El elegido</span><span class="label w">Martes 2 → miércoles 3/2</span></div>
+    <div class="labels"><span class="label o">💡 Recomendado · sin reservar</span><span class="label w">Martes 2 → miércoles 3/2</span></div>
     <h3>Hotel Maydrit Airport</h3>
     <div class="meta"><span class="chip g">⭐ 9.1 en Booking (casi 9.000 reseñas)</span><span class="chip y">📍 1,1 km del aeropuerto</span><span class="chip b">🚇 Metro El Capricho a 300 m</span></div>
     <div class="grid g2" style="gap:18px;align-items:start">
@@ -1008,7 +1023,7 @@ footer a{color:var(--cian)}
   <div class="steps">
     <div class="step"><div class="ico" style="--c:var(--azul-soft)">🛬</div><div class="card">
       <h4><span class="clock">Mar 2/2 · 23:00</span> Aterrizan en la Terminal 4S</h4>
-      <p>Iberia llega a la <b>T4S</b>. Pasan migración (con la silla de ruedas los acompañan), retiran las valijas si no siguieron directo a Medellín, y le mandan un WhatsApp al hotel avisando que ya están.</p>
+      <p>Iberia llega a la <b>T4S</b>. Pasan migración, retiran las valijas si no siguieron directo a Medellín, y le mandan un WhatsApp al hotel avisando que ya están.</p>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--amarillo-soft)">🚐</div><div class="card">
       <h4>Al hotel en 10 minutos</h4>
@@ -1043,7 +1058,7 @@ footer a{color:var(--cian)}
     <p class="src" style="margin:0 0 8px">Miércoles 24/2</p>
     <ul class="feats">
       <li><span class="t">13:55</span> llegan de Cali a la <b>T4S</b></li>
-      <li>Es el mismo pasaje: en principio la valija sigue sola hasta Tel Aviv y no hay que pasar migración. Siguen los carteles de <b>"Conexiones"</b> (y con la silla de ruedas los llevan). Confírmenlo en el mostrador de Cali.</li>
+      <li>Es el mismo pasaje: en principio la valija sigue sola hasta Tel Aviv y no hay que pasar migración. Siguen los carteles de <b>"Conexiones"</b>. Confírmenlo en el mostrador de Cali.</li>
       <li><span class="t">17:30</span> Iberia a casa, desde la misma terminal 🙌</li>
     </ul>
   </div>
@@ -1059,7 +1074,7 @@ footer a{color:var(--cian)}
   <div class="voucher" id="reserva">
     <div class="v-top">
       <div class="v-brand"><small>InterContinental</small><b>Movich Medellín</b></div>
-      <div class="v-num"><small>N° de reserva</small><b>36262616</b></div>
+      <div class="v-num"><small>N° de reserva · garantizada</small><b>36262616</b></div>
     </div>
     <div class="v-body">
       <div class="v-stamp">✔ Pagada</div>
@@ -1088,7 +1103,7 @@ footer a{color:var(--cian)}
 
   <div class="paybox paid" id="hotel-status">
     <div class="pay-head"><span class="paid-ico">✅</span><div><b>¡Hotel pagado!</b><small>Ricardo pagó la Junior Suite el 18/11/2026: 3.725.000 pesos (≈ ₪3,655), sin IVA</small></div></div>
-    <p class="pay-when">Ya no hay que hacer nada más con la reserva. Nir le pidió al hotel que confirme el pago y mande el comprobante 🧾</p>
+    <p class="pay-when">✔ El hotel ya lo confirmó por mail: <b>reserva N° 36262616 garantizada</b>. No hay que hacer nada más 🙌</p>
     <p class="pay-note">Si hubiera que cancelar: hasta el <b>1/2/2027 a las 15:00</b> (hora de Colombia) devuelven el <b>100%</b> a la tarjeta, en unos 30 días hábiles.</p>
   </div>
 
@@ -1325,17 +1340,29 @@ footer a{color:var(--cian)}
     <a href="https://www.dolarhoy.co/" target="_blank" rel="noopener">dólar hoy</a></p>
 
   <h3 class="part">🧾 El presupuesto total (los dos)</h3>
+  <div class="askbox" id="precio-pasajes">
+    <div class="ask-head"><span class="ask-ico">🕺</span><div><b>¡Ricardo, esto es para vos!</b><small>¿Cuánto pagaste los pasajes en ISSTA? Anotalo acá y la cuenta de abajo se arma sola (y a Nir le llega el aviso).</small></div></div>
+    <form class="ask-form" id="precio-form" novalidate>
+      <label for="precio-in">Total de los 4 vuelos, para los dos</label>
+      <div class="ask-row">
+        <input id="precio-in" type="text" inputmode="decimal" placeholder="Ej: 9.500" autocomplete="off">
+        <select id="precio-cur" aria-label="Moneda"><option value="ILS">₪ shekels</option><option value="USD">US$ dólares</option></select>
+        <button class="btn r" type="submit">Guardar 💾</button>
+      </div>
+      <p class="ask-msg" id="precio-msg" aria-live="polite"></p>
+    </form>
+  </div>
   <div class="card">
     <div class="tablewrap"><table>
       <tr><th>Qué</th><th>Detalle</th><th class="n">Los dos</th></tr>
-      <tr><td>✈️ Vuelos internacionales</td><td>✔ Comprados (Iberia + Avianca), con valija. Estimado: falta el precio real</td><td class="n">~₪11,816</td></tr>
+      <tr><td>✈️ Vuelos internacionales</td><td id="g-vuelos-d">✔ Comprados (Iberia + Avianca), con valija. Estimado: <a href="#precio-pasajes">Ricardo, anotá el precio real</a></td><td class="n" id="g-vuelos">~₪11,816</td></tr>
       <tr><td>🛩️ Vuelo interno</td><td>Medellín → Cali (estimado con valija)</td><td class="n">~₪370</td></tr>
-      <tr><td>🚆 Tren y vuelta a casa</td><td>Tren a Ben Gurión + taxi de vuelta</td><td class="n">~₪100</td></tr>
+      <tr><td>🚆 Trenes en Israel</td><td>Ida y vuelta (la vuelta, en el tren nocturno)</td><td class="n">~₪100</td></tr>
       <tr><td>🛏️ Hotel Madrid</td><td>Maydrit Airport, 1 noche</td><td class="n">₪426</td></tr>
       <tr><td>🥘 Extras en Madrid</td><td>Shuttle, cena, metro y churros</td><td class="n">~₪300</td></tr>
       <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
       <tr><td>💃 Día a día en Cali</td><td>~12 días × ₪190 (sin contar el Eje Cafetero)</td><td class="n">~₪2,280</td></tr>
-      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪16,540</td></tr>
+      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n" id="g-sub">~₪16,540</td></tr>
       <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>✔ Pagada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
@@ -1343,13 +1370,13 @@ footer a{color:var(--cian)}
   <div class="total">
     <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido: la <b>Junior Suite</b> ya pagada y los pasajes ya comprados.</p></div></div>
     <div class="total-opts">
-      <div class="opt"><small>🧾 Total estimado</small><b>₪20,195</b><span>≈ ₪10,100 por persona</span></div>
+      <div class="opt"><small id="g-tot-l">🧾 Total estimado</small><b id="g-tot">₪20,195</b><span id="g-pp">≈ ₪10,100 por persona</span></div>
     </div>
     <div class="total-lists">
       <div><h4>✅ Incluye</h4><ul class="feats">
         <li>Los 4 vuelos internacionales, con 1 valija cada uno</li>
         <li>Vuelo Medellín → Cali, con valija</li>
-        <li>Tren a Ben Gurión y vuelta a casa</li>
+        <li>Trenes en Israel, ida y vuelta</li>
         <li>Hotel y extras en Madrid</li>
         <li>Hotel en Medellín (5 noches, con desayuno)</li>
         <li>Comida, transporte y paseos de todos los días</li>
@@ -1403,13 +1430,14 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">¡Pasajes comprados! ✈️</div>
-    <p>Iberia + Avianca, con asientos juntos y valija. Ojo: la vuelta es <b>directo desde Cali</b> el 23/2, y llegan a casa el <b>miércoles 24/2</b>.</p>
+    <div class="bang" id="pop-t">¡Ricardo, te necesito! 🕺</div>
+    <p>Novedades de hoy:</p>
     <ul class="pop-list">
-      <li><a href="#vuelos"><span class="e">✈️</span>Los 4 vuelos, con horarios y asientos</a></li>
-      <li><a href="#pendientes"><span class="e">✅</span>Los pendientes, ahora arriba: antes del viaje y allá</a></li>
+      <li><a href="#precio-pasajes"><span class="e">💰</span>Ricardo: ¿cuánto pagaste los pasajes? Anotalo acá</a></li>
+      <li><a href="#hotel-status"><span class="e">✅</span>El hotel de Medellín confirmó: reserva garantizada</a></li>
+      <li><a href="#trenes"><span class="e">🚆</span>La vuelta a casa: tren nocturno de las 04:04</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#vuelos">¡Quiero verlos! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#precio-pasajes">¡Lo anoto! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1546,7 +1574,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-18b';
+  var NEWS_VER='2026-11-18c';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
@@ -1569,6 +1597,40 @@ var notify=(function(){
   });
   lb.addEventListener('click',function(){lb.classList.remove('on')});
   addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on')});
+})();
+
+// ---------- Ricardo types what the flights cost; totals recalc on this device ----------
+(function(){
+  var form=document.getElementById('precio-form');if(!form)return;
+  var KEY='colombia_precio',USD=3.16,OTHERS=4724,HOTEL=3655;  // OTHERS: budget rows besides flights and the Medellín hotel
+  var inp=document.getElementById('precio-in'),cur=document.getElementById('precio-cur'),msg=document.getElementById('precio-msg');
+  function fmt(n){return '₪'+Math.round(n).toLocaleString('en-US')}
+  function parse(v){
+    v=(v||'').replace(/[^\d.,]/g,'');
+    var m=v.match(/^(.*)[.,](\d{1,2})$/);
+    return m?parseFloat(m[1].replace(/[.,]/g,'')+'.'+m[2]):parseFloat(v.replace(/[.,]/g,''));
+  }
+  function apply(d,fresh){
+    var ils=d.cur==='USD'?d.v*USD:d.v;
+    document.getElementById('g-vuelos').textContent=fmt(ils);
+    document.getElementById('g-vuelos-d').textContent='✔ Comprados (Iberia + Avianca), con valija · precio real'+(d.cur==='USD'?' (US$'+d.v.toLocaleString('en-US')+')':'');
+    document.getElementById('g-sub').textContent='~'+fmt(OTHERS+ils);
+    document.getElementById('g-tot-l').textContent='🧾 Total, con el precio real de los pasajes';
+    document.getElementById('g-tot').textContent=fmt(OTHERS+ils+HOTEL);
+    document.getElementById('g-pp').textContent='≈ '+fmt((OTHERS+ils+HOTEL)/2)+' por persona';
+    form.parentNode.classList.add('done');
+    msg.textContent=fresh?'¡Gracias, Ricardo! Ya actualicé la cuenta de abajo 👇':'✔ Anotado: '+(d.cur==='USD'?'US$'+d.v.toLocaleString('en-US')+' ≈ ':'')+fmt(ils)+'. Si hay que corregirlo, cámbienlo y guarden otra vez.';
+  }
+  var saved=null;try{saved=JSON.parse(lsGet(KEY)||'null')}catch(e){}
+  if(saved&&saved.v>0){inp.value=saved.v;cur.value=saved.cur;apply(saved,false)}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=parse(inp.value);
+    if(!(v>0)){msg.textContent='Escribí solo el número, por ejemplo 9.500 🙂';inp.focus();return}
+    var d={v:v,cur:cur.value};
+    lsSet(KEY,JSON.stringify(d));apply(d,true);
+    notify.send({title:'💰 '+(notify.who()||'Alguien')+' anotó el precio de los pasajes',message:(d.cur==='USD'?'US$':'₪')+v.toLocaleString('en-US')+' (los dos, 4 vuelos)\n🕒 '+notify.now(),tags:['moneybag'],priority:4});
+  });
 })();
 
 // ---------- to-do list (saved on this device) ----------
