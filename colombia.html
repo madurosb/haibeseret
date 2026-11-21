@@ -608,11 +608,13 @@ footer a{color:var(--cian)}
         <li><label><input type="checkbox" data-id="valijas-ok" data-done="1"><span class="box"></span><span class="txt">Valijas: 1 cada uno, ya incluida en el pasaje 🧳</span></label></li>
         <li><label><input type="checkbox" data-id="hotel-garantizada" data-done="1"><span class="box"></span><span class="txt">El hotel confirmó el pago: ¡reserva garantizada! 🧾</span></label></li>
         <li><label><input type="checkbox" data-id="silla-sacar"><span class="box"></span><span class="txt">Pedirle a ISSTA que saque la "silla de ruedas" del pasaje (no la pidieron) 🦽</span></label></li>
-        <li><label><input type="checkbox" data-id="hotel-madrid"><span class="box"></span><span class="txt">Reservar hotel en Madrid (2 → 3/2): el Maydrit u otro cerca del aeropuerto. Llegan tipo medianoche 🌙</span></label></li>
-        <li><label><input type="checkbox" data-id="shuttle-madrid"><span class="box"></span><span class="txt">Shuttle del Maydrit: preguntar si los espera (aterrizan 23:00) o ir en taxi 🚐</span></label></li>
+        <li><label><input type="checkbox" data-id="maydrit-ok" data-done="1"><span class="box"></span><span class="txt">Reservar el hotel en Madrid: ¡el Maydrit Airport! (se paga allá) 🌙</span></label></li>
+        <li><label><input type="checkbox" data-id="maydrit-shuttle"><span class="box"></span><span class="txt">Reservar por WhatsApp el shuttle del Maydrit al aeropuerto: miércoles 3/2 a las 12:30 (+34 638 60 64 82) 🚐</span></label></li>
+        <li><label><input type="checkbox" data-id="maydrit-llegada"><span class="box"></span><span class="txt">Avisarle al Maydrit (por la app de Booking) que llegan tipo medianoche, en taxi 🌙</span></label></li>
         <li><label><input type="checkbox" data-id="rsvp"><span class="box"></span><span class="txt">Confirmar asistencia (RSVP) en la web de los novios 💌</span></label></li>
         <li><label><input type="checkbox" data-id="traslado"><span class="box"></span><span class="txt">Pedir el traslado del aeropuerto de Medellín (vuelo AV 017) por WhatsApp 🚐</span></label></li>
         <li><label><input type="checkbox" data-id="vuelo-cali"><span class="box"></span><span class="txt">Comprar el vuelo Medellín → Cali del lunes 8/2 🛩️</span></label></li>
+        <li><label><input type="checkbox" data-id="paseos-mde"><span class="box"></span><span class="txt">Reservar los paseos en Medellín: city tour (jue 4), Comuna 13 (vie 5) y Guatapé (sáb 6) 🗺️</span></label></li>
         <li><label><input type="checkbox" data-id="eje"><span class="box"></span><span class="txt">Planear la escapada al Eje Cafetero ☕</span></label></li>
         <li><label><input type="checkbox" data-id="papeles"><span class="box"></span><span class="txt">Chequear Check-MIG y ETIAS 🛂</span></label></li>
         <li><label><input type="checkbox" data-id="seguro"><span class="box"></span><span class="txt">Sacar el seguro de viaje con PassportCard 🩺</span></label></li>
@@ -630,6 +632,7 @@ footer a{color:var(--cian)}
       <div class="prog-msg">Para ir tachando en el viaje. ¡A disfrutar! <span class="fl co"></span></div>
       <ul class="todo">
         <li><label><input type="checkbox" data-id="valija-directo"><span class="box"></span><span class="txt">En Ben Gurión: preguntar si la valija va directo a Medellín (si sí, lo de la noche en Madrid va en el bolso de mano) 🧳</span></label></li>
+        <li><label><input type="checkbox" data-id="taxi-maydrit"><span class="box"></span><span class="txt">Martes 2/2 en Madrid: trencito de la T4S a la T4, salir por Llegadas (planta 0) y taxi oficial al Maydrit, ~€20–30 🚕</span></label></li>
         <li><label><input type="checkbox" data-id="sello-migracion"><span class="box"></span><span class="txt">En Migración de Colombia: que les sellen el pasaporte 🛂 (así no pagan IVA)</span></label></li>
         <li><label><input type="checkbox" data-id="llegamos"><span class="box"></span><span class="txt">Mandarle a Nir un WhatsApp: ¡llegamos a Medellín! 📲</span></label></li>
         <li><label><input type="checkbox" data-id="checkin-inter"><span class="box"></span><span class="txt">Check-in en el InterContinental: mostrar el pasaporte sellado y pedir vista a la montaña ⛰️</span></label></li>
@@ -673,22 +676,24 @@ footer a{color:var(--cian)}
       <div class="card"><h3><span class="fl il"></span> → <span class="fl es"></span> ¡Arrancamos!</h3><ul>
         <li><span class="t">12:03</span> tren Kiryat Motzkin → Ben Gurión (llega <span class="t">13:48</span>, con tiempo de sobra)</li>
         <li><span class="t">18:30</span> Iberia <b>IB 1872</b> a Madrid, aterrizan <span class="t">23:00</span> en la Terminal 4S</li>
-        <li>Shuttle o taxi al hotel <b>Maydrit Airport</b> (~10 min) y derecho a la cama. ¡Olé!</li></ul></div></div>
+        <li>Trencito a la T4, salen por Llegadas y <b>taxi</b> al hotel <b>Maydrit Airport</b> (~10–15 min, ~€20–30). ¡Y derecho a la cama! Olé 🛌</li></ul></div></div>
 
     <div class="day"><div class="date"><b>3</b><span>mié · feb</span></div>
       <div class="card"><h3><span class="fl es"></span> → <span class="fl co"></span> Churros y despegue</h3><ul>
         <li>Desayuno en el hotel. Si tienen ganas: metro directo al centro y chocolate con churros (opcional, ver <a href="#madrid">Madrid</a>)</li>
-        <li><span class="t">~12:00</span> shuttle del hotel a la <b>Terminal 4</b> (de ahí sale Avianca)</li>
+        <li><span class="t">12:30</span> shuttle del hotel a la <b>Terminal 4</b> (de ahí sale Avianca)</li>
         <li><span class="t">15:25</span> Avianca <b>AV 017</b> a Medellín, aterrizan <span class="t">19:45</span> (hora Colombia)</li>
         <li>Traslado al hotel (~45–60 min) y a dormir 😴</li></ul></div></div>
 
     <div class="day"><div class="date" style="--c:var(--cian)"><b>4</b><span>jue · feb</span></div>
-      <div class="card"><h3>☕ Día libre en Medellín</h3><ul>
-        <li>Aclimatarse a la "ciudad de la eterna primavera" (1.500 m, ~24 °C)</li>
-        <li>Paseo por El Poblado y Provenza, un tinto y una arepa. Tranqui.</li></ul></div></div>
+      <div class="card"><h3>🚡 City tour por Medellín</h3><ul>
+        <li>Día de paseo por la "ciudad de la eterna primavera" (1.500 m, ~24 °C)</li>
+        <li>Plaza Botero y sus gordas de bronce, el centro, el Metrocable con la ciudad a los pies y Pueblito Paisa 📸</li>
+        <li>A la noche, tranqui: un tinto y una arepa en El Poblado</li></ul></div></div>
 
     <div class="day"><div class="date dk" style="--c:var(--rosa)"><b>5</b><span>vie · feb</span></div>
       <div class="card"><h3>🕯️ Shabat &amp; Welcome Dinner</h3><ul>
+        <li>☀️ <b>A la mañana: Comuna 13</b>, el barrio de los grafitis, las escaleras eléctricas y el hip hop. Con guía, y de vuelta al hotel a la hora del almuerzo para descansar</li>
         <li>📍 Hotel InterContinental Medellín</li>
         <li><span class="t">17:45</span> velas (solo mujeres, opcional) — ¡Mamuska, te toca!</li>
         <li><span class="t">18:30</span> Kabalat Shabat (opcional)</li>
@@ -696,8 +701,10 @@ footer a{color:var(--cian)}
         <li>👗 Dress code: <b>Tropical Chic</b></li></ul></div></div>
 
     <div class="day"><div class="date" style="--c:var(--cian)"><b>6</b><span>sáb · feb</span></div>
-      <div class="card"><h3>🌴 Sábado libre</h3><ul>
-        <li>Ideas de los novios: Comuna 13, Jardín Botánico, Plaza Botero o Guatapé (740 escalones… o mirarla desde abajo con un jugo 😅)</li></ul></div></div>
+      <div class="card"><h3>🪨 Excursión a Guatapé</h3><ul>
+        <li>El día entero: ~2 horas de ida y 2 de vuelta, así que se sale temprano</li>
+        <li>La Piedra del Peñol (740 escalones… o mirarla desde abajo con un jugo 😅), paseo en lancha por el embalse y el pueblo de los zócalos de colores 🎨</li>
+        <li>De vuelta temprano: ¡mañana es la boda!</li></ul></div></div>
 
     <div class="day"><div class="date dk" style="--c:var(--rojo)"><b>7</b><span>dom · feb</span></div>
       <div class="card"><h3>💍 ¡LA BODA!</h3><ul>
@@ -928,54 +935,62 @@ footer a{color:var(--cian)}
 <!-- ================= MADRID ================= -->
 <section id="madrid">
   <div class="sh"><h2 style="--c:var(--rojo)">Madrid</h2><span class="fl es" style="font-size:40px"></span><span class="nuevo">¡Nuevo!</span></div>
-  <p class="sub">La recomendación: el <b>Maydrit Airport</b>, a 1 km del aeropuerto, sin consigna ni corridas (todavía no está reservado: si aparece otro cerca del aeropuerto, también sirve). Llegan tarde (23:00), duermen, desayunan y se van a Colombia. Acá está todo, paso a paso. 👇</p>
+  <p class="sub">¡Reservado! Duermen en el <b>Maydrit Airport</b>, al lado del aeropuerto. Llegan tarde (23:00), van en <b>taxi</b>, duermen, desayunan y el <b>shuttle del hotel</b> los lleva de vuelta al aeropuerto. Acá está todo, paso a paso. 👇</p>
 
   <div class="card win">
-    <div class="labels"><span class="label o">💡 Recomendado · sin reservar</span><span class="label w">Martes 2 → miércoles 3/2</span></div>
+    <div class="labels"><span class="label g">✔ Reservado · se paga allá</span><span class="label w">Martes 2 → miércoles 3/2</span></div>
     <h3>Hotel Maydrit Airport</h3>
     <div class="meta"><span class="chip g">⭐ 9.1 en Booking (casi 9.000 reseñas)</span><span class="chip y">📍 1,1 km del aeropuerto</span><span class="chip b">🚇 Metro El Capricho a 300 m</span></div>
     <div class="grid g2" style="gap:18px;align-items:start">
-      <div class="prices" style="grid-template-columns:1fr;margin:0"><div class="pbox hi"><small>Los dos · 1 noche</small><b>₪426</b><span class="x">Calle Piragua 1, Barajas</span></div></div>
+      <div class="prices" style="grid-template-columns:1fr;margin:0"><div class="pbox hi"><small>Los dos · 1 noche, con desayuno</small><b>€151,20</b><span class="x">≈ ₪555 · se paga en el hotel</span></div></div>
       <ul class="feats" style="margin:0">
-        <li>Check-in desde las 14:00 · check-out hasta las 12:00 (justo lo que necesitan)</li>
+        <li>Habitación doble con <b>desayuno incluido</b> · Calle Piragua 1, Barajas</li>
+        <li>En el check-in: <b>pasaporte y tarjeta de crédito</b>. El número de reserva y el PIN están en el mail de Booking de Ricardo 🔒</li>
+        <li><b>Cancelación gratis</b> hasta el <b>31/1/2027</b> a la medianoche (hora de España). Las fechas no se pueden cambiar.</li>
         <li>Llegan tipo medianoche: mejor comer algo antes, en Ben Gurión o en el avión</li>
-        <li>Lo que más elogian: lo cerca que está, el shuttle, el metro y el desayuno</li>
       </ul>
     </div>
-    <div class="btns" style="margin-top:16px"><a class="btn" href="https://www.booking.com/hotel/es/maydrit.html?checkin=2027-02-02&checkout=2027-02-03&group_adults=2&no_rooms=1" target="_blank" rel="noopener">Reservar en Booking ↗</a><a class="btn g" href="https://wa.me/34638606482" target="_blank" rel="noopener">💬 WhatsApp del shuttle</a></div>
+    <div class="btns" style="margin-top:16px"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hotel+Maydrit+Airport+Calle+Piragua+1+Madrid" target="_blank" rel="noopener">📍 Ver en el mapa</a><a class="btn g" href="https://wa.me/34638606482" target="_blank" rel="noopener">💬 WhatsApp del shuttle</a></div>
   </div>
 
   <h3 class="part">🗺️ El paso a paso</h3>
   <div class="steps">
     <div class="step"><div class="ico" style="--c:var(--azul-soft)">🛬</div><div class="card">
       <h4><span class="clock">Mar 2/2 · 23:00</span> Aterrizan en la Terminal 4S</h4>
-      <p>Iberia llega a la <b>T4S</b>. Pasan migración, retiran las valijas si no siguieron directo a Medellín, y le mandan un WhatsApp al hotel avisando que ya están.</p>
+      <p>Iberia llega a la <b>T4S</b> (el edificio satélite). Pasan migración y toman el <b>trencito interno</b> a la <b>T4</b>, el edificio principal: ahí están las cintas de las valijas (si no siguieron directo a Medellín) y la salida. Calculen <b>30–45 minutos</b> desde que aterrizan.</p>
     </div></div>
-    <div class="step"><div class="ico" style="--c:var(--amarillo-soft)">🚐</div><div class="card">
-      <h4>Al hotel en 10 minutos</h4>
+    <div class="step" id="madrid-taxi"><div class="ico" style="--c:var(--amarillo-soft)">🚕</div><div class="card">
+      <h4>En taxi al hotel: 10–15 minutos</h4>
       <ul class="feats">
-        <li><b>Shuttle del hotel:</b> funciona de 06:00 a <b>23:45</b>: ¡justo justo! Hay que reservarlo y preguntar si los espera, por WhatsApp al <a href="https://wa.me/34638606482" target="_blank" rel="noopener">+34 638 60 64 82</a></li>
-        <li class="x"><b>No es gratis</b> (en Booking dice "con cargo"). Expedia habla de ~€5 por persona: confírmenlo al reservar.</li>
-        <li class="i"><b>Plan B (bastante probable a esa hora):</b> taxi, ~€20–25. Es un viaje cortito, pero desde el aeropuerto hay tarifa mínima.</li>
+        <li><b>Dónde:</b> salen por <b>Llegadas</b> de la T4 (planta 0) y la parada de taxis está ahí mismo, en la vereda. Hagan la fila: son los <b>taxis blancos con una franja roja</b> en la puerta.</li>
+        <li><b>Cuánto tarda:</b> ~8 km, unos <b>10–15 minutos</b> a esa hora.</li>
+        <li><b>Cuánto sale:</b> unos <b>€20–30</b>, con taxímetro. Desde el aeropuerto hay una tarifa mínima, así que aunque sea cerca no sale menos de eso.</li>
+        <li class="x"><b>Ojo:</b> la tarifa fija de €33 es solo para ir al centro. El Maydrit queda afuera, así que va con <b>taxímetro</b>.</li>
+        <li class="i">Todos los taxis de Madrid aceptan <b>tarjeta</b>. Muéstrenle al chofer la dirección: <b>Calle Piragua 1, Barajas</b>.</li>
+        <li class="i">¿Por qué no el shuttle? Funciona hasta las 23:45, y con la migración y las valijas no llegan. A la ida, taxi y listo.</li>
       </ul>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--verde-soft)">☀️</div><div class="card">
-      <h4><span class="clock">Mié 3/2 · 8:30–11:15</span> Mañana libre (opcional)</h4>
+      <h4><span class="clock">Mié 3/2 · 8:30–11:30</span> Mañana libre (opcional)</h4>
       <p>Si se levantan con pilas: el <b>metro El Capricho</b> (línea 5, a 300 m) va <b>directo, sin combinar</b>, hasta <b>Gran Vía, Callao u Ópera</b>, en pleno centro, en ~30–35 min.</p>
       <ul class="feats">
         <li>Plan exprés: Puerta del Sol → Plaza Mayor → chocolate con churros en San Ginés 🍫</li>
         <li>Boleto: ~€2 por persona por viaje, más la tarjeta Multi (€2,50, una sola vez)</li>
-        <li>Vuelven al hotel tipo 11:15. Sin estrés: las valijas quedan en la habitación hasta las 12.</li>
+        <li>Vuelven al hotel tipo 11:30. Sin estrés: las valijas quedan en la habitación hasta las 12.</li>
         <li class="i">¿Fiaca? El <b>Parque Juan Carlos I</b> está a 500 m del hotel, ideal para una caminata.</li>
       </ul>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--naranja-soft)">🧳</div><div class="card">
-      <h4><span class="clock">~11:50</span> Check-out y shuttle a la Terminal 4</h4>
-      <p>Avianca sale de la misma terminal donde llegaron: el shuttle los deja en la <b>T4</b>, y el vuelo sale de la <b>T4S</b> (se llega en un trencito interno, después de seguridad). Pidan el shuttle por WhatsApp el día anterior.</p>
+      <h4><span class="clock">12:00 → 12:30</span> Check-out y shuttle a la Terminal 4</h4>
+      <p>El check-out es hasta las 12: dejen las valijas en la recepción y a las <span class="t">12:30</span> sale el <b>shuttle del hotel</b> a la <b>T4</b>. El vuelo sale de la <b>T4S</b> (se llega en el trencito interno, después de seguridad).</p>
+      <ul class="feats">
+        <li class="x"><b>Hay que reservarlo por WhatsApp</b> al <a href="https://wa.me/34638606482" target="_blank" rel="noopener">+34 638 60 64 82</a>: lo pidieron en Booking, pero el hotel dice que el shuttle se gestiona solo por ahí, con anticipación.</li>
+        <li class="i">Tiene un costo extra (algunos sitios dicen ~€5 por persona): confírmenlo al reservar.</li>
+      </ul>
     </div></div>
     <div class="step"><div class="ico" style="--c:var(--rojo-soft)">✈️</div><div class="card">
-      <h4><span class="clock">12:25 como tarde</span> En el aeropuerto, 3 horas antes</h4>
-      <p>Para un vuelo largo internacional, lo recomendado es llegar <b>3 horas antes</b>: hay que despachar valijas, pasar seguridad y migración. El check-in de Avianca cierra <b>1 hora antes</b> (14:25). El vuelo sale <span class="t">15:25</span>.</p>
+      <h4><span class="clock">~12:45</span> En el aeropuerto</h4>
+      <p>Llegan con <b>2 horas y media largas</b> antes del vuelo: tiempo de sobra para despachar valijas, pasar seguridad y migración. El check-in de Avianca cierra <b>1 hora antes</b> (14:25). El vuelo sale <span class="t">15:25</span>.</p>
     </div></div>
   </div>
 
@@ -989,7 +1004,7 @@ footer a{color:var(--cian)}
     </ul>
   </div>
   <div class="note"><span class="ni">💶</span><div><b>El euro:</b> €1 ≈ ₪3.5. Chocolate con churros: €5–8 cada uno. Tapas con vinito para dos: €40–70.</div></div>
-  <p class="src">Fuentes: <a href="https://www.booking.com/hotel/es/maydrit.html" target="_blank" rel="noopener">Booking</a> (shuttle, horarios, metro y check-in) · <a href="https://www.aena.es/es/adolfo-suarez-madrid-barajas/aerolineas-y-destinos/aerolineas.html" target="_blank" rel="noopener">Aena</a> (terminales de cada aerolínea) · <a href="https://www.expedia.com/Barajas-hotels-Hotel-Maydrit-Airport.h2206360.Hotel-information" target="_blank" rel="noopener">Expedia</a> (precio del shuttle).</p>
+  <p class="src">Fuentes: <a href="https://www.booking.com/hotel/es/maydrit.html" target="_blank" rel="noopener">Booking</a> (shuttle, horarios, metro y check-in) · <a href="https://www.aena.es/es/adolfo-suarez-madrid-barajas/aerolineas-y-destinos/aerolineas.html" target="_blank" rel="noopener">Aena</a> (terminales de cada aerolínea) · <a href="https://www.expedia.com/Barajas-hotels-Hotel-Maydrit-Airport.h2206360.Hotel-information" target="_blank" rel="noopener">Expedia</a> (precio del shuttle) · <a href="https://www.esmadrid.com/en/getting-around-madrid-taxi" target="_blank" rel="noopener">esMadrid</a> (taxis y tarifas) · la confirmación de Booking.</p>
 </section>
 
 <!-- ================= MEDELLIN ================= -->
@@ -1078,6 +1093,13 @@ footer a{color:var(--cian)}
       <li class="i"><b>Prohibido fumar</b> en la habitación: la multa es de US$150.</li>
     </ul>
     <p class="src" style="margin:0">Fuentes: los mails del hotel (3/11 y 4/11/2026) y los <a href="https://terminosycondiciones.movichhotels.com/" target="_blank" rel="noopener">términos y condiciones de Movich</a>.</p>
+  </div>
+
+  <h3 class="part" id="paseos">🗺️ Los paseos</h3>
+  <div class="grid g3">
+    <div class="card"><h3>🚡 City tour</h3><p class="src" style="margin:0 0 8px">Jueves 4/2 · el día de paseo</p><p>Plaza Botero, el centro, el <b>Metrocable</b> (el teleférico que es parte del metro, con la ciudad a los pies) y Pueblito Paisa. Lo mejor: con guía, que los busca por el hotel.</p></div>
+    <div class="card"><h3>🎨 Comuna 13</h3><p class="src" style="margin:0 0 8px">Viernes 5/2 · a la mañana</p><p>El barrio que se transformó con grafitis, escaleras eléctricas al aire libre y hip hop. Siempre con un <b>tour guiado</b>. Son ~3 horas: vuelven a almorzar y a descansar antes de Shabat. 🕯️</p></div>
+    <div class="card"><h3>🪨 Guatapé</h3><p class="src" style="margin:0 0 8px">Sábado 6/2 · el día entero</p><p>~2 horas de viaje por lado. La <b>Piedra del Peñol</b> (740 escalones, o la vista desde abajo 😅), lancha por el embalse y el pueblito de colores. Salen temprano y vuelven a descansar: ¡el domingo es la boda!</p></div>
   </div>
 
 </section>
@@ -1206,11 +1228,11 @@ footer a{color:var(--cian)}
       <tr><td>✈️ Vuelos internacionales</td><td id="g-vuelos-d">✔ Comprados (Iberia + Avianca), con valija. Estimado: <a href="#precio-pasajes">Ricardo, anotá el precio real</a></td><td class="n" id="g-vuelos">~₪11,816</td></tr>
       <tr><td>🛩️ Vuelo interno</td><td>Medellín → Cali (estimado con valija)</td><td class="n">~₪370</td></tr>
       <tr><td>🚆 Trenes en Israel</td><td>Ida y vuelta (la vuelta, en el tren nocturno)</td><td class="n">~₪100</td></tr>
-      <tr><td>🛏️ Hotel Madrid</td><td>Maydrit Airport, 1 noche</td><td class="n">₪426</td></tr>
-      <tr><td>🥘 Extras en Madrid</td><td>Shuttle, cena, metro y churros</td><td class="n">~₪300</td></tr>
+      <tr><td>🛏️ Hotel Madrid</td><td>✔ Maydrit Airport, 1 noche con desayuno (€151,20, se paga allá)</td><td class="n">₪555</td></tr>
+      <tr><td>🥘 Extras en Madrid</td><td>Taxi, shuttle, metro y churros</td><td class="n">~₪300</td></tr>
       <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
       <tr><td>💃 Día a día en Cali</td><td>~12 días × ₪190 (sin contar el Eje Cafetero)</td><td class="n">~₪2,280</td></tr>
-      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n" id="g-sub">~₪16,540</td></tr>
+      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n" id="g-sub">~₪16,669</td></tr>
       <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>✔ Pagada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
@@ -1218,7 +1240,7 @@ footer a{color:var(--cian)}
   <div class="total">
     <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido: la <b>Junior Suite</b> ya pagada y los pasajes ya comprados.</p></div></div>
     <div class="total-opts">
-      <div class="opt"><small id="g-tot-l">🧾 Total estimado</small><b id="g-tot">₪20,195</b><span id="g-pp">≈ ₪10,100 por persona</span></div>
+      <div class="opt"><small id="g-tot-l">🧾 Total estimado</small><b id="g-tot">₪20,324</b><span id="g-pp">≈ ₪10,162 por persona</span></div>
     </div>
     <div class="total-lists">
       <div><h4>✅ Incluye</h4><ul class="feats">
@@ -1279,14 +1301,14 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">¡Ricardo, te necesito! 🕺</div>
-    <p>Novedades de hoy:</p>
+    <div class="bang" id="pop-t">¡Hay novedades! ✨</div>
+    <p>Lo nuevo de hoy:</p>
     <ul class="pop-list">
-      <li><a href="#precio-pasajes"><span class="e">💰</span>Ricardo: ¿cuánto pagaste los pasajes? Anotalo acá</a></li>
-      <li><a href="#hotel-status"><span class="e">✅</span>El hotel de Medellín confirmó: reserva garantizada</a></li>
-      <li><a href="#trenes"><span class="e">🚆</span>La vuelta a casa: tren nocturno de las 04:04</a></li>
+      <li><a href="#madrid"><span class="e">🏨</span>Madrid: ¡el Maydrit está reservado!</a></li>
+      <li><a href="#madrid-taxi"><span class="e">🚕</span>Del aeropuerto al hotel en taxi: dónde, cuánto tarda y cuánto sale</a></li>
+      <li><a href="#paseos"><span class="e">🗺️</span>Medellín: city tour, Comuna 13 y Guatapé</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#precio-pasajes">¡Lo anoto! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#madrid">¡A ver! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1423,7 +1445,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-18c';
+  var NEWS_VER='2026-11-21';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
@@ -1451,7 +1473,7 @@ var notify=(function(){
 // ---------- Ricardo types what the flights cost; totals recalc on this device ----------
 (function(){
   var form=document.getElementById('precio-form');if(!form)return;
-  var KEY='colombia_precio',USD=3.16,OTHERS=4724,HOTEL=3655;  // OTHERS: budget rows besides flights and the Medellín hotel
+  var KEY='colombia_precio',USD=3.16,OTHERS=4853,HOTEL=3655;  // OTHERS: budget rows besides flights and the Medellín hotel
   var inp=document.getElementById('precio-in'),cur=document.getElementById('precio-cur'),msg=document.getElementById('precio-msg');
   function fmt(n){return '₪'+Math.round(n).toLocaleString('en-US')}
   function parse(v){
