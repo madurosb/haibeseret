@@ -604,7 +604,7 @@ footer a{color:var(--cian)}
         <li><label><input type="checkbox" data-id="averiguar" data-done="1"><span class="box"></span><span class="txt">Averiguar vuelos, trenes y hoteles</span></label></li>
         <li><label><input type="checkbox" data-id="hotel-pagado" data-done="1"><span class="box"></span><span class="txt">Reservar y pagar el InterContinental: ¡la Junior Suite! 🏨</span></label></li>
         <li><label><input type="checkbox" data-id="vuelos-ok" data-done="1"><span class="box"></span><span class="txt">¡Comprar los pasajes! Iberia + Avianca ✈️</span></label></li>
-        <li><label><input type="checkbox" data-id="precio-pasajes"><span class="box"></span><span class="txt">Ricardo: anotar en "La guita" cuánto costaron los pasajes 💰</span></label></li>
+        <li><label><input type="checkbox" data-id="precio-pasajes-ok" data-done="1"><span class="box"></span><span class="txt">Ricardo anotó cuánto costaron los pasajes: ₪11,209 💰</span></label></li>
         <li><label><input type="checkbox" data-id="valijas-ok" data-done="1"><span class="box"></span><span class="txt">Valijas: 1 cada uno, ya incluida en el pasaje 🧳</span></label></li>
         <li><label><input type="checkbox" data-id="hotel-garantizada" data-done="1"><span class="box"></span><span class="txt">El hotel confirmó el pago: ¡reserva garantizada! 🧾</span></label></li>
         <li><label><input type="checkbox" data-id="silla-sacar"><span class="box"></span><span class="txt">Pedirle a ISSTA que saque la "silla de ruedas" del pasaje (no la pidieron) 🦽</span></label></li>
@@ -801,7 +801,7 @@ footer a{color:var(--cian)}
 <!-- ================= VUELOS ================= -->
 <section id="vuelos">
   <div class="sh"><h2 style="--c:var(--azul)">Vuelos</h2><span class="emoji">✈️</span><span class="nuevo">¡Comprados!</span></div>
-  <div class="status ok"><span class="pulse"></span><p><b>✅ ¡Pasajes comprados!</b> Ricardo los sacó en ISSTA Kiryat Motzkin el 18/11/2026: Iberia + Avianca, ida y vuelta, <b>todo en un mismo pasaje</b>, con asientos juntos y valija. Ricardo: <a href="#precio-pasajes" style="color:#fff">anotá cuánto pagaste</a> 💰
+  <div class="status ok"><span class="pulse"></span><p><b>✅ ¡Pasajes comprados!</b> Ricardo los sacó en ISSTA Kiryat Motzkin el 18/11/2026: Iberia + Avianca, ida y vuelta, <b>todo en un mismo pasaje</b>, con asientos juntos y valija. Los 4 vuelos, para los dos: <a href="#precio-pasajes" style="color:#fff"><b>₪11,209</b></a> 💰
     <small>Los códigos de reserva y los números de pasaje están en el mail de ISSTA. No los pongo acá porque esta página es pública 🔒</small></p></div>
   <p class="sub">4 vuelos, 2 aerolíneas, 1 solo pasaje. Cada horario es la hora local de esa ciudad.</p>
 
@@ -1209,30 +1209,18 @@ footer a{color:var(--cian)}
     <a href="https://www.trabajovalle.com/2026/09/costo-vida-en-cali.html" target="_blank" rel="noopener">trabajovalle</a> ·
     <a href="https://www.dolarhoy.co/" target="_blank" rel="noopener">dólar hoy</a></p>
 
-  <h3 class="part">🧾 El presupuesto total (los dos)</h3>
-  <div class="askbox" id="precio-pasajes">
-    <div class="ask-head"><span class="ask-ico">🕺</span><div><b>¡Ricardo, esto es para vos!</b><small>¿Cuánto pagaste los pasajes en ISSTA? Anotalo acá y la cuenta de abajo se arma sola (y a Nir le llega el aviso).</small></div></div>
-    <form class="ask-form" id="precio-form" novalidate>
-      <label for="precio-in">Total de los 4 vuelos, para los dos</label>
-      <div class="ask-row">
-        <input id="precio-in" type="text" inputmode="decimal" placeholder="Ej: 9.500" autocomplete="off">
-        <select id="precio-cur" aria-label="Moneda"><option value="ILS">₪ shekels</option><option value="USD">US$ dólares</option></select>
-        <button class="btn r" type="submit">Guardar 💾</button>
-      </div>
-      <p class="ask-msg" id="precio-msg" aria-live="polite"></p>
-    </form>
-  </div>
+  <h3 class="part" id="precio-pasajes">🧾 El presupuesto total (los dos)</h3>
   <div class="card">
     <div class="tablewrap"><table>
       <tr><th>Qué</th><th>Detalle</th><th class="n">Los dos</th></tr>
-      <tr><td>✈️ Vuelos internacionales</td><td id="g-vuelos-d">✔ Comprados (Iberia + Avianca), con valija. Estimado: <a href="#precio-pasajes">Ricardo, anotá el precio real</a></td><td class="n" id="g-vuelos">~₪11,816</td></tr>
+      <tr><td>✈️ Vuelos internacionales</td><td>✔ Comprados (Iberia + Avianca), ida y vuelta, con valija · precio real</td><td class="n">₪11,209</td></tr>
       <tr><td>🛩️ Vuelo interno</td><td>Medellín → Cali (estimado con valija)</td><td class="n">~₪370</td></tr>
       <tr><td>🚆 Trenes en Israel</td><td>Ida y vuelta (la vuelta, en el tren nocturno)</td><td class="n">~₪100</td></tr>
       <tr><td>🛏️ Hotel Madrid</td><td>✔ Maydrit Airport, 1 noche con desayuno (€151,20, se paga allá)</td><td class="n">₪555</td></tr>
       <tr><td>🥘 Extras en Madrid</td><td>Taxi, shuttle, metro y churros</td><td class="n">~₪300</td></tr>
       <tr><td>🍽️ Día a día en Medellín</td><td>5 días × ₪250 (la boda ya incluye comidas 😋)</td><td class="n">~₪1,250</td></tr>
       <tr><td>💃 Día a día en Cali</td><td>~12 días × ₪190 (sin contar el Eje Cafetero)</td><td class="n">~₪2,280</td></tr>
-      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n" id="g-sub">~₪16,669</td></tr>
+      <tr class="hl"><td colspan="2"><b>Subtotal sin hotel en Medellín</b></td><td class="n">~₪16,062</td></tr>
       <tr><td>🏨 InterContinental · Junior Suite 🏆</td><td>✔ Pagada · 5 noches con desayuno, sin IVA</td><td class="n">₪3,655</td></tr>
       <tr><td>☕ Eje Cafetero · 🏡 alojamiento en Cali · 🎁 regalo</td><td>A confirmar</td><td class="n">?</td></tr>
     </table></div>
@@ -1240,7 +1228,7 @@ footer a{color:var(--cian)}
   <div class="total">
     <div class="total-head"><span class="ti">🧾</span><div><h3>El total del viaje</h3><p>Para los dos, con todo incluido: la <b>Junior Suite</b> ya pagada y los pasajes ya comprados.</p></div></div>
     <div class="total-opts">
-      <div class="opt"><small id="g-tot-l">🧾 Total estimado</small><b id="g-tot">₪20,324</b><span id="g-pp">≈ ₪10,162 por persona</span></div>
+      <div class="opt"><small>🧾 Total, con el precio real de los pasajes</small><b>₪19,717</b><span>≈ ₪9,859 por persona</span></div>
     </div>
     <div class="total-lists">
       <div><h4>✅ Incluye</h4><ul class="feats">
@@ -1301,14 +1289,12 @@ footer a{color:var(--cian)}
 <div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
   <div class="pop-box">
     <button class="pop-x" type="button" aria-label="Cerrar">✕</button>
-    <div class="bang" id="pop-t">¡Hay novedades! ✨</div>
+    <div class="bang" id="pop-t">¡Gracias, Ricardo! 💰</div>
     <p>Lo nuevo de hoy:</p>
     <ul class="pop-list">
-      <li><a href="#madrid"><span class="e">🏨</span>Madrid: ¡el Maydrit está reservado!</a></li>
-      <li><a href="#madrid-taxi"><span class="e">🚕</span>Del aeropuerto al hotel en taxi: dónde, cuánto tarda y cuánto sale</a></li>
-      <li><a href="#paseos"><span class="e">🗺️</span>Medellín: city tour, Comuna 13 y Guatapé</a></li>
+      <li><a href="#precio-pasajes"><span class="e">🧾</span>Los pasajes costaron ₪11,209: el total del viaje ya está con el precio real</a></li>
     </ul>
-    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#madrid">¡A ver! 👉</a></div>
+    <div class="btns"><button class="btn y pop-later" type="button">Después lo veo</button><a class="btn r" href="#precio-pasajes">¡A ver! 👉</a></div>
   </div>
 </div>
 <div class="lightbox" id="lb" role="dialog" aria-label="Foto ampliada"><img alt=""></div>
@@ -1445,7 +1431,7 @@ var notify=(function(){
 
 // ---------- what's-new popup (returning visitors only, once per NEWS_VER) ----------
 (function(){
-  var NEWS_VER='2026-11-21';
+  var NEWS_VER='2026-11-23';
   var pop=document.getElementById('pop'),visits=Number(lsGet('colombia_visits')||0);
   var force=new URLSearchParams(location.search).get('novedades')==='1';
   if(visits<=1&&!force){lsSet('colombia_news',NEWS_VER);return}
@@ -1468,40 +1454,6 @@ var notify=(function(){
   });
   lb.addEventListener('click',function(){lb.classList.remove('on')});
   addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on')});
-})();
-
-// ---------- Ricardo types what the flights cost; totals recalc on this device ----------
-(function(){
-  var form=document.getElementById('precio-form');if(!form)return;
-  var KEY='colombia_precio',USD=3.16,OTHERS=4853,HOTEL=3655;  // OTHERS: budget rows besides flights and the Medellín hotel
-  var inp=document.getElementById('precio-in'),cur=document.getElementById('precio-cur'),msg=document.getElementById('precio-msg');
-  function fmt(n){return '₪'+Math.round(n).toLocaleString('en-US')}
-  function parse(v){
-    v=(v||'').replace(/[^\d.,]/g,'');
-    var m=v.match(/^(.*)[.,](\d{1,2})$/);
-    return m?parseFloat(m[1].replace(/[.,]/g,'')+'.'+m[2]):parseFloat(v.replace(/[.,]/g,''));
-  }
-  function apply(d,fresh){
-    var ils=d.cur==='USD'?d.v*USD:d.v;
-    document.getElementById('g-vuelos').textContent=fmt(ils);
-    document.getElementById('g-vuelos-d').textContent='✔ Comprados (Iberia + Avianca), con valija · precio real'+(d.cur==='USD'?' (US$'+d.v.toLocaleString('en-US')+')':'');
-    document.getElementById('g-sub').textContent='~'+fmt(OTHERS+ils);
-    document.getElementById('g-tot-l').textContent='🧾 Total, con el precio real de los pasajes';
-    document.getElementById('g-tot').textContent=fmt(OTHERS+ils+HOTEL);
-    document.getElementById('g-pp').textContent='≈ '+fmt((OTHERS+ils+HOTEL)/2)+' por persona';
-    form.parentNode.classList.add('done');
-    msg.textContent=fresh?'¡Gracias, Ricardo! Ya actualicé la cuenta de abajo 👇':'✔ Anotado: '+(d.cur==='USD'?'US$'+d.v.toLocaleString('en-US')+' ≈ ':'')+fmt(ils)+'. Si hay que corregirlo, cámbienlo y guarden otra vez.';
-  }
-  var saved=null;try{saved=JSON.parse(lsGet(KEY)||'null')}catch(e){}
-  if(saved&&saved.v>0){inp.value=saved.v;cur.value=saved.cur;apply(saved,false)}
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var v=parse(inp.value);
-    if(!(v>0)){msg.textContent='Escribí solo el número, por ejemplo 9.500 🙂';inp.focus();return}
-    var d={v:v,cur:cur.value};
-    lsSet(KEY,JSON.stringify(d));apply(d,true);
-    notify.send({title:'💰 '+(notify.who()||'Alguien')+' anotó el precio de los pasajes',message:(d.cur==='USD'?'US$':'₪')+v.toLocaleString('en-US')+' (los dos, 4 vuelos)\n🕒 '+notify.now(),tags:['moneybag'],priority:4});
-  });
 })();
 
 // ---------- to-do list (saved on this device) ----------
